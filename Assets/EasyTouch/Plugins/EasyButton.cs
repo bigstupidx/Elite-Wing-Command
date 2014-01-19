@@ -497,7 +497,7 @@ public class EasyButton : MonoBehaviour {
 					}	
 				}
 				else{
-					Debug.LogError("Button : " + gameObject.name + " : you must setup receiver gameobject");	
+					//Debug.LogError("Button : " + gameObject.name + " : you must setup receiver gameobject");	
 					
 				}
 				

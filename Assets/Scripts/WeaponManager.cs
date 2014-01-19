@@ -5,7 +5,50 @@ public class WeaponManager : MonoBehaviour
 {
 	[SerializeField] Weapon[] weapons;
 	Weapon equipped;
+	bool firing = false;
+	int fingersInArea;
+
+	void OnEnable()
+	{
+		EasyButton.On_ButtonDown += On_ButtonDown;
+		EasyButton.On_ButtonUp += On_ButtonUp;
+	}
+
+	void OnDisable()
+	{
+		EasyButton.On_ButtonDown -= On_ButtonDown;
+		EasyButton.On_ButtonUp -= On_ButtonUp;
+	}
 	
+	void OnDestroy()
+	{
+		EasyButton.On_ButtonDown -= On_ButtonDown;
+		EasyButton.On_ButtonUp -= On_ButtonUp;
+	}
+
+	void  On_ButtonDown(string buttonName)
+	{
+		if (buttonName == "Player Fire Weapon")
+		{
+			firing = true;
+			FireWeapon();
+		}
+		else if (buttonName == "Player Drop Bomb")
+		{
+			firing = true;
+			StartCoroutine(DropBomb());
+		}
+	}
+	
+	void  On_ButtonUp(string buttonName)
+	{
+		if (firing)
+		{
+			StopWeapon();
+			firing = false;
+		}
+	}
+
 	void Awake()
 	{
 		Equip(0);
@@ -45,11 +88,11 @@ public class WeaponManager : MonoBehaviour
 	{
 		if (Input.GetKeyDown(KeyCode.Space))
 		{
-			equipped.Fire();
+			FireWeapon();
 		}
 		else if (Input.GetKeyUp(KeyCode.Space))
 		{
-			equipped.Stop();
+			StopWeapon();
 		}
 		else if (Input.GetKeyDown(KeyCode.X))
 		{
@@ -57,12 +100,22 @@ public class WeaponManager : MonoBehaviour
 		}
 	}
 
+	void FireWeapon()
+	{
+		equipped.Fire();
+	}
+
+	void StopWeapon()
+	{
+		equipped.Stop();
+	}
+
 	IEnumerator DropBomb()
 	{
 		var lastEquipped = equipped;
 		Equip(weapons.Length - 1);
 		equipped.Fire();
-		yield return new WaitForSeconds(0.1f);
+		yield return new WaitForSeconds(0.01f);
 		equipped.Stop();
 		equipped = lastEquipped;
 	}

@@ -32,7 +32,7 @@ public class ShipMovement : MonoBehaviour
 		EasyJoystick.On_JoystickDoubleTap -= On_JoystickDoubleTap;
 	}
 
-	void On_JoystickMove( MovingJoystick move)
+	void On_JoystickMove(MovingJoystick move)
 	{
 		turnTarget = move.joystickAxis.x;
 	}

@@ -6,7 +6,6 @@ public class PlayerSpawner : MonoBehaviour
 {
 	[SerializeField] GameObject playerPrefab;
 	[SerializeField] int totalRespawns = 3;
-	[SerializeField] EasyJoystick playerJoystick;
 	int respawnNumber = 1;
 	int playerIterations = 1;
 	List<string> playerInScene;
@@ -36,7 +35,6 @@ public class PlayerSpawner : MonoBehaviour
 		canSpawn = false;
 		var playerClone = (GameObject)Instantiate(playerPrefab, spawnPosition, spawnRotation);
 		playerClone.name = "Player Aircraft";
-		playerJoystick.receiverGameObject = playerClone;
 		playerInScene.Add(playerClone.name);
 		Debug.Log("Lives Remaining: " + (4 - respawnNumber));
 	}

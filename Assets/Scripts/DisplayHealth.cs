@@ -14,7 +14,7 @@ public class DisplayHealth : MonoBehaviour
 	
 	void Update()
 	{
-		GameObject player = GameObject.Find("Player Aircraft(Clone)");
+		GameObject player = GameObject.Find("Player Aircraft");
 
 		if (player != null)
 		{
