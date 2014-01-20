@@ -4,7 +4,7 @@ using System.Collections;
 public class ShipMovement : MonoBehaviour
 {
 	[SerializeField] bool useArrows = true;
-	[SerializeField] float turnSensitivity = 1.45f;
+	[SerializeField] float turnSensitivity = 1.4f;
 	[SerializeField] float engineForce = 35f;
 	[SerializeField] float boostEngineForce = 2.5f;
 	float turn = 0f;
@@ -60,9 +60,9 @@ public class ShipMovement : MonoBehaviour
 		if (useArrows)
 		{
 			if (Input.GetKey(KeyCode.LeftArrow))
-				turnTarget = -1;
+				turnTarget = -turnSensitivity;
 			else if (Input.GetKey(KeyCode.RightArrow))
-				turnTarget = 1;
+				turnTarget = turnSensitivity;
 			else
 				turnTarget = 0;
 		}

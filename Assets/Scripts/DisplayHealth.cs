@@ -3,7 +3,7 @@ using System.Collections;
 
 public class DisplayHealth : MonoBehaviour
 {
-	[SerializeField] GUIText guiTextDisplay;
+	[SerializeField] TextMesh textDisplay;
 	Damageable playerDamageable;
 	float previousHealth;
 	
@@ -23,15 +23,15 @@ public class DisplayHealth : MonoBehaviour
 			if (previousHealth != playerDamageable.Health || playerDamageable.Health == 100f)
 			{
 				if (playerDamageable.Dead)
-					guiText.text = "Player destroyed";
+					textDisplay.text = "Player destroyed";
 				else
 				{
-					guiTextDisplay.text = playerDamageable.Health.ToString("F0");
+					textDisplay.text = playerDamageable.Health.ToString("F0");
 					previousHealth = playerDamageable.Health;
 				}
 			}
 		}
 		else
-			guiText.text = "Player destroyed";
+			textDisplay.text = "Player destroyed";
 	}
 }
