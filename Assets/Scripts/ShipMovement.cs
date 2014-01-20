@@ -4,6 +4,7 @@ using System.Collections;
 public class ShipMovement : MonoBehaviour
 {
 	[SerializeField] bool useArrows = true;
+	[SerializeField] float turnSensitivity = 1.45f;
 	[SerializeField] float engineForce = 35f;
 	[SerializeField] float boostEngineForce = 2.5f;
 	float turn = 0f;
@@ -34,7 +35,7 @@ public class ShipMovement : MonoBehaviour
 
 	void On_JoystickMove(MovingJoystick move)
 	{
-		turnTarget = move.joystickAxis.x;
+		turnTarget = move.joystickAxis.x * turnSensitivity;
 	}
 
 	void On_JoystickDoubleTap (MovingJoystick move)
