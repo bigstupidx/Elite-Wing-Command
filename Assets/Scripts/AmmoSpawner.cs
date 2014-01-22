@@ -5,10 +5,13 @@ public class AmmoSpawner : MonoBehaviour
 {
 	[SerializeField] Rigidbody vehicle;
 	[SerializeField] Rigidbody weapon;
+	[SerializeField] bool isTurretAirWeapon = false;
+	[SerializeField] Transform rotationPivot;
 	[SerializeField] float initialWait = 0f;
 	[SerializeField] float fireRate = 0.1f;
 	[SerializeField] float force = 150f;
 	[SerializeField] bool addForce = true;
+	Vector3 fwd;
 	int nextNameNumber = 0;
 	private bool firing = false;
 	
@@ -24,7 +27,11 @@ public class AmmoSpawner : MonoBehaviour
 
 		while (firing)
 		{
-			Vector3 fwd = transform.forward;
+			if (isTurretAirWeapon)
+				fwd = rotationPivot.forward;
+			else
+				fwd = transform.forward;
+
 			Quaternion fwdRot = Quaternion.LookRotation(fwd);
 			var weaponClone = (Rigidbody)Instantiate(weapon, transform.position, fwdRot);
 			weaponClone.name = transform.gameObject.name + " " + nextNameNumber;
