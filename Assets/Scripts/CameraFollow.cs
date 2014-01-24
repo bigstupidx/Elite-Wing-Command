@@ -7,7 +7,7 @@ public class CameraFollow : MonoBehaviour
 	GameObject playerAircraft;
 	const float moveMultiplier = 2f;
 
-	void LateUpdate()
+	void FixedUpdate()
 	{
 		playerAircraft = GameObject.Find(cameraFollowObjectName);
 

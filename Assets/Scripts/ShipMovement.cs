@@ -54,7 +54,7 @@ public class ShipMovement : MonoBehaviour
 
 	void FixedUpdate()
 	{
-		currentForce = Mathf.MoveTowards(currentForce, engineForce * forceMultiplier, 120f * Time.deltaTime);
+		currentForce = Mathf.MoveTowards(currentForce, engineForce * forceMultiplier, 120f * Time.fixedDeltaTime);
 		rigidbody.AddForce (transform.forward * currentForce, ForceMode.Acceleration);
 
 		if (useArrows)
