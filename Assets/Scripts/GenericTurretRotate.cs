@@ -11,7 +11,7 @@ public class GenericTurretRotate : MonoBehaviour
 	Quaternion rot;
 	public GameObject ClosestTarget { get { if (closestTarget != null) return closestTarget; else return null; } set { closestTarget = value; }}
 
-	void Update()
+	void FixedUpdate()
 	{
 		if (ClosestTarget != null)
 		{
@@ -19,7 +19,7 @@ public class GenericTurretRotate : MonoBehaviour
 			dir = targetTransform.position - transform.position;
 			dir.y = 0;
 			rot = Quaternion.LookRotation(dir);
-			transform.rotation = Quaternion.Slerp(transform.rotation, rot, turnSpeed * Time.deltaTime);
+			transform.rotation = Quaternion.Slerp(transform.rotation, rot, turnSpeed * Time.fixedDeltaTime);
 		}
 		else if (rotationReset != null)
 		{
@@ -27,7 +27,7 @@ public class GenericTurretRotate : MonoBehaviour
 			dir = targetTransform.position - transform.position;
 			dir.y = 0;
 			rot = Quaternion.LookRotation(dir);
-			transform.rotation = Quaternion.Slerp(transform.rotation, rot, turnSpeed * Time.deltaTime);
+			transform.rotation = Quaternion.Slerp(transform.rotation, rot, turnSpeed * Time.fixedDeltaTime);
 		}
 	}
 }

@@ -42,8 +42,6 @@ public class AmmoSpawner : MonoBehaviour
 				weaponClone.velocity = vehicle.velocity;
 				weaponClone.AddForce(weaponClone.transform.forward * force, ForceMode.VelocityChange);
 			}
-			else
-				Debug.Log("No force applied");
 			
 			yield return new WaitForSeconds(fireRate);
 		}

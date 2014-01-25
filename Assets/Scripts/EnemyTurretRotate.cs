@@ -5,7 +5,7 @@ public class EnemyTurretRotate : GenericTurretRotate
 {
 	[SerializeField] EnemyAI enemyAI;
 
-	void FixedUpdate()
+	void Update()
 	{
 		ClosestTarget = GameObject.Find(enemyAI.ClosestTargetName);
 	}

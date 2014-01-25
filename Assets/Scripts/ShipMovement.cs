@@ -67,10 +67,10 @@ public class ShipMovement : MonoBehaviour
 				turnTarget = 0;
 		}
 
-		turn = Mathf.Lerp(turn, turnTarget, Time.time);
+		turn = Mathf.Lerp(turn, turnTarget, Time.fixedTime);
 
 		if (Mathf.Abs(turn) > 0.005f)
-			rigidbody.AddTorque (Vector3.up * 0.12f * turn, ForceMode.VelocityChange);
+			rigidbody.AddTorque (Vector3.up * 0.14f * turn, ForceMode.VelocityChange);
 
 		if (Input.GetKeyDown(KeyCode.Z) && canBoost)
 		{

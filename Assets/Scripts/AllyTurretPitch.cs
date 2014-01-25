@@ -5,7 +5,7 @@ public class AllyTurretPitch : GenericTurretPitch
 {
 	[SerializeField] AllyAI allyAI;
 
-	void FixedUpdate()
+	void Update()
 	{
 		ClosestTarget = GameObject.Find(allyAI.ClosestTargetName);
 	}

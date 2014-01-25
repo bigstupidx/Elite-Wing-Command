@@ -9,7 +9,7 @@ public class GenericTurretPitch : MonoBehaviour
 	Quaternion qTo;
 	public GameObject ClosestTarget { get { if (closestTarget != null) return closestTarget; else return null; } set { closestTarget = value; }}
 
-	void Update()
+	void FixedUpdate()
 	{
 		if (ClosestTarget != null)
 		{
@@ -22,7 +22,7 @@ public class GenericTurretPitch : MonoBehaviour
 			v3T.y = 0f;
 			v3Aim.z = v3T.magnitude;
 			qTo = Quaternion.LookRotation(v3Aim, Vector3.up);
-			transform.localRotation = Quaternion.RotateTowards(transform.localRotation, qTo, maxDegreesPerSecond * Time.deltaTime);
+			transform.localRotation = Quaternion.RotateTowards(transform.localRotation, qTo, maxDegreesPerSecond * Time.fixedDeltaTime);
 		}
 	}
 }

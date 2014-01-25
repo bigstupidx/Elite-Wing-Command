@@ -35,7 +35,7 @@ public class Ammo : MonoBehaviour
 		}
 	}
 
-	void Update()
+	void FixedUpdate()
 	{
 		if (!Bomb && !GroundWeapon)
 		{

@@ -37,7 +37,7 @@ public class GenericAircraftMovement : MonoBehaviour
 
 	void FixedUpdate()
 	{
-		currentForce = Mathf.MoveTowards(currentForce, randomEngineForce * forceMultiplier, timeModifier * Time.deltaTime);
+		currentForce = Mathf.MoveTowards(currentForce, randomEngineForce * forceMultiplier, timeModifier * Time.fixedDeltaTime);
 		rigidbody.AddForce(transform.forward * currentForce, ForceMode.Acceleration);
 		angle = Mathf.Rad2Deg * Mathf.Atan2(offset.x, offset.z);
 

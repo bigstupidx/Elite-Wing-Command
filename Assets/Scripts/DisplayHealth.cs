@@ -22,16 +22,11 @@ public class DisplayHealth : MonoBehaviour
 
 			if (previousHealth != playerDamageable.Health || playerDamageable.Health == 100f)
 			{
-				if (playerDamageable.Dead)
-					textDisplay.text = "Player destroyed";
-				else
-				{
-					textDisplay.text = playerDamageable.Health.ToString("F0");
-					previousHealth = playerDamageable.Health;
-				}
+				textDisplay.text = "Health: " + playerDamageable.Health.ToString("F0");
+				previousHealth = playerDamageable.Health;
 			}
 		}
 		else
-			textDisplay.text = "Player destroyed";
+			textDisplay.text = "";
 	}
 }

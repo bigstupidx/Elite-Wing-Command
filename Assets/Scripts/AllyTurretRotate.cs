@@ -5,7 +5,7 @@ public class AllyTurretRotate : GenericTurretRotate
 {
 	[SerializeField] AllyAI allyAI;
 
-	void FixedUpdate()
+	void Update()
 	{
 		ClosestTarget = GameObject.Find(allyAI.ClosestTargetName);
 	}

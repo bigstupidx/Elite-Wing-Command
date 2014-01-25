@@ -9,7 +9,7 @@ public class MapTurretMover : MonoBehaviour
 	Transform player;
 	Vector3 turretPosition;
 
-	void Update()
+	void FixedUpdate()
 	{
 		GameObject playerAircraft = GameObject.Find("Player Aircraft(Clone)");
 
