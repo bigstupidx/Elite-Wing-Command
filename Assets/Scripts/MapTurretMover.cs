@@ -11,7 +11,7 @@ public class MapTurretMover : MonoBehaviour
 
 	void FixedUpdate()
 	{
-		GameObject playerAircraft = GameObject.Find("Player Aircraft(Clone)");
+		GameObject playerAircraft = GameObject.Find("Player Aircraft");
 
 		if (playerAircraft != null)
 		{

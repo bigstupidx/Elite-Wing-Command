@@ -3,10 +3,10 @@ using System.Collections;
 
 public class ShipMovement : MonoBehaviour
 {
-	[SerializeField] bool useArrows = true;
 	[SerializeField] float turnSensitivity = 1.4f;
 	[SerializeField] float engineForce = 35f;
 	[SerializeField] float boostEngineForce = 2.5f;
+	bool useArrows = true;
 	float turn = 0f;
 	float turnTarget = 0f;
 	float boosterTimeout = 3f;
@@ -14,6 +14,13 @@ public class ShipMovement : MonoBehaviour
 	float currentForce = 0f;
 	float forceMultiplier = 1f;
 	bool canBoost = true;
+
+#if UNITY_IOS && !UNITY_EDITOR
+	void Start()
+	{
+		useArrows = false;
+	}
+#endif
 
 	void OnEnable()
 	{
@@ -56,6 +63,7 @@ public class ShipMovement : MonoBehaviour
 	{
 		currentForce = Mathf.MoveTowards(currentForce, engineForce * forceMultiplier, 120f * Time.fixedDeltaTime);
 		rigidbody.AddForce (transform.forward * currentForce, ForceMode.Acceleration);
+
 
 		if (useArrows)
 		{

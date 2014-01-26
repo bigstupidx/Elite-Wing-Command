@@ -11,7 +11,6 @@ public class AmmoSpawner : MonoBehaviour
 	[SerializeField] float fireRate = 0.1f;
 	[SerializeField] float cooldown = 0f;
 	[SerializeField] float force = 150f;
-	[SerializeField] bool addForce = true;
 	Vector3 fwd;
 	int nextNameNumber = 0;
 	float nextShootTime = 0f;
@@ -42,12 +41,8 @@ public class AmmoSpawner : MonoBehaviour
 			var weaponClone = (Rigidbody)Instantiate(weapon, transform.position, fwdRot);
 			weaponClone.name = transform.gameObject.name + " " + nextNameNumber;
 			nextNameNumber++;
-
-			if(addForce)
-			{
-				weaponClone.velocity = vehicle.velocity;
-				weaponClone.AddForce(weaponClone.transform.forward * force, ForceMode.VelocityChange);
-			}
+			weaponClone.velocity = vehicle.velocity;
+			weaponClone.AddForce(weaponClone.transform.forward * force, ForceMode.VelocityChange);
 			
 			yield return new WaitForSeconds(fireRate);
 		}

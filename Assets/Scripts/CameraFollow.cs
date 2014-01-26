@@ -3,7 +3,7 @@ using System.Collections;
 
 public class CameraFollow : MonoBehaviour
 {
-	[SerializeField] string cameraFollowObjectName = "Player Aircraft(Clone)";
+	[SerializeField] string cameraFollowObjectName = "Player Aircraft";
 	GameObject playerAircraft;
 	const float moveMultiplier = 2f;
 

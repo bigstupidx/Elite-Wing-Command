@@ -39,7 +39,7 @@ public class PlayerSpawner : MonoBehaviour
 		Debug.Log("Lives Remaining: " + (4 - respawnNumber));
 	}
 
-	public void ClearList()
+	public void PlayerDeath()
 	{
 		playerInScene.Clear();
 		respawnNumber++;
