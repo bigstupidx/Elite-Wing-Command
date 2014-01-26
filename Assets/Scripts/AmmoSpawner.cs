@@ -9,16 +9,22 @@ public class AmmoSpawner : MonoBehaviour
 	[SerializeField] Transform rotationPivot;
 	[SerializeField] float initialWait = 0f;
 	[SerializeField] float fireRate = 0.1f;
+	[SerializeField] float cooldown = 0f;
 	[SerializeField] float force = 150f;
 	[SerializeField] bool addForce = true;
 	Vector3 fwd;
 	int nextNameNumber = 0;
+	float nextShootTime = 0f;
 	private bool firing = false;
 	
 	public void Fire()
 	{
-		firing = true;
-		StartCoroutine("Firing");
+		if (Time.time >= nextShootTime)
+		{
+			nextShootTime = Time.time + cooldown;
+			firing = true;
+			StartCoroutine("Firing");
+		}
 	}
 	
 	IEnumerator Firing()
