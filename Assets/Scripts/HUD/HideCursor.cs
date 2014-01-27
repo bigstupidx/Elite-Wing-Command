@@ -3,9 +3,13 @@ using System.Collections;
 
 public class HideCursor : MonoBehaviour
 {
-	
-	void Start ()
+	[SerializeField] bool hideCursor = true;
+
+	void Awake()
 	{
-		Screen.showCursor = false;
+		if (hideCursor)
+			Screen.showCursor = false;
+		else
+			Screen.showCursor = true;
 	}
 }

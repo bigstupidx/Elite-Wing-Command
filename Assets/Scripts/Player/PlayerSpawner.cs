@@ -4,14 +4,40 @@ using System.Collections.Generic;
 
 public class PlayerSpawner : MonoBehaviour
 {
-	[SerializeField] GameObject playerPrefab;
+	[SerializeField] GameObject playerPrefab2Slots;
+	[SerializeField] GameObject playerPrefab3Slots;
+	[SerializeField] GameObject playerPrefab4Slots;
+	[SerializeField] GameObject playerPrefab5Slots;
 	[SerializeField] int totalRespawns = 3;
+	GameObject playerPrefab;
 	int respawnNumber = 1;
 	int playerIterations = 1;
 	List<string> playerInScene;
 	Vector3 spawnPosition;
 	Quaternion spawnRotation;
 	bool canSpawn = true;
+
+	void Awake()
+	{
+		switch(PlayerPrefs.GetInt("Weapon Slots"))
+		{
+		case 2:
+			playerPrefab = playerPrefab2Slots;
+			break;
+		case 3:
+			playerPrefab = playerPrefab3Slots;
+			break;
+		case 4:
+			playerPrefab = playerPrefab4Slots;
+			break;
+		case 5:
+			playerPrefab = playerPrefab5Slots;
+			break;
+		default:
+			Debug.LogError("Invalid Player Spawn Prefab: " + transform.name);
+			break;
+		}
+	}
 	
 	void Start()
 	{
@@ -45,8 +71,9 @@ public class PlayerSpawner : MonoBehaviour
 		respawnNumber++;
 		if (respawnNumber > totalRespawns)
 		{
-			Debug.Log("No more lives....");
 			canSpawn = false;
+			Debug.Log("No more lives....");
+			Application.LoadLevel(0);
 			return;
 		}
 

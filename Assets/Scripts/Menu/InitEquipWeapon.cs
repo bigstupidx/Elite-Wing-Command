@@ -27,7 +27,7 @@ public class InitEquipWeapon : MonoBehaviour
 		switch(PlayerPrefs.GetInt("Weapon Equip " + weaponEquipSlot.ToString()))
 		{
 		case 1:
-			popupListText = "[99FF66]Green";
+			popupListText = "[FF0066]Red";
 			break;
 		case 2:
 			popupListText = "[0000FF]Blue";

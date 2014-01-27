@@ -13,7 +13,7 @@ public class SetEquipWeapon : MonoBehaviour
 
 		switch(UIPopupList.current.value)
 		{
-		case "[99FF66]Green":
+		case "[FF0066]Red":
 			PlayerPrefs.SetInt("Weapon Equip " + weaponEquipSlot.ToString(), 1);
 			break;
 		case "[0000FF]Blue":
