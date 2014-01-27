@@ -16,8 +16,15 @@ public class TargetSpawner : MonoBehaviour
 	int nextNameNumber = 1;
 	float yPos;
 	List<string> enemiesInScene;
+	public GameObject TargetPrefab { get { return targetPrefab; } set { targetPrefab = value; }}
+	public int MaxInGame { get { return maxInGame; } set { maxInGame = value; }}
+	public int TotalRespawns { get { return totalRespawns; } set { totalRespawns = value; }}
+	public bool SquadSpawn { get { return squadSpawn; } set { squadSpawn = value; }}
+	public int SquadSpawnSize { get { return squadSpawnSize; } set { squadSpawnSize = value; }}
+	public bool SpawnTurret { get { return spawnTurret; } set { spawnTurret = value; }}
+	public List<string> EnemiesInScene { get { return enemiesInScene; } set { enemiesInScene = value; }}
 	
-	void Start()
+	void Awake()
 	{
 		enemiesInScene = new List<string>();
 	}
@@ -28,20 +35,20 @@ public class TargetSpawner : MonoBehaviour
 		{
 			int totalEnemyCount = enemiesInScene.Count;
 
-			if (totalEnemyCount < maxInGame)
-				SpawnEnemy();
+			if (totalEnemyCount < MaxInGame)
+				SpawnUnit();
 			else
 				canSpawn = false;
 		}
 	}
 
-	void SpawnEnemy()
+	public virtual void SpawnUnit()
 	{
 		respawnNumber++;
-		if (respawnNumber > totalRespawns)
+		if (respawnNumber > TotalRespawns)
 			return;
 
-		if (spawnTurret)
+		if (SpawnTurret)
 			yPos = -7.5f;
 		else
 		{
@@ -55,8 +62,8 @@ public class TargetSpawner : MonoBehaviour
 
 		Vector3 randomPosition = new Vector3(Random.Range(-90f, 90f), yPos, Random.Range(-90f, 90f));
 		Quaternion randomRotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
-		var enemyClone = Instantiate(targetPrefab, randomPosition, randomRotation);
-		enemyClone.name = targetPrefab.name + " " + nextNameNumber;
+		var enemyClone = Instantiate(TargetPrefab, randomPosition, randomRotation);
+		enemyClone.name = TargetPrefab.name + " " + nextNameNumber;
 		enemiesInScene.Add(enemyClone.name);
 		nextNameNumber++;
 	}
@@ -65,9 +72,9 @@ public class TargetSpawner : MonoBehaviour
 	{
 		enemiesInScene.Remove(enemyType);
 
-		if (squadSpawn)
+		if (SquadSpawn)
 		{
-			if (respawnSquadCount < squadSpawnSize)
+			if (respawnSquadCount < SquadSpawnSize)
 				respawnSquadCount++;
 			else
 			{
