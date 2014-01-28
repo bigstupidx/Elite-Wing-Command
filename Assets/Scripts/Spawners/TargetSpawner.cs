@@ -26,14 +26,14 @@ public class TargetSpawner : MonoBehaviour
 	
 	void Awake()
 	{
-		enemiesInScene = new List<string>();
+		EnemiesInScene = new List<string>();
 	}
 	
 	void Update()
 	{
 		if (canSpawn)
 		{
-			int totalEnemyCount = enemiesInScene.Count;
+			int totalEnemyCount = EnemiesInScene.Count;
 
 			if (totalEnemyCount < MaxInGame)
 				SpawnUnit();
@@ -64,13 +64,13 @@ public class TargetSpawner : MonoBehaviour
 		Quaternion randomRotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
 		var enemyClone = Instantiate(TargetPrefab, randomPosition, randomRotation);
 		enemyClone.name = TargetPrefab.name + " " + nextNameNumber;
-		enemiesInScene.Add(enemyClone.name);
+		EnemiesInScene.Add(enemyClone.name);
 		nextNameNumber++;
 	}
 
 	public void RemoveFromList(string enemyType)
 	{
-		enemiesInScene.Remove(enemyType);
+		EnemiesInScene.Remove(enemyType);
 
 		if (SquadSpawn)
 		{
