@@ -5,7 +5,7 @@ public class CameraFollow : MonoBehaviour
 {
 	[SerializeField] string cameraFollowObjectName = "Player Aircraft";
 	[SerializeField] float cameraHeight = 35f;
-	[SerializeField] float cameraFollowSpeed = 1f;
+	[SerializeField] float cameraFollowSpeed = 12f;
 	GameObject playerAircraft;
 	Vector3 wantedPosition;
 	bool haveFound = false;
