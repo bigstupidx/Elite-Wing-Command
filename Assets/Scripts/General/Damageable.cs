@@ -54,7 +54,7 @@ public class Damageable : MonoBehaviour
 			spawner = GameObject.Find("Player Spawner");
 			PlayerSpawner playerSpawner = (PlayerSpawner)spawner.GetComponent(typeof(PlayerSpawner));
 			playerSpawner.PlayerDeath();
-			Destroy(transform.root.gameObject);
+			Destroy(objectIdentifier.transform.gameObject);
 			return;
 		case "Enemy Aircraft Easy":
 			spawner = GameObject.Find("Enemy Aircraft Easy Spawner");
@@ -66,10 +66,10 @@ public class Damageable : MonoBehaviour
 			spawner = GameObject.Find("Enemy Aircraft Hard Spawner");
 			break;
 		case "Enemy Turret":
-			Destroy(transform.root.gameObject);
+			Destroy(objectIdentifier.transform.gameObject);
 			return;
 		case "Enemy Missile Battery":
-			Destroy(transform.root.gameObject);
+			Destroy(objectIdentifier.transform.gameObject);
 			return;
 		case "Ally Aircraft":
 			spawner = GameObject.Find("Ally Aircraft Spawner");
@@ -81,6 +81,6 @@ public class Damageable : MonoBehaviour
 
 		TargetSpawner spawnerEnemyID = (TargetSpawner)spawner.GetComponent(typeof(TargetSpawner));
 		spawnerEnemyID.RemoveFromList(transform.root.name);
-		Destroy(transform.root.gameObject);
+		Destroy(objectIdentifier.transform.gameObject);
 	}
 }
