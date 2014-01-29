@@ -1,146 +1,49 @@
 ﻿using UnityEngine;
+using UnityEditor;
 using System.Collections;
+using System.Collections.Generic;
 
 public class MissionManager : MonoBehaviour
 {
-	public AllyAttackAircraft[] allyAttackAircraft;
-	public AllyDefenseAircraft[] allyDefenseAircraft;
-	public AllyAntiAir[] allyAntiAir;
-	public AllyTanks[] allyTanks;
-	public EnemyAttackAircraft[] enemyAttackAircraft;
-	public EnemyDefenseAircraft[] enemyDefenseAircraft;
-	public EnemyAntiAir[] enemyAntiAir;
-	public EnemyTanks[] enemyTanks;
-}
+	public enum MissionType
+	{
+		Base_Attack,
+		Base_Defense,
+		Base_vs_Base
+	}
 
-[System.Serializable]
-public class AllyAttackAircraft
-{
-	[SerializeField] GameObject unitPrefab;
-	[SerializeField] int maxInGame;
-	[SerializeField] int totalRespawns;
-	[SerializeField] bool squadSpawn;
-	[SerializeField] int squadSpawnSize;
-	public GameObject UnitPrefab { get { return unitPrefab; }}
-	public int MaxInGame { get { return maxInGame; }}
-	public int TotalRespawns { get { return totalRespawns; }}
-	public bool SquadSpawn { get { return squadSpawn; }}
-	public int SquadSpawnSize { get { return squadSpawnSize; }}
-}
+	public MissionType missionType;
+	public List<GameObject> objectivesList { get { return objectivesInScene; }}
+	List<GameObject> objectivesInScene;
+	GameObject[] objectives;
 
-[System.Serializable]
-public class AllyDefenseAircraft
-{
-	[SerializeField] GameObject unitPrefab;
-	[SerializeField] int maxInGame;
-	[SerializeField] int totalRespawns;
-	[SerializeField] bool squadSpawn;
-	[SerializeField] int squadSpawnSize;
-	[SerializeField] Transform defendTarget;
-	public GameObject UnitPrefab { get { return unitPrefab; }}
-	public int MaxInGame { get { return maxInGame; }}
-	public int TotalRespawns { get { return totalRespawns; }}
-	public bool SquadSpawn { get { return squadSpawn; }}
-	public int SquadSpawnSize { get { return squadSpawnSize; }}
-	public Transform DefendTarget { get { return defendTarget; }}
-}
+	void Awake()
+	{
+		switch(missionType.ToString())
+		{
+		case "Base_Attack":
+			Debug.Log("Mission Type: Base Attack");
+			break;
+		case "Base_Defense":
+			Debug.Log("Mission Type: Base Defense");
+			break;
+		case "Base_vs_Base":
+			Debug.Log("Mission Type: Base vs Base");
+			break;
+		}
+	}
 
-[System.Serializable]
-public class AllyAntiAir
-{
-	[SerializeField] GameObject unitPrefab;
-	[SerializeField] int maxInGame;
-	[SerializeField] int totalRespawns;
-	[SerializeField] bool squadSpawn;
-	[SerializeField] int squadSpawnSize;
-	[SerializeField] bool defensiveUnit;
-	public GameObject UnitPrefab { get { return unitPrefab; }}
-	public int MaxInGame { get { return maxInGame; }}
-	public int TotalRespawns { get { return totalRespawns; }}
-	public bool SquadSpawn { get { return squadSpawn; }}
-	public int SquadSpawnSize { get { return squadSpawnSize; }}
-	public bool DefensiveUnit { get { return defensiveUnit; }}
-}
+	void Start()
+	{
+		objectivesInScene = new List<GameObject>();
+		objectives = GameObject.FindGameObjectsWithTag("Objective");
 
-[System.Serializable]
-public class AllyTanks
-{
-	[SerializeField] GameObject unitPrefab;
-	[SerializeField] int maxInGame;
-	[SerializeField] int totalRespawns;
-	[SerializeField] bool squadSpawn;
-	[SerializeField] int squadSpawnSize;
-	[SerializeField] bool defensiveUnit;
-	public GameObject UnitPrefab { get { return unitPrefab; }}
-	public int MaxInGame { get { return maxInGame; }}
-	public int TotalRespawns { get { return totalRespawns; }}
-	public bool SquadSpawn { get { return squadSpawn; }}
-	public int SquadSpawnSize { get { return squadSpawnSize; }}
-	public bool DefensiveUnit { get { return defensiveUnit; }}
-}
-
-[System.Serializable]
-public class EnemyAttackAircraft
-{
-	[SerializeField] GameObject unitPrefab;
-	[SerializeField] int maxInGame;
-	[SerializeField] int totalRespawns;
-	[SerializeField] bool squadSpawn;
-	[SerializeField] int squadSpawnSize;
-	public GameObject UnitPrefab { get { return unitPrefab; }}
-	public int MaxInGame { get { return maxInGame; }}
-	public int TotalRespawns { get { return totalRespawns; }}
-	public bool SquadSpawn { get { return squadSpawn; }}
-	public int SquadSpawnSize { get { return squadSpawnSize; }}
-}
-
-[System.Serializable]
-public class EnemyDefenseAircraft
-{
-	[SerializeField] GameObject unitPrefab;
-	[SerializeField] int maxInGame;
-	[SerializeField] int totalRespawns;
-	[SerializeField] bool squadSpawn;
-	[SerializeField] int squadSpawnSize;
-	[SerializeField] Transform defendTarget;
-	public GameObject UnitPrefab { get { return unitPrefab; }}
-	public int MaxInGame { get { return maxInGame; }}
-	public int TotalRespawns { get { return totalRespawns; }}
-	public bool SquadSpawn { get { return squadSpawn; }}
-	public int SquadSpawnSize { get { return squadSpawnSize; }}
-	public Transform DefendTarget { get { return defendTarget; }}
-}
-
-[System.Serializable]
-public class EnemyAntiAir
-{
-	[SerializeField] GameObject unitPrefab;
-	[SerializeField] int maxInGame;
-	[SerializeField] int totalRespawns;
-	[SerializeField] bool squadSpawn;
-	[SerializeField] int squadSpawnSize;
-	[SerializeField] bool defensiveUnit;
-	public GameObject UnitPrefab { get { return unitPrefab; }}
-	public int MaxInGame { get { return maxInGame; }}
-	public int TotalRespawns { get { return totalRespawns; }}
-	public bool SquadSpawn { get { return squadSpawn; }}
-	public int SquadSpawnSize { get { return squadSpawnSize; }}
-	public bool DefensiveUnit { get { return defensiveUnit; }}
-}
-
-[System.Serializable]
-public class EnemyTanks
-{
-	[SerializeField] GameObject unitPrefab;
-	[SerializeField] int maxInGame;
-	[SerializeField] int totalRespawns;
-	[SerializeField] bool squadSpawn;
-	[SerializeField] int squadSpawnSize;
-	[SerializeField] bool defensiveUnit;
-	public GameObject UnitPrefab { get { return unitPrefab; }}
-	public int MaxInGame { get { return maxInGame; }}
-	public int TotalRespawns { get { return totalRespawns; }}
-	public bool SquadSpawn { get { return squadSpawn; }}
-	public int SquadSpawnSize { get { return squadSpawnSize; }}
-	public bool DefensiveUnit { get { return defensiveUnit; }}
+		if (objectives.Length > 0)
+		{
+			foreach(GameObject objective in objectives)
+			{
+				objectivesInScene.Add(objective);
+			}
+		}
+	}
 }

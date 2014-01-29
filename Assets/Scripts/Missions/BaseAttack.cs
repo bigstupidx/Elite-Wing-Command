@@ -3,8 +3,8 @@ using System.Collections;
 
 public class BaseAttack : MissionManager
 {
-	[SerializeField] Transform spawnLocation;
-	[SerializeField] Transform baseLocation;
+	[SerializeField] PlayerSpawner playerSpawner;
+	public Transform baseLocation;
 
 	void Start ()
 	{

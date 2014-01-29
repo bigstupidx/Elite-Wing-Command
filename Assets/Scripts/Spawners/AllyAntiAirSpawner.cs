@@ -4,27 +4,23 @@ using System.Collections.Generic;
 
 public class AllyAntiAirSpawner : TargetSpawner
 {
-	[SerializeField] MissionManager missionManager;
-	[SerializeField] int unitArrayNumber;
+	[SerializeField] AllyAntiAir allyAntiAir;
 	Vector3 spawnLocation;
-	int respawnNumber = 0;
-	int nextNameNumber = 1;
-	float yPos;
 
 	void Start()
 	{
 		spawnLocation = transform.position;
-		TargetPrefab = missionManager.allyAntiAir[unitArrayNumber].UnitPrefab;
-		MaxInGame = missionManager.allyAntiAir[unitArrayNumber].MaxInGame;
-		TotalRespawns = missionManager.allyAntiAir[unitArrayNumber].TotalRespawns;
-		SquadSpawn = missionManager.allyAntiAir[unitArrayNumber].SquadSpawn;
-		SquadSpawnSize = missionManager.allyAntiAir[unitArrayNumber].SquadSpawnSize;
+		TargetPrefab = allyAntiAir.UnitPrefab;
+		MaxInGame = allyAntiAir.MaxInGame;
+		TotalRespawns = allyAntiAir.TotalRespawns;
+		SquadSpawn = allyAntiAir.SquadSpawn;
+		SquadSpawnSize = allyAntiAir.SquadSpawnSize;
 	}
 
 	public override void SpawnUnit()
 	{
-		respawnNumber++;
-		if (respawnNumber > TotalRespawns)
+		RespawnNumber++;
+		if (RespawnNumber > TotalRespawns)
 			return;
 		
 		if (SpawnTurret)
@@ -42,8 +38,8 @@ public class AllyAntiAirSpawner : TargetSpawner
 		Vector3 randomPosition = new Vector3(Random.Range(spawnLocation.x - 10f, spawnLocation.x + 10f), yPos, Random.Range(spawnLocation.z - 10f, spawnLocation.z + 10f));
 		Quaternion randomRotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
 		var enemyClone = Instantiate(TargetPrefab, randomPosition, randomRotation);
-		enemyClone.name = TargetPrefab.name + " " + nextNameNumber;
+		enemyClone.name = TargetPrefab.name + " " + NextNameNumber;
 		EnemiesInScene.Add(enemyClone.name);
-		nextNameNumber++;
+		NextNameNumber++;
 	}
 }

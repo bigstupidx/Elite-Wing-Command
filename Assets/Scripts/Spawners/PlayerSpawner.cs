@@ -1,14 +1,16 @@
 ﻿using UnityEngine;
+using UnityEditor;
 using System.Collections;
 using System.Collections.Generic;
 
 public class PlayerSpawner : MonoBehaviour
 {
+	[SerializeField] MissionManager missionManager;
+	[SerializeField] int totalRespawns = 3;
 	[SerializeField] GameObject playerPrefab2Slots;
 	[SerializeField] GameObject playerPrefab3Slots;
 	[SerializeField] GameObject playerPrefab4Slots;
 	[SerializeField] GameObject playerPrefab5Slots;
-	[SerializeField] int totalRespawns = 3;
 	GameObject playerPrefab;
 	int respawnNumber = 1;
 	int playerIterations = 1;
@@ -35,6 +37,7 @@ public class PlayerSpawner : MonoBehaviour
 			break;
 		default:
 			Debug.LogError("Invalid Player Spawn Prefab: " + transform.name);
+			playerPrefab = playerPrefab2Slots;
 			break;
 		}
 	}
@@ -42,8 +45,17 @@ public class PlayerSpawner : MonoBehaviour
 	void Start()
 	{
 		playerInScene = new List<string>();
-		spawnPosition = new Vector3(0f, 0f, 0f);
-		spawnRotation = Quaternion.Euler(0f, 0f, 0f);
+
+		if (missionManager == null)
+		{
+			spawnPosition = new Vector3(0f, 0f, 0f);
+			spawnRotation = Quaternion.Euler(0f, 0f, 0f);
+		}
+		else
+		{
+			spawnPosition = transform.position;
+			spawnRotation = transform.rotation;
+		}
 	}
 	
 	void Update()

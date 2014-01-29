@@ -4,27 +4,23 @@ using System.Collections.Generic;
 
 public class EnemyDefenseAircraftSpawner : TargetSpawner
 {
-	[SerializeField] MissionManager missionManager;
-	[SerializeField] int unitArrayNumber;
+	[SerializeField] EnemyDefenseAircraft enemyDefenseAircraft;
 	Vector3 spawnLocation;
-	int respawnNumber = 0;
-	int nextNameNumber = 1;
-	float yPos;
 
 	void Start()
 	{
 		spawnLocation = transform.position;
-		TargetPrefab = missionManager.enemyDefenseAircraft[unitArrayNumber].UnitPrefab;
-		MaxInGame = missionManager.enemyDefenseAircraft[unitArrayNumber].MaxInGame;
-		TotalRespawns = missionManager.enemyDefenseAircraft[unitArrayNumber].TotalRespawns;
-		SquadSpawn = missionManager.enemyDefenseAircraft[unitArrayNumber].SquadSpawn;
-		SquadSpawnSize = missionManager.enemyDefenseAircraft[unitArrayNumber].SquadSpawnSize;
+		TargetPrefab = enemyDefenseAircraft.UnitPrefab;
+		MaxInGame = enemyDefenseAircraft.MaxInGame;
+		TotalRespawns = enemyDefenseAircraft.TotalRespawns;
+		SquadSpawn = enemyDefenseAircraft.SquadSpawn;
+		SquadSpawnSize = enemyDefenseAircraft.SquadSpawnSize;
 	}
 
 	public override void SpawnUnit()
 	{
-		respawnNumber++;
-		if (respawnNumber > TotalRespawns)
+		RespawnNumber++;
+		if (RespawnNumber > TotalRespawns)
 			return;
 		
 		if (SpawnTurret)
@@ -42,8 +38,8 @@ public class EnemyDefenseAircraftSpawner : TargetSpawner
 		Vector3 randomPosition = new Vector3(Random.Range(spawnLocation.x - 10f, spawnLocation.x + 10f), yPos, Random.Range(spawnLocation.z - 10f, spawnLocation.z + 10f));
 		Quaternion randomRotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
 		var enemyClone = Instantiate(TargetPrefab, randomPosition, randomRotation);
-		enemyClone.name = TargetPrefab.name + " " + nextNameNumber;
+		enemyClone.name = TargetPrefab.name + " " + NextNameNumber;
 		EnemiesInScene.Add(enemyClone.name);
-		nextNameNumber++;
+		NextNameNumber++;
 	}
 }

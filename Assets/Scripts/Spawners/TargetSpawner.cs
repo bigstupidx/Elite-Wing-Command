@@ -14,7 +14,6 @@ public class TargetSpawner : MonoBehaviour
 	int respawnSquadCount = 1;
 	bool canSpawn = true;
 	int nextNameNumber = 1;
-	float yPos;
 	List<string> enemiesInScene;
 	public GameObject TargetPrefab { get { return targetPrefab; } set { targetPrefab = value; }}
 	public int MaxInGame { get { return maxInGame; } set { maxInGame = value; }}
@@ -22,6 +21,11 @@ public class TargetSpawner : MonoBehaviour
 	public bool SquadSpawn { get { return squadSpawn; } set { squadSpawn = value; }}
 	public int SquadSpawnSize { get { return squadSpawnSize; } set { squadSpawnSize = value; }}
 	public bool SpawnTurret { get { return spawnTurret; } set { spawnTurret = value; }}
+	public int RespawnNumber { get { return respawnNumber; } set { respawnNumber = value; }}
+	public int RespawnSquadCount { get { return respawnSquadCount; } set { respawnSquadCount = value; }}
+	public bool CanSpawn { get { return canSpawn; } set { canSpawn = value; }}
+	public int NextNameNumber { get { return nextNameNumber; } set { nextNameNumber = value; }}
+	public float yPos { get; set; }
 	public List<string> EnemiesInScene { get { return enemiesInScene; } set { enemiesInScene = value; }}
 	
 	void Awake()
