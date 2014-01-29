@@ -46,15 +46,15 @@ public class PlayerSpawner : MonoBehaviour
 	{
 		playerInScene = new List<string>();
 
-		if (missionManager == null)
-		{
-			spawnPosition = new Vector3(0f, 0f, 0f);
-			spawnRotation = Quaternion.Euler(0f, 0f, 0f);
-		}
-		else
+		if (missionManager != null)
 		{
 			spawnPosition = transform.position;
 			spawnRotation = transform.rotation;
+		}
+		else
+		{
+			spawnPosition = new Vector3(0f, 0f, 0f);
+			spawnRotation = Quaternion.Euler(0f, 0f, 0f);
 		}
 	}
 	
@@ -72,6 +72,15 @@ public class PlayerSpawner : MonoBehaviour
 	{
 		canSpawn = false;
 		var playerClone = (GameObject)Instantiate(playerPrefab, spawnPosition, spawnRotation);
+		MapConstraint mapConstraint = playerClone.GetComponent<MapConstraint>();
+		MapAircraftMover mapAircraftMover = playerClone.GetComponentInChildren<MapAircraftMover>();
+
+		if (missionManager != null)
+		{
+			mapConstraint.enabled = false;
+			mapAircraftMover.gameObject.SetActive(false);
+		}
+
 		playerClone.name = "Player Aircraft";
 		playerInScene.Add(playerClone.name);
 		Debug.Log("Lives Remaining: " + (4 - respawnNumber));
