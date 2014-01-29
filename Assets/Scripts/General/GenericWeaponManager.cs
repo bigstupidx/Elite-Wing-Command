@@ -27,13 +27,13 @@ public class GenericWeaponManager : MonoBehaviour
 		if (closestTarget != null)
 		{
 			Vector3 forward = transform.TransformDirection(Vector3.forward);
-			Vector3 correctedPosition = transform.root.position;
-			correctedPosition.y = ClosestTarget.transform.root.position.y;
+			Vector3 correctedPosition = transform.position;
+			correctedPosition.y = ClosestTarget.transform.position.y;
 			Vector3 toOther = ClosestTarget.transform.root.position - correctedPosition;
 			Vector3 normalizedToOther = toOther.normalized;
 
 			Vector2 targetXZPosition = new Vector2(closestTarget.transform.root.position.x, closestTarget.transform.root.position.z);
-			Vector2 unitXZPosition = new Vector2(transform.root.position.x, transform.root.position.z);
+			Vector2 unitXZPosition = new Vector2(transform.position.x, transform.position.z);
 			float distance = Vector2.Distance(targetXZPosition, unitXZPosition);
 
 			if (ClosestTargetID == EnemyTurretID || ClosestTargetID == EnemyVehicleID)

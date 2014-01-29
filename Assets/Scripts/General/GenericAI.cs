@@ -31,7 +31,7 @@ public class GenericAI : MonoBehaviour
 	{
 		while (true)
 		{
-			Collider[] objectsInRange = Physics.OverlapSphere(transform.root.position, sightDistance);
+			Collider[] objectsInRange = Physics.OverlapSphere(transform.position, sightDistance);
 			int airTargets = 0;
 			int groundTargets = 0;
 			float closestAirTargetDistance = 100f;
@@ -45,7 +45,7 @@ public class GenericAI : MonoBehaviour
 				{
 					var objectType = targetObject.transform.root.GetComponent<ObjectType>();
 					var objectID = targetObject.transform.root.GetComponent<ObjectIdentifier>();
-					Vector2 targetXZPosition = new Vector2(targetObject.transform.position.x, targetObject.transform.position.z);
+					Vector2 targetXZPosition = new Vector2(targetObject.transform.root.position.x, targetObject.transform.root.position.z);
 					Vector2 unitXZPosition = new Vector2(transform.position.x, transform.position.z);
 					float distance = Vector2.Distance(targetXZPosition, unitXZPosition);
 

@@ -41,12 +41,12 @@ public class GenericAircraftMovement : MonoBehaviour
 		rigidbody.AddForce(transform.forward * currentForce, ForceMode.Acceleration);
 		angle = Mathf.Rad2Deg * Mathf.Atan2(offset.x, offset.z);
 
-		if (closestTargetID == EnemyTurretID || closestTargetID == enemyVehicleID)
+		if (ClosestTargetID == EnemyTurretID || ClosestTargetID == enemyVehicleID)
 			evasionDistance = groundTargetEvasionDistance;
 		else
 			evasionDistance = aircraftEvasionDistance;
 
-		if (Mathf.Abs(angle) > 3f && closestTargetDistance > evasionDistance)
+		if (Mathf.Abs(angle) > 3f && ClosestTargetDistance > evasionDistance)
 			rigidbody.AddTorque(Vector3.up * torqueModifier * Mathf.Sign(angle), ForceMode.VelocityChange);
 		else
 			rigidbody.AddTorque(Vector3.up * torqueModifier * Mathf.Sign(-angle * evasionAngleModifier), ForceMode.VelocityChange);
@@ -56,7 +56,7 @@ public class GenericAircraftMovement : MonoBehaviour
 	{
 		if (closestTarget != null)
 		{
-			Vector3 targetPosition = closestTarget.transform.position;
+			Vector3 targetPosition = ClosestTarget.transform.root.position;
 			offset = transform.InverseTransformPoint(targetPosition);
 		}
 		else

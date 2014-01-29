@@ -66,11 +66,11 @@ public class Damageable : MonoBehaviour
 			spawner = GameObject.Find("Enemy Aircraft Hard Spawner");
 			break;
 		case "Enemy Turret":
-			spawner = GameObject.Find("Enemy Turret Spawner");
-			break;
+			Destroy(transform.root.gameObject);
+			return;
 		case "Enemy Missile Battery":
-			spawner = GameObject.Find("Enemy Missile Battery Spawner");
-			break;
+			Destroy(transform.root.gameObject);
+			return;
 		case "Ally Aircraft":
 			spawner = GameObject.Find("Ally Aircraft Spawner");
 			break;
