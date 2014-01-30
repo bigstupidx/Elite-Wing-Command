@@ -5,6 +5,7 @@ public class CameraFollow : MonoBehaviour
 {
 	[SerializeField] string cameraFollowObjectName = "Player Aircraft";
 	[SerializeField] float cameraHeight = 35f;
+	[SerializeField] bool smoothFollow = true;
 	[SerializeField] float cameraFollowSpeed = 12f;
 	GameObject playerAircraft;
 	Vector3 wantedPosition;
@@ -32,7 +33,10 @@ public class CameraFollow : MonoBehaviour
 			{
 				wantedPosition = playerAircraft.transform.position;
 				wantedPosition.y = cameraHeight;
-				transform.position = Vector3.Lerp(transform.position, wantedPosition, Time.deltaTime * cameraFollowSpeed);
+				if (smoothFollow)
+					transform.position = Vector3.Lerp(transform.position, wantedPosition, Time.deltaTime * cameraFollowSpeed);
+				else
+					transform.position = wantedPosition;
 			}
 			else
 			{

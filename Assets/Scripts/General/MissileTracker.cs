@@ -18,7 +18,7 @@ public class MissileTracker : MonoBehaviour
 	float angle;
 	Vector3 offset;
 	float currentForce = 0f;
-	float torqueModifier = 0.35f;
+	float torqueModifier = 0.3f;
 	float timeModifier = 120f;
 	
 	void Awake()

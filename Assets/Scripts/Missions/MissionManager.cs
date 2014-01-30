@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEditor;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -12,8 +11,18 @@ public class MissionManager : MonoBehaviour
 		Base_vs_Base
 	}
 
+	public enum PlayerObjectivesType
+	{
+		Complete_Ally_Objectives,
+		Prevent_Enemy_Objectives,
+		Complete_and_Prevent
+	}
+	
+	[SerializeField] PlayerSpawner playerSpawner;
 	public MissionType missionType;
+	public PlayerObjectivesType playerObjectivesType;
 	List<string> allyObjectivesInScene;
+	bool gameOver = false;
 	public List<string> AllyObjectivesList { get { return allyObjectivesInScene; }}
 
 	void Start()
@@ -32,6 +41,39 @@ public class MissionManager : MonoBehaviour
 		}
 	}
 
+	void Update()
+	{
+		if (!gameOver)
+		{
+			switch(playerObjectivesType.ToString())
+			{
+			case "Complete_Ally_Objectives":
+				if (AllyObjectivesList.Count > 0)
+				{
+					if (playerSpawner.GameOver)
+					{
+						Debug.Log("GAME OVER");
+						StartCoroutine(LoadMenu());
+						gameOver = true;
+					}
+				}
+				else
+				{
+					Debug.Log("MISSION COMPLETE");
+					StartCoroutine(LoadMenu());
+					gameOver = true;
+				}
+				break;
+			case "Prevent_Enemy_Objectives":
+				Debug.Log("Mission Type: Base Defense");
+				break;
+			case "Complete_and_Prevent":
+				Debug.Log("Mission Type: Base vs Base");
+				break;
+			}
+		}
+	}
+
 	void BaseAttack()
 	{
 		allyObjectivesInScene = new List<string>();
@@ -46,7 +88,6 @@ public class MissionManager : MonoBehaviour
 				if (unitTag != null && unitTag.ObjectType == "Ally Objective")
 				{
 					allyObjectivesInScene.Add(objective.transform.name);
-					Debug.Log ("Adding: " + objective.transform.name);
 				}
 			}
 		}
@@ -60,5 +101,11 @@ public class MissionManager : MonoBehaviour
 	{
 		allyObjectivesInScene.Remove(objectiveName);
 		Debug.Log("Remaining Objectives: " + AllyObjectivesList.Count);
+	}
+
+	IEnumerator LoadMenu()
+	{
+		yield return new WaitForSeconds(2.0f);
+		Application.LoadLevel(0);
 	}
 }

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class DisableArcadeModeScripts : MonoBehaviour
+public class DisableTurretArcadeScripts : MonoBehaviour
 {
 	[SerializeField] bool isMission = false;
 	[SerializeField] MapTurretMover mapTurretMover;

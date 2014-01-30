@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEditor;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -12,12 +11,14 @@ public class PlayerSpawner : MonoBehaviour
 	[SerializeField] GameObject playerPrefab4Slots;
 	[SerializeField] GameObject playerPrefab5Slots;
 	GameObject playerPrefab;
+	bool gameOver = false;
 	int respawnNumber = 1;
 	int playerIterations = 1;
 	List<string> playerInScene;
 	Vector3 spawnPosition;
 	Quaternion spawnRotation;
 	bool canSpawn = true;
+	public bool GameOver { get { return gameOver; }}
 
 	void Awake()
 	{
@@ -62,7 +63,7 @@ public class PlayerSpawner : MonoBehaviour
 	{
 		int playerCount = playerInScene.Count;
 
-		if (playerCount < playerIterations && canSpawn)
+		if (!gameOver && playerCount < playerIterations && canSpawn)
 		{
 			SpawnPlayer();
 		}
@@ -83,7 +84,7 @@ public class PlayerSpawner : MonoBehaviour
 
 		playerClone.name = "Player Aircraft";
 		playerInScene.Add(playerClone.name);
-		Debug.Log("Lives Remaining: " + (4 - respawnNumber));
+		Debug.Log("Lives Remaining: " + ((totalRespawns + 1) - respawnNumber));
 	}
 
 	public void PlayerDeath()
@@ -94,11 +95,13 @@ public class PlayerSpawner : MonoBehaviour
 		{
 			canSpawn = false;
 			Debug.Log("No more lives....");
-			Application.LoadLevel(0);
-			return;
-		}
+			gameOver = true;
 
-		StartCoroutine(RespawnTimer(2f));
+			if (missionManager == null)
+				Application.LoadLevel(0);
+		}
+		else
+			StartCoroutine(RespawnTimer(2f));
 	}
 
 	IEnumerator RespawnTimer(float waitTime)

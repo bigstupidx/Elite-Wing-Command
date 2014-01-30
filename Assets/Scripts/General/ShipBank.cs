@@ -5,7 +5,7 @@ public class ShipBank : MonoBehaviour
 {
 	[SerializeField] Rigidbody rb;
 	[SerializeField] float val = 80;
-	const float turnSpeedModifier = 0.2f;
+	const float turnSpeedModifier = 0.12f;
 	const float rotCorrection = 0.5f;
 	float wantedRot;
 	
