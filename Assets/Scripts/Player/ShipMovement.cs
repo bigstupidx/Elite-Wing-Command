@@ -59,12 +59,8 @@ public class ShipMovement : MonoBehaviour
 			forceMultiplier = 1f;
 	}
 
-	void FixedUpdate()
+	void Update()
 	{
-		currentForce = Mathf.MoveTowards(currentForce, engineForce * forceMultiplier, 120f * Time.fixedDeltaTime);
-		rigidbody.AddForce (transform.forward * currentForce, ForceMode.Acceleration);
-
-
 		if (useArrows)
 		{
 			if (Input.GetKey(KeyCode.LeftArrow))
@@ -75,15 +71,21 @@ public class ShipMovement : MonoBehaviour
 				turnTarget = 0;
 		}
 
-		turn = Mathf.Lerp(turn, turnTarget, Time.fixedTime);
-
-		if (Mathf.Abs(turn) > 0.005f)
-			rigidbody.AddTorque (Vector3.up * 0.16f * turn, ForceMode.VelocityChange);
-
 		if (Input.GetKeyDown(KeyCode.Z) && canBoost)
 		{
 			StartCoroutine(Booster());
 		}
+	}
+
+	void FixedUpdate()
+	{
+		currentForce = Mathf.MoveTowards(currentForce, engineForce * forceMultiplier, 120f * Time.fixedDeltaTime);
+		rigidbody.AddForce (transform.forward * currentForce, ForceMode.Acceleration);
+
+		turn = Mathf.Lerp(turn, turnTarget, Time.fixedTime);
+
+		if (Mathf.Abs(turn) > 0.005f)
+			rigidbody.AddTorque (Vector3.up * 0.16f * turn, ForceMode.VelocityChange);
 	}
 
 	IEnumerator Booster()
