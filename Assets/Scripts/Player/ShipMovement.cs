@@ -6,10 +6,10 @@ public class ShipMovement : MonoBehaviour
 	[SerializeField] float turnSensitivity = 1.2f;
 	[SerializeField] float engineForce = 35f;
 	[SerializeField] float boostEngineForce = 2.5f;
+	[SerializeField] float boosterTimeout = 3.5f;
 	bool useArrows = true;
 	float turn = 0f;
 	float turnTarget = 0f;
-	float boosterTimeout = 4f;
 	float boosterCooldown = 10f;
 	float currentForce = 0f;
 	float forceMultiplier = 1f;
