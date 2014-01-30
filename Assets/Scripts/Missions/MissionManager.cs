@@ -13,16 +13,15 @@ public class MissionManager : MonoBehaviour
 	}
 
 	public MissionType missionType;
-	public List<GameObject> objectivesList { get { return objectivesInScene; }}
-	List<GameObject> objectivesInScene;
-	GameObject[] objectives;
+	List<string> allyObjectivesInScene;
+	public List<string> AllyObjectivesList { get { return allyObjectivesInScene; }}
 
-	void Awake()
+	void Start()
 	{
 		switch(missionType.ToString())
 		{
 		case "Base_Attack":
-			Debug.Log("Mission Type: Base Attack");
+			BaseAttack();
 			break;
 		case "Base_Defense":
 			Debug.Log("Mission Type: Base Defense");
@@ -33,17 +32,33 @@ public class MissionManager : MonoBehaviour
 		}
 	}
 
-	void Start()
+	void BaseAttack()
 	{
-		objectivesInScene = new List<GameObject>();
-		objectives = GameObject.FindGameObjectsWithTag("Objective");
+		allyObjectivesInScene = new List<string>();
+		GameObject[] objectives = GameObject.FindGameObjectsWithTag("Enemy");
 
 		if (objectives.Length > 0)
 		{
-			foreach(GameObject objective in objectives)
+			foreach (GameObject objective in objectives)
 			{
-				objectivesInScene.Add(objective);
+				var unitTag = objective.GetComponent<ObjectIdentifier>();
+
+				if (unitTag != null && unitTag.ObjectType == "Ally Objective")
+				{
+					allyObjectivesInScene.Add(objective.transform.name);
+					Debug.Log ("Adding: " + objective.transform.name);
+				}
 			}
 		}
+		else
+			Debug.LogError("No Ally Objectives!");
+
+		Debug.Log("Remaining Objectives: " + AllyObjectivesList.Count);
+	}
+
+	public void AllyObjectiveDestroyed(string objectiveName)
+	{
+		allyObjectivesInScene.Remove(objectiveName);
+		Debug.Log("Remaining Objectives: " + AllyObjectivesList.Count);
 	}
 }

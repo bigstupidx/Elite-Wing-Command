@@ -3,9 +3,10 @@ using System.Collections;
 
 public class Damageable : MonoBehaviour
 {
+	[SerializeField] MissionManager missionManager;
 	[SerializeField] float initialHealth;
 	[SerializeField] ObjectIdentifier objectIdentifier;
-	[SerializeField] bool groundUnit = false;
+	[SerializeField] bool groundObject = false;
 	GameObject spawner;
 	Vector3 correctedPos;
 	public float InitialHealth { get { return initialHealth; }}
@@ -16,7 +17,7 @@ public class Damageable : MonoBehaviour
 	{
 		Health = InitialHealth;
 
-		if (!groundUnit)
+		if (!groundObject)
 		{
 			correctedPos = new Vector3(0f, -transform.root.position.y, 0f);
 			transform.localPosition = correctedPos;
@@ -56,6 +57,14 @@ public class Damageable : MonoBehaviour
 			playerSpawner.PlayerDeath();
 			Destroy(objectIdentifier.transform.gameObject);
 			return;
+		case "Ally Aircraft":
+			spawner = GameObject.Find("Ally Aircraft Spawner");
+			break;
+		case "Ally Objective":
+			Debug.Log ("Destroying: " + objectIdentifier.transform.name);
+			missionManager.AllyObjectiveDestroyed(objectIdentifier.transform.name);
+			Destroy(objectIdentifier.transform.gameObject);
+			return;
 		case "Enemy Aircraft Easy":
 			spawner = GameObject.Find("Enemy Aircraft Easy Spawner");
 			break;
@@ -71,9 +80,6 @@ public class Damageable : MonoBehaviour
 		case "Enemy Missile Battery":
 			Destroy(objectIdentifier.transform.gameObject);
 			return;
-		case "Ally Aircraft":
-			spawner = GameObject.Find("Ally Aircraft Spawner");
-			break;
 		default:
 			Debug.LogError("No Case Switch Defined: " + transform.root.name);
 			break;
