@@ -11,6 +11,6 @@ public class ObjectType : MonoBehaviour
 	void Start()
 	{
 		if (!isAirUnit && !isGroundUnit)
-			Debug.LogError("Object Type Not Defined: " + transform.root.name);
+			Debug.LogError("Object Type Not Defined: " + transform.name);
 	}
 }

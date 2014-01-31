@@ -10,23 +10,28 @@ public class GenericAI : MonoBehaviour
 	GameObject closestTarget;
 	GameObject closestAirTarget;
 	GameObject closestGroundTarget;
+	GameObject closestObjectiveTarget;
 	float closestTargetDistance;
 	string closestTargetID;
+	string objectiveTag;
 	string targetTag;
-	string enemyTurretID;
-	string enemyVehicleID;
+	string targetTurretID;
+	string targetVehicleID;
+	ObjectType objectType;
+	ObjectIdentifier objectID;
 	public float SightDistance { get { return sightDistance; }}
-	public GameObject ClosestTarget { get { if (closestTarget != null) return closestTarget; else return null; }}
+	public bool IsGroundUnit { get { return isGroundUnit; }}
+	public bool AttackAirUnits { get { return attackAirUnits; }}
+	public bool AttackGroundUnits { get { return attackGroundUnits; }}
+	public GameObject ClosestTarget { get { if (closestTarget != null) return closestTarget; else return null; } set { closestTarget = value; }}
 	public string ClosestTargetName { get { if (closestTarget != null) return closestTarget.name; else return null; }}
 	public float ClosestTargetDistance { get { return closestTargetDistance; }}
 	public string ClosestTargetID { get { if (closestTarget != null) return closestTargetID; else return null; }}
+	public string ObjectiveTag { get { return objectiveTag; } set { objectiveTag = value; }}
 	public string TargetTag { get { return targetTag; } set { targetTag = value; }}
-	public bool IsGroundUnit { get { return isGroundUnit; }}
-	public string EnemyTurretID { get { return enemyTurretID; } set { enemyTurretID = value; }}
-	public string EnemyVehicleID { get { return enemyVehicleID; } set { enemyVehicleID = value; }}
-	public bool AttackAirUnits { get { return attackAirUnits; } set { attackAirUnits = value; }}
-	public bool AttackGroundUnits { get { return attackGroundUnits; } set { attackGroundUnits = value; }}
-	
+	public string TargetTurretID { get { return targetTurretID; } set { targetTurretID = value; }}
+	public string TargetVehicleID { get { return targetVehicleID; } set { targetVehicleID = value; }}
+
 	public IEnumerator FindClosestTarget()
 	{
 		while (true)
@@ -34,58 +39,101 @@ public class GenericAI : MonoBehaviour
 			Collider[] objectsInRange = Physics.OverlapSphere(transform.position, sightDistance);
 			int airTargets = 0;
 			int groundTargets = 0;
+			int objectiveTargets = 0;
 			float closestAirTargetDistance = 100f;
 			float closestGroundTargetDistance = 100f;
+			float closestObjectiveTargetDistance = 100f;
 
-			foreach (var target in objectsInRange)
+			if (objectsInRange != null)
 			{
-				GameObject targetObject = GameObject.Find(target.transform.root.name);
-				
-				if (targetObject.transform.tag == TargetTag)
+				foreach (var target in objectsInRange)
 				{
-					var objectType = targetObject.transform.root.GetComponent<ObjectType>();
-					var objectID = targetObject.transform.root.GetComponent<ObjectIdentifier>();
-					Vector2 targetXZPosition = new Vector2(targetObject.transform.root.position.x, targetObject.transform.root.position.z);
-					Vector2 unitXZPosition = new Vector2(transform.position.x, transform.position.z);
-					float distance = Vector2.Distance(targetXZPosition, unitXZPosition);
+					GameObject targetObject = target.transform.gameObject;
+					
+					if (targetObject.transform.tag == TargetTag || targetObject.transform.tag == ObjectiveTag)
+					{
+						objectType = targetObject.transform.GetComponent<ObjectType>();
+						objectID = targetObject.transform.GetComponent<ObjectIdentifier>();
+						Vector2 targetXZPosition = new Vector2(targetObject.transform.position.x, targetObject.transform.position.z);
+						Vector2 unitXZPosition = new Vector2(transform.position.x, transform.position.z);
+						float distance = Vector2.Distance(targetXZPosition, unitXZPosition);
 
-					if (AttackGroundUnits && objectType.IsGroundUnit)
-					{
-						groundTargets++;
-						
-						if (distance < closestGroundTargetDistance)
+						if (AttackGroundUnits && objectType != null && objectType.IsGroundUnit)
 						{
-							closestGroundTargetDistance = distance;
-							closestGroundTarget = targetObject;
-						}
-					}
-					else if (AttackAirUnits && objectType.IsAirUnit)
-					{
-						airTargets++;
-						
-						if (distance < closestAirTargetDistance)
-						{
-							closestAirTargetDistance = distance;
-							closestAirTarget = targetObject;
-						}
-					}
+							if (targetObject.transform.tag == ObjectiveTag)
+							{
+								objectiveTargets++;
 
-					if (groundTargets != 0 && airTargets <= 2)
-					{
-						closestTarget = closestGroundTarget;
-						closestTargetDistance = closestGroundTargetDistance;
-						closestTargetID = objectID.ObjectType;
-					}
-					else
-					{
-						closestTarget = closestAirTarget;
-						closestTargetDistance = closestAirTargetDistance;
-						closestTargetID = objectID.ObjectType;
+								if (distance < closestObjectiveTargetDistance)
+								{
+									closestObjectiveTargetDistance = distance;
+									closestObjectiveTarget = targetObject;
+								}
+							}
+							else
+							{
+								groundTargets++;
+							
+								if (distance < closestGroundTargetDistance)
+								{
+									closestGroundTargetDistance = distance;
+									closestGroundTarget = targetObject;
+								}
+							}
+						}
+						else if (AttackAirUnits && objectType != null && objectType.IsAirUnit)
+						{
+							if (targetObject.transform.tag == ObjectiveTag)
+							{
+								objectiveTargets++;
+								
+								if (distance < closestObjectiveTargetDistance)
+								{
+									closestObjectiveTargetDistance = distance;
+									closestObjectiveTarget = targetObject;
+								}
+							}
+							else
+							{
+								airTargets++;
+								
+								if (distance < closestAirTargetDistance)
+								{
+									closestAirTargetDistance = distance;
+									closestAirTarget = targetObject;
+								}
+							}
+						}
+
 					}
 				}
 			}
 
-			if (airTargets == 0 && groundTargets == 0)
+			if (groundTargets != 0 && airTargets <= 4)
+			{
+				closestTarget = closestGroundTarget;
+				closestTargetDistance = closestGroundTargetDistance;
+
+				if (objectID != null)
+					closestTargetID = objectID.ObjectType;
+			}
+			else if (airTargets != 0)
+			{
+				closestTarget = closestAirTarget;
+				closestTargetDistance = closestAirTargetDistance;
+
+				if (objectID != null)
+					closestTargetID = objectID.ObjectType;
+			}
+			else if (objectiveTargets != 0)
+			{
+				closestTarget = closestObjectiveTarget;
+				closestTargetDistance = closestObjectiveTargetDistance;
+
+				if (objectID != null)
+					closestTargetID = objectID.ObjectType;
+			}
+			else
 			{
 				closestTarget = null;
 				closestTargetDistance = 100f;

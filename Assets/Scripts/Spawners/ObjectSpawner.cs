@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class TargetSpawner : MonoBehaviour
+public class ObjectSpawner : MonoBehaviour
 {
 	[SerializeField] GameObject targetPrefab;
 	[SerializeField] int maxInGame = 20;
@@ -14,7 +14,7 @@ public class TargetSpawner : MonoBehaviour
 	int respawnSquadCount = 1;
 	bool canSpawn = true;
 	int nextNameNumber = 1;
-	List<string> enemiesInScene;
+	List<string> unitsInScene;
 	public GameObject TargetPrefab { get { return targetPrefab; } set { targetPrefab = value; }}
 	public int MaxInGame { get { return maxInGame; } set { maxInGame = value; }}
 	public int TotalRespawns { get { return totalRespawns; } set { totalRespawns = value; }}
@@ -26,20 +26,20 @@ public class TargetSpawner : MonoBehaviour
 	public bool CanSpawn { get { return canSpawn; } set { canSpawn = value; }}
 	public int NextNameNumber { get { return nextNameNumber; } set { nextNameNumber = value; }}
 	public float yPos { get; set; }
-	public List<string> EnemiesInScene { get { return enemiesInScene; } set { enemiesInScene = value; }}
+	public List<string> UnitsInScene { get { return unitsInScene; } set { unitsInScene = value; }}
 	
 	void Awake()
 	{
-		EnemiesInScene = new List<string>();
+		UnitsInScene = new List<string>();
 	}
 	
 	void Update()
 	{
 		if (canSpawn)
 		{
-			int totalEnemyCount = EnemiesInScene.Count;
+			int totalUnitCount = UnitsInScene.Count;
 
-			if (totalEnemyCount < MaxInGame)
+			if (totalUnitCount < MaxInGame)
 				SpawnUnit();
 			else
 				canSpawn = false;
@@ -55,26 +55,19 @@ public class TargetSpawner : MonoBehaviour
 		if (SpawnTurret)
 			yPos = -7.5f;
 		else
-		{
-			float heightRangeSelector = Random.Range(0, 2);
+			yPos = 0;
 
-			if (heightRangeSelector == 0)
-				yPos = Random.Range(-5, 0);
-			else
-				yPos = Random.Range(1, 35);
-		}
-
-		Vector3 randomPosition = new Vector3(Random.Range(-90f, 90f), yPos, Random.Range(-90f, 90f));
-		Quaternion randomRotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
-		var enemyClone = Instantiate(TargetPrefab, randomPosition, randomRotation);
-		enemyClone.name = TargetPrefab.name + " " + nextNameNumber;
-		EnemiesInScene.Add(enemyClone.name);
+		Vector3 spawnPosition = new Vector3(Random.Range(-90f, 90f), yPos, Random.Range(-90f, 90f));
+		Quaternion spawnRotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
+		var unitClone = Instantiate(TargetPrefab, spawnPosition, spawnRotation);
+		unitClone.name = TargetPrefab.name + " " + nextNameNumber;
+		UnitsInScene.Add(unitClone.name);
 		nextNameNumber++;
 	}
 
-	public void RemoveFromList(string enemyType)
+	public void RemoveFromList(string unitType)
 	{
-		EnemiesInScene.Remove(enemyType);
+		UnitsInScene.Remove(unitType);
 
 		if (SquadSpawn)
 		{

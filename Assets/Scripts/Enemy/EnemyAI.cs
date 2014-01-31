@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class EnemyAI : GenericAI
@@ -8,15 +8,15 @@ public class EnemyAI : GenericAI
 	void Start()
 	{
 		TargetTag = "Ally";
-		EnemyTurretID = "Ally Turret";
-		EnemyVehicleID = "Ally Vehicle";
+		TargetTurretID = "Ally Turret";
+		TargetVehicleID = "Ally Vehicle";
 		StartCoroutine(FindClosestTarget());
 
 		if (!IsGroundUnit)
 		{
 			enemyAircraftMovement = transform.root.GetComponent<EnemyAircraftMovement>();
-			enemyAircraftMovement.EnemyTurretID = EnemyTurretID;
-			enemyAircraftMovement.EnemyVehicleID = EnemyVehicleID;
+			enemyAircraftMovement.EnemyTurretID = TargetTurretID;
+			enemyAircraftMovement.EnemyVehicleID = TargetVehicleID;
 		}
 	}
 
@@ -31,7 +31,7 @@ public class EnemyAI : GenericAI
 		}
 		else
 		{
-			enemyAircraftMovement.Wander();
+			enemyAircraftMovement.Search();
 		}
 
 	}

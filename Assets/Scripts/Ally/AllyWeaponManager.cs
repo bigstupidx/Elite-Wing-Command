@@ -9,10 +9,11 @@ public class AllyWeaponManager : GenericWeaponManager
 	{
 		if (EnemyTurretID == null || EnemyVehicleID == null)
 		{
-			EnemyTurretID = allyAI.EnemyTurretID;
-			EnemyVehicleID = allyAI.EnemyVehicleID;
+			EnemyTurretID = allyAI.TargetTurretID;
+			EnemyVehicleID = allyAI.TargetVehicleID;
 		}
 
+		ObjectiveTag = allyAI.ObjectiveTag;
 		ClosestTarget = GameObject.Find(allyAI.ClosestTargetName);
 		ClosestTargetID = allyAI.ClosestTargetID;
 	}

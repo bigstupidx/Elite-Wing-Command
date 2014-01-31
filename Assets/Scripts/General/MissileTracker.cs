@@ -49,7 +49,7 @@ public class MissileTracker : MonoBehaviour
 	{
 		while(true)
 		{
-			Collider[] objectsInRange = Physics.OverlapSphere(transform.root.position, sightDistance);
+			Collider[] objectsInRange = Physics.OverlapSphere(transform.position, sightDistance);
 			int airTargets = 0;
 			int groundTargets = 0;
 			float closestAirTargetDistance = 100f;
@@ -57,7 +57,7 @@ public class MissileTracker : MonoBehaviour
 			
 			foreach (var target in objectsInRange)
 			{
-				GameObject targetObject = GameObject.Find(target.transform.root.name);
+				GameObject targetObject = GameObject.Find(target.transform.name);
 				
 				if (targetObject.transform.tag == TargetTag)
 				{

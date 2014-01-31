@@ -13,56 +13,56 @@ public class MapConstraint : MonoBehaviour
 	{
 		GameObject mainCameraObject = GameObject.FindGameObjectWithTag("MainCamera");
 		mainCamera = mainCameraObject.transform;
-		wantedPosition = transform.root.position;
+		wantedPosition = transform.position;
 		wantedPosition.y = cameraHeight;
 	}
 
 	void Update()
 	{
-		Vector3 objectPosition = transform.root.position;
+		Vector3 objectPosition = transform.position;
 
 		if (objectPosition.x < -mapBoundary)
 		{
 			mapAircraftMover.RepositionX(mapBoundary);
 			objectPosition.x = mapBoundary;
-			var xDiff = transform.root.position.x - mainCamera.position.x;
-			var zDiff = transform.root.position.z - mainCamera.position.z;
-			transform.root.position = objectPosition;
-			wantedPosition.x = transform.root.position.x - xDiff;
-			wantedPosition.z = transform.root.position.z - zDiff;
+			var xDiff = transform.position.x - mainCamera.position.x;
+			var zDiff = transform.position.z - mainCamera.position.z;
+			transform.position = objectPosition;
+			wantedPosition.x = transform.position.x - xDiff;
+			wantedPosition.z = transform.position.z - zDiff;
 			mainCamera.position = wantedPosition;
 		}
 		else if (objectPosition.x > mapBoundary)
 		{
 			mapAircraftMover.RepositionX(-mapBoundary);
 			objectPosition.x = -mapBoundary;
-			var xDiff = transform.root.position.x - mainCamera.position.x;
-			var zDiff = transform.root.position.z - mainCamera.position.z;
-			transform.root.position = objectPosition;
-			wantedPosition.x = transform.root.position.x - xDiff;
-			wantedPosition.z = transform.root.position.z - zDiff;
+			var xDiff = transform.position.x - mainCamera.position.x;
+			var zDiff = transform.position.z - mainCamera.position.z;
+			transform.position = objectPosition;
+			wantedPosition.x = transform.position.x - xDiff;
+			wantedPosition.z = transform.position.z - zDiff;
 			mainCamera.position = wantedPosition;
 		}
 		else if (objectPosition.z < -mapBoundary)
 		{
 			mapAircraftMover.RepositionZ(mapBoundary);
 			objectPosition.z = mapBoundary;
-			var xDiff = transform.root.position.x - mainCamera.position.x;
-			var zDiff = transform.root.position.z - mainCamera.position.z;
-			transform.root.position = objectPosition;
-			wantedPosition.x = transform.root.position.x - xDiff;
-			wantedPosition.z = transform.root.position.z - zDiff;
+			var xDiff = transform.position.x - mainCamera.position.x;
+			var zDiff = transform.position.z - mainCamera.position.z;
+			transform.position = objectPosition;
+			wantedPosition.x = transform.position.x - xDiff;
+			wantedPosition.z = transform.position.z - zDiff;
 			mainCamera.position = wantedPosition;
 		}
 		else if (objectPosition.z > mapBoundary)
 		{
 			mapAircraftMover.RepositionZ(-mapBoundary);
 			objectPosition.z = -mapBoundary;
-			var xDiff = transform.root.position.x - mainCamera.position.x;
-			var zDiff = transform.root.position.z - mainCamera.position.z;
-			transform.root.position = objectPosition;
-			wantedPosition.x = transform.root.position.x - xDiff;
-			wantedPosition.z = transform.root.position.z - zDiff;
+			var xDiff = transform.position.x - mainCamera.position.x;
+			var zDiff = transform.position.z - mainCamera.position.z;
+			transform.position = objectPosition;
+			wantedPosition.x = transform.position.x - xDiff;
+			wantedPosition.z = transform.position.z - zDiff;
 			mainCamera.position = wantedPosition;
 		}
 	}

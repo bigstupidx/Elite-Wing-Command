@@ -4,19 +4,21 @@ using System.Collections;
 public class AllyAI : GenericAI
 {
 	AllyAircraftMovement allyAircraftMovement;
+	string objectiveTarget;
 
 	void Start()
 	{
+		ObjectiveTag = "AllyObjective";
 		TargetTag = "Enemy";
-		EnemyTurretID = "Enemy Turret";
-		EnemyVehicleID = "Enemy Vehicle";
+		TargetTurretID = "Enemy Turret";
+		TargetVehicleID = "Enemy Vehicle";
 		StartCoroutine(FindClosestTarget());
 
 		if (!IsGroundUnit)
 		{
 			allyAircraftMovement = transform.root.GetComponent<AllyAircraftMovement>();
-			allyAircraftMovement.EnemyTurretID = EnemyTurretID;
-			allyAircraftMovement.EnemyVehicleID = EnemyVehicleID;
+			allyAircraftMovement.EnemyTurretID = TargetTurretID;
+			allyAircraftMovement.EnemyVehicleID = TargetVehicleID;
 		}
 	}
 
@@ -31,7 +33,7 @@ public class AllyAI : GenericAI
 		}
 		else
 		{
-			allyAircraftMovement.Wander();
+			allyAircraftMovement.Search();
 		}
 	}
 }

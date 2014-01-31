@@ -77,18 +77,13 @@ public class MissionManager : MonoBehaviour
 	void BaseAttack()
 	{
 		allyObjectivesInScene = new List<string>();
-		GameObject[] objectives = GameObject.FindGameObjectsWithTag("Enemy");
+		GameObject[] objectives = GameObject.FindGameObjectsWithTag("AllyObjective");
 
 		if (objectives.Length > 0)
 		{
 			foreach (GameObject objective in objectives)
 			{
-				var unitTag = objective.GetComponent<ObjectIdentifier>();
-
-				if (unitTag != null && unitTag.ObjectType == "Ally Objective")
-				{
-					allyObjectivesInScene.Add(objective.transform.name);
-				}
+				allyObjectivesInScene.Add(objective.transform.name);
 			}
 		}
 		else

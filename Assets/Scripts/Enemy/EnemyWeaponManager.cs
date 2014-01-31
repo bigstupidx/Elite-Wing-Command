@@ -7,8 +7,8 @@ public class EnemyWeaponManager : GenericWeaponManager
 
 	void Start()
 	{
-		EnemyTurretID = enemyAI.EnemyTurretID;
-		EnemyVehicleID = enemyAI.EnemyVehicleID;
+		EnemyTurretID = enemyAI.TargetTurretID;
+		EnemyVehicleID = enemyAI.TargetVehicleID;
 	}
 
 	void FixedUpdate()

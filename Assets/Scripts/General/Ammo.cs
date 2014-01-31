@@ -27,7 +27,7 @@ public class Ammo : MonoBehaviour
 		if (other.transform.tag != "CollectionArea" && other.transform.root.tag != "Weapon" && other.transform.root.tag != ammoSource)
 			Destroy(gameObject);
 
-		var hit = other.transform.GetComponent<Damageable>();
+		var hit = other.transform.GetComponentInChildren<Damageable>();
 		
 		if (hit != null && other.transform.root.tag != ammoSource)
 		{

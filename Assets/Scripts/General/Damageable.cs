@@ -4,9 +4,9 @@ using System.Collections;
 public class Damageable : MonoBehaviour
 {
 	[SerializeField] MissionManager missionManager;
+	[SerializeField] Collider damageableCollider;
 	[SerializeField] float initialHealth;
 	[SerializeField] ObjectIdentifier objectIdentifier;
-	[SerializeField] bool groundObject = false;
 	GameObject spawner;
 	Vector3 correctedPos;
 	public float InitialHealth { get { return initialHealth; }}
@@ -16,12 +16,6 @@ public class Damageable : MonoBehaviour
 	void Start()
 	{
 		Health = InitialHealth;
-
-		if (!groundObject)
-		{
-			correctedPos = new Vector3(0f, -transform.root.position.y, 0f);
-			transform.localPosition = correctedPos;
-		}
 	}
 
 	public void AddHealth(float amount)
@@ -61,7 +55,6 @@ public class Damageable : MonoBehaviour
 			spawner = GameObject.Find("Ally Aircraft Spawner");
 			break;
 		case "Ally Objective":
-			Debug.Log ("Destroying: " + objectIdentifier.transform.name);
 			missionManager.AllyObjectiveDestroyed(objectIdentifier.transform.name);
 			Destroy(objectIdentifier.transform.gameObject);
 			return;
@@ -81,12 +74,12 @@ public class Damageable : MonoBehaviour
 			Destroy(objectIdentifier.transform.gameObject);
 			return;
 		default:
-			Debug.LogError("No Case Switch Defined: " + transform.root.name);
+			Debug.LogError("No Case Switch Defined: " + transform.parent.name);
 			break;
 		}
 
-		TargetSpawner spawnerEnemyID = (TargetSpawner)spawner.GetComponent(typeof(TargetSpawner));
-		spawnerEnemyID.RemoveFromList(transform.root.name);
+		ObjectSpawner spawnerEnemyID = (ObjectSpawner)spawner.GetComponent(typeof(ObjectSpawner));
+		spawnerEnemyID.RemoveFromList(transform.parent.name);
 		Destroy(objectIdentifier.transform.gameObject);
 	}
 }
