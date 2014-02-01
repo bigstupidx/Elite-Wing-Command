@@ -9,7 +9,7 @@ public class ObjectSpawner : MonoBehaviour
 	[SerializeField] int totalRespawns = 50;
 	[SerializeField] bool squadSpawn;
 	[SerializeField] int squadSpawnSize = 5;
-	[SerializeField] bool spawnTurret = false;
+	[SerializeField] bool spawnGroundUnit = false;
 	int respawnNumber = 0;
 	int respawnSquadCount = 1;
 	bool canSpawn = true;
@@ -20,7 +20,7 @@ public class ObjectSpawner : MonoBehaviour
 	public int TotalRespawns { get { return totalRespawns; } set { totalRespawns = value; }}
 	public bool SquadSpawn { get { return squadSpawn; } set { squadSpawn = value; }}
 	public int SquadSpawnSize { get { return squadSpawnSize; } set { squadSpawnSize = value; }}
-	public bool SpawnTurret { get { return spawnTurret; } set { spawnTurret = value; }}
+	public bool SpawnGroundUnit { get { return spawnGroundUnit; } set { spawnGroundUnit = value; }}
 	public int RespawnNumber { get { return respawnNumber; } set { respawnNumber = value; }}
 	public int RespawnSquadCount { get { return respawnSquadCount; } set { respawnSquadCount = value; }}
 	public bool CanSpawn { get { return canSpawn; } set { canSpawn = value; }}
@@ -52,7 +52,7 @@ public class ObjectSpawner : MonoBehaviour
 		if (respawnNumber > TotalRespawns)
 			return;
 
-		if (SpawnTurret)
+		if (SpawnGroundUnit)
 			yPos = -7.5f;
 		else
 			yPos = 0;

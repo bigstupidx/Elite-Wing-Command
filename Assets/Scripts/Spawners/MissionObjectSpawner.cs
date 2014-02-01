@@ -20,17 +20,8 @@ public class MissionObjectSpawner : ObjectSpawner
 		if (RespawnNumber > TotalRespawns)
 			return;
 		
-		if (SpawnTurret)
+		if (SpawnGroundUnit)
 			yPos = -7.5f;
-		else
-		{
-			float heightRangeSelector = Random.Range(0, 2);
-			
-			if (heightRangeSelector == 0)
-				yPos = Random.Range(-5, 0);
-			else
-				yPos = Random.Range(1, 35);
-		}
 
 		if (missionManager != null)
 		{

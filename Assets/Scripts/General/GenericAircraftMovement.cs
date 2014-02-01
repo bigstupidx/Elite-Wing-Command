@@ -6,6 +6,8 @@ public class GenericAircraftMovement : MonoBehaviour
 	[SerializeField] float engineForce = 25f;
 	[SerializeField] float aircraftEvasionDistance = 8f;
 	[SerializeField] float groundTargetEvasionDistance = 8f;
+	[SerializeField] bool isDefensiveAirUnit = false;
+	[SerializeField] float defensiveAirPerimeter = 25f;
 	MissionManager missionManager;
 	string objectiveTag;
 	float objectiveDistance;
@@ -23,6 +25,8 @@ public class GenericAircraftMovement : MonoBehaviour
 	float randomEngineForce;
 	float angle;
 	Vector3 offset;
+	Vector2 targetXZPosition;
+	Vector2 unitXZPosition;
 	Vector3 randomPosition;
 	bool findRandomAngle = true;
 	public string ObjectiveTag { get { return objectiveTag; } set { objectiveTag = value; }}
@@ -86,8 +90,17 @@ public class GenericAircraftMovement : MonoBehaviour
 			Vector3 targetPosition = targetObject.transform.position;
 			offset = transform.InverseTransformPoint(targetPosition);
 
-			Vector2 targetXZPosition = new Vector2(targetObject.transform.position.x, targetObject.transform.position.z);
-			Vector2 unitXZPosition = new Vector2(transform.position.x, transform.position.z);
+			if (isDefensiveAirUnit)
+			{
+				targetXZPosition = new Vector2(Random.Range(targetObject.transform.position.x - defensiveAirPerimeter, targetObject.transform.position.x - defensiveAirPerimeter), 
+				                               Random.Range(targetObject.transform.position.z - defensiveAirPerimeter, targetObject.transform.position.z - defensiveAirPerimeter));
+				unitXZPosition = new Vector2(transform.position.x, transform.position.z);
+			}
+			else
+			{
+				targetXZPosition = new Vector2(targetObject.transform.position.x, targetObject.transform.position.z);
+				unitXZPosition = new Vector2(transform.position.x, transform.position.z);
+			}
 			objectiveDistance = Vector2.Distance(targetXZPosition, unitXZPosition);
 			return;
 		}

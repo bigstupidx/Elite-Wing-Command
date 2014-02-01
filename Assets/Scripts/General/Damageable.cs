@@ -61,11 +61,20 @@ public class Damageable : MonoBehaviour
 		case "Enemy Aircraft Easy":
 			spawner = GameObject.Find("Enemy Aircraft Easy Spawner");
 			break;
+		case "Enemy Defensive Aircraft Easy":
+			spawner = GameObject.Find("Enemy Defensive Aircraft Easy Spawner");
+			break;
 		case "Enemy Aircraft Medium":
 			spawner = GameObject.Find("Enemy Aircraft Medium Spawner");
 			break;
+		case "Enemy Defensive Aircraft Medium":
+			spawner = GameObject.Find("Enemy Defensive Aircraft Medium Spawner");
+			break;
 		case "Enemy Aircraft Hard":
 			spawner = GameObject.Find("Enemy Aircraft Hard Spawner");
+			break;
+		case "Enemy Defensive Aircraft Hard":
+			spawner = GameObject.Find("Enemy Defensive Aircraft Hard Spawner");
 			break;
 		case "Enemy Turret":
 			Destroy(objectIdentifier.transform.gameObject);
@@ -78,8 +87,17 @@ public class Damageable : MonoBehaviour
 			break;
 		}
 
-		ObjectSpawner spawnerEnemyID = (ObjectSpawner)spawner.GetComponent(typeof(ObjectSpawner));
-		spawnerEnemyID.RemoveFromList(transform.parent.name);
+		if (missionManager != null)
+		{
+			MissionObjectSpawner spawnerEnemyID = (MissionObjectSpawner)spawner.GetComponent(typeof(MissionObjectSpawner));
+			spawnerEnemyID.RemoveFromList(transform.parent.name);
+		}
+		else
+		{
+			ObjectSpawner spawnerEnemyID = (ObjectSpawner)spawner.GetComponent(typeof(ObjectSpawner));
+			spawnerEnemyID.RemoveFromList(transform.parent.name);
+		}
+
 		Destroy(objectIdentifier.transform.gameObject);
 	}
 }
