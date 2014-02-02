@@ -84,6 +84,9 @@ public class GenericAircraftMovement : MonoBehaviour
 	{
 		if (missionManager != null)
 		{
+			if (missionManager.AllyObjectivesList.Count == 0)
+				return;
+
 			int r = Random.Range(0, (missionManager.AllyObjectivesList.Count));
 			string objectiveTarget = missionManager.AllyObjectivesList[r];
 			GameObject targetObject = GameObject.Find(objectiveTarget);

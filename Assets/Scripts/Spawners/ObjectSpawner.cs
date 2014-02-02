@@ -4,17 +4,20 @@ using System.Collections.Generic;
 
 public class ObjectSpawner : MonoBehaviour
 {
-	[SerializeField] GameObject unitPrefab;
-	[SerializeField] int maxInGame = 20;
-	[SerializeField] int totalRespawns = 50;
-	[SerializeField] bool squadSpawn;
-	[SerializeField] int squadSpawnSize = 5;
-	[SerializeField] bool spawnGroundUnit = false;
-	int respawnNumber = 0;
-	int respawnSquadCount = 1;
+	[SerializeField] MissionManager missionManager;
+	[SerializeField] SpawnDetails[] spawnDetails;
+	GameObject unitPrefab;
+	int maxInGame;
+	int totalRespawns;
+	bool squadSpawn;
+	int squadSpawnSize;
+	bool spawnGroundUnit = false;
+	int respawnNumber;
+	int respawnSquadCount;
 	bool canSpawn = true;
 	int nextNameNumber = 1;
 	List<string> unitsInScene;
+	public MissionManager MissionManagerScript { get { return missionManager; }}
 	public GameObject UnitPrefab { get { return unitPrefab; } set { unitPrefab = value; }}
 	public int MaxInGame { get { return maxInGame; } set { maxInGame = value; }}
 	public int TotalRespawns { get { return totalRespawns; } set { totalRespawns = value; }}
@@ -31,6 +34,13 @@ public class ObjectSpawner : MonoBehaviour
 	void Awake()
 	{
 		UnitsInScene = new List<string>();
+		int arrayNumber = missionManager.MissionDifficultyLevel;
+		UnitPrefab = spawnDetails[arrayNumber].UnitPrefab;
+		MaxInGame = spawnDetails[arrayNumber].MaxInGame;
+		TotalRespawns = spawnDetails[arrayNumber].TotalRespawns;
+		SquadSpawn = spawnDetails[arrayNumber].SquadSpawn;
+		SquadSpawnSize = spawnDetails[arrayNumber].SquadSpawnSize;
+		SpawnGroundUnit = spawnDetails[arrayNumber].SpawnGroundUnit;
 	}
 	
 	void Update()
@@ -82,4 +92,22 @@ public class ObjectSpawner : MonoBehaviour
 		else
 			canSpawn = true;
 	}
+}
+
+[System.Serializable]
+public class SpawnDetails
+{
+	[SerializeField] string name;
+	[SerializeField] GameObject unitPrefab;
+	[SerializeField] int maxInGame = 20;
+	[SerializeField] int totalRespawns = 50;
+	[SerializeField] bool squadSpawn;
+	[SerializeField] int squadSpawnSize = 5;
+	[SerializeField] bool spawnGroundUnit = false;
+	public GameObject UnitPrefab { get { return unitPrefab; }}
+	public int MaxInGame { get { return maxInGame; }}
+	public int TotalRespawns { get { return totalRespawns; }}
+	public bool SquadSpawn { get { return squadSpawn; }}
+	public int SquadSpawnSize { get { return squadSpawnSize; }}
+	public bool SpawnGroundUnit { get { return spawnGroundUnit; }}
 }
