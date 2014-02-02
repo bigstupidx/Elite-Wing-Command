@@ -7,6 +7,6 @@ public class EnemyTurretPitch : GenericTurretPitch
 
 	void Update()
 	{
-		ClosestTarget = GameObject.Find(enemyAI.ClosestTargetName);
+		ClosestTarget = enemyAI.ClosestTarget;
 	}
 }

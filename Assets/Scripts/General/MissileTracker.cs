@@ -57,12 +57,10 @@ public class MissileTracker : MonoBehaviour
 			
 			foreach (var target in objectsInRange)
 			{
-				GameObject targetObject = GameObject.Find(target.transform.name);
-				
-				if (targetObject.transform.tag == TargetTag)
+				if (target.transform.tag == TargetTag)
 				{
-					var objectType = targetObject.transform.root.GetComponent<ObjectType>();
-					Vector2 targetXZPosition = new Vector2(targetObject.transform.position.x, targetObject.transform.position.z);
+					var objectType = target.transform.root.GetComponent<ObjectType>();
+					Vector2 targetXZPosition = new Vector2(target.transform.position.x, target.transform.position.z);
 					Vector2 unitXZPosition = new Vector2(transform.position.x, transform.position.z);
 					float distance = Vector2.Distance(targetXZPosition, unitXZPosition);
 					
@@ -73,7 +71,7 @@ public class MissileTracker : MonoBehaviour
 						if (distance < closestGroundTargetDistance)
 						{
 							closestGroundTargetDistance = distance;
-							closestGroundTarget = targetObject;
+							closestGroundTarget = target.gameObject;
 						}
 					}
 					else if (attackAirUnits && objectType.IsAirUnit)
@@ -83,7 +81,7 @@ public class MissileTracker : MonoBehaviour
 						if (distance < closestAirTargetDistance)
 						{
 							closestAirTargetDistance = distance;
-							closestAirTarget = targetObject;
+							closestAirTarget = target.gameObject;
 						}
 					}
 					

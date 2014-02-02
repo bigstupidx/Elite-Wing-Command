@@ -16,12 +16,12 @@ public class AllyWeaponManager : GenericWeaponManager
 		while (true)
 		{
 			ObjectiveTag = allyAI.ObjectiveTag;
+			ClosestTarget = allyAI.ClosestTarget;
+			ClosestTargetID = allyAI.ClosestTargetID;
 			EnemyTurretID = allyAI.TargetTurretID;
 			EnemyVehicleID = allyAI.TargetVehicleID;
-			ClosestTarget = GameObject.Find(allyAI.ClosestTargetName);
-			ClosestTargetID = allyAI.ClosestTargetID;
 			NeedsClearShot = unitNeedsClearShot;
-			yield return new WaitForSeconds(0.5f);
+			yield return new WaitForSeconds(1.0f);
 		}
 	}
 }

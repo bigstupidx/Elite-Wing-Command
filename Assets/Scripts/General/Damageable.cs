@@ -56,7 +56,7 @@ public class Damageable : MonoBehaviour
 			Destroy(objectIdentifier.transform.gameObject);
 			return;
 		case "Ally Objective":
-			missionManager.AllyObjectiveDestroyed(objectIdentifier.transform.name);
+			missionManager.AllyObjectiveDestroyed(objectIdentifier.gameObject);
 			Destroy(objectIdentifier.transform.gameObject);
 			return;
 		case "Ally Aircraft":

@@ -4,7 +4,8 @@ using System.Collections;
 public class DisplayHealth : MonoBehaviour
 {
 	[SerializeField] TextMesh textDisplay;
-	Damageable playerDamageable;
+	GameObject playerAircraft;
+	PlayerDamageable playerDamageable;
 	float previousHealth;
 	
 	void Start()
@@ -14,11 +15,19 @@ public class DisplayHealth : MonoBehaviour
 	
 	void Update()
 	{
-		GameObject player = GameObject.Find("Player Aircraft");
-
-		if (player != null)
+		GameObject[] allyAircraft = GameObject.FindGameObjectsWithTag("Ally");
+		
+		foreach (GameObject aircraft in allyAircraft)
 		{
-			playerDamageable = (PlayerDamageable)player.GetComponentInChildren(typeof(PlayerDamageable));
+			ObjectIdentifier objectID = aircraft.GetComponent<ObjectIdentifier>();
+			
+			if (objectID != null && objectID.ObjectType == "Player Aircraft")
+				playerAircraft = aircraft;
+		}
+
+		if (playerAircraft != null)
+		{
+			playerDamageable = (PlayerDamageable)playerAircraft.GetComponentInChildren(typeof(PlayerDamageable));
 
 			if (previousHealth != playerDamageable.Health || playerDamageable.Health == 100f)
 			{

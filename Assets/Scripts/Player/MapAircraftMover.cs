@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class MapAircraftMover : MonoBehaviour
 {
 	[SerializeField] Collider collectionArea;
-	List<string> objectsInRange;
+	List<GameObject> objectsInRange;
 	Vector3 objectPosition;
 
 	void Start()
@@ -14,18 +14,18 @@ public class MapAircraftMover : MonoBehaviour
 			collectionArea.enabled = true;
 
 		objectPosition = transform.position;
-		objectsInRange = new List<string>();
+		objectsInRange = new List<GameObject>();
 	}
 
 	void OnTriggerEnter(Collider other)
 	{
 		if (other.transform.root.tag != "Terrain")
-			objectsInRange.Add(other.transform.name);
+			objectsInRange.Add(other.gameObject);
 	}
 
 	void OnTriggerExit(Collider other)
 	{
-		objectsInRange.Remove(other.transform.name);
+		objectsInRange.Remove(other.gameObject);
 	}
 
 	public void RepositionX(float mapBoundary)
@@ -33,15 +33,13 @@ public class MapAircraftMover : MonoBehaviour
 		if (collectionArea != null)
 			collectionArea.enabled = false;
 
-		foreach(string item in objectsInRange)
+		foreach(GameObject item in objectsInRange)
 		{
-			GameObject itemToBeMoved = GameObject.Find(item);
-
-			if (itemToBeMoved != null)
+			if (item != null)
 			{
-				objectPosition = itemToBeMoved.transform.position;
+				objectPosition = item.transform.position;
 				objectPosition.x = objectPosition.x + (mapBoundary * 2f);
-				itemToBeMoved.transform.position = objectPosition;
+				item.transform.position = objectPosition;
 			}
 		}
 
@@ -56,15 +54,13 @@ public class MapAircraftMover : MonoBehaviour
 		if (collectionArea != null)
 			collectionArea.enabled = false;
 
-		foreach(string item in objectsInRange)
+		foreach(GameObject item in objectsInRange)
 		{
-			GameObject itemToBeMoved = GameObject.Find(item);
-
-			if (itemToBeMoved != null)
+			if (item != null)
 			{
-				objectPosition = itemToBeMoved.transform.position;
+				objectPosition = item.transform.position;
 				objectPosition.z = objectPosition.z + (mapBoundary * 2f);
-				itemToBeMoved.transform.position = objectPosition;
+				item.transform.position = objectPosition;
 			}
 		}
 

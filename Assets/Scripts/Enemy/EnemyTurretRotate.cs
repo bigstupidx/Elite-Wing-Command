@@ -7,6 +7,6 @@ public class EnemyTurretRotate : GenericTurretRotate
 
 	void Update()
 	{
-		ClosestTarget = GameObject.Find(enemyAI.ClosestTargetName);
+		ClosestTarget = enemyAI.ClosestTarget;
 	}
 }

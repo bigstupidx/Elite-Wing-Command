@@ -12,8 +12,21 @@ public class AllyVehicleMovement : GenericVehicleMovement
 
 	void Update()
 	{
-		ClosestTarget = GameObject.Find(allyAI.ClosestTargetName);
+		ClosestTarget = allyAI.ClosestTarget;
 		ClosestTargetDistance = allyAI.ClosestTargetDistance;
 		ClosestTargetID = allyAI.ClosestTargetID;
+	}
+
+	public override void Search()
+	{
+		if (MissionManagerScript != null)
+		{
+			if (MissionManagerScript.AllyObjectivesList.Count != 0)
+			{
+				int r = Random.Range(0, (MissionManagerScript.AllyObjectivesList.Count));
+				GameObject objectiveTarget = MissionManagerScript.AllyObjectivesList[r];
+				TargetPosition = objectiveTarget.transform.position;
+			}
+		}
 	}
 }

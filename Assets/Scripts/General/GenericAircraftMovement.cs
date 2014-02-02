@@ -6,11 +6,11 @@ public class GenericAircraftMovement : MonoBehaviour
 	[SerializeField] float engineForce = 25f;
 	[SerializeField] float aircraftEvasionDistance = 8f;
 	[SerializeField] float groundTargetEvasionDistance = 8f;
-	[SerializeField] bool isDefensiveAirUnit = false;
+	[SerializeField] float escortPerimeter = 50f;
+	//[SerializeField] bool isDefensiveAirUnit = false;
 	[SerializeField] float defensiveAirPerimeter = 25f;
 	MissionManager missionManager;
 	string objectiveTag;
-	float objectiveDistance;
 	GameObject closestTarget;
 	float closestTargetDistance;
 	string closestTargetID;
@@ -25,22 +25,31 @@ public class GenericAircraftMovement : MonoBehaviour
 	float randomEngineForce;
 	float angle;
 	Vector3 offset;
-	Vector2 targetXZPosition;
-	Vector2 unitXZPosition;
+	//Vector3 targetXZPosition;
+	//Vector2 unitXZPosition;
 	Vector3 randomPosition;
 	bool findRandomAngle = true;
+	public MissionManager MissionManagerScript { get { return missionManager; }}
 	public string ObjectiveTag { get { return objectiveTag; } set { objectiveTag = value; }}
 	public GameObject ClosestTarget { get { if (closestTarget != null) return closestTarget; else return null; } set { closestTarget = value; }}
 	public float ClosestTargetDistance { get { return closestTargetDistance; } set { closestTargetDistance = value; }}
 	public string ClosestTargetID { get { if (closestTarget != null) return closestTargetID; else return null; } set { closestTargetID = value; }}
 	public string EnemyTurretID { get { return enemyTurretID; } set { enemyTurretID = value; }}
 	public string EnemyVehicleID { get { return enemyVehicleID; } set { enemyVehicleID = value; }}
+	public Vector3 Offset { get { return offset; } set { offset = value; }}
+	public float EscortPerimeter { get { return escortPerimeter; }}
+	//public bool IsDefensiveAirUnit { get { return isDefensiveAirUnit; }}
+	public float DefensiveAirPerimeter { get { return defensiveAirPerimeter; }}
+	//public Vector3 TargetXZPosition { get { return targetXZPosition; } set { targetXZPosition = value; }}
+	//public Vector2 UnitXZPosition { get { return unitXZPosition; } set { unitXZPosition = value; }}
+	public Vector3 RandomPosition { get { return randomPosition; } set { randomPosition = value; }}
+	public bool FindRandomAngle { get { return findRandomAngle; } set { findRandomAngle = value; }}
 
 	void Start()
 	{
 		float forceRandomizer = Random.Range(0.9f, 1.1f);
 		randomEngineForce = engineForce * forceRandomizer;
-		randomPosition = new Vector3(0f, 0f, 0f);
+		RandomPosition = new Vector3(0f, 0f, 0f);
 
 		var missionManagerObject = GameObject.FindGameObjectWithTag("MissionManager");
 		
@@ -52,14 +61,14 @@ public class GenericAircraftMovement : MonoBehaviour
 	{
 		currentForce = Mathf.MoveTowards(currentForce, randomEngineForce * forceMultiplier, timeModifier * Time.fixedDeltaTime);
 		rigidbody.AddForce(transform.forward * currentForce, ForceMode.Acceleration);
-		angle = Mathf.Rad2Deg * Mathf.Atan2(offset.x, offset.z);
+		angle = Mathf.Rad2Deg * Mathf.Atan2(Offset.x, Offset.z);
 
 		if (ClosestTargetID == EnemyTurretID || ClosestTargetID == enemyVehicleID || ClosestTargetID == ObjectiveTag)
 			evasionDistance = groundTargetEvasionDistance;
 		else
 			evasionDistance = aircraftEvasionDistance;
 
-		if (Mathf.Abs(angle) > 3f && (ClosestTargetDistance > evasionDistance || objectiveDistance > evasionDistance))
+		if (Mathf.Abs(angle) > 3f && ClosestTargetDistance > evasionDistance)
 		{
 			rigidbody.AddTorque(Vector3.up * torqueModifier * Mathf.Sign(angle), ForceMode.VelocityChange);
 		}
@@ -74,53 +83,21 @@ public class GenericAircraftMovement : MonoBehaviour
 		if (ClosestTarget != null)
 		{
 			Vector3 targetPosition = ClosestTarget.transform.position;
-			offset = transform.InverseTransformPoint(targetPosition);
+			Offset = transform.InverseTransformPoint(targetPosition);
 		}
 		else
 			Search();
 	}
 
-	public void Search()
+	public virtual void Search()
 	{
-		if (missionManager != null)
-		{
-			if (missionManager.AllyObjectivesList.Count == 0)
-				return;
-
-			int r = Random.Range(0, (missionManager.AllyObjectivesList.Count));
-			string objectiveTarget = missionManager.AllyObjectivesList[r];
-			GameObject targetObject = GameObject.Find(objectiveTarget);
-			Vector3 targetPosition = targetObject.transform.position;
-			offset = transform.InverseTransformPoint(targetPosition);
-
-			if (isDefensiveAirUnit)
-			{
-				targetXZPosition = new Vector2(Random.Range(targetObject.transform.position.x - defensiveAirPerimeter, targetObject.transform.position.x - defensiveAirPerimeter), 
-				                               Random.Range(targetObject.transform.position.z - defensiveAirPerimeter, targetObject.transform.position.z - defensiveAirPerimeter));
-				unitXZPosition = new Vector2(transform.position.x, transform.position.z);
-			}
-			else
-			{
-				targetXZPosition = new Vector2(targetObject.transform.position.x, targetObject.transform.position.z);
-				unitXZPosition = new Vector2(transform.position.x, transform.position.z);
-			}
-			objectiveDistance = Vector2.Distance(targetXZPosition, unitXZPosition);
-			return;
-		}
-		else if (findRandomAngle == true)
-		{
-			findRandomAngle = false;
-			randomPosition = new Vector3(Random.Range(-90f, 90f), transform.position.y, Random.Range(-90f, 90f));
-			StartCoroutine(FindRandomAngleWait());
-		}
-
-		offset = transform.InverseTransformPoint(randomPosition);
+		Debug.LogError("Function should have override");
 	}
 
-	IEnumerator FindRandomAngleWait()
+	public IEnumerator FindRandomAngleWait()
 	{
 		float waitTime = Random.Range(1f, 5f);
 		yield return new WaitForSeconds(waitTime);
-		findRandomAngle = true;
+		FindRandomAngle = true;
 	}
 }

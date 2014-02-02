@@ -6,12 +6,21 @@ public class MapTurretMover : MonoBehaviour
 {
 	[SerializeField] float mapMaxX;
 	[SerializeField] float mapMaxZ;
+	GameObject playerAircraft;
 	Transform player;
 	Vector3 turretPosition;
 
 	void FixedUpdate()
 	{
-		GameObject playerAircraft = GameObject.Find("Player Aircraft");
+		GameObject[] allyAircrafts = GameObject.FindGameObjectsWithTag("Ally");
+	
+		foreach (GameObject aircraft in allyAircrafts)
+		{
+			ObjectIdentifier aircraftID = aircraft.GetComponent<ObjectIdentifier>();
+
+			if (aircraftID.ObjectType == "Player Aircraft")
+				playerAircraft = aircraft;
+		}
 
 		if (playerAircraft != null)
 		{

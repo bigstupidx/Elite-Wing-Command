@@ -26,14 +26,18 @@ public class MissionManager : MonoBehaviour
 	}
 	
 	[SerializeField] PlayerSpawner playerSpawner;
+	[SerializeField] float timerTime;
 	public MissionType missionType;
 	public MissionDifficulty missionDifficulty;
 	int missionDifficultyLevel;
 	public PlayerObjectivesType playerObjectivesType;
-	List<string> allyObjectivesInScene;
+	List<GameObject> allyObjectivesInScene;
+	List<GameObject> enemyObjectivesInScene;
 	bool gameOver = false;
+	bool timerComplete = false;
 	public int MissionDifficultyLevel { get { return missionDifficultyLevel; }}
-	public List<string> AllyObjectivesList { get { return allyObjectivesInScene; }}
+	public List<GameObject> AllyObjectivesList { get { return allyObjectivesInScene; }}
+	public List<GameObject> EnemyObjectivesList { get { return enemyObjectivesInScene; }}
 
 	void Start()
 	{
@@ -69,21 +73,23 @@ public class MissionManager : MonoBehaviour
 
 	void Update()
 	{
+		timerTime -= Time.deltaTime;
+
+		if (timerTime <= 0)
+			timerComplete = true;
+
 		if (!gameOver)
 		{
 			switch(playerObjectivesType.ToString())
 			{
 			case "Complete_Ally_Objectives":
-				if (AllyObjectivesList.Count > 0)
+				if (playerSpawner.GameOver)
 				{
-					if (playerSpawner.GameOver)
-					{
-						Debug.Log("GAME OVER");
-						StartCoroutine(LoadMenu());
-						gameOver = true;
-					}
+					Debug.Log("GAME OVER");
+					StartCoroutine(LoadMenu());
+					gameOver = true;
 				}
-				else
+				else if (AllyObjectivesList.Count == 0)
 				{
 					Debug.Log("MISSION COMPLETE");
 					StartCoroutine(LoadMenu());
@@ -91,10 +97,32 @@ public class MissionManager : MonoBehaviour
 				}
 				break;
 			case "Prevent_Enemy_Objectives":
-				Debug.Log("Mission Type: Base Defense");
+				if (EnemyObjectivesList.Count == 0 || playerSpawner.GameOver)
+				{
+					Debug.Log("GAME OVER");
+					StartCoroutine(LoadMenu());
+					gameOver = true;
+				}
+				else if (timerComplete)
+				{
+					Debug.Log("MISSION COMPLETE");
+					StartCoroutine(LoadMenu());
+					gameOver = true;
+				}
 				break;
 			case "Complete_and_Prevent":
-				Debug.Log("Mission Type: Base vs Base");
+				if (EnemyObjectivesList.Count == 0 || playerSpawner.GameOver)
+				{
+					Debug.Log("GAME OVER");
+					StartCoroutine(LoadMenu());
+					gameOver = true;
+				}
+				else if (AllyObjectivesList.Count == 0)
+				{
+					Debug.Log("MISSION COMPLETE");
+					StartCoroutine(LoadMenu());
+					gameOver = true;
+				}
 				break;
 			}
 		}
@@ -102,26 +130,49 @@ public class MissionManager : MonoBehaviour
 
 	void BaseAttack()
 	{
-		allyObjectivesInScene = new List<string>();
+		allyObjectivesInScene = new List<GameObject>();
 		GameObject[] objectives = GameObject.FindGameObjectsWithTag("AllyObjective");
 
 		if (objectives.Length > 0)
 		{
 			foreach (GameObject objective in objectives)
 			{
-				allyObjectivesInScene.Add(objective.transform.name);
+				allyObjectivesInScene.Add(objective);
 			}
 		}
 		else
 			Debug.LogError("No Ally Objectives!");
 
-		Debug.Log("Remaining Objectives: " + AllyObjectivesList.Count);
+		Debug.Log("Remaining Ally Objectives: " + AllyObjectivesList.Count);
+	}
+	void BaseDefense()
+	{
+		enemyObjectivesInScene = new List<GameObject>();
+		GameObject[] objectives = GameObject.FindGameObjectsWithTag("EnemyObjective");
+		
+		if (objectives.Length > 0)
+		{
+			foreach (GameObject objective in objectives)
+			{
+				enemyObjectivesInScene.Add(objective);
+			}
+		}
+		else
+			Debug.LogError("No Enemy Objectives!");
+		
+		Debug.Log("Remaining Enemy Objectives: " + EnemyObjectivesList.Count);
 	}
 
-	public void AllyObjectiveDestroyed(string objectiveName)
+	public void AllyObjectiveDestroyed(GameObject objectiveName)
 	{
 		allyObjectivesInScene.Remove(objectiveName);
 		Debug.Log("Remaining Ally Objectives: " + AllyObjectivesList.Count);
+	}
+
+	public void EnemyObjectiveDestroyed(GameObject objectiveName)
+	{
+		enemyObjectivesInScene.Remove(objectiveName);
+		Debug.Log("Remaining Enemy Objectives: " + EnemyObjectivesList.Count);
 	}
 
 	IEnumerator LoadMenu()

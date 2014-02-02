@@ -7,7 +7,6 @@ public class GenericVehicleMovement : MonoBehaviour
 	[SerializeField] float standoffRange = 10f;
 	MissionManager missionManager;
 	string objectiveTag;
-	GameObject targetObject;
 	float targetDistance;
 	GameObject closestTarget;
 	float closestTargetDistance;
@@ -17,6 +16,8 @@ public class GenericVehicleMovement : MonoBehaviour
 	Vector3 targetPosition;
 	Vector2 targetXZPosition;
 	Vector2 unitXZPosition;
+	public MissionManager MissionManagerScript { get { return missionManager; }}
+	public Vector3 TargetPosition { get { return targetPosition; } set { targetPosition = value; }}
 	public string ObjectiveTag { get { return objectiveTag; } set { objectiveTag = value; }}
 	public GameObject ClosestTarget { get { if (closestTarget != null) return closestTarget; else return null; } set { closestTarget = value; }}
 	public float ClosestTargetDistance { get { return closestTargetDistance; } set { closestTargetDistance = value; }}
@@ -42,7 +43,7 @@ public class GenericVehicleMovement : MonoBehaviour
 			unitXZPosition = new Vector2(transform.position.x, transform.position.z);
 			targetDistance = Vector2.Distance(targetXZPosition, unitXZPosition);
 
-			if (targetObject != null && targetDistance > standoffRange)
+			if (targetDistance > standoffRange)
 				navMeshAgent.SetDestination(targetPosition);
 			else
 				navMeshAgent.SetDestination(transform.position);
@@ -59,18 +60,8 @@ public class GenericVehicleMovement : MonoBehaviour
 			Search();
 	}
 
-	public void Search()
+	public virtual void Search()
 	{
-		if (missionManager != null)
-		{
-			if (missionManager.AllyObjectivesList.Count != 0)
-			{
-				int r = Random.Range(0, (missionManager.AllyObjectivesList.Count));
-				string objectiveTarget = missionManager.AllyObjectivesList[r];
-				targetObject = GameObject.Find(objectiveTarget);
-				targetPosition = targetObject.transform.position;
-			}
-
-		}
+		Debug.LogError("Search should have override");
 	}
 }
