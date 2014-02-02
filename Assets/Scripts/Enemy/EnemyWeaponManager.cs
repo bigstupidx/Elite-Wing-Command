@@ -4,16 +4,24 @@ using System.Collections;
 public class EnemyWeaponManager : GenericWeaponManager
 {
 	[SerializeField] EnemyAI enemyAI;
-
+	[SerializeField] bool unitNeedsClearShot = false;
+	
 	void Start()
 	{
-		EnemyTurretID = enemyAI.TargetTurretID;
-		EnemyVehicleID = enemyAI.TargetVehicleID;
+		StartCoroutine(EnemyTargeting());
 	}
-
-	void FixedUpdate()
+	
+	IEnumerator EnemyTargeting()
 	{
-		ClosestTarget = GameObject.Find(enemyAI.ClosestTargetName);
-		ClosestTargetID = enemyAI.ClosestTargetID;
+		while (true)
+		{
+			ObjectiveTag = enemyAI.ObjectiveTag;
+			EnemyTurretID = enemyAI.TargetTurretID;
+			EnemyVehicleID = enemyAI.TargetVehicleID;
+			ClosestTarget = GameObject.Find(enemyAI.ClosestTargetName);
+			ClosestTargetID = enemyAI.ClosestTargetID;
+			NeedsClearShot = unitNeedsClearShot;
+			yield return new WaitForSeconds(0.5f);
+		}
 	}
 }

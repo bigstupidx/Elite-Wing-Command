@@ -4,7 +4,9 @@ using System.Collections;
 public class GenericAI : MonoBehaviour
 {
 	[SerializeField] float sightDistance = 32f;
+	[SerializeField] bool isAirUnit = false;
 	[SerializeField] bool isGroundUnit = false;
+	[SerializeField] bool isStationaryUnit = false;
 	[SerializeField] bool attackAirUnits = true;
 	[SerializeField] bool attackGroundUnits = true;
 	GameObject closestTarget;
@@ -20,7 +22,9 @@ public class GenericAI : MonoBehaviour
 	ObjectType objectType;
 	ObjectIdentifier objectID;
 	public float SightDistance { get { return sightDistance; }}
+	public bool IsAirUnit { get { return isAirUnit; }}
 	public bool IsGroundUnit { get { return isGroundUnit; }}
+	public bool IsStationaryUnit { get { return isStationaryUnit; }}
 	public bool AttackAirUnits { get { return attackAirUnits; }}
 	public bool AttackGroundUnits { get { return attackGroundUnits; }}
 	public GameObject ClosestTarget { get { if (closestTarget != null) return closestTarget; else return null; } set { closestTarget = value; }}
@@ -36,7 +40,7 @@ public class GenericAI : MonoBehaviour
 	{
 		while (true)
 		{
-			Collider[] objectsInRange = Physics.OverlapSphere(transform.position, sightDistance);
+			Collider[] objectsInRange = Physics.OverlapSphere(transform.position, SightDistance);
 			int airTargets = 0;
 			int groundTargets = 0;
 			int objectiveTargets = 0;
@@ -111,7 +115,7 @@ public class GenericAI : MonoBehaviour
 
 			if (groundTargets != 0 && airTargets <= 4)
 			{
-				closestTarget = closestGroundTarget;
+				ClosestTarget = closestGroundTarget;
 				closestTargetDistance = closestGroundTargetDistance;
 
 				if (objectID != null)
@@ -119,7 +123,7 @@ public class GenericAI : MonoBehaviour
 			}
 			else if (airTargets != 0)
 			{
-				closestTarget = closestAirTarget;
+				ClosestTarget = closestAirTarget;
 				closestTargetDistance = closestAirTargetDistance;
 
 				if (objectID != null)
@@ -127,7 +131,7 @@ public class GenericAI : MonoBehaviour
 			}
 			else if (objectiveTargets != 0)
 			{
-				closestTarget = closestObjectiveTarget;
+				ClosestTarget = closestObjectiveTarget;
 				closestTargetDistance = closestObjectiveTargetDistance;
 
 				if (objectID != null)
@@ -135,7 +139,7 @@ public class GenericAI : MonoBehaviour
 			}
 			else
 			{
-				closestTarget = null;
+				ClosestTarget = null;
 				closestTargetDistance = 100f;
 				closestTargetID = null;
 			}

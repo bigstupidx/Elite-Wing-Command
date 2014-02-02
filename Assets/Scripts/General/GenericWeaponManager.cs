@@ -18,12 +18,14 @@ public class GenericWeaponManager : MonoBehaviour
 	string closestTargetID;
 	string enemyTurretID;
 	string enemyVehicleID;
+	bool needsClearShot;
 	bool canShoot = true;
 	public string ObjectiveTag { get { return objectiveTag; } set { objectiveTag = value; }}
 	public GameObject ClosestTarget { get { if (closestTarget != null) return closestTarget; else return null; } set { closestTarget = value; }}
 	public string ClosestTargetID { get { if (closestTarget != null) return closestTargetID; else return null; } set { closestTargetID = value; }}
 	public string EnemyTurretID { get { return enemyTurretID; } set { enemyTurretID = value; }}
 	public string EnemyVehicleID { get { return enemyVehicleID; } set { enemyVehicleID = value; }}
+	public bool NeedsClearShot { get { return needsClearShot; } set { needsClearShot = value; }}
 
 	void Update()
 	{
@@ -43,6 +45,17 @@ public class GenericWeaponManager : MonoBehaviour
 			{
 				if (canShoot && Vector3.Dot(forward, normalizedToOther) > groundAttackWidth && distance < groundAttackDistance)
 				{
+					if (NeedsClearShot)
+					{
+						RaycastHit hit;
+
+						if (Physics.Linecast(transform.position, ClosestTarget.transform.position, out hit))
+						{
+							if (hit.transform.name != ClosestTarget.transform.name)
+								return;
+						}
+					}
+
 					StartCoroutine(GroundFireControl());
 					canShoot = false;
 				}

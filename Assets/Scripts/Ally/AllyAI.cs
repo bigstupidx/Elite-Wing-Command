@@ -4,6 +4,7 @@ using System.Collections;
 public class AllyAI : GenericAI
 {
 	AllyAircraftMovement allyAircraftMovement;
+	AllyVehicleMovement allyVehicleMovement;
 	string objectiveTarget;
 
 	void Start()
@@ -14,26 +15,43 @@ public class AllyAI : GenericAI
 		TargetVehicleID = "Enemy Vehicle";
 		StartCoroutine(FindClosestTarget());
 
-		if (!IsGroundUnit)
+		if (IsAirUnit)
 		{
-			allyAircraftMovement = transform.root.GetComponent<AllyAircraftMovement>();
+			allyAircraftMovement = transform.GetComponent<AllyAircraftMovement>();
 			allyAircraftMovement.EnemyTurretID = TargetTurretID;
 			allyAircraftMovement.EnemyVehicleID = TargetVehicleID;
+		}
+		else if (IsGroundUnit && !IsStationaryUnit)
+		{
+			allyVehicleMovement = transform.GetComponent<AllyVehicleMovement>();
+			allyVehicleMovement.EnemyTurretID = TargetTurretID;
+			allyVehicleMovement.EnemyVehicleID = TargetVehicleID;
 		}
 	}
 
 	void Update()
 	{
-		if (IsGroundUnit)
-			return;
-
-		if (ClosestTarget != null && ClosestTargetDistance <= SightDistance)
+		if(IsAirUnit)
 		{
-			allyAircraftMovement.Engage();
+			if (ClosestTarget != null)
+			{
+				allyAircraftMovement.Engage();
+			}
+			else
+			{
+				allyAircraftMovement.Search();
+			}
 		}
-		else
+		else if (IsGroundUnit)
 		{
-			allyAircraftMovement.Search();
+			if (ClosestTarget != null)
+			{
+				allyVehicleMovement.Engage();
+			}
+			else
+			{
+				allyVehicleMovement.Search();
+			}
 		}
 	}
 }

@@ -9,25 +9,48 @@ public class GenericTurretRotate : MonoBehaviour
 	Transform targetTransform;
 	Vector3 dir;
 	Quaternion rot;
+	bool needsClearShot;
 	public GameObject ClosestTarget { get { if (closestTarget != null) return closestTarget; else return null; } set { closestTarget = value; }}
+	public bool NeedsClearShot { get { return needsClearShot; } set { needsClearShot = value; }}
 
 	void FixedUpdate()
 	{
 		if (ClosestTarget != null)
 		{
-			targetTransform = closestTarget.transform;
-			dir = targetTransform.position - transform.position;
-			dir.y = 0;
-			rot = Quaternion.LookRotation(dir);
-			transform.rotation = Quaternion.Slerp(transform.rotation, rot, turnSpeed * Time.fixedDeltaTime);
+			if (NeedsClearShot)
+			{
+				RaycastHit hit;
+				
+				if (Physics.Linecast(transform.position, ClosestTarget.transform.position, out hit))
+				{
+					if (hit.transform.name == ClosestTarget.transform.name)
+						RotationSet();
+				}
+			}
+			else if (rotationReset != null)
+				RotationReset();
+			else
+				RotationSet();
 		}
 		else if (rotationReset != null)
-		{
-			targetTransform = rotationReset;
-			dir = targetTransform.position - transform.position;
-			dir.y = 0;
-			rot = Quaternion.LookRotation(dir);
-			transform.rotation = Quaternion.Slerp(transform.rotation, rot, turnSpeed * Time.fixedDeltaTime);
-		}
+			RotationReset();
+	}
+
+	void RotationSet()
+	{
+		targetTransform = closestTarget.transform;
+		dir = targetTransform.position - transform.position;
+		dir.y = 0;
+		rot = Quaternion.LookRotation(dir);
+		transform.rotation = Quaternion.Slerp(transform.rotation, rot, turnSpeed * Time.deltaTime);
+	}
+
+	void RotationReset()
+	{
+		targetTransform = rotationReset;
+		dir = targetTransform.position - transform.position;
+		dir.y = 0;
+		rot = Quaternion.LookRotation(dir);
+		transform.rotation = Quaternion.Slerp(transform.rotation, rot, turnSpeed * Time.deltaTime);
 	}
 }

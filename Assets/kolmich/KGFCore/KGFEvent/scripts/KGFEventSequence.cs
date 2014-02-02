@@ -230,12 +230,8 @@ public class KGFEventSequence : KGFEventBase, KGFIValidator
 	{
 		// reset counter
 		itsEventDoneCounter = 0;
-		
-		#if UNITY_4_0
+
 		if (gameObject.activeSelf)
-		#else
-		if (gameObject.active)
-		#endif
 		{
 			itsEventSequenceRunning = true;
 			KGFEvent.LogDebug("Start: "+gameObject.name,itsEventCategory,this);

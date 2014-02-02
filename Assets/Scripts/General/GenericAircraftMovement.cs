@@ -84,8 +84,8 @@ public class GenericAircraftMovement : MonoBehaviour
 	{
 		if (missionManager != null)
 		{
-			int r = Random.Range(0, (missionManager.AllyObjectivesList.Count - 1));
-			string objectiveTarget = missionManager.AllyObjectivesList[r]; //Currently throws error when all objectives destroyed
+			int r = Random.Range(0, (missionManager.AllyObjectivesList.Count));
+			string objectiveTarget = missionManager.AllyObjectivesList[r];
 			GameObject targetObject = GameObject.Find(objectiveTarget);
 			Vector3 targetPosition = targetObject.transform.position;
 			offset = transform.InverseTransformPoint(targetPosition);

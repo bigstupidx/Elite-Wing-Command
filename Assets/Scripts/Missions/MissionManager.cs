@@ -11,6 +11,13 @@ public class MissionManager : MonoBehaviour
 		Base_vs_Base
 	}
 
+	public enum MissionDifficulty
+	{
+		Easy,
+		Medium,
+		Hard
+	}
+
 	public enum PlayerObjectivesType
 	{
 		Complete_Ally_Objectives,
@@ -20,9 +27,12 @@ public class MissionManager : MonoBehaviour
 	
 	[SerializeField] PlayerSpawner playerSpawner;
 	public MissionType missionType;
+	public MissionDifficulty missionDifficulty;
+	int missionDifficultyLevel;
 	public PlayerObjectivesType playerObjectivesType;
 	List<string> allyObjectivesInScene;
 	bool gameOver = false;
+	public int MissionDifficultyLevel { get { return missionDifficultyLevel; }}
 	public List<string> AllyObjectivesList { get { return allyObjectivesInScene; }}
 
 	void Start()
@@ -37,6 +47,22 @@ public class MissionManager : MonoBehaviour
 			break;
 		case "Base_vs_Base":
 			Debug.Log("Mission Type: Base vs Base");
+			break;
+		}
+
+		switch(missionDifficulty.ToString())
+		{
+		case "Easy":
+			Debug.Log("Mission Difficulty: Easy");
+			missionDifficultyLevel = 1;
+			break;
+		case "Medium":
+			Debug.Log("Mission Difficulty: Medium");
+			missionDifficultyLevel = 2;
+			break;
+		case "Hard":
+			Debug.Log("Mission Difficulty: Hard");
+			missionDifficultyLevel = 3;
 			break;
 		}
 	}
@@ -95,7 +121,7 @@ public class MissionManager : MonoBehaviour
 	public void AllyObjectiveDestroyed(string objectiveName)
 	{
 		allyObjectivesInScene.Remove(objectiveName);
-		Debug.Log("Remaining Objectives: " + AllyObjectivesList.Count);
+		Debug.Log("Remaining Ally Objectives: " + AllyObjectivesList.Count);
 	}
 
 	IEnumerator LoadMenu()

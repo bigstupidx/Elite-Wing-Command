@@ -3,12 +3,12 @@ using System.Collections;
 
 public class DisableTurretArcadeScripts : MonoBehaviour
 {
-	[SerializeField] bool isMission = false;
 	[SerializeField] MapTurretMover mapTurretMover;
+	public bool IsMission { get; set; }
 
-	void Awake()
+	void Start()
 	{
-		if (isMission && mapTurretMover != null)
+		if (IsMission && mapTurretMover != null)
 			mapTurretMover.enabled = false;
 	}
 

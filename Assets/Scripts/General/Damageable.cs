@@ -3,10 +3,9 @@ using System.Collections;
 
 public class Damageable : MonoBehaviour
 {
-	[SerializeField] MissionManager missionManager;
-	[SerializeField] Collider damageableCollider;
 	[SerializeField] float initialHealth;
 	[SerializeField] ObjectIdentifier objectIdentifier;
+	MissionManager missionManager;
 	GameObject spawner;
 	Vector3 correctedPos;
 	public float InitialHealth { get { return initialHealth; }}
@@ -16,6 +15,11 @@ public class Damageable : MonoBehaviour
 	void Start()
 	{
 		Health = InitialHealth;
+
+		var missionManagerObject = GameObject.FindGameObjectWithTag("MissionManager");
+		
+		if (missionManagerObject != null)
+			missionManager = missionManagerObject.GetComponent<MissionManager>();
 	}
 
 	public void AddHealth(float amount)
@@ -51,11 +55,17 @@ public class Damageable : MonoBehaviour
 			playerSpawner.PlayerDeath();
 			Destroy(objectIdentifier.transform.gameObject);
 			return;
+		case "Ally Objective":
+			missionManager.AllyObjectiveDestroyed(objectIdentifier.transform.name);
+			Destroy(objectIdentifier.transform.gameObject);
+			return;
 		case "Ally Aircraft":
 			spawner = GameObject.Find("Ally Aircraft Spawner");
 			break;
-		case "Ally Objective":
-			missionManager.AllyObjectiveDestroyed(objectIdentifier.transform.name);
+		case "Ally Vehicle":
+			spawner = GameObject.Find("Ally Tank Spawner");
+			break;
+		case "Ally Turret":
 			Destroy(objectIdentifier.transform.gameObject);
 			return;
 		case "Enemy Aircraft Easy":
@@ -76,10 +86,10 @@ public class Damageable : MonoBehaviour
 		case "Enemy Defensive Aircraft Hard":
 			spawner = GameObject.Find("Enemy Defensive Aircraft Hard Spawner");
 			break;
+		case "Enemy Vehicle":
+			spawner = GameObject.Find("Enemy Tank Spawner");
+			break;
 		case "Enemy Turret":
-			Destroy(objectIdentifier.transform.gameObject);
-			return;
-		case "Enemy Missile Battery":
 			Destroy(objectIdentifier.transform.gameObject);
 			return;
 		default:

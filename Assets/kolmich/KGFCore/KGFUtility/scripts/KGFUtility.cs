@@ -256,11 +256,7 @@ public static class KGFUtility : System.Object
 		{
 			//TODO: maybe do something like ignore all object_scripts
 			//if (aChildTransform.GetComponent<sound_audiosource_script>() == null)
-			#if UNITY_4_0
 			aChildTransform.gameObject.SetActive(theActive);
-			#else
-			aChildTransform.gameObject.SetActiveRecursively(theActive);
-			#endif
 		}
 	}
 

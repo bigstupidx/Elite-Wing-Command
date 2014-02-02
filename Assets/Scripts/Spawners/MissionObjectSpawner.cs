@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -25,7 +25,7 @@ public class MissionObjectSpawner : ObjectSpawner
 
 		if (missionManager != null)
 		{
-			spawnPosition = new Vector3(Random.Range(spawnLocation.x - 20f, spawnLocation.x + 20f), yPos, Random.Range(spawnLocation.z - 20f, spawnLocation.z + 20f));
+			spawnPosition = new Vector3(Random.Range(spawnLocation.x - 30f, spawnLocation.x + 30f), yPos, Random.Range(spawnLocation.z - 30f, spawnLocation.z + 30f));
 			spawnRotation = transform.rotation;
 		}
 		else
@@ -34,8 +34,8 @@ public class MissionObjectSpawner : ObjectSpawner
 			spawnRotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
 		}
 
-		var unitClone = Instantiate(TargetPrefab, spawnPosition, spawnRotation);
-		unitClone.name = TargetPrefab.name + " " + NextNameNumber;
+		var unitClone = Instantiate(UnitPrefab, spawnPosition, spawnRotation);
+		unitClone.name = UnitPrefab.name + " " + NextNameNumber;
 		UnitsInScene.Add(unitClone.name);
 		NextNameNumber++;
 	}

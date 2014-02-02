@@ -27,21 +27,13 @@ public class KGFMapSystem : KGFModule, KGFICustomGUI, KGFIValidator
 	{
 		if (theGameObject == null)
 			return;
-		
-		#if UNITY_4_0
+
 		theGameObject.SetActive(theActive);
-		#else
-		theGameObject.SetActiveRecursively(theActive);
-		#endif
 	}
 	
 	public static bool KGFGetActive(GameObject theGameObject)
 	{
-		#if UNITY_4_0
 		return theGameObject.activeSelf;
-		#else
-		return theGameObject.active;
-		#endif
 	}
 	
 	public class KGFPhotoData
