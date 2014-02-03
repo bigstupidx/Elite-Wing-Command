@@ -41,25 +41,26 @@ public class GenericAI : MonoBehaviour
 		while (true)
 		{
 			Collider[] objectsInRange = Physics.OverlapSphere(transform.position, SightDistance);
-			int airTargets = 0;
+			float distance = SightDistance * 10f;
 			int groundTargets = 0;
+			int airTargets = 0;
 			int objectiveTargets = 0;
-			float closestAirTargetDistance = 100f;
-			float closestGroundTargetDistance = 100f;
-			float closestObjectiveTargetDistance = 100f;
+			float closestAirTargetDistance = SightDistance * 10f;
+			float closestGroundTargetDistance = SightDistance * 10f;
+			float closestObjectiveTargetDistance = SightDistance * 10f;
 
 			if (objectsInRange != null)
 			{
 				foreach (var target in objectsInRange)
 				{
-					GameObject targetObject = target.transform.gameObject;
+					GameObject targetObject = target.gameObject;
 					
 					if (targetObject.transform.tag == TargetTag || targetObject.transform.tag == ObjectiveTag)
 					{
 						objectType = targetObject.transform.GetComponent<ObjectType>();
 						Vector2 targetXZPosition = new Vector2(targetObject.transform.position.x, targetObject.transform.position.z);
 						Vector2 unitXZPosition = new Vector2(transform.position.x, transform.position.z);
-						float distance = Vector2.Distance(targetXZPosition, unitXZPosition);
+						distance = Vector2.Distance(targetXZPosition, unitXZPosition);
 
 						if (AttackGroundUnits && objectType != null && objectType.IsGroundUnit)
 						{
@@ -86,7 +87,6 @@ public class GenericAI : MonoBehaviour
 						}
 						else if (AttackAirUnits && objectType != null && objectType.IsAirUnit)
 						{
-							Debug.Log("SHOULD NEVER REACH HERE");
 							if (targetObject.transform.tag == ObjectiveTag)
 							{
 								objectiveTargets++;
@@ -104,44 +104,43 @@ public class GenericAI : MonoBehaviour
 								if (distance < closestAirTargetDistance)
 								{
 									closestAirTargetDistance = distance;
-									closestAirTarget = targetObject;
+									closestAirTarget = target.gameObject;
 								}
 							}
 						}
-
 					}
 				}
-			}
 
-			if (groundTargets != 0 && airTargets <= 2)
-			{
-				ClosestTarget = closestGroundTarget;
-				ClosestTargetDistance = closestGroundTargetDistance;
-				objectID = ClosestTarget.GetComponent<ObjectIdentifier>();
-				ClosestTargetID = objectID.ObjectType;
+				if (groundTargets > 0 && airTargets <= 6)
+				{
+					ClosestTarget = closestGroundTarget;
+					ClosestTargetDistance = closestGroundTargetDistance;
+					objectID = ClosestTarget.GetComponent<ObjectIdentifier>();
+					ClosestTargetID = objectID.ObjectType;
+				}
+				else if (airTargets > 0)
+				{
+					ClosestTarget = closestAirTarget;
+					ClosestTargetDistance = closestAirTargetDistance;
+					objectID = ClosestTarget.GetComponent<ObjectIdentifier>();
+					ClosestTargetID = objectID.ObjectType;
+				}
+				else if (objectiveTargets > 0)
+				{
+					ClosestTarget = closestObjectiveTarget;
+					ClosestTargetDistance = closestObjectiveTargetDistance;
+					objectID = ClosestTarget.GetComponent<ObjectIdentifier>();
+					ClosestTargetID = objectID.ObjectType;
+				}
+				else
+				{
+					ClosestTarget = null;
+					ClosestTargetDistance = 100f;
+					ClosestTargetID = null;
+				}
+				
+				yield return new WaitForSeconds(1.0f);
 			}
-			else if (airTargets != 0)
-			{
-				ClosestTarget = closestAirTarget;
-				ClosestTargetDistance = closestAirTargetDistance;
-				objectID = ClosestTarget.GetComponent<ObjectIdentifier>();
-				ClosestTargetID = objectID.ObjectType;
-			}
-			else if (objectiveTargets != 0)
-			{
-				ClosestTarget = closestObjectiveTarget;
-				ClosestTargetDistance = closestObjectiveTargetDistance;
-				objectID = ClosestTarget.GetComponent<ObjectIdentifier>();
-				ClosestTargetID = objectID.ObjectType;
-			}
-			else
-			{
-				ClosestTarget = null;
-				ClosestTargetDistance = 100f;
-				ClosestTargetID = null;
-			}
-			
-			yield return new WaitForSeconds(1.0f);
 		}
 	}
 }
