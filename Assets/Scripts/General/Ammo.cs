@@ -24,7 +24,7 @@ public class Ammo : MonoBehaviour
 	
 	void OnTriggerEnter(Collider other)
 	{
-		if (other.transform.tag != "CollectionArea" && other.transform.root.tag != "Weapon" && other.transform.root.tag != ammoSource)
+		if (other.tag != "CollectionArea" && other.tag != "MapBoundary" && other.tag != "Weapon" && other.tag != ammoSource)
 			Destroy(gameObject);
 
 		var hit = other.transform.GetComponentInChildren<Damageable>();
