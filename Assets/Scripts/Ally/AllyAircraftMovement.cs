@@ -50,7 +50,7 @@ public class AllyAircraftMovement : GenericAircraftMovement
 				                                     Random.Range(closestAllyVehicle.transform.position.z - EscortPerimeter, closestAllyVehicle.transform.position.z + EscortPerimeter));
 				Offset = transform.InverseTransformPoint(targetPosition);
 			}
-			else if (MissionManagerScript.AllyObjectivesList.Count != 0)
+			else if (MissionManagerScript.EnemyObjectivesList != null && MissionManagerScript.EnemyObjectivesList.Count != 0)
 			{
 				GameObject[] enemyObjectives = GameObject.FindGameObjectsWithTag("EnemyObjective");
 

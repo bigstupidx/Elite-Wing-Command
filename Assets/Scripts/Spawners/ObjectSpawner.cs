@@ -13,7 +13,7 @@ public class ObjectSpawner : MonoBehaviour
 	int squadSpawnSize;
 	bool spawnGroundUnit = false;
 	int respawnNumber;
-	int respawnSquadCount;
+	int respawnSquadCount = 1;
 	bool canSpawn = true;
 	int nextNameNumber = 1;
 	List<string> unitsInScene;
@@ -45,10 +45,10 @@ public class ObjectSpawner : MonoBehaviour
 	
 	void Update()
 	{
+		int totalUnitCount = UnitsInScene.Count;
+
 		if (canSpawn)
 		{
-			int totalUnitCount = UnitsInScene.Count;
-
 			if (totalUnitCount < MaxInGame)
 				SpawnUnit();
 			else
@@ -58,9 +58,10 @@ public class ObjectSpawner : MonoBehaviour
 
 	public virtual void SpawnUnit()
 	{
-		respawnNumber++;
 		if (respawnNumber > TotalRespawns)
 			return;
+
+		respawnNumber++;
 
 		if (SpawnGroundUnit)
 			yPos = -7.5f;
@@ -82,11 +83,13 @@ public class ObjectSpawner : MonoBehaviour
 		if (SquadSpawn)
 		{
 			if (respawnSquadCount < SquadSpawnSize)
+			{
 				respawnSquadCount++;
+			}
 			else
 			{
 				canSpawn = true;
-				respawnSquadCount = 0;
+				respawnSquadCount = 1;
 			}
 		}
 		else

@@ -47,10 +47,11 @@ public class MissionManager : MonoBehaviour
 			BaseAttack();
 			break;
 		case "Base_Defense":
-			Debug.Log("Mission Type: Base Defense");
+			BaseDefense();
 			break;
 		case "Base_vs_Base":
-			Debug.Log("Mission Type: Base vs Base");
+			Debug.Log("THIS FUNCTION NEEDS TO BE MADE AND CALLED!!!!");
+			//BaseVsBase();
 			break;
 		}
 
@@ -75,8 +76,14 @@ public class MissionManager : MonoBehaviour
 	{
 		timerTime -= Time.deltaTime;
 
+//		if (missionType.ToString() == "Base_Defense" && timerTime > 0)
+//			Debug.Log(timerTime);
+
 		if (timerTime <= 0)
+		{
 			timerComplete = true;
+			Debug.Log("Timer Complete: " + timerComplete);
+		}
 
 		if (!gameOver)
 		{

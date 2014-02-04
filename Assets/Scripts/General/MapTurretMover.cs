@@ -18,7 +18,7 @@ public class MapTurretMover : MonoBehaviour
 		{
 			ObjectIdentifier aircraftID = aircraft.GetComponent<ObjectIdentifier>();
 
-			if (aircraftID.ObjectType == "Player Aircraft")
+			if (aircraftID != null && aircraftID.ObjectType == "Player Aircraft")
 				playerAircraft = aircraft;
 		}
 

@@ -7,10 +7,10 @@ public class AllyTurretRotate : GenericTurretRotate
 
 	void Start()
 	{
-		if (allyAI.IsGroundUnit)
-			NeedsClearShot = true;
-		else
-			NeedsClearShot = false;
+		AllyWeaponManager allyWeaponManager = transform.GetComponent<AllyWeaponManager>();
+
+		if (allyWeaponManager != null)
+			NeedsClearShot = allyWeaponManager.NeedsClearShot;
 	}
 
 	void Update()

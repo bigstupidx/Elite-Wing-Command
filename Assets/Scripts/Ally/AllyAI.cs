@@ -42,7 +42,7 @@ public class AllyAI : GenericAI
 				allyAircraftMovement.Search();
 			}
 		}
-		else if (IsGroundUnit)
+		else if (IsGroundUnit && !IsStationaryUnit)
 		{
 			if (ClosestTarget != null)
 			{

@@ -21,7 +21,7 @@ public class AllyVehicleMovement : GenericVehicleMovement
 	{
 		if (MissionManagerScript != null)
 		{
-			if (MissionManagerScript.AllyObjectivesList.Count != 0)
+			if (MissionManagerScript.AllyObjectivesList != null && MissionManagerScript.AllyObjectivesList.Count != 0)
 			{
 				int r = Random.Range(0, (MissionManagerScript.AllyObjectivesList.Count));
 				GameObject objectiveTarget = MissionManagerScript.AllyObjectivesList[r];

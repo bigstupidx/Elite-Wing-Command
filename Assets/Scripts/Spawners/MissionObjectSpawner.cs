@@ -15,10 +15,11 @@ public class MissionObjectSpawner : ObjectSpawner
 
 	public override void SpawnUnit()
 	{
-		RespawnNumber++;
 		if (RespawnNumber > TotalRespawns)
 			return;
 		
+		RespawnNumber++;
+
 		if (SpawnGroundUnit)
 			yPos = -7.5f;
 

@@ -6,14 +6,19 @@ public class EnemyAircraftMovement : GenericAircraftMovement
 	[SerializeField] EnemyAI enemyAI;
 	GameObject closestEnemyVehicle;
 	float closestEnemyDistance;
-
+	
+	void Awake()
+	{
+		ObjectiveTag = enemyAI.ObjectiveTag;
+	}
+	
 	void Update()
 	{
 		ClosestTarget = enemyAI.ClosestTarget;
 		ClosestTargetDistance = enemyAI.ClosestTargetDistance;
 		ClosestTargetID = enemyAI.ClosestTargetID;
 	}
-
+	
 	public override void Search()
 	{
 		if (MissionManagerScript != null)
@@ -38,21 +43,25 @@ public class EnemyAircraftMovement : GenericAircraftMovement
 					}
 				}
 			}
-
+			
 			if (closestEnemyVehicle != null)
 			{
 				Vector3 targetPosition = new Vector2(Random.Range(closestEnemyVehicle.transform.position.x - EscortPerimeter, closestEnemyVehicle.transform.position.x + EscortPerimeter), 
 				                                     Random.Range(closestEnemyVehicle.transform.position.z - EscortPerimeter, closestEnemyVehicle.transform.position.z + EscortPerimeter));
 				Offset = transform.InverseTransformPoint(targetPosition);
 			}
-			else if (MissionManagerScript.AllyObjectivesList.Count != 0)
+			else if (MissionManagerScript.AllyObjectivesList != null && MissionManagerScript.AllyObjectivesList.Count != 0)
 			{
 				GameObject[] allyObjectives = GameObject.FindGameObjectsWithTag("AllyObjective");
-				GameObject targetObject = allyObjectives[Random.Range(0, allyObjectives.Length)];
-				Vector3 targetPosition = new Vector3(Random.Range(targetObject.transform.position.x - DefensiveAirPerimeter, targetObject.transform.position.x + DefensiveAirPerimeter), 0, 
-				                               Random.Range(targetObject.transform.position.z - DefensiveAirPerimeter, targetObject.transform.position.z + DefensiveAirPerimeter));
-				Offset = transform.InverseTransformPoint(targetPosition);
-				return;
+				
+				if (allyObjectives.Length > 0)
+				{
+					GameObject targetObject = allyObjectives[Random.Range(0, allyObjectives.Length)];
+					Vector3 targetPosition = new Vector3(Random.Range(targetObject.transform.position.x - DefensiveAirPerimeter, targetObject.transform.position.x + DefensiveAirPerimeter), 0, 
+					                                     Random.Range(targetObject.transform.position.z - DefensiveAirPerimeter, targetObject.transform.position.z + DefensiveAirPerimeter));
+					Offset = transform.InverseTransformPoint(targetPosition);
+					return;
+				}
 			}
 			
 		}

@@ -21,7 +21,7 @@ public class EnemyVehicleMovement : GenericVehicleMovement
 	{
 		if (MissionManagerScript != null)
 		{
-			if (MissionManagerScript.EnemyObjectivesList.Count != 0)
+			if (MissionManagerScript.EnemyObjectivesList != null && MissionManagerScript.EnemyObjectivesList.Count != 0)
 			{
 				int r = Random.Range(0, (MissionManagerScript.EnemyObjectivesList.Count));
 				GameObject objectiveTarget = MissionManagerScript.EnemyObjectivesList[r];

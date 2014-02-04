@@ -4,35 +4,54 @@ using System.Collections;
 public class EnemyAI : GenericAI
 {
 	EnemyAircraftMovement enemyAircraftMovement;
+	EnemyVehicleMovement enemyVehicleMovement;
+	string objectiveTarget;
 	
 	void Start()
 	{
+		ObjectiveTag = "EnemyObjective";
 		TargetTag = "Ally";
 		TargetTurretID = "Ally Turret";
 		TargetVehicleID = "Ally Vehicle";
 		StartCoroutine(FindClosestTarget());
 
-		if (!IsGroundUnit)
+		if (IsAirUnit)
 		{
-			enemyAircraftMovement = transform.root.GetComponent<EnemyAircraftMovement>();
+			enemyAircraftMovement = transform.GetComponent<EnemyAircraftMovement>();
 			enemyAircraftMovement.EnemyTurretID = TargetTurretID;
 			enemyAircraftMovement.EnemyVehicleID = TargetVehicleID;
+		}
+		else if (IsGroundUnit && !IsStationaryUnit)
+		{
+			enemyVehicleMovement = transform.GetComponent<EnemyVehicleMovement>();
+			enemyVehicleMovement.EnemyTurretID = TargetTurretID;
+			enemyVehicleMovement.EnemyVehicleID = TargetVehicleID;
 		}
 	}
 
 	void Update()
 	{
-		if (IsGroundUnit)
-			return;
-		
-		if (ClosestTarget != null && ClosestTargetDistance <= SightDistance)
+		if(IsAirUnit)
 		{
-			enemyAircraftMovement.Engage();
+			if (ClosestTarget != null)
+			{
+				enemyAircraftMovement.Engage();
+			}
+			else
+			{
+				enemyAircraftMovement.Search();
+			}
 		}
-		else
+		else if (IsGroundUnit && !IsStationaryUnit)
 		{
-			enemyAircraftMovement.Search();
+			if (ClosestTarget != null)
+			{
+				enemyVehicleMovement.Engage();
+			}
+			else
+			{
+				enemyVehicleMovement.Search();
+			}
 		}
-
 	}
 }
