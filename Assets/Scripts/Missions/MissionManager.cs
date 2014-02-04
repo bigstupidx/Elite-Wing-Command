@@ -80,10 +80,7 @@ public class MissionManager : MonoBehaviour
 //			Debug.Log(timerTime);
 
 		if (timerTime <= 0)
-		{
 			timerComplete = true;
-			Debug.Log("Timer Complete: " + timerComplete);
-		}
 
 		if (!gameOver)
 		{
