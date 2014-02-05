@@ -50,8 +50,7 @@ public class MissionManager : MonoBehaviour
 			BaseDefense();
 			break;
 		case "Base_vs_Base":
-			Debug.Log("THIS FUNCTION NEEDS TO BE MADE AND CALLED!!!!");
-			//BaseVsBase();
+			BaseVsBase();
 			break;
 		}
 
@@ -149,6 +148,7 @@ public class MissionManager : MonoBehaviour
 
 		Debug.Log("Remaining Ally Objectives: " + AllyObjectivesList.Count);
 	}
+
 	void BaseDefense()
 	{
 		enemyObjectivesInScene = new List<GameObject>();
@@ -164,6 +164,37 @@ public class MissionManager : MonoBehaviour
 		else
 			Debug.LogError("No Enemy Objectives!");
 		
+		Debug.Log("Remaining Enemy Objectives: " + EnemyObjectivesList.Count);
+	}
+
+	void BaseVsBase()
+	{
+		allyObjectivesInScene = new List<GameObject>();
+		enemyObjectivesInScene = new List<GameObject>();
+		GameObject[] allyObjectives = GameObject.FindGameObjectsWithTag("AllyObjective");
+		GameObject[] enemyObjectives = GameObject.FindGameObjectsWithTag("EnemyObjective");
+
+		if (allyObjectives.Length > 0)
+		{
+			foreach (GameObject allyObjective in allyObjectives)
+			{
+				allyObjectivesInScene.Add(allyObjective);
+			}
+		}
+		else
+			Debug.LogError("No Ally Objectives!");
+
+		if (enemyObjectives.Length > 0)
+		{
+			foreach (GameObject enemyObjective in enemyObjectives)
+			{
+				enemyObjectivesInScene.Add(enemyObjective);
+			}
+		}
+		else
+			Debug.LogError("No Enemy Objectives!");
+
+		Debug.Log("Remaining Ally Objectives: " + AllyObjectivesList.Count);
 		Debug.Log("Remaining Enemy Objectives: " + EnemyObjectivesList.Count);
 	}
 

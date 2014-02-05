@@ -25,7 +25,9 @@ public class AllyVehicleMovement : GenericVehicleMovement
 			{
 				int r = Random.Range(0, (MissionManagerScript.AllyObjectivesList.Count));
 				GameObject objectiveTarget = MissionManagerScript.AllyObjectivesList[r];
-				TargetPosition = objectiveTarget.transform.position;
+
+				if (objectiveTarget != null)
+					TargetPosition = objectiveTarget.transform.position;
 			}
 		}
 	}

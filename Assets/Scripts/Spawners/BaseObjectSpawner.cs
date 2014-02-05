@@ -7,13 +7,24 @@ public class BaseObjectSpawner : MonoBehaviour
 	[SerializeField] MissionManager missionManager;
 	[SerializeField] BaseObject[] baseObject;
 	[SerializeField] bool inverseDifficulty;
+	int missionDifficultyValue;
 	Vector3 spawnLocation;
 	int respawnNumber = 0;
 	float yPos = -7.5f;
 
-	public void Start()
+	void Start()
 	{
-		int missionDifficultyValue = missionManager.MissionDifficultyLevel;
+		missionDifficultyValue = missionManager.MissionDifficultyLevel;
+		StartCoroutine(SpawnBaseUnits());
+	}
+
+	IEnumerator SpawnBaseUnits()
+	{
+		while (missionDifficultyValue == 0)
+		{
+			missionDifficultyValue = missionManager.MissionDifficultyLevel;
+			yield return null;
+		}
 
 		foreach (BaseObject unit in baseObject)
 		{
