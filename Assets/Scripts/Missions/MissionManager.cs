@@ -140,8 +140,6 @@ public class MissionManager : MonoBehaviour
 				if (!firstVIPSpawned)
 					return;
 
-				Debug.Log("Remaining: " + EnemyObjectivesList.Count);
-
 				if (EnemyObjectivesList.Count == 0 || playerSpawner.GameOver)
 				{
 					Debug.Log("GAME OVER");
@@ -249,9 +247,9 @@ public class MissionManager : MonoBehaviour
 		
 		if (objectives.Length > 0)
 		{
-			foreach (GameObject airUnit in airObjectives)
+			foreach (GameObject objective in objectives)
 			{
-				enemyObjectivesInScene.Add(airUnit);
+				enemyObjectivesInScene.Add(objective);
 			}
 		}
 		else

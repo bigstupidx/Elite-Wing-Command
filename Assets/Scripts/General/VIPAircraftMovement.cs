@@ -42,9 +42,6 @@ public class VIPAircraftMovement : MonoBehaviour
 		if (Mathf.Abs(angle) > 3f && distance > targetReachedDistance)
 			rigidbody.AddTorque(Vector3.up * torqueModifier * Mathf.Sign(angle), ForceMode.VelocityChange);
 		else if (distance <= targetReachedDistance)
-		{
-			Debug.Log("HERE");
 			missionManager.VIPDestinationReached = true;
-		}
 	}
 }
