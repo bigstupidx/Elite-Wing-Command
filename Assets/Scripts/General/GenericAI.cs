@@ -15,7 +15,8 @@ public class GenericAI : MonoBehaviour
 	GameObject closestObjectiveTarget;
 	float closestTargetDistance;
 	string closestTargetID;
-	string objectiveTag;
+	string objectiveAirTag;
+	string objectiveGroundTag;
 	string targetTag;
 	string targetTurretID;
 	string targetVehicleID;
@@ -31,7 +32,8 @@ public class GenericAI : MonoBehaviour
 	public string ClosestTargetName { get { if (closestTarget != null) return closestTarget.name; else return null; }}
 	public float ClosestTargetDistance { get { return closestTargetDistance; } set { closestTargetDistance = value; }}
 	public string ClosestTargetID { get { if (closestTarget != null) return closestTargetID; else return null; } set { closestTargetID = value; }}
-	public string ObjectiveTag { get { return objectiveTag; } set { objectiveTag = value; }}
+	public string ObjectiveAirTag { get { return objectiveAirTag; } set { objectiveAirTag = value; }}
+	public string ObjectiveGroundTag { get { return objectiveGroundTag; } set { objectiveGroundTag = value; }}
 	public string TargetTag { get { return targetTag; } set { targetTag = value; }}
 	public string TargetTurretID { get { return targetTurretID; } set { targetTurretID = value; }}
 	public string TargetVehicleID { get { return targetVehicleID; } set { targetVehicleID = value; }}
@@ -55,7 +57,7 @@ public class GenericAI : MonoBehaviour
 				{
 					GameObject targetObject = target.gameObject;
 					
-					if (targetObject.transform.tag == TargetTag || targetObject.transform.tag == ObjectiveTag)
+					if (targetObject.transform.tag == TargetTag || targetObject.transform.tag == ObjectiveAirTag || targetObject.transform.tag == ObjectiveGroundTag)
 					{
 						objectType = targetObject.transform.GetComponent<ObjectType>();
 						Vector2 targetXZPosition = new Vector2(targetObject.transform.position.x, targetObject.transform.position.z);
@@ -64,7 +66,7 @@ public class GenericAI : MonoBehaviour
 
 						if (AttackGroundUnits && objectType != null && objectType.IsGroundUnit)
 						{
-							if (targetObject.transform.tag == ObjectiveTag)
+							if (targetObject.transform.tag == ObjectiveAirTag)
 							{
 								objectiveTargets++;
 
@@ -87,7 +89,7 @@ public class GenericAI : MonoBehaviour
 						}
 						else if (AttackAirUnits && objectType != null && objectType.IsAirUnit)
 						{
-							if (targetObject.transform.tag == ObjectiveTag)
+							if (targetObject.transform.tag == ObjectiveAirTag)
 							{
 								objectiveTargets++;
 								
@@ -111,6 +113,8 @@ public class GenericAI : MonoBehaviour
 					}
 				}
 
+
+
 				if (groundTargets > 0 && airTargets <= 6)
 				{
 					ClosestTarget = closestGroundTarget;
@@ -118,17 +122,17 @@ public class GenericAI : MonoBehaviour
 					objectID = ClosestTarget.GetComponent<ObjectIdentifier>();
 					ClosestTargetID = objectID.ObjectType;
 				}
+				else if (objectiveTargets > 0 && airTargets <= 1)
+				{
+					ClosestTarget = closestObjectiveTarget;
+					ClosestTargetDistance = closestObjectiveTargetDistance;
+					objectID = ClosestTarget.GetComponent<ObjectIdentifier>();
+					ClosestTargetID = objectID.ObjectType;
+				}
 				else if (airTargets > 0)
 				{
 					ClosestTarget = closestAirTarget;
 					ClosestTargetDistance = closestAirTargetDistance;
-					objectID = ClosestTarget.GetComponent<ObjectIdentifier>();
-					ClosestTargetID = objectID.ObjectType;
-				}
-				else if (objectiveTargets > 0)
-				{
-					ClosestTarget = closestObjectiveTarget;
-					ClosestTargetDistance = closestObjectiveTargetDistance;
 					objectID = ClosestTarget.GetComponent<ObjectIdentifier>();
 					ClosestTargetID = objectID.ObjectType;
 				}

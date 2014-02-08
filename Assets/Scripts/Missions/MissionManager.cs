@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 public class MissionManager : MonoBehaviour
 {
@@ -8,7 +9,16 @@ public class MissionManager : MonoBehaviour
 	{
 		Base_Attack,
 		Base_Defense,
-		Base_vs_Base
+		Base_vs_Base,
+		VIP_Defense
+	}
+
+	public enum PlayerObjectivesType
+	{
+		Complete_Ally_Objectives,
+		Prevent_Enemy_Objectives,
+		Complete_and_Prevent,
+		Protect_VIP
 	}
 
 	public enum MissionDifficulty
@@ -18,26 +28,22 @@ public class MissionManager : MonoBehaviour
 		Hard
 	}
 
-	public enum PlayerObjectivesType
-	{
-		Complete_Ally_Objectives,
-		Prevent_Enemy_Objectives,
-		Complete_and_Prevent
-	}
-	
 	[SerializeField] PlayerSpawner playerSpawner;
 	[SerializeField] float timerTime;
 	public MissionType missionType;
-	public MissionDifficulty missionDifficulty;
-	int missionDifficultyLevel;
 	public PlayerObjectivesType playerObjectivesType;
+	int missionDifficultyLevel;
+	public MissionDifficulty missionDifficulty;
 	List<GameObject> allyObjectivesInScene;
 	List<GameObject> enemyObjectivesInScene;
 	bool gameOver = false;
 	bool timerComplete = false;
+	bool firstVIPSpawned = false;
+	bool vipDestinationReached = false;
 	public int MissionDifficultyLevel { get { return missionDifficultyLevel; }}
 	public List<GameObject> AllyObjectivesList { get { return allyObjectivesInScene; }}
 	public List<GameObject> EnemyObjectivesList { get { return enemyObjectivesInScene; }}
+	public bool VIPDestinationReached { get { return vipDestinationReached; } set { vipDestinationReached = value; }}
 
 	void Start()
 	{
@@ -51,6 +57,9 @@ public class MissionManager : MonoBehaviour
 			break;
 		case "Base_vs_Base":
 			BaseVsBase();
+			break;
+		case "VIP_Defense":
+			VIPDefense();
 			break;
 		}
 
@@ -127,6 +136,25 @@ public class MissionManager : MonoBehaviour
 					gameOver = true;
 				}
 				break;
+			case "Protect_VIP":
+				if (!firstVIPSpawned)
+					return;
+
+				Debug.Log("Remaining: " + EnemyObjectivesList.Count);
+
+				if (EnemyObjectivesList.Count == 0 || playerSpawner.GameOver)
+				{
+					Debug.Log("GAME OVER");
+					StartCoroutine(LoadMenu());
+					gameOver = true;
+				}
+				else if (VIPDestinationReached)
+				{
+					Debug.Log("MISSION COMPLETE");
+					StartCoroutine(LoadMenu());
+					gameOver = true;
+				}
+				break;
 			}
 		}
 	}
@@ -134,7 +162,9 @@ public class MissionManager : MonoBehaviour
 	void BaseAttack()
 	{
 		allyObjectivesInScene = new List<GameObject>();
-		GameObject[] objectives = GameObject.FindGameObjectsWithTag("AllyObjective");
+		GameObject[] airObjectives = GameObject.FindGameObjectsWithTag("AllyAirObjective");
+		GameObject[] groundObjectives = GameObject.FindGameObjectsWithTag("AllyGroundObjective");
+		GameObject[] objectives = airObjectives.Concat(groundObjectives).ToArray();
 
 		if (objectives.Length > 0)
 		{
@@ -152,7 +182,9 @@ public class MissionManager : MonoBehaviour
 	void BaseDefense()
 	{
 		enemyObjectivesInScene = new List<GameObject>();
-		GameObject[] objectives = GameObject.FindGameObjectsWithTag("EnemyObjective");
+		GameObject[] airObjectives = GameObject.FindGameObjectsWithTag("EnemyAirObjective");
+		GameObject[] groundObjectives = GameObject.FindGameObjectsWithTag("EnemyGroundObjective");
+		GameObject[] objectives = airObjectives.Concat(groundObjectives).ToArray();
 		
 		if (objectives.Length > 0)
 		{
@@ -171,8 +203,12 @@ public class MissionManager : MonoBehaviour
 	{
 		allyObjectivesInScene = new List<GameObject>();
 		enemyObjectivesInScene = new List<GameObject>();
-		GameObject[] allyObjectives = GameObject.FindGameObjectsWithTag("AllyObjective");
-		GameObject[] enemyObjectives = GameObject.FindGameObjectsWithTag("EnemyObjective");
+		GameObject[] allyAirObjectives = GameObject.FindGameObjectsWithTag("AllyAirObjective");
+		GameObject[] allyGroundObjectives = GameObject.FindGameObjectsWithTag("AllyGroundObjective");
+		GameObject[] allyObjectives = allyAirObjectives.Concat(allyGroundObjectives).ToArray();
+		GameObject[] enemyAirObjectives = GameObject.FindGameObjectsWithTag("AllyAirObjective");
+		GameObject[] enemyGroundObjectives = GameObject.FindGameObjectsWithTag("AllyGroundObjective");
+		GameObject[] enemyObjectives = enemyAirObjectives.Concat(enemyGroundObjectives).ToArray();
 
 		if (allyObjectives.Length > 0)
 		{
@@ -196,6 +232,33 @@ public class MissionManager : MonoBehaviour
 
 		Debug.Log("Remaining Ally Objectives: " + AllyObjectivesList.Count);
 		Debug.Log("Remaining Enemy Objectives: " + EnemyObjectivesList.Count);
+	}
+
+	void VIPDefense()
+	{
+		StartCoroutine(VIPDefenseCoroutine());
+	}
+
+	IEnumerator VIPDefenseCoroutine()
+	{
+		yield return new WaitForSeconds(0.1f);
+		enemyObjectivesInScene = new List<GameObject>();
+		GameObject[] airObjectives = GameObject.FindGameObjectsWithTag("EnemyAirObjective");
+		GameObject[] groundObjectives = GameObject.FindGameObjectsWithTag("EnemyGroundObjective");
+		GameObject[] objectives = airObjectives.Concat(groundObjectives).ToArray();
+		
+		if (objectives.Length > 0)
+		{
+			foreach (GameObject airUnit in airObjectives)
+			{
+				enemyObjectivesInScene.Add(airUnit);
+			}
+		}
+		else
+			Debug.LogError("No Enemy Objectives!");
+		
+		Debug.Log("Remaining Enemy Objectives: " + EnemyObjectivesList.Count);
+		firstVIPSpawned = true;
 	}
 
 	public void AllyObjectiveDestroyed(GameObject objectiveName)

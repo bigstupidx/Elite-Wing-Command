@@ -1,13 +1,12 @@
 using UnityEngine;
 using System.Collections;
 
-public class VIPMovement : MonoBehaviour
+public class VIPAircraftMovement : MonoBehaviour
 {
 	[SerializeField] float engineForce = 25f;
 	[SerializeField] float targetReachedDistance = 10f;
 	MissionManager missionManager;
 	Transform travelEndPoint;
-	Vector3 targetPosition;
 	float currentForce = 0f;
 	float forceMultiplier = 1f;
 	float timeModifier = 120f;
@@ -20,7 +19,8 @@ public class VIPMovement : MonoBehaviour
 	{
 		float forceRandomizer = Random.Range(0.9f, 1.1f);
 		randomEngineForce = engineForce * forceRandomizer;
-		targetPosition = travelEndPoint.position;
+		var travelEndObject = GameObject.FindGameObjectWithTag("TravelEndPoint");
+		travelEndPoint = travelEndObject.transform;
 
 		var missionManagerObject = GameObject.FindGameObjectWithTag("MissionManager");
 		
@@ -32,7 +32,7 @@ public class VIPMovement : MonoBehaviour
 	{
 		currentForce = Mathf.MoveTowards(currentForce, randomEngineForce * forceMultiplier, timeModifier * Time.fixedDeltaTime);
 		rigidbody.AddForce(transform.forward * currentForce, ForceMode.Acceleration);
-		var offset = transform.InverseTransformPoint(targetPosition);
+		var offset = transform.InverseTransformPoint(travelEndPoint.position);
 		angle = Mathf.Rad2Deg * Mathf.Atan2(offset.x, offset.z);
 
 		Vector2 targetXZPosition = new Vector2(travelEndPoint.position.x, travelEndPoint.position.z);
@@ -40,8 +40,11 @@ public class VIPMovement : MonoBehaviour
 		float distance = Vector2.Distance(targetXZPosition, unitXZPosition);
 
 		if (Mathf.Abs(angle) > 3f && distance > targetReachedDistance)
-		{
 			rigidbody.AddTorque(Vector3.up * torqueModifier * Mathf.Sign(angle), ForceMode.VelocityChange);
+		else if (distance <= targetReachedDistance)
+		{
+			Debug.Log("HERE");
+			missionManager.VIPDestinationReached = true;
 		}
 	}
 }

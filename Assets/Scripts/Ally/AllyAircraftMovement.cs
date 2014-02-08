@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Linq;
 
 public class AllyAircraftMovement : GenericAircraftMovement
 {
@@ -9,7 +10,7 @@ public class AllyAircraftMovement : GenericAircraftMovement
 
 	void Awake()
 	{
-		ObjectiveTag = allyAI.ObjectiveTag;
+		ObjectiveGroundTag = allyAI.ObjectiveGroundTag;
 	}
 
 	void Update()
@@ -52,7 +53,9 @@ public class AllyAircraftMovement : GenericAircraftMovement
 			}
 			else if (MissionManagerScript.EnemyObjectivesList != null && MissionManagerScript.EnemyObjectivesList.Count != 0)
 			{
-				GameObject[] enemyObjectives = GameObject.FindGameObjectsWithTag("EnemyObjective");
+				GameObject[] enemyAirObjectives = GameObject.FindGameObjectsWithTag("EnemyAirObjective");
+				GameObject[] enemyGroundObjectives = GameObject.FindGameObjectsWithTag("EnemyGroundObjective");
+				GameObject[] enemyObjectives = enemyAirObjectives.Concat(enemyGroundObjectives).ToArray();
 
 				if (enemyObjectives.Length > 0)
 				{

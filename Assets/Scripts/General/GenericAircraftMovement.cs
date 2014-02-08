@@ -7,10 +7,9 @@ public class GenericAircraftMovement : MonoBehaviour
 	[SerializeField] float aircraftEvasionDistance = 8f;
 	[SerializeField] float groundTargetEvasionDistance = 8f;
 	[SerializeField] float escortPerimeter = 50f;
-	//[SerializeField] bool isDefensiveAirUnit = false;
 	[SerializeField] float defensiveAirPerimeter = 25f;
 	MissionManager missionManager;
-	string objectiveTag;
+	string objectiveGroundTag;
 	GameObject closestTarget;
 	float closestTargetDistance;
 	string closestTargetID;
@@ -25,12 +24,10 @@ public class GenericAircraftMovement : MonoBehaviour
 	float randomEngineForce;
 	float angle;
 	Vector3 offset;
-	//Vector3 targetXZPosition;
-	//Vector2 unitXZPosition;
 	Vector3 randomPosition;
 	bool findRandomAngle = true;
 	public MissionManager MissionManagerScript { get { return missionManager; }}
-	public string ObjectiveTag { get { return objectiveTag; } set { objectiveTag = value; }}
+	public string ObjectiveGroundTag { get { return objectiveGroundTag; } set { objectiveGroundTag = value; }}
 	public GameObject ClosestTarget { get { if (closestTarget != null) return closestTarget; else return null; } set { closestTarget = value; }}
 	public float ClosestTargetDistance { get { return closestTargetDistance; } set { closestTargetDistance = value; }}
 	public string ClosestTargetID { get { if (closestTarget != null) return closestTargetID; else return null; } set { closestTargetID = value; }}
@@ -38,10 +35,7 @@ public class GenericAircraftMovement : MonoBehaviour
 	public string EnemyVehicleID { get { return enemyVehicleID; } set { enemyVehicleID = value; }}
 	public Vector3 Offset { get { return offset; } set { offset = value; }}
 	public float EscortPerimeter { get { return escortPerimeter; }}
-	//public bool IsDefensiveAirUnit { get { return isDefensiveAirUnit; }}
 	public float DefensiveAirPerimeter { get { return defensiveAirPerimeter; }}
-	//public Vector3 TargetXZPosition { get { return targetXZPosition; } set { targetXZPosition = value; }}
-	//public Vector2 UnitXZPosition { get { return unitXZPosition; } set { unitXZPosition = value; }}
 	public Vector3 RandomPosition { get { return randomPosition; } set { randomPosition = value; }}
 	public bool FindRandomAngle { get { return findRandomAngle; } set { findRandomAngle = value; }}
 
@@ -63,7 +57,7 @@ public class GenericAircraftMovement : MonoBehaviour
 		rigidbody.AddForce(transform.forward * currentForce, ForceMode.Acceleration);
 		angle = Mathf.Rad2Deg * Mathf.Atan2(Offset.x, Offset.z);
 
-		if (ClosestTargetID == EnemyTurretID || ClosestTargetID == enemyVehicleID || ClosestTargetID == ObjectiveTag)
+		if (ClosestTargetID == EnemyTurretID || ClosestTargetID == enemyVehicleID || ClosestTargetID == ObjectiveGroundTag)
 			evasionDistance = groundTargetEvasionDistance;
 		else
 			evasionDistance = aircraftEvasionDistance;

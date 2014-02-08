@@ -13,14 +13,16 @@ public class GenericWeaponManager : MonoBehaviour
 	[SerializeField] float maxShootCooldown = 2.0f;
 	[SerializeField] Weapon airWeapon;
 	[SerializeField] Weapon groundWeapon;
-	string objectiveTag;
+	string objectiveAirTag;
+	string objectiveGroundTag;
 	GameObject closestTarget;
 	string closestTargetID;
 	string enemyTurretID;
 	string enemyVehicleID;
 	bool needsClearShot;
 	bool canShoot = true;
-	public string ObjectiveTag { get { return objectiveTag; } set { objectiveTag = value; }}
+	public string ObjectiveAirTag { get { return objectiveAirTag; } set { objectiveAirTag = value; }}
+	public string ObjectiveGroundTag { get { return objectiveGroundTag; } set { objectiveGroundTag = value; }}
 	public GameObject ClosestTarget { get { if (closestTarget != null) return closestTarget; else return null; } set { closestTarget = value; }}
 	public string ClosestTargetID { get { if (closestTarget != null) return closestTargetID; else return null; } set { closestTargetID = value; }}
 	public string EnemyTurretID { get { return enemyTurretID; } set { enemyTurretID = value; }}
@@ -42,7 +44,7 @@ public class GenericWeaponManager : MonoBehaviour
 			float distance = Vector2.Distance(targetXZPosition, unitXZPosition);
 
 
-			if (ClosestTargetID == EnemyTurretID || ClosestTargetID == EnemyVehicleID || ClosestTarget.tag == ObjectiveTag)
+			if (ClosestTargetID == EnemyTurretID || ClosestTargetID == EnemyVehicleID || ClosestTarget.tag == ObjectiveGroundTag)
 			{
 				if (canShoot && Vector3.Dot(forward, normalizedToOther) > groundAttackWidth && distance < groundAttackDistance)
 				{

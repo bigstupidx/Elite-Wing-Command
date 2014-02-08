@@ -9,7 +9,8 @@ public class EnemyAI : GenericAI
 	
 	void Start()
 	{
-		ObjectiveTag = "EnemyObjective";
+		ObjectiveAirTag = "EnemyAirObjective";
+		ObjectiveGroundTag = "EnemyGroundObjective";
 		TargetTag = "Ally";
 		TargetTurretID = "Ally Turret";
 		TargetVehicleID = "Ally Vehicle";

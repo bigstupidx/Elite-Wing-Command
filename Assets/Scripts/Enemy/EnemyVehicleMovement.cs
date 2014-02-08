@@ -5,11 +5,6 @@ public class EnemyVehicleMovement : GenericVehicleMovement
 {
 	[SerializeField] EnemyAI enemyAI;
 
-	void Awake()
-	{
-		ObjectiveTag = enemyAI.ObjectiveTag;
-	}
-
 	void Update()
 	{
 		ClosestTarget = enemyAI.ClosestTarget;

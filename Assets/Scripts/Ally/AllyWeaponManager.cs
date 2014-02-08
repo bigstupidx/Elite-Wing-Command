@@ -15,7 +15,8 @@ public class AllyWeaponManager : GenericWeaponManager
 	{
 		while (true)
 		{
-			ObjectiveTag = allyAI.ObjectiveTag;
+			ObjectiveAirTag = allyAI.ObjectiveAirTag;
+			ObjectiveGroundTag = allyAI.ObjectiveGroundTag;
 			ClosestTarget = allyAI.ClosestTarget;
 			ClosestTargetID = allyAI.ClosestTargetID;
 			EnemyTurretID = allyAI.TargetTurretID;

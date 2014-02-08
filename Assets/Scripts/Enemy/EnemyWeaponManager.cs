@@ -15,7 +15,8 @@ public class EnemyWeaponManager : GenericWeaponManager
 	{
 		while (true)
 		{
-			ObjectiveTag = enemyAI.ObjectiveTag;
+			ObjectiveAirTag = enemyAI.ObjectiveAirTag;
+			ObjectiveGroundTag = enemyAI.ObjectiveGroundTag;
 			ClosestTarget = enemyAI.ClosestTarget;
 			ClosestTargetID = enemyAI.ClosestTargetID;
 			EnemyTurretID = enemyAI.TargetTurretID;

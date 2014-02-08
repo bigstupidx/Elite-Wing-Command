@@ -6,7 +6,6 @@ public class GenericVehicleMovement : MonoBehaviour
 	[SerializeField] NavMeshAgent navMeshAgent;
 	[SerializeField] float standoffRange = 10f;
 	MissionManager missionManager;
-	string objectiveTag;
 	float targetDistance;
 	GameObject closestTarget;
 	float closestTargetDistance;
@@ -18,7 +17,6 @@ public class GenericVehicleMovement : MonoBehaviour
 	Vector2 unitXZPosition;
 	public MissionManager MissionManagerScript { get { return missionManager; }}
 	public Vector3 TargetPosition { get { return targetPosition; } set { targetPosition = value; }}
-	public string ObjectiveTag { get { return objectiveTag; } set { objectiveTag = value; }}
 	public GameObject ClosestTarget { get { if (closestTarget != null) return closestTarget; else return null; } set { closestTarget = value; }}
 	public float ClosestTargetDistance { get { return closestTargetDistance; } set { closestTargetDistance = value; }}
 	public string ClosestTargetID { get { if (closestTarget != null) return closestTargetID; else return null; } set { closestTargetID = value; }}
