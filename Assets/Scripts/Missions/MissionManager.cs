@@ -10,6 +10,7 @@ public class MissionManager : MonoBehaviour
 		Base_Attack,
 		Base_Defense,
 		Base_vs_Base,
+		VIP_Attack,
 		VIP_Defense
 	}
 
@@ -18,6 +19,7 @@ public class MissionManager : MonoBehaviour
 		Complete_Ally_Objectives,
 		Prevent_Enemy_Objectives,
 		Complete_and_Prevent,
+		Destroy_VIP,
 		Protect_VIP
 	}
 
@@ -57,6 +59,9 @@ public class MissionManager : MonoBehaviour
 			break;
 		case "Base_vs_Base":
 			BaseVsBase();
+			break;
+		case "VIP_Attack":
+			VIPAttack();
 			break;
 		case "VIP_Defense":
 			VIPDefense();
@@ -124,6 +129,23 @@ public class MissionManager : MonoBehaviour
 				break;
 			case "Complete_and_Prevent":
 				if (EnemyObjectivesList.Count == 0 || playerSpawner.GameOver)
+				{
+					Debug.Log("GAME OVER");
+					StartCoroutine(LoadMenu());
+					gameOver = true;
+				}
+				else if (AllyObjectivesList.Count == 0)
+				{
+					Debug.Log("MISSION COMPLETE");
+					StartCoroutine(LoadMenu());
+					gameOver = true;
+				}
+				break;
+			case "Destroy_VIP":
+				if (!firstVIPSpawned)
+					return;
+
+				if (VIPDestinationReached || playerSpawner.GameOver)
 				{
 					Debug.Log("GAME OVER");
 					StartCoroutine(LoadMenu());
@@ -230,6 +252,33 @@ public class MissionManager : MonoBehaviour
 
 		Debug.Log("Remaining Ally Objectives: " + AllyObjectivesList.Count);
 		Debug.Log("Remaining Enemy Objectives: " + EnemyObjectivesList.Count);
+	}
+
+	void VIPAttack()
+	{
+		StartCoroutine(VIPAttackCoroutine());
+	}
+	
+	IEnumerator VIPAttackCoroutine()
+	{
+		yield return new WaitForSeconds(0.1f);
+		allyObjectivesInScene = new List<GameObject>();
+		GameObject[] airObjectives = GameObject.FindGameObjectsWithTag("AllyAirObjective");
+		GameObject[] groundObjectives = GameObject.FindGameObjectsWithTag("AllyGroundObjective");
+		GameObject[] objectives = airObjectives.Concat(groundObjectives).ToArray();
+		
+		if (objectives.Length > 0)
+		{
+			foreach (GameObject objective in objectives)
+			{
+				allyObjectivesInScene.Add(objective);
+			}
+		}
+		else
+			Debug.LogError("No Ally Objectives!");
+		
+		Debug.Log("Remaining Enemy Objectives: " + AllyObjectivesList.Count);
+		firstVIPSpawned = true;
 	}
 
 	void VIPDefense()
