@@ -34,13 +34,26 @@ public class ObjectSpawner : MonoBehaviour
 	void Awake()
 	{
 		UnitsInScene = new List<string>();
-		int arrayNumber = missionManager.MissionDifficultyLevel;
-		UnitPrefab = spawnDetails[arrayNumber].UnitPrefab;
-		MaxInGame = spawnDetails[arrayNumber].MaxInGame;
-		TotalRespawns = spawnDetails[arrayNumber].TotalRespawns;
-		SquadSpawn = spawnDetails[arrayNumber].SquadSpawn;
-		SquadSpawnSize = spawnDetails[arrayNumber].SquadSpawnSize;
-		SpawnGroundUnit = spawnDetails[arrayNumber].SpawnGroundUnit;
+
+		if (missionManager != null)
+		{
+			int arrayNumber = missionManager.MissionDifficultyLevel;
+			UnitPrefab = spawnDetails[arrayNumber].UnitPrefab;
+			MaxInGame = spawnDetails[arrayNumber].MaxInGame;
+			TotalRespawns = spawnDetails[arrayNumber].TotalRespawns;
+			SquadSpawn = spawnDetails[arrayNumber].SquadSpawn;
+			SquadSpawnSize = spawnDetails[arrayNumber].SquadSpawnSize;
+			SpawnGroundUnit = spawnDetails[arrayNumber].SpawnGroundUnit;
+		}
+		else
+		{
+			UnitPrefab = spawnDetails[0].UnitPrefab;
+			MaxInGame = spawnDetails[0].MaxInGame;
+			TotalRespawns = spawnDetails[0].TotalRespawns;
+			SquadSpawn = spawnDetails[0].SquadSpawn;
+			SquadSpawnSize = spawnDetails[0].SquadSpawnSize;
+			SpawnGroundUnit = spawnDetails[0].SpawnGroundUnit;
+		}
 	}
 	
 	void Update()
