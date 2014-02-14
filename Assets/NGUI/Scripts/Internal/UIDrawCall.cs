@@ -458,7 +458,9 @@ public class UIDrawCall : MonoBehaviour
 					mMesh.triangles = mIndices;
 				}
 
+#if !UNITY_FLASH
 				if (trim || !alwaysOnScreen)
+#endif
 					mMesh.RecalculateBounds();
 
 				mFilter.mesh = mMesh;
@@ -566,6 +568,8 @@ public class UIDrawCall : MonoBehaviour
 		depthEnd = int.MinValue;
 		panel = null;
 		manager = null;
+		mMaterial = null;
+		mTexture = null;
 
 		NGUITools.DestroyImmediate(mDynamicMat);
 		mDynamicMat = null;
@@ -678,7 +682,15 @@ public class UIDrawCall : MonoBehaviour
 	static public void ReleaseAll ()
 	{
 		ClearAll();
+		ReleaseInactive();
+	}
 
+	/// <summary>
+	/// Immediately destroy all inactive draw calls (draw calls that have been recycled and are waiting to be re-used).
+	/// </summary>
+
+	static public void ReleaseInactive()
+	{
 		for (int i = mInactiveList.size; i > 0; )
 		{
 			UIDrawCall dc = mInactiveList[--i];

@@ -392,6 +392,21 @@ static public class NGUIText
 				sub = 0;
 				index += 6;
 				return true;
+
+				case "[/url]":
+				index += 6;
+				return true;
+			}
+		}
+
+		if (text[index + 1] == 'u' && text[index + 2] == 'r' && text[index + 3] == 'l' && text[index + 4] == '=')
+		{
+			int closingBracket = text.IndexOf(']');
+			
+			if (closingBracket != -1)
+			{
+				index = closingBracket + 1;
+				return true;
 			}
 		}
 
@@ -595,9 +610,9 @@ static public class NGUIText
 					{
 						w += finalSpacingX;
 
-						if (x + w > rectWidth)
+						if (Mathf.RoundToInt(x + w) > rectWidth)
 						{
-							if (x > maxX) maxX = x;
+							if (x > maxX) maxX = x - finalSpacingX;
 							x = w;
 							y += finalLineHeight;
 						}
@@ -610,9 +625,9 @@ static public class NGUIText
 				{
 					float w = finalSpacingX + symbol.advance * fontScale;
 
-					if (x + w > rectWidth)
+					if (Mathf.RoundToInt(x + w) > rectWidth)
 					{
-						if (x > maxX) maxX = x;
+						if (x > maxX) maxX = x - finalSpacingX;
 						x = w;
 						y += finalLineHeight;
 					}
@@ -623,7 +638,7 @@ static public class NGUIText
 				}
 			}
 
-			v.x = ((x > maxX) ? x : maxX);
+			v.x = ((x > maxX) ? x - finalSpacingX : maxX);
 			v.y = (y + finalLineHeight);
 		}
 		return v;
@@ -686,20 +701,6 @@ static public class NGUIText
 		int offset = CalculateOffsetToFit(text);
 		return text.Substring(offset, textLength - offset);
 	}
-
-#if DYNAMIC_FONT
-	/// <summary>
-	/// Ensure that we have the requested characters present.
-	/// </summary>
-
-	static public void RequestCharactersInTexture (Font font, string text)
-	{
-		if (font != null)
-		{
-			font.RequestCharactersInTexture(text, finalSize, fontStyle);
-		}
-	}
-#endif
 
 	/// <summary>
 	/// Text wrapping functionality. The 'width' and 'height' should be in pixels.
@@ -965,7 +966,7 @@ static public class NGUIText
 				v0y = v1y - symbol.height * fontScale;
 
 				// Doesn't fit? Move down to the next line
-				if (x + symbol.advance * fontScale > rectWidth)
+				if (Mathf.RoundToInt(x + symbol.advance * fontScale) > rectWidth)
 				{
 					if (x == 0f) return;
 
@@ -1056,8 +1057,11 @@ static public class NGUIText
 				v1x = glyph.v1.x + x;
 				v1y = glyph.v1.y - y;
 
+				float w = glyph.advance;
+				if (finalSpacingX < 0f) w += finalSpacingX;
+
 				// Doesn't fit? Move down to the next line
-				if (x + glyph.advance > rectWidth)
+				if (Mathf.RoundToInt(x + w) > rectWidth)
 				{
 					if (x == 0f) return;
 
@@ -1133,8 +1137,8 @@ static public class NGUIText
 					{
 						if (gradient)
 						{
-							float min = sizePD + y0;
-							float max = sizePD + y1;
+							float min = sizePD + y0 / fontScale;
+							float max = sizePD + y1 / fontScale;
 
 							min /= sizePD;
 							max /= sizePD;
@@ -1348,7 +1352,7 @@ static public class NGUIText
 				{
 					w += finalSpacingX;
 
-					if (x + w > rectWidth)
+					if (Mathf.RoundToInt(x + w) > rectWidth)
 					{
 						if (x == 0f) return;
 
@@ -1372,7 +1376,7 @@ static public class NGUIText
 			{
 				float w = symbol.advance * fontScale + finalSpacingX;
 
-				if (x + w > rectWidth)
+				if (Mathf.RoundToInt(x + w) > rectWidth)
 				{
 					if (x == 0f) return;
 
@@ -1506,7 +1510,7 @@ static public class NGUIText
 				float v0y = -y - fs;
 				float v1y = -y;
 
-				if (v1x > rectWidth)
+				if (Mathf.RoundToInt(v1x + finalSpacingX) > rectWidth)
 				{
 					if (x == 0f) return;
 
