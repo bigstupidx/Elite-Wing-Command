@@ -21,14 +21,14 @@ public class GameManager : MonoBehaviour
 
 	void Update()
 	{
-		if (Input.GetKey(KeyCode.O))
+		if (Input.GetKey(KeyCode.I))
 		{
 			Debug.Log("Weapon Slots: " + PlayerPrefs.GetInt("Weapon Slots"));
 
 			for (int i = 1; i <= PlayerPrefs.GetInt("Weapon Slots"); i++)
 				Debug.Log("Weapon Equip " + i + ": " + PlayerPrefs.GetInt("Weapon Equip " + i.ToString()));
 		}
-		else if (Input.GetKeyDown(KeyCode.P))
+		else if (Input.GetKeyDown(KeyCode.O))
 		{
 			PlayerPrefs.DeleteAll();
 			Debug.Log("Player Prefs Reset");
