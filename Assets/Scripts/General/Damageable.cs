@@ -5,6 +5,7 @@ public class Damageable : MonoBehaviour
 {
 	[SerializeField] float initialHealth;
 	[SerializeField] ObjectIdentifier objectIdentifier;
+	[SerializeField] GameObject explosionParticleEffect;
 	MissionManager missionManager;
 	GameObject spawner;
 	Vector3 correctedPos;
@@ -54,10 +55,18 @@ public class Damageable : MonoBehaviour
 			PlayerSpawner playerSpawner = (PlayerSpawner)spawner.GetComponent(typeof(PlayerSpawner));
 			playerSpawner.PlayerDeath();
 			Destroy(objectIdentifier.transform.gameObject);
+
+			if (explosionParticleEffect != null)
+				Instantiate(explosionParticleEffect, transform.position, transform.rotation);
+
 			return;
 		case "Ally Objective":
 			missionManager.AllyObjectiveDestroyed(objectIdentifier.gameObject);
 			Destroy(objectIdentifier.transform.gameObject);
+
+			if (explosionParticleEffect != null)
+				Instantiate(explosionParticleEffect, transform.position, transform.rotation);
+
 			return;
 		case "Ally Aircraft":
 			spawner = GameObject.Find("Ally Aircraft Spawner");
@@ -70,10 +79,18 @@ public class Damageable : MonoBehaviour
 			break;
 		case "Ally Turret":
 			Destroy(objectIdentifier.transform.gameObject);
+
+			if (explosionParticleEffect != null)
+				Instantiate(explosionParticleEffect, transform.position, transform.rotation);
+
 			return;
 		case "Enemy Objective":
 			missionManager.EnemyObjectiveDestroyed(objectIdentifier.gameObject);
 			Destroy(objectIdentifier.transform.gameObject);
+
+			if (explosionParticleEffect != null)
+				Instantiate(explosionParticleEffect, transform.position, transform.rotation);
+
 			return;
 		case "Enemy Aircraft Easy":
 			spawner = GameObject.Find("Enemy Aircraft Easy Spawner");
@@ -98,6 +115,10 @@ public class Damageable : MonoBehaviour
 			break;
 		case "Enemy Turret":
 			Destroy(objectIdentifier.transform.gameObject);
+
+			if (explosionParticleEffect != null)
+				Instantiate(explosionParticleEffect, transform.position, transform.rotation);
+
 			return;
 		default:
 			Debug.LogError("No Case Switch Defined: " + transform.parent.name);
@@ -114,6 +135,9 @@ public class Damageable : MonoBehaviour
 			ObjectSpawner spawnerEnemyID = (ObjectSpawner)spawner.GetComponent(typeof(ObjectSpawner));
 			spawnerEnemyID.RemoveFromList(transform.parent.name);
 		}
+
+		if (explosionParticleEffect != null)
+			Instantiate(explosionParticleEffect, transform.position, transform.rotation);
 
 		Destroy(objectIdentifier.transform.gameObject);
 	}
