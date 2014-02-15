@@ -3,6 +3,7 @@ using System.Collections;
 
 public class Ammo : MonoBehaviour
 {
+	[SerializeField] GameObject bombExplosion;
 	[SerializeField] string ammoSource;
 	[SerializeField] float damageAmount = 20f;
 	[SerializeField] float bulletLife = 1f;
@@ -25,7 +26,16 @@ public class Ammo : MonoBehaviour
 	void OnTriggerEnter(Collider other)
 	{
 		if (other.tag != "CollectionArea" && other.tag != "MapBoundary" && other.tag != "Weapon" && other.tag != ammoSource)
+		{
+			if (bombExplosion != null)
+			{
+				Vector3 bombPosition = transform.position;
+				bombPosition.y = -9.25f;
+				Instantiate(bombExplosion, bombPosition, transform.rotation);
+			}
+
 			Destroy(gameObject);
+		}
 
 		var hit = other.transform.GetComponentInChildren<Damageable>();
 		
