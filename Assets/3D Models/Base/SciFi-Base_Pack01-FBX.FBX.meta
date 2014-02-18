@@ -1,0 +1,115 @@
+fileFormatVersion: 2
+guid: 43164f397876d474bbdbcc39f629a18c
+ModelImporter:
+  serializedVersion: 15
+  fileIDToRecycleName:
+    100000: Barracks_Block
+    100002: Command-Center_Block
+    100004: Communication-Tower
+    100006: Energy_Block
+    100008: Heavy_Defense-Tower
+    100010: Heavy_Defense-Tower-Laser
+    100012: Heavy_Defense-Tower-Turret
+    100014: Light_Defense-Tower
+    100016: Light_Defense-Tower_Laser
+    100018: Mars_Ground
+    100020: //RootNode
+    100022: Warehouse_Block
+    400000: Barracks_Block
+    400002: Command-Center_Block
+    400004: Communication-Tower
+    400006: Energy_Block
+    400008: Heavy_Defense-Tower
+    400010: Heavy_Defense-Tower-Laser
+    400012: Heavy_Defense-Tower-Turret
+    400014: Light_Defense-Tower
+    400016: Light_Defense-Tower_Laser
+    400018: Mars_Ground
+    400020: //RootNode
+    400022: Warehouse_Block
+    2300000: Barracks_Block
+    2300002: Command-Center_Block
+    2300004: Communication-Tower
+    2300006: Energy_Block
+    2300008: Heavy_Defense-Tower
+    2300010: Heavy_Defense-Tower-Laser
+    2300012: Heavy_Defense-Tower-Turret
+    2300014: Light_Defense-Tower
+    2300016: Light_Defense-Tower_Laser
+    2300018: Mars_Ground
+    2300020: Warehouse_Block
+    3300000: Barracks_Block
+    3300002: Command-Center_Block
+    3300004: Communication-Tower
+    3300006: Energy_Block
+    3300008: Heavy_Defense-Tower
+    3300010: Heavy_Defense-Tower-Laser
+    3300012: Heavy_Defense-Tower-Turret
+    3300014: Light_Defense-Tower
+    3300016: Light_Defense-Tower_Laser
+    3300018: Mars_Ground
+    3300020: Warehouse_Block
+    4300000: Barracks_Block
+    4300002: Warehouse_Block
+    4300004: Energy_Block
+    4300006: Communication-Tower
+    4300008: Light_Defense-Tower
+    4300010: Light_Defense-Tower_Laser
+    4300012: Heavy_Defense-Tower
+    4300014: Heavy_Defense-Tower-Turret
+    4300016: Heavy_Defense-Tower-Laser
+    4300018: Command-Center_Block
+    4300020: Mars_Ground
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .00999999978
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  userData: 

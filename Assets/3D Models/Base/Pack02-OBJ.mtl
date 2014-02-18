@@ -1,0 +1,33 @@
+# 3ds Max Wavefront OBJ Exporter v0.97b - (c)2007 guruware
+# File Created: 28.11.2013 17:17:15
+
+newmtl SciFi_Props
+	Ns 32.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 1.0000 1.0000 1.0000
+	Kd 1.0000 1.0000 1.0000
+	Ks 0.0720 0.0720 0.0720
+	Ke 0.0000 0.0000 0.0000
+	map_Ka SciFi_Props-Pack02_Diffuse.jpg
+	map_Kd SciFi_Props-Pack02_Diffuse.jpg
+	map_bump SciFi_Props-Pack02_Bump.jpg
+	bump SciFi_Props-Pack02_Bump.jpg
+
+newmtl SciFi_Props_Lights
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 1.0000 1.0000 1.0000
+	Kd 1.0000 1.0000 1.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka SciFi_Props-Pack02_Diffuse.jpg
+	map_Kd SciFi_Props-Pack02_Diffuse.jpg
+	map_Ke SciFi_Props-Pack02_Diffuse.jpg

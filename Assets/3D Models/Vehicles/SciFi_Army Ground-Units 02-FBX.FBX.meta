@@ -1,0 +1,135 @@
+fileFormatVersion: 2
+guid: c0fc4a25af0a540ae97515cec3bc9fe4
+ModelImporter:
+  serializedVersion: 15
+  fileIDToRecycleName:
+    100000: AA_Gun
+    100002: AA_Gun-Turret
+    100004: AA_RL-01
+    100006: AA_RL-02
+    100008: AA_RL-03
+    100010: AA_RL-04
+    100012: AA_RL-05
+    100014: AA_RL-06
+    100016: AA_RL-07
+    100018: AA_RL-08
+    100020: AA_RL-09
+    100022: AA_RL-10
+    100024: AA_Rocket-Launcher
+    100026: Anti_Aircraft-Base
+    100028: Anti_Aircraft-Base01
+    100030: //RootNode
+    400000: AA_Gun
+    400002: AA_Gun-Turret
+    400004: AA_RL-01
+    400006: AA_RL-02
+    400008: AA_RL-03
+    400010: AA_RL-04
+    400012: AA_RL-05
+    400014: AA_RL-06
+    400016: AA_RL-07
+    400018: AA_RL-08
+    400020: AA_RL-09
+    400022: AA_RL-10
+    400024: AA_Rocket-Launcher
+    400026: Anti_Aircraft-Base
+    400028: Anti_Aircraft-Base01
+    400030: //RootNode
+    2300000: AA_Gun
+    2300002: AA_Gun-Turret
+    2300004: AA_RL-01
+    2300006: AA_RL-02
+    2300008: AA_RL-03
+    2300010: AA_RL-04
+    2300012: AA_RL-05
+    2300014: AA_RL-06
+    2300016: AA_RL-07
+    2300018: AA_RL-08
+    2300020: AA_RL-09
+    2300022: AA_RL-10
+    2300024: AA_Rocket-Launcher
+    2300026: Anti_Aircraft-Base
+    2300028: Anti_Aircraft-Base01
+    3300000: AA_Gun
+    3300002: AA_Gun-Turret
+    3300004: AA_RL-01
+    3300006: AA_RL-02
+    3300008: AA_RL-03
+    3300010: AA_RL-04
+    3300012: AA_RL-05
+    3300014: AA_RL-06
+    3300016: AA_RL-07
+    3300018: AA_RL-08
+    3300020: AA_RL-09
+    3300022: AA_RL-10
+    3300024: AA_Rocket-Launcher
+    3300026: Anti_Aircraft-Base
+    3300028: Anti_Aircraft-Base01
+    4300000: Anti_Aircraft-Base
+    4300002: AA_Rocket-Launcher
+    4300004: AA_RL-08
+    4300006: AA_RL-07
+    4300008: AA_RL-06
+    4300010: AA_RL-09
+    4300012: AA_RL-10
+    4300014: AA_RL-03
+    4300016: AA_RL-02
+    4300018: AA_RL-01
+    4300020: AA_RL-04
+    4300022: AA_RL-05
+    4300024: Anti_Aircraft-Base01
+    4300026: AA_Gun-Turret
+    4300028: AA_Gun
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .00999999978
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  userData: 

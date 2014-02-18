@@ -1,0 +1,100 @@
+fileFormatVersion: 2
+guid: 18825d7c5869c4c9f8b47b0f6e06892c
+ModelImporter:
+  serializedVersion: 15
+  fileIDToRecycleName:
+    100000: APC_Gun
+    100002: Ground_APC
+    100004: Ground_Tank-Base
+    100006: Ground_Tank-Base01
+    100008: Ground_Tank-Base02
+    100010: Ground_Tank-Heavy
+    100012: Ground_Tank-Medium
+    100014: Ground_Tank-Radar
+    100016: //RootNode
+    400000: APC_Gun
+    400002: Ground_APC
+    400004: Ground_Tank-Base
+    400006: Ground_Tank-Base01
+    400008: Ground_Tank-Base02
+    400010: Ground_Tank-Heavy
+    400012: Ground_Tank-Medium
+    400014: Ground_Tank-Radar
+    400016: //RootNode
+    2300000: APC_Gun
+    2300002: Ground_APC
+    2300004: Ground_Tank-Base
+    2300006: Ground_Tank-Base01
+    2300008: Ground_Tank-Base02
+    2300010: Ground_Tank-Heavy
+    2300012: Ground_Tank-Medium
+    2300014: Ground_Tank-Radar
+    3300000: APC_Gun
+    3300002: Ground_APC
+    3300004: Ground_Tank-Base
+    3300006: Ground_Tank-Base01
+    3300008: Ground_Tank-Base02
+    3300010: Ground_Tank-Heavy
+    3300012: Ground_Tank-Medium
+    3300014: Ground_Tank-Radar
+    4300000: Ground_Tank-Base
+    4300002: Ground_Tank-Medium
+    4300004: Ground_APC
+    4300006: APC_Gun
+    4300008: Ground_Tank-Base01
+    4300010: Ground_Tank-Heavy
+    4300012: Ground_Tank-Base02
+    4300014: Ground_Tank-Radar
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .00999999978
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  userData: 
