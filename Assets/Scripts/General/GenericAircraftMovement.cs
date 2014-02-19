@@ -66,7 +66,7 @@ public class GenericAircraftMovement : MonoBehaviour
 		{
 			rigidbody.AddTorque(Vector3.up * torqueModifier * Mathf.Sign(angle), ForceMode.VelocityChange);
 		}
-		else
+		else if (ClosestTargetDistance <= evasionDistance)
 		{
 			rigidbody.AddTorque(Vector3.up * torqueModifier * Mathf.Sign(-angle * evasionAngleModifier), ForceMode.VelocityChange);
 		}
