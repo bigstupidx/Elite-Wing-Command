@@ -15,6 +15,7 @@ public class GenericVehicleMovement : MonoBehaviour
 	Vector3 targetPosition;
 	Vector2 targetXZPosition;
 	Vector2 unitXZPosition;
+	string previousClosestTargetName;
 	public MissionManager MissionManagerScript { get { return missionManager; }}
 	public Vector3 TargetPosition { get { return targetPosition; } set { targetPosition = value; }}
 	public GameObject ClosestTarget { get { if (closestTarget != null) return closestTarget; else return null; } set { closestTarget = value; }}
@@ -25,6 +26,7 @@ public class GenericVehicleMovement : MonoBehaviour
 
 	void Start()
 	{
+		previousClosestTargetName = "_";
 		var missionManagerObject = GameObject.FindGameObjectWithTag("MissionManager");
 		
 		if (missionManagerObject != null)
@@ -43,10 +45,10 @@ public class GenericVehicleMovement : MonoBehaviour
 
 			if (targetDistance > standoffRange)
 				navMeshAgent.SetDestination(targetPosition);
-			else
+			else if (ClosestTarget != null && ClosestTarget.name != previousClosestTargetName)
 				navMeshAgent.SetDestination(transform.position);
 
-			yield return new WaitForSeconds(0.5f);
+			yield return new WaitForSeconds(1.0f);
 		}
 	}
 
