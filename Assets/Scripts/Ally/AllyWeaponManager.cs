@@ -4,7 +4,6 @@ using System.Collections;
 public class AllyWeaponManager : GenericWeaponManager
 {
 	[SerializeField] AllyAI allyAI;
-	[SerializeField] bool unitNeedsClearShot = false;
 
 	void Start()
 	{
@@ -21,7 +20,6 @@ public class AllyWeaponManager : GenericWeaponManager
 			ClosestTargetID = allyAI.ClosestTargetID;
 			EnemyTurretID = allyAI.TargetTurretID;
 			EnemyVehicleID = allyAI.TargetVehicleID;
-			NeedsClearShot = unitNeedsClearShot;
 			yield return new WaitForSeconds(1.0f);
 		}
 	}

@@ -22,7 +22,7 @@ public class EnemyVehicleMovement : GenericVehicleMovement
 				GameObject objectiveTarget = MissionManagerScript.EnemyObjectivesList[r];
 
 				if (objectiveTarget != null)
-					TargetPosition = objectiveTarget.transform.position;
+					TargetTransform = objectiveTarget.transform;
 			}
 		}
 	}

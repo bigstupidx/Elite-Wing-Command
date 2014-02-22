@@ -39,7 +39,7 @@ public class MapBoundary : MonoBehaviour
 		if (runTimer)
 		{
 			countdownTimer -= Time.deltaTime;
-			Debug.Log(countdownTimer);
+			Debug.Log("Map Boundary Timer: " + countdownTimer);
 		}
 
 		if (countdownTimer <= 0f)

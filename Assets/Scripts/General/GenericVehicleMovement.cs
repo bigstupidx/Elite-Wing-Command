@@ -12,12 +12,12 @@ public class GenericVehicleMovement : MonoBehaviour
 	string closestTargetID;
 	string enemyTurretID;
 	string enemyVehicleID;
-	Vector3 targetPosition;
+	Transform targetTransform;
 	Vector2 targetXZPosition;
 	Vector2 unitXZPosition;
 	string previousClosestTargetName;
 	public MissionManager MissionManagerScript { get { return missionManager; }}
-	public Vector3 TargetPosition { get { return targetPosition; } set { targetPosition = value; }}
+	public Transform TargetTransform { get { return targetTransform; } set { targetTransform = value; }}
 	public GameObject ClosestTarget { get { if (closestTarget != null) return closestTarget; else return null; } set { closestTarget = value; }}
 	public float ClosestTargetDistance { get { return closestTargetDistance; } set { closestTargetDistance = value; }}
 	public string ClosestTargetID { get { if (closestTarget != null) return closestTargetID; else return null; } set { closestTargetID = value; }}
@@ -39,14 +39,20 @@ public class GenericVehicleMovement : MonoBehaviour
 	{
 		while (true)
 		{
-			targetXZPosition = new Vector2(targetPosition.x, targetPosition.z);
-			unitXZPosition = new Vector2(transform.position.x, transform.position.z);
-			targetDistance = Vector2.Distance(targetXZPosition, unitXZPosition);
+			if (TargetTransform != null)
+			{
+				targetXZPosition = new Vector2(TargetTransform.position.x, TargetTransform.position.z);
+				unitXZPosition = new Vector2(transform.position.x, transform.position.z);
+				targetDistance = Vector2.Distance(targetXZPosition, unitXZPosition);
 
-			if (targetDistance > standoffRange)
-				navMeshAgent.SetDestination(targetPosition);
-			else if (ClosestTarget != null && ClosestTarget.name != previousClosestTargetName)
-				navMeshAgent.SetDestination(transform.position);
+				if (targetDistance > standoffRange && TargetTransform.name != previousClosestTargetName)
+				{
+					previousClosestTargetName = TargetTransform.name;
+					navMeshAgent.SetDestination(TargetTransform.position);
+				}
+				else if (targetDistance <= standoffRange)
+					navMeshAgent.SetDestination(transform.position);
+			}
 
 			yield return new WaitForSeconds(1.0f);
 		}
@@ -55,7 +61,7 @@ public class GenericVehicleMovement : MonoBehaviour
 	public void Engage()
 	{
 		if (ClosestTarget != null)
-			targetPosition = ClosestTarget.transform.position;
+			TargetTransform = ClosestTarget.transform;
 		else
 			Search();
 	}

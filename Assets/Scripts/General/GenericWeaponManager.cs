@@ -13,13 +13,13 @@ public class GenericWeaponManager : MonoBehaviour
 	[SerializeField] float maxShootCooldown = 2.0f;
 	[SerializeField] Weapon airWeapon;
 	[SerializeField] Weapon groundWeapon;
+	[SerializeField] bool needsClearShot = false;
 	string objectiveAirTag;
 	string objectiveGroundTag;
 	GameObject closestTarget;
 	string closestTargetID;
 	string enemyTurretID;
 	string enemyVehicleID;
-	bool needsClearShot;
 	bool canShoot = true;
 	public string ObjectiveAirTag { get { return objectiveAirTag; } set { objectiveAirTag = value; }}
 	public string ObjectiveGroundTag { get { return objectiveGroundTag; } set { objectiveGroundTag = value; }}

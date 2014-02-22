@@ -22,7 +22,7 @@ public class AllyVehicleMovement : GenericVehicleMovement
 				GameObject objectiveTarget = MissionManagerScript.AllyObjectivesList[r];
 
 				if (objectiveTarget != null)
-					TargetPosition = objectiveTarget.transform.position;
+					TargetTransform = objectiveTarget.transform;
 			}
 		}
 	}
