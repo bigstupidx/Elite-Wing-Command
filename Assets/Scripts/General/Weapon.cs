@@ -4,6 +4,7 @@ using System.Collections;
 public class Weapon : MonoBehaviour
 {
 	[SerializeField] AmmoSpawner[] ammoSpawners;
+	[SerializeField] bool fireRandomSpawner = false;
 	
 	public void Equip()
 	{
@@ -15,9 +16,17 @@ public class Weapon : MonoBehaviour
 	
 	public void Fire()
 	{
-		foreach(var ammo in ammoSpawners)
+		if (fireRandomSpawner)
 		{
-			ammo.Fire();
+			int randomSpawner = Random.Range(0, ammoSpawners.Length);
+			ammoSpawners[randomSpawner].Fire();
+		}
+		else
+		{
+			foreach(var ammo in ammoSpawners)
+			{
+				ammo.Fire();
+			}
 		}
 	}
 	
