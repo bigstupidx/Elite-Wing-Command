@@ -43,7 +43,6 @@ public class GenericWeaponManager : MonoBehaviour
 			Vector2 unitXZPosition = new Vector2(transform.position.x, transform.position.z);
 			float distance = Vector2.Distance(targetXZPosition, unitXZPosition);
 
-
 			if (ClosestTargetID == EnemyTurretID || ClosestTargetID == EnemyVehicleID || ClosestTarget.tag == ObjectiveGroundTag)
 			{
 				if (canShoot && Vector3.Dot(forward, normalizedToOther) > groundAttackWidth && distance < groundAttackDistance)

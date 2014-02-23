@@ -47,10 +47,12 @@ public class AllyAI : GenericAI
 		{
 			if (ClosestTarget != null)
 			{
+				//Debug.Log("Closest Target: " + ClosestTarget);
 				allyVehicleMovement.Engage();
 			}
 			else
 			{
+				//Debug.Log("Searching....");
 				allyVehicleMovement.Search();
 			}
 		}
