@@ -3,12 +3,12 @@ using System.Collections;
 
 public class Ammo : MonoBehaviour
 {
-	[SerializeField] GameObject bombExplosion;
 	[SerializeField] string ammoSource;
 	[SerializeField] float damageAmount = 20f;
 	[SerializeField] float bulletLife = 1f;
-	[SerializeField] bool Bomb = false;
 	[SerializeField] bool GroundWeapon = false;
+	[SerializeField] bool Bomb = false;
+	[SerializeField] GameObject bombExplosion;
 	const float bulletHeightModifier = 70f;
 	
 	void Awake()
