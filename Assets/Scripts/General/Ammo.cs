@@ -9,6 +9,7 @@ public class Ammo : MonoBehaviour
 	[SerializeField] bool GroundWeapon = false;
 	[SerializeField] bool Bomb = false;
 	[SerializeField] GameObject bombExplosion;
+	[SerializeField] GameObject bombExplosionImpact;
 	const float bulletHeightModifier = 70f;
 	
 	void Awake()
@@ -30,8 +31,12 @@ public class Ammo : MonoBehaviour
 			if (bombExplosion != null)
 			{
 				Vector3 bombPosition = transform.position;
-				bombPosition.y = -9.25f;
-				Instantiate(bombExplosion, bombPosition, transform.rotation);
+				bombPosition.y = transform.position.y + 1.08f;
+
+				if (bombPosition.y > -8.5f)
+					Instantiate(bombExplosion, bombPosition, transform.rotation);
+				else
+					Instantiate(bombExplosionImpact, bombPosition, transform.rotation);
 			}
 
 			Destroy(gameObject);
