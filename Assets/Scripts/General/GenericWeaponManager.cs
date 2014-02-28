@@ -53,13 +53,18 @@ public class GenericWeaponManager : MonoBehaviour
 
 						if (Physics.Linecast(transform.position, ClosestTarget.transform.position, out hit))
 						{
-							if (hit.transform.name != ClosestTarget.transform.name)
-								return;
+							if (hit.transform.name == ClosestTarget.transform.name)
+							{
+								StartCoroutine(GroundFireControl());
+								canShoot = false;
+							}
 						}
 					}
-
-					StartCoroutine(GroundFireControl());
-					canShoot = false;
+					else
+					{
+						StartCoroutine(GroundFireControl());
+						canShoot = false;
+					}
 				}
 			}
 			else

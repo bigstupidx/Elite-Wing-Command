@@ -5,6 +5,6 @@ public class PlayerDamageable : Damageable
 {
 	void Update()
 	{
-		AddHealth(5f * Time.deltaTime);
+		AddHealth(10f * Time.deltaTime);
 	}
 }

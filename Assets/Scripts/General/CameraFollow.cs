@@ -25,14 +25,17 @@ public class CameraFollow : MonoBehaviour
 
 	void LateUpdate()
 	{
-		GameObject[] allyAircraft = GameObject.FindGameObjectsWithTag("Ally");
-
-		foreach (GameObject aircraft in allyAircraft)
+		if (playerAircraft == null)
 		{
-			ObjectIdentifier objectID = aircraft.GetComponent<ObjectIdentifier>();
+			GameObject[] allyAircraft = GameObject.FindGameObjectsWithTag("Ally");
 
-			if (objectID != null && objectID.ObjectType == cameraFollowObjectName)
-				playerAircraft = aircraft;
+			foreach (GameObject aircraft in allyAircraft)
+			{
+				ObjectIdentifier objectID = aircraft.GetComponent<ObjectIdentifier>();
+
+				if (objectID != null && objectID.ObjectType == cameraFollowObjectName)
+					playerAircraft = aircraft;
+			}
 		}
 
 		if (playerAircraft != null)

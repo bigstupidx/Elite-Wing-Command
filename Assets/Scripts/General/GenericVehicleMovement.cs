@@ -51,7 +51,15 @@ public class GenericVehicleMovement : MonoBehaviour
 					navMeshAgent.SetDestination(TargetTransform.position);
 				}
 				else if (targetDistance <= standoffRange)
-					navMeshAgent.SetDestination(transform.position);
+				{
+					RaycastHit hit;
+					
+					if (Physics.Linecast(transform.position, ClosestTarget.transform.position, out hit))
+					{
+						if (hit.transform.name != ClosestTarget.transform.name)
+							navMeshAgent.SetDestination(transform.position);
+					}
+				}
 			}
 
 			yield return new WaitForSeconds(1.0f);
