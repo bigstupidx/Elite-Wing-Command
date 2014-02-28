@@ -45,9 +45,7 @@ public class Ammo : MonoBehaviour
 		var hit = other.transform.GetComponentInChildren<Damageable>();
 		
 		if (hit != null && other.transform.root.tag != ammoSource)
-		{
 			hit.ApplyDamage(damageAmount);
-		}
 	}
 
 	void FixedUpdate()
