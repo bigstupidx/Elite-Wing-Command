@@ -9,18 +9,18 @@ public class Damageable : MonoBehaviour
 	MissionManager missionManager;
 	GameObject spawner;
 	Vector3 correctedPos;
+	public MissionManager MissionManagerScript { get { return missionManager; } set { missionManager = value; }}
 	public float InitialHealth { get { return initialHealth; }}
-	public float Health { get; private set; }
+	public float Health { get; set; }
 	public bool Dead { get { return Health <= 0; }}
 	
-	void Start()
+	public virtual void Start()
 	{
 		Health = InitialHealth;
-
-		var missionManagerObject = GameObject.FindGameObjectWithTag("MissionManager");
+		var MissionManagerScript = GameObject.FindGameObjectWithTag("MissionManager");
 		
-		if (missionManagerObject != null)
-			missionManager = missionManagerObject.GetComponent<MissionManager>();
+		if (MissionManagerScript != null)
+			missionManager = MissionManagerScript.GetComponent<MissionManager>();
 	}
 
 	public void AddHealth(float amount)
