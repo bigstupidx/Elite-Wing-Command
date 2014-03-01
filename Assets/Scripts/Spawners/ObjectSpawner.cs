@@ -41,7 +41,6 @@ public class ObjectSpawner : MonoBehaviour
 			UnitPrefab = spawnDetails[arrayNumber].UnitPrefab;
 			MaxInGame = spawnDetails[arrayNumber].MaxInGame;
 			TotalRespawns = spawnDetails[arrayNumber].TotalRespawns;
-			SquadSpawn = spawnDetails[arrayNumber].SquadSpawn;
 			SquadSpawnSize = spawnDetails[arrayNumber].SquadSpawnSize;
 			SpawnGroundUnit = spawnDetails[arrayNumber].SpawnGroundUnit;
 		}
@@ -50,7 +49,6 @@ public class ObjectSpawner : MonoBehaviour
 			UnitPrefab = spawnDetails[0].UnitPrefab;
 			MaxInGame = spawnDetails[0].MaxInGame;
 			TotalRespawns = spawnDetails[0].TotalRespawns;
-			SquadSpawn = spawnDetails[0].SquadSpawn;
 			SquadSpawnSize = spawnDetails[0].SquadSpawnSize;
 			SpawnGroundUnit = spawnDetails[0].SpawnGroundUnit;
 		}
@@ -93,20 +91,15 @@ public class ObjectSpawner : MonoBehaviour
 	{
 		UnitsInScene.Remove(unitType);
 
-		if (SquadSpawn)
+		if (respawnSquadCount < SquadSpawnSize)
 		{
-			if (respawnSquadCount < SquadSpawnSize)
-			{
-				respawnSquadCount++;
-			}
-			else
-			{
-				canSpawn = true;
-				respawnSquadCount = 1;
-			}
+			respawnSquadCount++;
 		}
 		else
+		{
 			canSpawn = true;
+			respawnSquadCount = 1;
+		}
 	}
 }
 
@@ -117,13 +110,11 @@ public class SpawnDetails
 	[SerializeField] GameObject unitPrefab;
 	[SerializeField] int maxInGame = 20;
 	[SerializeField] int totalRespawns = 50;
-	[SerializeField] bool squadSpawn;
 	[SerializeField] int squadSpawnSize = 5;
 	[SerializeField] bool spawnGroundUnit = false;
 	public GameObject UnitPrefab { get { return unitPrefab; }}
 	public int MaxInGame { get { return maxInGame; }}
 	public int TotalRespawns { get { return totalRespawns; }}
-	public bool SquadSpawn { get { return squadSpawn; }}
 	public int SquadSpawnSize { get { return squadSpawnSize; }}
 	public bool SpawnGroundUnit { get { return spawnGroundUnit; }}
 }

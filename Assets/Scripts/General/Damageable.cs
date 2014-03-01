@@ -11,8 +11,11 @@ public class Damageable : MonoBehaviour
 	Vector3 correctedPos;
 	public MissionManager MissionManagerScript { get { return missionManager; } set { missionManager = value; }}
 	public float InitialHealth { get { return initialHealth; }}
+	public ObjectIdentifier ObjectIdentifierScript { get { return objectIdentifier; }}
+	public GameObject Spawner { get { return spawner; } set { spawner = value; }}
 	public float Health { get; set; }
 	public bool Dead { get { return Health <= 0; }}
+	public GameObject ExplosionParticleEffect { get { return explosionParticleEffect; }}
 	
 	public virtual void Start()
 	{
@@ -46,78 +49,68 @@ public class Damageable : MonoBehaviour
 		}
 	}
 	
-	void Die()
+	public virtual void Die()
 	{
-		switch(objectIdentifier.ObjectType)
+		switch(ObjectIdentifierScript.ObjectType)
 		{
-		case "Player Aircraft":
-			spawner = GameObject.Find("Player Spawner");
-			PlayerSpawner playerSpawner = (PlayerSpawner)spawner.GetComponent(typeof(PlayerSpawner));
-			playerSpawner.PlayerDeath();
-			Destroy(objectIdentifier.transform.gameObject);
-
-			if (explosionParticleEffect != null)
-				Instantiate(explosionParticleEffect, transform.position, transform.rotation);
-
-			return;
 		case "Ally Objective":
 			missionManager.AllyObjectiveDestroyed(objectIdentifier.gameObject);
 			Destroy(objectIdentifier.transform.gameObject);
 
-			if (explosionParticleEffect != null)
-				Instantiate(explosionParticleEffect, transform.position, transform.rotation);
+			if (ExplosionParticleEffect != null)
+				Instantiate(ExplosionParticleEffect, transform.position, transform.rotation);
 
 			return;
 		case "Ally Aircraft":
-			spawner = GameObject.Find("Ally Aircraft Spawner");
+			Spawner = GameObject.Find("Ally Aircraft Spawner");
 			break;
 		case "Ally Defensive Aircraft":
-			spawner = GameObject.Find("Ally Defensive Aircraft Spawner");
+			Spawner = GameObject.Find("Ally Defensive Aircraft Spawner");
 			break;
 		case "Ally Vehicle":
-			spawner = GameObject.Find("Ally Tank Spawner");
+			Spawner = GameObject.Find("Ally Tank Spawner");
 			break;
 		case "Ally Turret":
 			Destroy(objectIdentifier.transform.gameObject);
 
-			if (explosionParticleEffect != null)
-				Instantiate(explosionParticleEffect, transform.position, transform.rotation);
+			if (ExplosionParticleEffect != null)
+				Instantiate(ExplosionParticleEffect, transform.position, transform.rotation);
 
 			return;
 		case "Enemy Objective":
 			missionManager.EnemyObjectiveDestroyed(objectIdentifier.gameObject);
 			Destroy(objectIdentifier.transform.gameObject);
 
-			if (explosionParticleEffect != null)
-				Instantiate(explosionParticleEffect, transform.position, transform.rotation);
+			if (ExplosionParticleEffect != null)
+				Instantiate(ExplosionParticleEffect, transform.position, transform.rotation);
 
 			return;
 		case "Enemy Aircraft Easy":
-			spawner = GameObject.Find("Enemy Aircraft Easy Spawner");
+			Spawner = GameObject.Find("Enemy Aircraft Easy Spawner");
 			break;
 		case "Enemy Defensive Aircraft Easy":
-			spawner = GameObject.Find("Enemy Defensive Aircraft Easy Spawner");
+			Spawner = GameObject.Find("Enemy Defensive Aircraft Easy Spawner");
 			break;
 		case "Enemy Aircraft Medium":
-			spawner = GameObject.Find("Enemy Aircraft Medium Spawner");
+			Spawner = GameObject.Find("Enemy Aircraft Medium Spawner");
 			break;
 		case "Enemy Defensive Aircraft Medium":
-			spawner = GameObject.Find("Enemy Defensive Aircraft Medium Spawner");
+			Spawner = GameObject.Find("Enemy Defensive Aircraft Medium Spawner");
 			break;
 		case "Enemy Aircraft Hard":
-			spawner = GameObject.Find("Enemy Aircraft Hard Spawner");
+			Spawner = GameObject.Find("Enemy Aircraft Hard Spawner");
 			break;
 		case "Enemy Defensive Aircraft Hard":
-			spawner = GameObject.Find("Enemy Defensive Aircraft Hard Spawner");
+			Spawner = GameObject.Find("Enemy Defensive Aircraft Hard Spawner");
 			break;
 		case "Enemy Vehicle":
-			spawner = GameObject.Find("Enemy Tank Spawner");
+			Spawner = GameObject.Find("Enemy Tank Spawner");
 			break;
 		case "Enemy Turret":
 			Destroy(objectIdentifier.transform.gameObject);
 
-			if (explosionParticleEffect != null)
-				Instantiate(explosionParticleEffect, transform.position, transform.rotation);
+			if (ExplosionParticleEffect != null)
+				Instantiate(ExplosionParticleEffect, transform.position, transform.rotation);
 
 			return;
 		default:
@@ -127,17 +120,17 @@ public class Damageable : MonoBehaviour
 
 		if (missionManager != null)
 		{
-			MissionObjectSpawner spawnerEnemyID = (MissionObjectSpawner)spawner.GetComponent(typeof(MissionObjectSpawner));
-			spawnerEnemyID.RemoveFromList(transform.parent.name);
+			MissionObjectSpawner spawnerUnitID = (MissionObjectSpawner)Spawner.GetComponent(typeof(MissionObjectSpawner));
+			spawnerUnitID.RemoveFromList(transform.parent.name);
 		}
 		else
 		{
-			ObjectSpawner spawnerEnemyID = (ObjectSpawner)spawner.GetComponent(typeof(ObjectSpawner));
-			spawnerEnemyID.RemoveFromList(transform.parent.name);
+			ObjectSpawner spawnerUnitID = (ObjectSpawner)Spawner.GetComponent(typeof(ObjectSpawner));
+			spawnerUnitID.RemoveFromList(transform.parent.name);
 		}
 
-		if (explosionParticleEffect != null)
-			Instantiate(explosionParticleEffect, transform.position, transform.rotation);
+		if (ExplosionParticleEffect != null)
+			Instantiate(ExplosionParticleEffect, transform.position, transform.rotation);
 
 		Destroy(objectIdentifier.transform.gameObject);
 	}
