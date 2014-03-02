@@ -39,6 +39,14 @@ public class UISprite : UIWidget
 		Tiled,
 	}
 
+	public enum Flip
+	{
+		Nothing,
+		Horizontally,
+		Vertically,
+		Both,
+	}
+
 	// Cached and saved values
 	[HideInInspector][SerializeField] UIAtlas mAtlas;
 	[HideInInspector][SerializeField] string mSpriteName;
@@ -49,6 +57,7 @@ public class UISprite : UIWidget
 #endif
 	[HideInInspector][SerializeField] float mFillAmount = 1.0f;
 	[HideInInspector][SerializeField] bool mInvert = false;
+	[HideInInspector][SerializeField] Flip mFlip = Flip.Nothing;
 
 	// Deprecated, no longer used
 	[HideInInspector][SerializeField] bool mFillCenter = true;
@@ -605,10 +614,35 @@ public class UISprite : UIWidget
 		verts.Add(new Vector3(v.z, v.w));
 		verts.Add(new Vector3(v.z, v.y));
 
-		uvs.Add(uv0);
-		uvs.Add(new Vector2(uv0.x, uv1.y));
-		uvs.Add(uv1);
-		uvs.Add(new Vector2(uv1.x, uv0.y));
+		if (mFlip == Flip.Both)
+		{
+			uvs.Add(uv1);
+			uvs.Add(new Vector2(uv1.x, uv0.y));	
+			uvs.Add(uv0);
+			uvs.Add(new Vector2(uv0.x, uv1.y));
+		}
+		else if (mFlip == Flip.Horizontally)
+		{
+			uvs.Add(new Vector2(uv1.x, uv0.y));
+			uvs.Add(uv1);
+			uvs.Add(new Vector2(uv0.x, uv1.y));
+			uvs.Add(uv0);
+		}
+		else if (mFlip == Flip.Vertically)
+		{
+			uvs.Add(new Vector2(uv0.x, uv1.y));
+			uvs.Add(uv0);
+			uvs.Add(new Vector2(uv1.x, uv0.y));
+			uvs.Add(uv1);
+		}
+		else
+		{
+			uvs.Add(uv0);
+			uvs.Add(new Vector2(uv0.x, uv1.y));
+			uvs.Add(uv1);
+			uvs.Add(new Vector2(uv1.x, uv0.y));	
+		}
+		
 
 		Color colF = color;
 		colF.a = finalAlpha;

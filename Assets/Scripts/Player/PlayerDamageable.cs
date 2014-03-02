@@ -5,6 +5,7 @@ public class PlayerDamageable : Damageable
 {
 	float healthMultiplierModifier = 10f;
 	UISlider healthSlider;
+	float previousHealth;
 
 	public override void Start()
 	{
@@ -12,6 +13,7 @@ public class PlayerDamageable : Damageable
 		var missionManagerObject = GameObject.FindGameObjectWithTag("MissionManager");
 		var healthSliderObject = GameObject.FindGameObjectWithTag("HealthSlider");
 		healthSlider = healthSliderObject.GetComponent<UISlider>();
+		healthSlider.value = Health/100f;
 		
 		if (missionManagerObject != null)
 		{
@@ -36,7 +38,7 @@ public class PlayerDamageable : Damageable
 		}
 	}
 
-	void Update()
+	void FixedUpdate()
 	{
 		AddHealth(healthMultiplierModifier * Time.deltaTime);
 		healthSlider.value = Health/100f;

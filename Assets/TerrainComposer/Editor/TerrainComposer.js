@@ -166,6 +166,13 @@ class TerrainComposer extends EditorWindow
     
 	static function ShowWindow() 
 	{
+        var tc_windows: TerrainComposer[] = UnityEngine.Resources.FindObjectsOfTypeAll(typeof(TerrainComposer)) as TerrainComposer[];
+        
+        for (var count: int = 0;count < tc_windows.Length;++count) {
+        	// DestroyImmediate(tc_windows[count]);
+        	if (tc_windows[count]) {tc_windows[count].Close ();}
+        }
+        
         window = EditorWindow.GetWindow (TerrainComposer);
         window.title = "TerrainComp.";
     }
@@ -4061,8 +4068,6 @@ class TerrainComposer extends EditorWindow
 		
 		if (generate_code == 1)
 		{
-			load_raw_heightmaps();
-			
 			if (!global_script.auto_speed){
 				script2.generate_speed = script.generate_speed;} 
 			else {
@@ -16229,171 +16234,6 @@ class TerrainComposer extends EditorWindow
 		script.settings.grass_button = false;
 		script.settings.mesh_button = false;
 		script.settings.light_button = false;
-	}
-	
-	function load_raw_heightmaps()
-	{	
-		var current_filter1: filter_class;
-		var length: ulong;
-		var resolution: ulong;
-		
-		for (var count_prelayer1: int = 0;count_prelayer1 < script2.prelayers.Count;++count_prelayer1)
-		{
-			for (var count_layer1: int = 0;count_layer1 < script2.prelayers[count_prelayer1].layer.Count;++count_layer1)
-			{
-				for (var count_filter: int = 0;count_filter < script2.prelayers[count_prelayer1].layer[count_layer1].prefilter.filter_index.Count;++count_filter)
-				{
-					current_filter1 = script2.filter[script2.prelayers[count_prelayer1].layer[count_layer1].prefilter.filter_index[count_filter]];
-						
-					if (current_filter1.type == condition_type_enum.RawHeightmap)
-					{
-						for (var count_index: int = 0;count_index < current_filter1.raw.file_index.Count;++count_index)
-						{
-							if (current_filter1.raw.file_index[count_index] > -1)
-							{
-								if (!script2.raw_files[current_filter1.raw.file_index[count_index]].loaded)
-								{
-									if (!script2.raw_files[current_filter1.raw.file_index[count_index]].exists())
-									{
-										script.erase_raw_file(count_index);
-										script2.erase_raw_file(count_index);
-										current_filter1.raw.file_index.RemoveAt(count_index);
-										--count_index;
-										if (current_filter1.raw.file_index.Count == 0)
-										{
-											script2.erase_filter(count_filter,script2.prelayers[count_prelayer1].layer[count_layer1].prefilter);
-											--count_filter;
-										}
-										continue;
-									}
-									script2.raw_files[current_filter1.raw.file_index[count_index]].bytes = File.ReadAllBytes(script2.raw_files[current_filter1.raw.file_index[count_index]].file);
-									length = script2.raw_files[current_filter1.raw.file_index[count_index]].bytes.Length;
-									resolution = script2.raw_files[current_filter1.raw.file_index[count_index]].resolution.x*script2.raw_files[current_filter1.raw.file_index[count_index]].resolution.y*2;
-									if (length == resolution) {
-										script2.raw_files[current_filter1.raw.file_index[count_index]].loaded = true;
-									}
-									else {
-										this.ShowNotification(GUIContent("Heightmap loading because of selected resolution failed. Please check the console"));
-										Debug.Log("Prelayer"+count_prelayer1+" -> Layer"+count_layer1+" -> Filter"+count_index
-											+"\nThe Raw Heightmap file '"+script2.raw_files[current_filter1.raw.file_index[count_index]].file+"' has a lower resolution than selected. Please check the File size. It should be X*Y*2 = "
-											+script2.raw_files[current_filter1.raw.file_index[count_index]].resolution.x+"*"+script2.raw_files[current_filter1.raw.file_index[count_index]].resolution.y+"*2 = "
-											+script2.raw_files[current_filter1.raw.file_index[count_index]].resolution.x*script2.raw_files[current_filter1.raw.file_index[count_index]].resolution.y*2+" Bytes ("+script2.raw_files[current_filter1.raw.file_index[count_index]].resolution.x+"*"+script2.raw_files[current_filter1.raw.file_index[count_index]].resolution.y+" resolution). But the File size is "+script2.raw_files[current_filter1.raw.file_index[count_index]].bytes.Length
-											+" Bytes ("+Mathf.Round(Mathf.Sqrt(script2.raw_files[current_filter1.raw.file_index[count_index]].bytes.Length/2))+"x"+
-											Mathf.Round(Mathf.Sqrt(script2.raw_files[current_filter1.raw.file_index[count_index]].bytes.Length/2))+" resolution).");
-			
-										script2.erase_raw_file(count_index);
-										current_filter1.raw.file_index.RemoveAt(count_index);
-										--count_index;
-										if (current_filter1.raw.file_index.Count == 0)
-										{
-											script2.erase_filter(count_filter,script2.prelayers[count_prelayer1].layer[count_layer1].prefilter);
-											--count_filter;
-										}
-										continue;
-									}
-								}
-								if (count_prelayer1 == 0 && !script2.prelayers[0].prearea.active){current_filter1.raw.set_raw_auto_scale(script2.terrains[0],script2.terrains[0].prearea.area_old,script2.raw_files,count_index);}
-								else 
-								{
-									current_filter1.raw.set_raw_auto_scale(script2.terrains[0],script2.prelayers[count_prelayer1].prearea.area_old,script2.raw_files,count_index);
-								}
-							} 
-							else 
-							{
-								current_filter1.raw.file_index.RemoveAt(count_index);
-								--count_index;
-								if (current_filter1.raw.file_index.Count == 0)
-								{
-									script2.erase_filter(count_filter,script2.prelayers[count_prelayer1].layer[count_layer1].prefilter);
-									--count_filter;
-									continue;
-								}
-							}
-						}
-					}
-					load_raw_subfilter(current_filter1,count_prelayer1,count_layer1);
-				}
-			}
-		}
-	}
-	
-	function load_raw_subfilter(filter1: filter_class,count_prelayer1:int ,count_layer1: int)
-	{
-		var current_subfilter1: subfilter_class;
-		var length: ulong;
-		var resolution: ulong;
-		
-		for (var count_subfilter: int = 0;count_subfilter < filter1.presubfilter.subfilter_index.Count;++count_subfilter)
-		{
-			current_subfilter1 = script2.subfilter[filter1.presubfilter.subfilter_index[count_subfilter]];
-				
-			if (current_subfilter1.type == condition_type_enum.RawHeightmap)
-			{
-				for (var count_index: int = 0;count_index < current_subfilter1.raw.file_index.Count;++count_index)
-				{
-					if (current_subfilter1.raw.file_index[count_index] > -1)
-					{
-						if (!script2.raw_files[current_subfilter1.raw.file_index[count_index]].loaded)
-						{
-							if (!script2.raw_files[current_subfilter1.raw.file_index[count_index]].exists())
-							{
-								script.erase_raw_file(count_index);
-								script2.erase_raw_file(count_index);
-								current_subfilter1.raw.file_index.RemoveAt(count_index);
-								--count_index;
-								if (current_subfilter1.raw.file_index.Count == 0)
-								{
-									script2.erase_subfilter(count_subfilter,filter1.presubfilter);
-									--count_subfilter;
-								}
-								continue;
-							}
-							script2.raw_files[current_subfilter1.raw.file_index[count_index]].bytes = File.ReadAllBytes(script2.raw_files[current_subfilter1.raw.file_index[count_index]].file);
-							length = script2.raw_files[current_subfilter1.raw.file_index[count_index]].bytes.Length;
-							resolution = script2.raw_files[current_subfilter1.raw.file_index[count_index]].resolution.x*script2.raw_files[current_subfilter1.raw.file_index[count_index]].resolution.y*2;
-							if (length == resolution) {
-								script2.raw_files[current_subfilter1.raw.file_index[count_index]].loaded = true;
-							}
-							else {
-								this.ShowNotification(GUIContent("Heightmap loading because of selected resolution failed. Please check the console"));
-								Debug.Log("Prelayer"+count_prelayer1+" -> Layer"+count_layer1+" -> subfilter"+count_index
-									+"\nThe Raw Heightmap file '"+script2.raw_files[current_subfilter1.raw.file_index[count_index]].file+"' has a lower resolution than selected. Please check the File size. It should be X*Y*2 = "
-									+script2.raw_files[current_subfilter1.raw.file_index[count_index]].resolution.x+"*"+script2.raw_files[current_subfilter1.raw.file_index[count_index]].resolution.y+"*2 = "
-									+script2.raw_files[current_subfilter1.raw.file_index[count_index]].resolution.x*script2.raw_files[current_subfilter1.raw.file_index[count_index]].resolution.y*2+" Bytes ("+script2.raw_files[current_subfilter1.raw.file_index[count_index]].resolution.x+"*"+script2.raw_files[current_subfilter1.raw.file_index[count_index]].resolution.y+" resolution). But the File size is "+script2.raw_files[current_subfilter1.raw.file_index[count_index]].bytes.Length
-									+" Bytes ("+Mathf.Round(Mathf.Sqrt(script2.raw_files[current_subfilter1.raw.file_index[count_index]].bytes.Length/2))+"x"+
-									Mathf.Round(Mathf.Sqrt(script2.raw_files[current_subfilter1.raw.file_index[count_index]].bytes.Length/2))+" resolution).");
-	
-								script2.erase_raw_file(count_index);
-								current_subfilter1.raw.file_index.RemoveAt(count_index);
-								--count_index;
-								if (current_subfilter1.raw.file_index.Count == 0)
-								{
-									script2.erase_subfilter(count_subfilter,filter1.presubfilter);
-									--count_subfilter;
-								}
-								continue;
-							}
-						}
-						if (count_prelayer1 == 0 && !script2.prelayers[0].prearea.active){current_subfilter1.raw.set_raw_auto_scale(script2.terrains[0],script2.terrains[0].prearea.area_old,script2.raw_files,count_index);}
-						else 
-						{
-							current_subfilter1.raw.set_raw_auto_scale(script2.terrains[0],script2.prelayers[count_prelayer1].prearea.area_old,script2.raw_files,count_index);
-						}
-					} 
-					else 
-					{
-						current_subfilter1.raw.file_index.RemoveAt(count_index);
-						--count_index;
-						if (current_subfilter1.raw.file_index.Count == 0)
-						{
-							script2.erase_subfilter(count_subfilter,filter1.presubfilter);
-							--count_subfilter;
-							continue;
-						}
-					}
-				}
-			}
-		}
 	}
 	
 	function create_object_parent(object1: object_class)

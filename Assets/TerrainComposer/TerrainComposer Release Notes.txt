@@ -12,7 +12,19 @@ folder to a package and import it into your new project. Be sure to include the 
 *** DUE TO ASSET STORE REQUIREMENTS AND TERRAINS MENU REMOVED IN UNITY 4.2, TERRAINCOMPOSER IS NOW IN THE UNITY MENU -> WINDOW ***
 
 
-TerrainComposer final version 1.32
+
+TerrainComposer version 1.35
+----------------------------------
+
+Improvements:
+- Generating from raw heightmap with interpolation. This fixes the blockiness when heightmap does not exactly fit the terrain 
+  heightmap resolution.
+
+Fixes:
+- Smooth Tool, smoothing terrain edges stay fitted.
+
+
+TerrainComposer version 1.32
 ----------------------------------
 
 Improvements:
@@ -25,7 +37,7 @@ Fixes:
 - Create parent in object in object layer.
 
 
-TerrainComposer final version 1.31
+TerrainComposer version 1.31
 ----------------------------------
 
 Improvements:
@@ -36,7 +48,7 @@ Fixes:
 - Image filter tool black screen when background color wasn't activated.
 
 
-TerrainComposer final version 1.3
+TerrainComposer version 1.3
 ----------------------------------
 
 Features:
@@ -68,7 +80,7 @@ Fixes:
 - Auto smooth in heightmap layer.
 
 
-TerrainComposer final version 1.24
+TerrainComposer version 1.24
 ----------------------------------
 
 Features:
@@ -78,7 +90,7 @@ Fixes:
 - Subfilter input raw heightmap fix.
 
 
-TerrainComposer final version 1.23
+TerrainComposer version 1.23
 ----------------------------------
 
 Fixes:
@@ -87,7 +99,7 @@ Fixes:
 - RTP Auto assigning colormaps and normals maps window fix.
 
 
-TerrainComposer final version 1.22
+TerrainComposer version 1.22
 ----------------------------------
 
 Improvements:
@@ -97,7 +109,7 @@ Fixes:
 - <Set> and <Set All> in splat texture assignment, was expecting RTP to be there.
 
 
-TerrainComposer final version 1.21
+TerrainComposer version 1.21
 ----------------------------------
 
 Features:
@@ -119,7 +131,7 @@ Fixes:
 - Default balck background color disabled because of Unity free font is also black and cannot be changed.
 
 
-TerrainComposer final version 1.15
+TerrainComposer version 1.15
 ----------------------------------
 
 Features:
@@ -135,7 +147,7 @@ Improvements:
 - 'Get All' buttons for size, resolution, splat textures, trees and grass in terrain list. This will get those settings from all terrains.
  
 
-TerrainComposer final version 1.14
+TerrainComposer version 1.14
 ----------------------------------
 
 Features:
@@ -150,7 +162,7 @@ Fixes:
 - Non square heightmap y not seamless.
 
 
-TerrainComposer final version 1.12
+TerrainComposer version 1.12
 ----------------------------------
 
 Fixes:
@@ -158,7 +170,7 @@ Fixes:
 - Image importing settings changes from filter and subfilters.
 
 
-TerrainComposer final version 1.11
+TerrainComposer version 1.11
 ----------------------------------
 
 Features: 
@@ -181,7 +193,7 @@ Fixes:
 - Assigning heightmap in terrain list.
 
 
-TerrainComposer final version 1.1
+TerrainComposer version 1.1
 ---------------------------------
 
 Features:
@@ -225,7 +237,7 @@ Fixes:
 
 
 
-TerrainComposer final version 1.04
+TerrainComposer version 1.04
 ----------------------------------
 
 Included "procedural landscape1" finished project from video.
@@ -269,7 +281,7 @@ Fixes:
 
 
 
-TerrainComposer final version 1.03x
+TerrainComposer version 1.03x
 -----------------------------------
 
 Included a procedural heightmap tutorial -> TC Menu -> Open -> Examples -> Procedural Mountains
@@ -281,7 +293,7 @@ Fixes:
 
 
 
-TerrainComposer final version 1.01
+TerrainComposer version 1.01
 ----------------------------------
 
 - Removed output button toggles. The indicator that an output button is active the background will
@@ -289,7 +301,7 @@ TerrainComposer final version 1.01
 
 
 
-TerrainComposer final version 1.00
+TerrainComposer version 1.00
 ---------------------------------
 
 Features:
