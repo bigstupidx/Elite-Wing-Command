@@ -42,6 +42,12 @@ public class MissionManager : MonoBehaviour
 	bool timerComplete = false;
 	bool firstVIPSpawned = false;
 	bool vipDestinationReached = false;
+	int totalAllyObjectives;
+	int objectivesDestroyed;
+	int totalEnemyObjectives;
+	int objectivesRemaining;
+	UISlider objectivesRemainingSlider;
+	UILabel objectivesRemainingLabel;
 	public int MissionDifficultyLevel { get { return missionDifficultyLevel; }}
 	public List<GameObject> AllyObjectivesList { get { return allyObjectivesInScene; }}
 	public List<GameObject> EnemyObjectivesList { get { return enemyObjectivesInScene; }}
@@ -83,6 +89,11 @@ public class MissionManager : MonoBehaviour
 			missionDifficultyLevel = 3;
 			break;
 		}
+
+		GameObject ObjectivesRemainingSliderObject = GameObject.FindGameObjectWithTag("ObjectivesSlider");
+		objectivesRemainingSlider = ObjectivesRemainingSliderObject.GetComponent<UISlider>();
+		GameObject ObjectivesRemainingLabelObject = GameObject.FindGameObjectWithTag("ObjectivesLabel");
+		objectivesRemainingLabel = ObjectivesRemainingLabelObject.GetComponent<UILabel>();
 	}
 
 	void Update()
@@ -207,6 +218,11 @@ public class MissionManager : MonoBehaviour
 			Debug.LogError("No Ally Objectives!");
 		
 		Debug.Log("Remaining Ally Objectives: " + AllyObjectivesList.Count);
+		totalAllyObjectives = AllyObjectivesList.Count;
+		objectivesRemainingSlider.numberOfSteps = AllyObjectivesList.Count;
+		objectivesDestroyed = 0;
+		objectivesRemainingSlider.value = objectivesDestroyed/totalAllyObjectives;
+		objectivesRemainingLabel.text = "Objectives Destroyed: " + objectivesDestroyed + "/" + totalAllyObjectives;
 	}
 
 	IEnumerator BaseDefense()
@@ -313,7 +329,13 @@ public class MissionManager : MonoBehaviour
 	public void AllyObjectiveDestroyed(GameObject objectiveName)
 	{
 		allyObjectivesInScene.Remove(objectiveName);
-		Debug.Log("Remaining Ally Objectives: " + AllyObjectivesList.Count);
+		objectivesDestroyed += 1;
+		objectivesRemainingSlider.value = (objectivesDestroyed * 1.0f) / (totalAllyObjectives * 1.0f);
+
+		if (objectivesDestroyed == totalAllyObjectives)
+			objectivesRemainingLabel.text = " ";
+		else
+			objectivesRemainingLabel.text = "Objectives Destroyed: " + objectivesDestroyed + "/" + totalAllyObjectives;
 	}
 
 	public void EnemyObjectiveDestroyed(GameObject objectiveName)
