@@ -12,8 +12,12 @@ public class PlayerDamageable : Damageable
 		Health = InitialHealth;
 		var missionManagerObject = GameObject.FindGameObjectWithTag("MissionManager");
 		var healthSliderObject = GameObject.FindGameObjectWithTag("HealthSlider");
-		healthSlider = healthSliderObject.GetComponent<UISlider>();
-		healthSlider.value = Health/100f;
+
+		if (healthSliderObject != null)
+		{
+			healthSlider = healthSliderObject.GetComponent<UISlider>();
+			healthSlider.value = Health/100f;
+		}
 		
 		if (missionManagerObject != null)
 		{
@@ -41,7 +45,9 @@ public class PlayerDamageable : Damageable
 	void FixedUpdate()
 	{
 		AddHealth(healthMultiplierModifier * Time.deltaTime);
-		healthSlider.value = Health/100f;
+
+		if (healthSlider != null)
+			healthSlider.value = Health/100f;
 	}
 
 	public override void Die()
@@ -53,7 +59,9 @@ public class PlayerDamageable : Damageable
 		if (ExplosionParticleEffect != null)
 			Instantiate(ExplosionParticleEffect, transform.position, transform.rotation);
 
-		healthSlider.value = 0f;
+		if (healthSlider != null)
+			healthSlider.value = 0f;
+
 		Destroy(transform.root.gameObject);
 	}
 }

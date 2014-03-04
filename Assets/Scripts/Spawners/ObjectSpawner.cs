@@ -75,7 +75,12 @@ public class ObjectSpawner : MonoBehaviour
 		respawnNumber++;
 
 		if (SpawnGroundUnit)
-			yPos = -7.5f;
+		{
+			if (missionManager != null)
+				yPos = -7.5f;
+			else
+				yPos = -7.75f;
+		}
 		else
 			yPos = 0;
 

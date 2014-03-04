@@ -6,12 +6,15 @@ public class PauseGame : MonoBehaviour
 	UISprite vignetteEffect;
 	GameObject minimap;
 	GameObject gui;
+	GameObject pauseMenu;
 
 	void Start()
 	{
 		Screen.showCursor = false;
 		minimap = GameObject.FindGameObjectWithTag("Minimap");
 		gui = GameObject.FindGameObjectWithTag("GUI");
+		pauseMenu = GameObject.FindGameObjectWithTag("PauseMenu");
+		pauseMenu.SetActive(false);
 
 		var vignetteEffectObject = GameObject.FindGameObjectWithTag("VignetteEffect");
 		vignetteEffect = vignetteEffectObject.GetComponent<UISprite>();
@@ -23,6 +26,7 @@ public class PauseGame : MonoBehaviour
 		//Pause
 		if (Input.GetKeyDown(KeyCode.N))
 		{
+			pauseMenu.SetActive(true);
 			Screen.showCursor = true;
 			minimap.SetActive(false);
 			gui.SetActive(false);
@@ -32,6 +36,7 @@ public class PauseGame : MonoBehaviour
 		//Unpause
 		else if (Input.GetKeyDown(KeyCode.M))
 		{
+			pauseMenu.SetActive(false);
 			Screen.showCursor = false;
 			minimap.SetActive(true);
 			gui.SetActive(true);
