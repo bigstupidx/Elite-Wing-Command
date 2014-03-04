@@ -4,6 +4,7 @@ using System.Collections;
 public class PlayerDamageable : Damageable
 {
 	float healthMultiplierModifier = 10f;
+	GameObject healthSliderObject;
 	UISlider healthSlider;
 	float previousHealth;
 
@@ -11,7 +12,7 @@ public class PlayerDamageable : Damageable
 	{
 		Health = InitialHealth;
 		var missionManagerObject = GameObject.FindGameObjectWithTag("MissionManager");
-		var healthSliderObject = GameObject.FindGameObjectWithTag("HealthSlider");
+		healthSliderObject = GameObject.FindGameObjectWithTag("HealthSlider");
 
 		if (healthSliderObject != null)
 		{
@@ -45,6 +46,14 @@ public class PlayerDamageable : Damageable
 	void FixedUpdate()
 	{
 		AddHealth(healthMultiplierModifier * Time.deltaTime);
+
+		if (healthSliderObject == null)
+		{
+			healthSliderObject = GameObject.FindGameObjectWithTag("HealthSlider");
+
+			if (healthSliderObject != null)
+				healthSlider = healthSliderObject.GetComponent<UISlider>();
+		}
 
 		if (healthSlider != null)
 			healthSlider.value = Health/100f;

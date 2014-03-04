@@ -53,7 +53,7 @@ public class MissionManager : MonoBehaviour
 	public List<GameObject> EnemyObjectivesList { get { return enemyObjectivesInScene; }}
 	public bool VIPDestinationReached { get { return vipDestinationReached; } set { vipDestinationReached = value; }}
 
-	void Start()
+	void Awake()
 	{
 		switch(missionType.ToString())
 		{
@@ -201,7 +201,7 @@ public class MissionManager : MonoBehaviour
 
 	IEnumerator BaseAttack()
 	{
-		yield return new WaitForSeconds(0.1f);
+		yield return new WaitForSeconds(0.01f);
 		allyObjectivesInScene = new List<GameObject>();
 		GameObject[] airObjectives = GameObject.FindGameObjectsWithTag("AllyAirObjective");
 		GameObject[] groundObjectives = GameObject.FindGameObjectsWithTag("AllyGroundObjective");
@@ -227,7 +227,7 @@ public class MissionManager : MonoBehaviour
 
 	IEnumerator BaseDefense()
 	{
-		yield return new WaitForSeconds(0.1f);
+		yield return new WaitForSeconds(0.01f);
 		enemyObjectivesInScene = new List<GameObject>();
 		GameObject[] airObjectives = GameObject.FindGameObjectsWithTag("EnemyAirObjective");
 		GameObject[] groundObjectives = GameObject.FindGameObjectsWithTag("EnemyGroundObjective");
