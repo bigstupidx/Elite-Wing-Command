@@ -12,14 +12,17 @@ public class MapTurretMover : MonoBehaviour
 
 	void FixedUpdate()
 	{
-		GameObject[] allyAircrafts = GameObject.FindGameObjectsWithTag("Ally");
-	
-		foreach (GameObject aircraft in allyAircrafts)
+		if (playerAircraft == null)
 		{
-			ObjectIdentifier aircraftID = aircraft.GetComponent<ObjectIdentifier>();
+			GameObject[] allyAircrafts = GameObject.FindGameObjectsWithTag("Ally");
+		
+			foreach (GameObject aircraft in allyAircrafts)
+			{
+				ObjectIdentifier aircraftID = aircraft.GetComponent<ObjectIdentifier>();
 
-			if (aircraftID != null && aircraftID.ObjectType == "Player Aircraft")
-				playerAircraft = aircraft;
+				if (aircraftID != null && aircraftID.ObjectType == "Player Aircraft")
+					playerAircraft = aircraft;
+			}
 		}
 
 		if (playerAircraft != null)

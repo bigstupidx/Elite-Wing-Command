@@ -6,6 +6,7 @@ public class EnemyAI : GenericAI
 	EnemyAircraftMovement enemyAircraftMovement;
 	EnemyVehicleMovement enemyVehicleMovement;
 	string objectiveTarget;
+	bool canRun = true;
 	
 	void Start()
 	{
@@ -32,27 +33,39 @@ public class EnemyAI : GenericAI
 
 	void Update()
 	{
-		if(IsAirUnit)
+		if (canRun)
 		{
-			if (ClosestTarget != null)
+			canRun = false;
+			StartCoroutine(FunctionTimer());
+
+			if(IsAirUnit)
 			{
-				enemyAircraftMovement.Engage();
+				if (ClosestTarget != null)
+				{
+					enemyAircraftMovement.Engage();
+				}
+				else
+				{
+					enemyAircraftMovement.Search();
+				}
 			}
-			else
+			else if (IsGroundUnit && !IsStationaryUnit)
 			{
-				enemyAircraftMovement.Search();
+				if (ClosestTarget != null)
+				{
+					enemyVehicleMovement.Engage();
+				}
+				else
+				{
+					enemyVehicleMovement.Search();
+				}
 			}
 		}
-		else if (IsGroundUnit && !IsStationaryUnit)
-		{
-			if (ClosestTarget != null)
-			{
-				enemyVehicleMovement.Engage();
-			}
-			else
-			{
-				enemyVehicleMovement.Search();
-			}
-		}
+	}
+
+	IEnumerator FunctionTimer()
+	{
+		yield return new WaitForSeconds(Random.Range(0.75f, 1f));
+		canRun = true;
 	}
 }

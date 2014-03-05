@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
 
 	void Start()
 	{
+		Screen.showCursor = true;
+
 		if (PlayerPrefs.GetInt("First Load", 1) == 1)
 	    {
 			SetDefaultPrefs();

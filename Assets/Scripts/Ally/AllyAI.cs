@@ -6,6 +6,7 @@ public class AllyAI : GenericAI
 	AllyAircraftMovement allyAircraftMovement;
 	AllyVehicleMovement allyVehicleMovement;
 	string objectiveTarget;
+	bool canRun = true;
 
 	void Start()
 	{
@@ -32,29 +33,41 @@ public class AllyAI : GenericAI
 
 	void Update()
 	{
-		if(IsAirUnit)
+		if (canRun)
 		{
-			if (ClosestTarget != null)
+			canRun = false;
+			StartCoroutine(FunctionTimer());
+
+			if(IsAirUnit)
 			{
-				allyAircraftMovement.Engage();
+				if (ClosestTarget != null)
+				{
+					allyAircraftMovement.Engage();
+				}
+				else
+				{
+					allyAircraftMovement.Search();
+				}
 			}
-			else
+			else if (IsGroundUnit && !IsStationaryUnit)
 			{
-				allyAircraftMovement.Search();
+				if (ClosestTarget != null)
+				{
+					//Debug.Log("Closest Target: " + ClosestTarget);
+					allyVehicleMovement.Engage();
+				}
+				else
+				{
+					//Debug.Log("Searching....");
+					allyVehicleMovement.Search();
+				}
 			}
 		}
-		else if (IsGroundUnit && !IsStationaryUnit)
-		{
-			if (ClosestTarget != null)
-			{
-				//Debug.Log("Closest Target: " + ClosestTarget);
-				allyVehicleMovement.Engage();
-			}
-			else
-			{
-				//Debug.Log("Searching....");
-				allyVehicleMovement.Search();
-			}
-		}
+	}
+
+	IEnumerator FunctionTimer()
+	{
+		yield return new WaitForSeconds(Random.Range(0.75f, 1f));
+		canRun = true;
 	}
 }
