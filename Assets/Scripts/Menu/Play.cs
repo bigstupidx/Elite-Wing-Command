@@ -18,10 +18,10 @@ public class Play : MonoBehaviour
 		joystick.enabled = false;
 		fireWeapon.enabled = false;
 		dropBomb.enabled = false;
-		StartCoroutine(InitializeRadar());
+		StartCoroutine(InitializeMinimap());
 	}
 
-	IEnumerator InitializeRadar()
+	IEnumerator InitializeMinimap()
 	{
 		yield return null;
 		minimap.SetActive(false);

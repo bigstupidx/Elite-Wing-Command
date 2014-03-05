@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class MissionObjectSpawner : ObjectSpawner
 {
+	[SerializeField] float spawnPosX = 30f;
+	[SerializeField] float spawnPosZ = 30f;
 	Vector3 spawnLocation;
 	Vector3 spawnPosition;
 	Quaternion spawnRotation;
@@ -25,7 +27,7 @@ public class MissionObjectSpawner : ObjectSpawner
 
 		if (MissionManagerScript != null)
 		{
-			spawnPosition = new Vector3(Random.Range(spawnLocation.x - 30f, spawnLocation.x + 30f), yPos, Random.Range(spawnLocation.z - 30f, spawnLocation.z + 30f));
+			spawnPosition = new Vector3(Random.Range(spawnLocation.x - spawnPosX, spawnLocation.x + spawnPosX), yPos, Random.Range(spawnLocation.z - spawnPosZ, spawnLocation.z + spawnPosZ));
 			spawnRotation = transform.rotation;
 		}
 		else
