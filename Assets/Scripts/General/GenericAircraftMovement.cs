@@ -90,8 +90,7 @@ public class GenericAircraftMovement : MonoBehaviour
 
 	public IEnumerator FindRandomAngleWait()
 	{
-		float waitTime = Random.Range(1f, 5f);
-		yield return new WaitForSeconds(waitTime);
+		yield return new WaitForSeconds(Random.Range(1f, 5f));
 		FindRandomAngle = true;
 	}
 }

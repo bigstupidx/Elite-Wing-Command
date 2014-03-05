@@ -11,53 +11,60 @@ public class CameraFollow : MonoBehaviour
 	Vector3 wantedPosition;
 	bool haveFound = false;
 	const float moveMultiplier = 2f;
+	bool initialized = false;
 
 	void Start()
 	{
-		if (playerAircraft != null)
-		{
-			haveFound = true;
-			wantedPosition = playerAircraft.transform.position;
-			wantedPosition.y = cameraHeight;
-			transform.position = wantedPosition;
-		}
+		StartCoroutine(InitializeMainCamera());
+	}
+
+	IEnumerator InitializeMainCamera()
+	{
+		var modifiedPosition = transform.position;
+		modifiedPosition.y = 600f;
+		transform.position = modifiedPosition;
+		yield return new WaitForSeconds(0.1f);
+		initialized = true;
 	}
 
 	void LateUpdate()
 	{
-		if (playerAircraft == null)
+		if (initialized)
 		{
-			GameObject[] allyAircraft = GameObject.FindGameObjectsWithTag("Ally");
-
-			foreach (GameObject aircraft in allyAircraft)
+			if (playerAircraft == null)
 			{
-				ObjectIdentifier objectID = aircraft.GetComponent<ObjectIdentifier>();
+				GameObject[] allyAircraft = GameObject.FindGameObjectsWithTag("Ally");
 
-				if (objectID != null && objectID.ObjectType == cameraFollowObjectName)
-					playerAircraft = aircraft;
+				foreach (GameObject aircraft in allyAircraft)
+				{
+					ObjectIdentifier objectID = aircraft.GetComponent<ObjectIdentifier>();
+
+					if (objectID != null && objectID.ObjectType == cameraFollowObjectName)
+						playerAircraft = aircraft;
+				}
 			}
-		}
 
-		if (playerAircraft != null)
-		{
-			if (haveFound)
+			if (playerAircraft != null)
 			{
-				wantedPosition = playerAircraft.transform.position;
-				wantedPosition.y = cameraHeight;
-				if (smoothFollow)
-					transform.position = Vector3.Lerp(transform.position, wantedPosition, Time.deltaTime * cameraFollowSpeed);
+				if (haveFound)
+				{
+					wantedPosition = playerAircraft.transform.position;
+					wantedPosition.y = cameraHeight;
+					if (smoothFollow)
+						transform.position = Vector3.Lerp(transform.position, wantedPosition, Time.deltaTime * cameraFollowSpeed);
+					else
+						transform.position = wantedPosition;
+				}
 				else
+				{
+					wantedPosition = playerAircraft.transform.position;
+					wantedPosition.y = cameraHeight;
 					transform.position = wantedPosition;
+					haveFound = true;
+				}
 			}
 			else
-			{
-				wantedPosition = playerAircraft.transform.position;
-				wantedPosition.y = cameraHeight;
-				transform.position = wantedPosition;
-				haveFound = true;
-			}
+				haveFound = false;
 		}
-		else
-			haveFound = false;
 	}
 }

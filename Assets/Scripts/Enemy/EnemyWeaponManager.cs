@@ -20,7 +20,7 @@ public class EnemyWeaponManager : GenericWeaponManager
 			ClosestTargetID = enemyAI.ClosestTargetID;
 			EnemyTurretID = enemyAI.TargetTurretID;
 			EnemyVehicleID = enemyAI.TargetVehicleID;
-			yield return new WaitForSeconds(1.0f);
+			yield return new WaitForSeconds(Random.Range(0.75f, 1f));
 		}
 	}
 }

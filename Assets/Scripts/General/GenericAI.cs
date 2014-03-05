@@ -143,7 +143,7 @@ public class GenericAI : MonoBehaviour
 					ClosestTargetID = null;
 				}
 				
-				yield return new WaitForSeconds(1.0f);
+				yield return new WaitForSeconds(Random.Range(0.75f, 1f));
 			}
 		}
 	}

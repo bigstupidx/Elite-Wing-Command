@@ -36,7 +36,7 @@ public class VIPVehicleMovement : MonoBehaviour
 			if (targetDistance < targetReachedDistance)
 				missionManager.VIPDestinationReached = true;
 
-			yield return new WaitForSeconds(0.5f);
+			yield return new WaitForSeconds(Random.Range(0.75f, 1f));
 		}
 	}
 }

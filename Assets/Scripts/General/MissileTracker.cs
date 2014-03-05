@@ -95,7 +95,7 @@ public class MissileTracker : MonoBehaviour
 			if (airTargets == 0 && groundTargets == 0)
 				closestTarget = null;
 
-			yield return new WaitForSeconds(0.2f);
+			yield return new WaitForSeconds(Random.Range(0.75f, 1f));
 		}
 	}
 }
