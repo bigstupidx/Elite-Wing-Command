@@ -9,6 +9,7 @@ public class Play : MonoBehaviour
 	[SerializeField] EasyJoystick joystick;
 	[SerializeField] EasyButton fireWeapon;
 	[SerializeField] EasyButton dropBomb;
+	[SerializeField] TweenAlpha backgroundFadeOut;
 
 	void Start()
 	{
@@ -31,6 +32,7 @@ public class Play : MonoBehaviour
 	{
 		Screen.showCursor = false;
 		CustomTimeManager.FadeTo(1.1f, 0.01f);
+		backgroundFadeOut.enabled = true;
 		minimap.SetActive(true);
 		gui.SetActive(true);
 		joystick.enabled = true;

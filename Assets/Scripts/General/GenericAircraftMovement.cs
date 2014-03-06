@@ -24,6 +24,7 @@ public class GenericAircraftMovement : MonoBehaviour
 	float randomEngineForce;
 	float angle;
 	Vector3 offset;
+	Vector3 targetPosition;
 	Vector3 randomPosition;
 	bool findRandomAngle = true;
 	public MissionManager MissionManagerScript { get { return missionManager; }}
@@ -33,7 +34,7 @@ public class GenericAircraftMovement : MonoBehaviour
 	public string ClosestTargetID { get { if (closestTarget != null) return closestTargetID; else return null; } set { closestTargetID = value; }}
 	public string EnemyTurretID { get { return enemyTurretID; } set { enemyTurretID = value; }}
 	public string EnemyVehicleID { get { return enemyVehicleID; } set { enemyVehicleID = value; }}
-	public Vector3 Offset { get { return offset; } set { offset = value; }}
+	public Vector3 TargetPosition { get { return targetPosition; } set { targetPosition = value; }}
 	public float EscortPerimeter { get { return escortPerimeter; }}
 	public float DefensiveAirPerimeter { get { return defensiveAirPerimeter; }}
 	public Vector3 RandomPosition { get { return randomPosition; } set { randomPosition = value; }}
@@ -55,7 +56,8 @@ public class GenericAircraftMovement : MonoBehaviour
 	{
 		currentForce = Mathf.MoveTowards(currentForce, randomEngineForce * forceMultiplier, timeModifier * Time.fixedDeltaTime);
 		rigidbody.AddForce(transform.forward * currentForce, ForceMode.Acceleration);
-		angle = Mathf.Rad2Deg * Mathf.Atan2(Offset.x, Offset.z);
+		offset = transform.InverseTransformPoint(TargetPosition);
+		angle = Mathf.Rad2Deg * Mathf.Atan2(offset.x, offset.z);
 
 		if (ClosestTargetID == EnemyTurretID || ClosestTargetID == enemyVehicleID || ClosestTargetID == ObjectiveGroundTag)
 			evasionDistance = groundTargetEvasionDistance;
@@ -76,8 +78,7 @@ public class GenericAircraftMovement : MonoBehaviour
 	{
 		if (ClosestTarget != null)
 		{
-			Vector3 targetPosition = ClosestTarget.transform.position;
-			Offset = transform.InverseTransformPoint(targetPosition);
+			TargetPosition = ClosestTarget.transform.position;
 		}
 		else
 			Search();

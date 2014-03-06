@@ -25,8 +25,22 @@ public class EnemyAircraftMovement : GenericAircraftMovement
 		if (MissionManagerScript != null)
 		{
 			GameObject[] enemyUnits = GameObject.FindGameObjectsWithTag("Enemy");
-			
-			if (enemyUnits.Length != 0)
+
+			if (MissionManagerScript.AllyObjectivesList != null && MissionManagerScript.AllyObjectivesList.Count != 0)
+			{
+				GameObject[] allyAirObjectives = GameObject.FindGameObjectsWithTag("AllyAirObjective");
+				GameObject[] allyGroundObjectives = GameObject.FindGameObjectsWithTag("AllyGroundObjective");
+				GameObject[] allyObjectives = allyAirObjectives.Concat(allyGroundObjectives).ToArray();
+				
+				if (allyObjectives.Length > 0)
+				{
+					GameObject targetObject = allyObjectives[Random.Range(0, allyObjectives.Length)];
+					TargetPosition = new Vector3(Random.Range(targetObject.transform.position.x - DefensiveAirPerimeter, targetObject.transform.position.x + DefensiveAirPerimeter), 0, 
+					                                     Random.Range(targetObject.transform.position.z - DefensiveAirPerimeter, targetObject.transform.position.z + DefensiveAirPerimeter));
+					return;
+				}
+			}
+			else if (enemyUnits.Length != 0)
 			{
 				closestEnemyDistance = 100f;
 				
@@ -43,37 +57,20 @@ public class EnemyAircraftMovement : GenericAircraftMovement
 						closestEnemyVehicle = enemy;
 					}
 				}
-			}
-			
-			if (closestEnemyVehicle != null)
-			{
-				Vector3 targetPosition = new Vector2(Random.Range(closestEnemyVehicle.transform.position.x - EscortPerimeter, closestEnemyVehicle.transform.position.x + EscortPerimeter), 
-				                                     Random.Range(closestEnemyVehicle.transform.position.z - EscortPerimeter, closestEnemyVehicle.transform.position.z + EscortPerimeter));
-				Offset = transform.InverseTransformPoint(targetPosition);
-			}
-			else if (MissionManagerScript.AllyObjectivesList != null && MissionManagerScript.AllyObjectivesList.Count != 0)
-			{
-				GameObject[] allyAirObjectives = GameObject.FindGameObjectsWithTag("AllyAirObjective");
-				GameObject[] allyGroundObjectives = GameObject.FindGameObjectsWithTag("AllyGroundObjective");
-				GameObject[] allyObjectives = allyAirObjectives.Concat(allyGroundObjectives).ToArray();
-				
-				if (allyObjectives.Length > 0)
+
+				if (closestEnemyVehicle != null)
 				{
-					GameObject targetObject = allyObjectives[Random.Range(0, allyObjectives.Length)];
-					Vector3 targetPosition = new Vector3(Random.Range(targetObject.transform.position.x - DefensiveAirPerimeter, targetObject.transform.position.x + DefensiveAirPerimeter), 0, 
-					                                     Random.Range(targetObject.transform.position.z - DefensiveAirPerimeter, targetObject.transform.position.z + DefensiveAirPerimeter));
-					Offset = transform.InverseTransformPoint(targetPosition);
-					return;
+					TargetPosition = new Vector2(Random.Range(closestEnemyVehicle.transform.position.x - EscortPerimeter, closestEnemyVehicle.transform.position.x + EscortPerimeter), 
+					                                     Random.Range(closestEnemyVehicle.transform.position.z - EscortPerimeter, closestEnemyVehicle.transform.position.z + EscortPerimeter));
 				}
 			}
-			
 		}
 		else if (FindRandomAngle == true)
 		{
 			FindRandomAngle = false;
 			RandomPosition = new Vector3(Random.Range(-90f, 90f), transform.position.y, Random.Range(-90f, 90f));
 			StartCoroutine(FindRandomAngleWait());
-			Offset = transform.InverseTransformPoint(RandomPosition);
+			TargetPosition = RandomPosition;
 		}
 	}
 }

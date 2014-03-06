@@ -38,11 +38,11 @@ public class ObjectSpawner : MonoBehaviour
 		if (missionManager != null)
 		{
 			int arrayNumber = missionManager.MissionDifficultyLevel;
-			UnitPrefab = spawnDetails[arrayNumber].UnitPrefab;
-			MaxInGame = spawnDetails[arrayNumber].MaxInGame;
-			TotalRespawns = spawnDetails[arrayNumber].TotalRespawns;
-			SquadSpawnSize = spawnDetails[arrayNumber].SquadSpawnSize;
-			SpawnGroundUnit = spawnDetails[arrayNumber].SpawnGroundUnit;
+			UnitPrefab = spawnDetails[arrayNumber - 1].UnitPrefab;
+			MaxInGame = spawnDetails[arrayNumber - 1].MaxInGame;
+			TotalRespawns = spawnDetails[arrayNumber - 1].TotalRespawns;
+			SquadSpawnSize = spawnDetails[arrayNumber - 1].SquadSpawnSize;
+			SpawnGroundUnit = spawnDetails[arrayNumber - 1].SpawnGroundUnit;
 		}
 		else
 		{
