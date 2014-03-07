@@ -216,8 +216,7 @@ public class MissionManager : MonoBehaviour
 		}
 		else
 			Debug.LogError("No Ally Objectives!");
-		
-		Debug.Log("Remaining Ally Objectives: " + AllyObjectivesList.Count);
+
 		totalAllyObjectives = AllyObjectivesList.Count;
 		objectivesRemainingSlider.numberOfSteps = AllyObjectivesList.Count;
 		objectivesDestroyed = 0;
