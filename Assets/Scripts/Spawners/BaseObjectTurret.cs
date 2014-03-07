@@ -9,6 +9,7 @@ public class BaseObjectTurret : MonoBehaviour
 	MissionManager missionManager;
 	int missionDifficultyValue;
 	Vector3 spawnLocation;
+	float rotationAngle;
 	int spawnNumber = 0;
 	float yPos = -7.5f;
 	
@@ -31,6 +32,31 @@ public class BaseObjectTurret : MonoBehaviour
 			missionDifficultyValue = missionManager.MissionDifficultyLevel;
 			yield return null;
 		}
+
+		int randomInt = Random.Range(0, 4);
+		
+		switch (randomInt)
+		{
+		case 0:
+			rotationAngle = 0f;
+			break;
+		case 1:
+			rotationAngle = 90f;
+			break;
+		case 2:
+			rotationAngle = 180f;
+			break;
+		case 3:
+			rotationAngle = 270f;
+			break;
+		default:
+			Debug.LogError("No proper rotation angle set");
+			break;
+		}
+
+		Vector3 modifyRotation = transform.eulerAngles;
+		modifyRotation.y = rotationAngle;
+		transform.eulerAngles = modifyRotation;
 
 		if (!inverseDifficulty && difficultyLevel <= missionDifficultyValue)
 		{
