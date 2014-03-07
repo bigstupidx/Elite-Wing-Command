@@ -89,6 +89,9 @@ public class PlayerSpawner : MonoBehaviour
 
 	public void PlayerDeath()
 	{
+		if (missionManager != null)
+			missionManager.PlayerLivesRemaining -= 1;
+
 		playerInScene.Clear();
 		respawnNumber++;
 		if (respawnNumber > totalRespawns)

@@ -55,6 +55,10 @@ public class Damageable : MonoBehaviour
 		{
 		case "Ally Objective":
 			missionManager.AllyObjectiveDestroyed(objectIdentifier.gameObject);
+
+			if (missionManager != null)
+				missionManager.MissionObjectivesDestroyed += 1;
+
 			Destroy(objectIdentifier.transform.gameObject);
 
 			if (ExplosionParticleEffect != null)
@@ -79,6 +83,10 @@ public class Damageable : MonoBehaviour
 			return;
 		case "Enemy Objective":
 			missionManager.EnemyObjectiveDestroyed(objectIdentifier.gameObject);
+
+			if (missionManager != null)
+				missionManager.MissionObjectivesRemaining -= 1;
+
 			Destroy(objectIdentifier.transform.gameObject);
 
 			if (ExplosionParticleEffect != null)
@@ -87,27 +95,58 @@ public class Damageable : MonoBehaviour
 			return;
 		case "Enemy Aircraft Easy":
 			Spawner = GameObject.Find("Enemy Aircraft Easy Spawner");
+
+			if (missionManager != null)
+				missionManager.EnemyAirDestroyed += 1;
+
 			break;
 		case "Enemy Defensive Aircraft Easy":
 			Spawner = GameObject.Find("Enemy Defensive Aircraft Easy Spawner");
+
+			if (missionManager != null)
+				missionManager.EnemyAirDestroyed += 1;
+
 			break;
 		case "Enemy Aircraft Medium":
 			Spawner = GameObject.Find("Enemy Aircraft Medium Spawner");
+
+			if (missionManager != null)
+				missionManager.EnemyAirDestroyed += 1;
+
 			break;
 		case "Enemy Defensive Aircraft Medium":
 			Spawner = GameObject.Find("Enemy Defensive Aircraft Medium Spawner");
+
+			if (missionManager != null)
+				missionManager.EnemyAirDestroyed += 1;
+
 			break;
 		case "Enemy Aircraft Hard":
 			Spawner = GameObject.Find("Enemy Aircraft Hard Spawner");
+
+			if (missionManager != null)
+				missionManager.EnemyAirDestroyed += 1;
+
 			break;
 		case "Enemy Defensive Aircraft Hard":
 			Spawner = GameObject.Find("Enemy Defensive Aircraft Hard Spawner");
+
+			if (missionManager != null)
+				missionManager.EnemyAirDestroyed += 1;
+
 			break;
 		case "Enemy Vehicle":
 			Spawner = GameObject.Find("Enemy Tank Spawner");
+
+			if (missionManager != null)
+				missionManager.EnemyGroundDestroyed += 1;
+
 			break;
 		case "Enemy Turret":
 			Destroy(objectIdentifier.transform.gameObject);
+
+			if (missionManager != null)
+				missionManager.EnemyGroundDestroyed += 1;
 
 			if (ExplosionParticleEffect != null)
 				Instantiate(ExplosionParticleEffect, transform.position, transform.rotation);
