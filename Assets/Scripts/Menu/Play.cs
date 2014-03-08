@@ -4,28 +4,26 @@ using System.Collections;
 public class Play : MonoBehaviour
 {
 	[SerializeField] GameObject PlayMenu;
-	[SerializeField] GameObject minimap;
+	[SerializeField] KGFMapSystem minimapScript;
 	[SerializeField] GameObject gui;
 	[SerializeField] EasyJoystick joystick;
 	[SerializeField] EasyButton fireWeapon;
 	[SerializeField] EasyButton dropBomb;
 	[SerializeField] TweenAlpha backgroundFadeOut;
 
-	void Start()
+	void Awake()
 	{
-		Screen.showCursor = true;
-		CustomTimeManager.FadeTo(0f, 0.01f);
 		gui.SetActive(false);
 		joystick.enabled = false;
 		fireWeapon.enabled = false;
 		dropBomb.enabled = false;
-		StartCoroutine(InitializeMinimap());
 	}
 
-	IEnumerator InitializeMinimap()
+	void Start()
 	{
-		yield return null;
-		minimap.SetActive(false);
+		minimapScript.SetGlobalHideGui(true);
+		Screen.showCursor = true;
+		CustomTimeManager.FadeTo(0f, 0.01f);
 	}
 
 	void OnClick()
@@ -33,7 +31,7 @@ public class Play : MonoBehaviour
 		Screen.showCursor = false;
 		CustomTimeManager.FadeTo(1.1f, 0.01f);
 		backgroundFadeOut.enabled = true;
-		minimap.SetActive(true);
+		minimapScript.SetGlobalHideGui(false);
 		gui.SetActive(true);
 		joystick.enabled = true;
 		fireWeapon.enabled = true;

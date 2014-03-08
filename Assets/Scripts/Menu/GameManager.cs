@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
 	void Start()
 	{
 		Screen.showCursor = true;
+		CustomTimeManager.FadeTo(1.1f, 0.01f);
 
 		if (PlayerPrefs.GetInt("First Load", 1) == 1)
 	    {
