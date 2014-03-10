@@ -76,15 +76,6 @@ public class PlayerSpawner : MonoBehaviour
 	{
 		canSpawn = false;
 		var playerClone = (GameObject)Instantiate(playerPrefab, spawnPosition, spawnRotation);
-		MapConstraint mapConstraint = playerClone.GetComponent<MapConstraint>();
-		MapAircraftMover mapAircraftMover = playerClone.GetComponentInChildren<MapAircraftMover>();
-
-		if (missionManager != null)
-		{
-			mapConstraint.enabled = false;
-			mapAircraftMover.gameObject.SetActive(false);
-		}
-
 		playerClone.name = "Player Aircraft";
 		playerInScene.Add(playerClone.name);
 		Debug.Log("Lives Remaining: " + ((totalRespawns + 1) - respawnNumber));

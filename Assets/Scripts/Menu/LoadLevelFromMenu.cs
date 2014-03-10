@@ -1,14 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class LoadMission : MonoBehaviour
+public class LoadLevelFromMenu : MonoBehaviour
 {
 	[SerializeField] int loadLevel;
-	[SerializeField] GameObject missionLoad;
+	[SerializeField] GameObject levelLoadSplash;
 	
 	void OnClick()
 	{
-		missionLoad.SetActive(true);
+		levelLoadSplash.SetActive(true);
 		StartCoroutine(WaitAndLoad());
 	}
 	
