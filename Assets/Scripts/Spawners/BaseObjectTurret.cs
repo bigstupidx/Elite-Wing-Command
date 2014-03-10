@@ -62,11 +62,6 @@ public class BaseObjectTurret : MonoBehaviour
 		{
 			spawnLocation = new Vector3(transform.position.x, yPos, transform.position.z);
 			GameObject unitClone = (GameObject)Instantiate(unitPrefab, spawnLocation, transform.rotation);
-			DisableTurretArcadeScripts disableTurretArcadeScripts = unitClone.GetComponent<DisableTurretArcadeScripts>();
-			
-			if (disableTurretArcadeScripts != null)
-				disableTurretArcadeScripts.IsMission = true;
-			
 			unitClone.name = unitPrefab.name + " " + spawnNumber;
 			spawnNumber++;
 		}
@@ -74,11 +69,6 @@ public class BaseObjectTurret : MonoBehaviour
 		{
 			spawnLocation = new Vector3(transform.position.x, yPos, transform.position.z);
 			GameObject unitClone = (GameObject)Instantiate(unitPrefab, spawnLocation, transform.rotation);
-			DisableTurretArcadeScripts disableTurretArcadeScripts = unitClone.GetComponent<DisableTurretArcadeScripts>();
-			
-			if (disableTurretArcadeScripts != null)
-				disableTurretArcadeScripts.IsMission = true;
-			
 			unitClone.name = unitPrefab.name + " " + spawnNumber;
 			spawnNumber++;
 		}

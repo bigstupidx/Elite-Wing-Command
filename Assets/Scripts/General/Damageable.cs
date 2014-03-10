@@ -7,6 +7,7 @@ public class Damageable : MonoBehaviour
 	[SerializeField] ObjectIdentifier objectIdentifier;
 	[SerializeField] GameObject explosionParticleEffect;
 	MissionManager missionManager;
+	ArcadeStatHolder arcadeStatHolder;
 	GameObject spawner;
 	Vector3 correctedPos;
 	public MissionManager MissionManagerScript { get { return missionManager; } set { missionManager = value; }}
@@ -20,10 +21,15 @@ public class Damageable : MonoBehaviour
 	public virtual void Start()
 	{
 		Health = InitialHealth;
-		var MissionManagerScript = GameObject.FindGameObjectWithTag("MissionManager");
+		var MissionManagerObject = GameObject.FindGameObjectWithTag("MissionManager");
 		
-		if (MissionManagerScript != null)
-			missionManager = MissionManagerScript.GetComponent<MissionManager>();
+		if (MissionManagerObject != null)
+			missionManager = MissionManagerObject.GetComponent<MissionManager>();
+
+		var ArcadeStatHolderObject = GameObject.FindGameObjectWithTag("ArcadeStatHolder");
+		
+		if (ArcadeStatHolderObject != null)
+			arcadeStatHolder = ArcadeStatHolderObject.GetComponent<ArcadeStatHolder>();
 	}
 
 	public void AddHealth(float amount)
@@ -98,6 +104,8 @@ public class Damageable : MonoBehaviour
 
 			if (missionManager != null)
 				missionManager.EnemyAirDestroyed += 1;
+			else
+				arcadeStatHolder.EnemyAirDestroyed += 1;
 
 			break;
 		case "Enemy Defensive Aircraft Easy":
@@ -105,6 +113,8 @@ public class Damageable : MonoBehaviour
 
 			if (missionManager != null)
 				missionManager.EnemyAirDestroyed += 1;
+			else
+				arcadeStatHolder.EnemyAirDestroyed += 1;
 
 			break;
 		case "Enemy Aircraft Medium":
@@ -112,6 +122,8 @@ public class Damageable : MonoBehaviour
 
 			if (missionManager != null)
 				missionManager.EnemyAirDestroyed += 1;
+			else
+				arcadeStatHolder.EnemyAirDestroyed += 1;
 
 			break;
 		case "Enemy Defensive Aircraft Medium":
@@ -119,6 +131,8 @@ public class Damageable : MonoBehaviour
 
 			if (missionManager != null)
 				missionManager.EnemyAirDestroyed += 1;
+			else
+				arcadeStatHolder.EnemyAirDestroyed += 1;
 
 			break;
 		case "Enemy Aircraft Hard":
@@ -126,6 +140,8 @@ public class Damageable : MonoBehaviour
 
 			if (missionManager != null)
 				missionManager.EnemyAirDestroyed += 1;
+			else
+				arcadeStatHolder.EnemyAirDestroyed += 1;
 
 			break;
 		case "Enemy Defensive Aircraft Hard":
@@ -133,6 +149,8 @@ public class Damageable : MonoBehaviour
 
 			if (missionManager != null)
 				missionManager.EnemyAirDestroyed += 1;
+			else
+				arcadeStatHolder.EnemyAirDestroyed += 1;
 
 			break;
 		case "Enemy Vehicle":
@@ -140,6 +158,8 @@ public class Damageable : MonoBehaviour
 
 			if (missionManager != null)
 				missionManager.EnemyGroundDestroyed += 1;
+			else
+				arcadeStatHolder.EnemyGroundDestroyed += 1;
 
 			break;
 		case "Enemy Turret":
@@ -147,6 +167,8 @@ public class Damageable : MonoBehaviour
 
 			if (missionManager != null)
 				missionManager.EnemyGroundDestroyed += 1;
+			else
+				arcadeStatHolder.EnemyGroundDestroyed += 1;
 
 			if (ExplosionParticleEffect != null)
 				Instantiate(ExplosionParticleEffect, transform.position, transform.rotation);

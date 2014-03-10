@@ -19,6 +19,9 @@ public class PlayerSpawner : MonoBehaviour
 	Quaternion spawnRotation;
 	bool canSpawn = true;
 	public bool GameOver { get { return gameOver; }}
+	[SerializeField] GameObject arcadeSessionCompleteScreen;
+	[SerializeField] GameObject minimapObject;
+	[SerializeField] GameObject guiObject;
 
 	void Awake()
 	{
@@ -101,7 +104,10 @@ public class PlayerSpawner : MonoBehaviour
 			gameOver = true;
 
 			if (missionManager == null)
-				Application.LoadLevel(0);
+			{
+				arcadeSessionCompleteScreen.SetActive(true);
+				StartCoroutine(WaitAndPause());
+			}
 		}
 		else
 			StartCoroutine(RespawnTimer(2f));
@@ -111,5 +117,13 @@ public class PlayerSpawner : MonoBehaviour
 	{
 		yield return new WaitForSeconds(waitTime);
 		canSpawn = true;
+	}
+
+	IEnumerator WaitAndPause()
+	{
+		minimapObject.SetActive(false);
+		guiObject.SetActive(false);
+		yield return new WaitForSeconds(2.0f);
+		CustomTimeManager.FadeTo(0f, 0.25f);
 	}
 }
