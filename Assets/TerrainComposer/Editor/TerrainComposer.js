@@ -169,8 +169,8 @@ class TerrainComposer extends EditorWindow
         var tc_windows: TerrainComposer[] = UnityEngine.Resources.FindObjectsOfTypeAll(typeof(TerrainComposer)) as TerrainComposer[];
         
         for (var count: int = 0;count < tc_windows.Length;++count) {
-        	// DestroyImmediate(tc_windows[count]);
-        	if (tc_windows[count]) {tc_windows[count].Close ();}
+        	DestroyImmediate(tc_windows[count]);
+        	// if (tc_windows[count]) {tc_windows[count].Close ();}
         }
         
         window = EditorWindow.GetWindow (TerrainComposer);
