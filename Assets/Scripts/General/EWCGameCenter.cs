@@ -53,8 +53,9 @@ public class EWCGameCenter : MonoBehaviour {
 			}
 
 			PlayerPrefs.SetInt("Arcade High Score", sessionScore);
-			ReportScore(sessionScore, leaderboardID);
 		}
+
+		ReportScore(PlayerPrefs.GetInt("Arcade High Score"), leaderboardID);
     }
 	
 	///////////////////////////////////////////////////
