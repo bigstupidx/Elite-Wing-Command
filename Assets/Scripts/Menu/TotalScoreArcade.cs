@@ -17,5 +17,13 @@ public class TotalScoreArcade : MonoBehaviour
 		yield return new WaitForSeconds(0.1f);
 		totalScore = scoreNumbersArcade.TotalScore;
 		totalScoreObject.text = totalScore.ToString();
+
+		var gameCenterObject = GameObject.FindGameObjectWithTag("GameCenter");
+
+		if (gameCenterObject != null)
+		{
+			EWCGameCenter gameCenterScript = gameCenterObject.GetComponent<EWCGameCenter>();
+			gameCenterScript.StoreAndSubmitScore(totalScore);
+		}
 	}
 }
