@@ -5,9 +5,11 @@ public class LoadLevelFromMenu : MonoBehaviour
 {
 	[SerializeField] int loadLevel;
 	[SerializeField] GameObject levelLoadSplash;
+	[SerializeField] GameObject altCamera;
 	
 	void OnClick()
 	{
+		altCamera.SetActive(false);
 		levelLoadSplash.SetActive(true);
 		StartCoroutine(WaitAndLoad());
 	}
