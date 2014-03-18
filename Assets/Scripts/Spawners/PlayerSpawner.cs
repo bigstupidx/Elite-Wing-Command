@@ -104,6 +104,18 @@ public class PlayerSpawner : MonoBehaviour
 			StartCoroutine(RespawnTimer(2f));
 	}
 
+	public void ForceGameOver()
+	{
+		canSpawn = false;
+		gameOver = true;
+
+		if (missionManager == null)
+		{
+			arcadeSessionCompleteScreen.SetActive(true);
+			StartCoroutine(WaitAndPause());
+		}
+	}
+
 	IEnumerator RespawnTimer(float waitTime)
 	{
 		yield return new WaitForSeconds(waitTime);
