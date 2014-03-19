@@ -5,7 +5,7 @@ public class MenuTransition : MonoBehaviour
 {
 	[SerializeField] GameObject currentScreen;
 	[SerializeField] GameObject nextScreen;
-	[SerializeField] float tweenTime = 0.5f;
+	[SerializeField] float tweenTime = 0.25f;
 	[SerializeField] GameObject altCamera;
 	[SerializeField] bool enableAltCamera = false;
 
