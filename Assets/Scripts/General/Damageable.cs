@@ -159,7 +159,7 @@ public class Damageable : MonoBehaviour
 			if (missionManager != null)
 				missionManager.EnemyGroundDestroyed += 1;
 			else
-				arcadeStatHolder.EnemyGroundDestroyed += 3;
+				arcadeStatHolder.EnemyGroundDestroyed += 5;
 
 			break;
 		case "Enemy Turret":
@@ -168,7 +168,7 @@ public class Damageable : MonoBehaviour
 			if (missionManager != null)
 				missionManager.EnemyGroundDestroyed += 1;
 			else
-				arcadeStatHolder.EnemyGroundDestroyed += 3;
+				arcadeStatHolder.EnemyGroundDestroyed += 5;
 
 			if (ExplosionParticleEffect != null)
 				Instantiate(ExplosionParticleEffect, transform.position, transform.rotation);
