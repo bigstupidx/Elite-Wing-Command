@@ -8,6 +8,7 @@ public class Ammo : MonoBehaviour
 	[SerializeField] float bulletLife = 1f;
 	[SerializeField] bool GroundWeapon = false;
 	[SerializeField] bool Bomb = false;
+	[SerializeField] bool missile = false;
 	[SerializeField] GameObject bombExplosion;
 	[SerializeField] GameObject bombExplosionImpact;
 	const float bulletHeightModifier = 70f;
@@ -20,6 +21,9 @@ public class Ammo : MonoBehaviour
 			modifyHeight.y = 0f;
 			transform.position = modifyHeight;
 		}
+
+		if (missile)
+			StartCoroutine(MissileSelfDestruct());
 
 		Destroy(gameObject, bulletLife);
 	}
@@ -61,5 +65,11 @@ public class Ammo : MonoBehaviour
 
 			transform.position = modifyHeight;
 		}
+	}
+
+	IEnumerator MissileSelfDestruct()
+	{
+		yield return new WaitForSeconds(bulletLife -  0.05f);
+		Instantiate(bombExplosion, transform.position, transform.rotation);
 	}
 }

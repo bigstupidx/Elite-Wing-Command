@@ -10,6 +10,7 @@ public class PlayerSpawner : MonoBehaviour
 	[SerializeField] GameObject playerPrefab3Slots;
 	[SerializeField] GameObject playerPrefab4Slots;
 	[SerializeField] GameObject playerPrefab5Slots;
+	[SerializeField] GameObject[] playerLifeIcon;
 	GameObject playerPrefab;
 	bool gameOver = false;
 	int respawnNumber = 1;
@@ -60,6 +61,9 @@ public class PlayerSpawner : MonoBehaviour
 			spawnPosition = new Vector3(0f, 0f, 0f);
 			spawnRotation = Quaternion.Euler(0f, 0f, 0f);
 		}
+
+		foreach (GameObject icon in playerLifeIcon)
+			icon.SetActive(true);
 	}
 	
 	void Update()
@@ -87,7 +91,9 @@ public class PlayerSpawner : MonoBehaviour
 			missionManager.PlayerLivesRemaining -= 1;
 
 		playerInScene.Clear();
+		playerLifeIcon[3-respawnNumber].SetActive(false);
 		respawnNumber++;
+
 		if (respawnNumber > totalRespawns)
 		{
 			canSpawn = false;
