@@ -91,7 +91,10 @@ public class PlayerSpawner : MonoBehaviour
 			missionManager.PlayerLivesRemaining -= 1;
 
 		playerInScene.Clear();
-		playerLifeIcon[3-respawnNumber].SetActive(false);
+
+		if (respawnNumber < 3)
+			playerLifeIcon[2-respawnNumber].SetActive(false);
+
 		respawnNumber++;
 
 		if (respawnNumber > totalRespawns)

@@ -16,6 +16,7 @@ public class TotalScore : MonoBehaviour
 	{
 		yield return new WaitForSeconds(0.1f);
 		totalScore = scoreNumbers.TotalScore;
+		PlayerPrefs.SetInt("Reward Points", PlayerPrefs.GetInt("Reward Points", 0) + totalScore);
 		totalScoreObject.text = totalScore.ToString();
 	}
 }
