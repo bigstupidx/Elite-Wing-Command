@@ -10,6 +10,7 @@ public class PlayerDamageable : Damageable
 
 	public override void Start()
 	{
+		InitialHealth *= PlayerPrefs.GetFloat("Player Health Multiplier", 1f);
 		Health = InitialHealth;
 		var missionManagerObject = GameObject.FindGameObjectWithTag("MissionManager");
 		healthSliderObject = GameObject.FindGameObjectWithTag("HealthSlider");
@@ -17,7 +18,7 @@ public class PlayerDamageable : Damageable
 		if (healthSliderObject != null)
 		{
 			healthSlider = healthSliderObject.GetComponent<UISlider>();
-			healthSlider.value = Health/100f;
+			healthSlider.value = Health/InitialHealth;
 		}
 		
 		if (missionManagerObject != null)
@@ -28,13 +29,13 @@ public class PlayerDamageable : Damageable
 			switch (missionDifficulty)
 			{
 			case 1:
-				healthMultiplierModifier = 10f;
+				healthMultiplierModifier = 10f * PlayerPrefs.GetFloat("Player Recovery Multiplier", 1f);
 				break;
 			case 2:
-				healthMultiplierModifier = 8f;
+				healthMultiplierModifier = 8f * PlayerPrefs.GetFloat("Player Recovery Multiplier", 1f);
 				break;
 			case 3:
-				healthMultiplierModifier = 5f;
+				healthMultiplierModifier = 5f * PlayerPrefs.GetFloat("Player Recovery Multiplier", 1f);
 				break;
 			default:
 				Debug.LogError("No mission difficulty set");

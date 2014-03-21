@@ -11,7 +11,7 @@ public class Damageable : MonoBehaviour
 	GameObject spawner;
 	Vector3 correctedPos;
 	public MissionManager MissionManagerScript { get { return missionManager; } set { missionManager = value; }}
-	public float InitialHealth { get { return initialHealth; }}
+	public float InitialHealth { get { return initialHealth; } set { initialHealth = value; }}
 	public ObjectIdentifier ObjectIdentifierScript { get { return objectIdentifier; }}
 	public GameObject Spawner { get { return spawner; } set { spawner = value; }}
 	public float Health { get; set; }

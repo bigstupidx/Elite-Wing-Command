@@ -3,6 +3,8 @@ using System.Collections;
 
 public class Ammo : MonoBehaviour
 {
+	[SerializeField] bool allyAirBullet = false;
+	[SerializeField] bool allyGroundWeapon = false;
 	[SerializeField] string ammoSource;
 	[SerializeField] float damageAmount = 20f;
 	[SerializeField] float bulletLife = 1f;
@@ -12,6 +14,7 @@ public class Ammo : MonoBehaviour
 	[SerializeField] GameObject bombExplosion;
 	[SerializeField] GameObject bombExplosionImpact;
 	const float bulletHeightModifier = 70f;
+	float bulletMultiplier = 1f;
 	
 	void Awake()
 	{
@@ -20,6 +23,18 @@ public class Ammo : MonoBehaviour
 			var modifyHeight = transform.position;
 			modifyHeight.y = 0f;
 			transform.position = modifyHeight;
+		}
+
+		if (allyAirBullet)
+		{
+			bulletMultiplier = PlayerPrefs.GetFloat("Ally Air Weapon Multiplier", 1f);
+			damageAmount *= bulletMultiplier;
+		}
+
+		if (allyGroundWeapon)
+		{
+			bulletMultiplier = PlayerPrefs.GetFloat("Ally Ground Weapon Multiplier", 1f);
+			damageAmount *= bulletMultiplier;
 		}
 
 		if (missile)

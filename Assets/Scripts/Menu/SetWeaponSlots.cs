@@ -28,5 +28,7 @@ public class SetWeaponSlots : MonoBehaviour
 			Debug.LogError("Selection Not Valid: " + transform.name);
 			break;
 		}
+
+		PlayerPrefs.Save();
 	}
 }

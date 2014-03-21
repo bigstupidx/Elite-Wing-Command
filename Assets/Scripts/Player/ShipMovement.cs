@@ -59,6 +59,11 @@ public class ShipMovement : MonoBehaviour
 			forceMultiplier = 1f;
 	}
 
+	void Start()
+	{
+		forceMultiplier = PlayerPrefs.GetFloat("Player Speed Multiplier", 1f);
+	}
+
 	void Update()
 	{
 		if (useArrows)

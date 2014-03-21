@@ -12,7 +12,7 @@ public class RewardPointsLabel : MonoBehaviour
 
 	void UpdateRPLabel()
 	{
-		int totalRewardPoints = PlayerPrefs.GetInt("Reward Points", 0);
+		float totalRewardPoints = PlayerPrefs.GetFloat("Reward Points", 0);
 		rewardPointsLabel.text = totalRewardPoints.ToString("N0") + " RP";
 	}
 }

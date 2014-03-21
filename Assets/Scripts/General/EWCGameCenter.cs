@@ -33,6 +33,7 @@ public class EWCGameCenter : MonoBehaviour {
 			Debug.Log("Arcade High Score Reset");
 			PlayerPrefs.SetInt("Arcade High Score", 0);
 			Debug.Log(PlayerPrefs.GetInt("Arcade High Score"));
+			PlayerPrefs.Save();
 		}
 	}
 	
@@ -53,6 +54,7 @@ public class EWCGameCenter : MonoBehaviour {
 			}
 
 			PlayerPrefs.SetInt("Arcade High Score", sessionScore);
+			PlayerPrefs.Save();
 		}
 
 		ReportScore(PlayerPrefs.GetInt("Arcade High Score"), leaderboardID);

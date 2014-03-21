@@ -3,6 +3,7 @@ using System.Collections;
 
 public class GenericAircraftMovement : MonoBehaviour
 {
+	[SerializeField] bool allyAircraft = false;
 	[SerializeField] float engineForce = 25f;
 	[SerializeField] float aircraftEvasionDistance = 8f;
 	[SerializeField] float groundTargetEvasionDistance = 8f;
@@ -45,6 +46,9 @@ public class GenericAircraftMovement : MonoBehaviour
 		float forceRandomizer = Random.Range(0.9f, 1.1f);
 		randomEngineForce = engineForce * forceRandomizer;
 		RandomPosition = new Vector3(0f, 0f, 0f);
+
+		if (allyAircraft)
+			forceMultiplier = PlayerPrefs.GetFloat("Ally Air Speed Multiplier", 1f);
 
 		var missionManagerObject = GameObject.FindGameObjectWithTag("MissionManager");
 		

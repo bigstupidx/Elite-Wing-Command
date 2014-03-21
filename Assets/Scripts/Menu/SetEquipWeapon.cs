@@ -23,5 +23,7 @@ public class SetEquipWeapon : MonoBehaviour
 			Debug.LogError("Selection Not Valid: " + transform.name);
 			break;
 		}
+
+		PlayerPrefs.Save();
 	}
 }

@@ -3,6 +3,7 @@ using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
+	[SerializeField] UILabel rewardPointsLabel;
 	int weaponSlots;
 	int weaponEquip1;
 	int weaponEquip2;
@@ -19,34 +20,39 @@ public class GameManager : MonoBehaviour
 	    {
 			SetDefaultPrefs();
 			PlayerPrefs.SetInt("First Load", 0);
+			PlayerPrefs.Save();
 		}
 	}
 
 	void Update()
 	{
-		if (Input.GetKey(KeyCode.I))
+		if (Input.GetKeyDown(KeyCode.O))
 		{
-			Debug.Log("Weapon Slots: " + PlayerPrefs.GetInt("Weapon Slots"));
-
-			for (int i = 1; i <= PlayerPrefs.GetInt("Weapon Slots"); i++)
-				Debug.Log("Weapon Equip " + i + ": " + PlayerPrefs.GetInt("Weapon Equip " + i.ToString()));
-		}
-		else if (Input.GetKeyDown(KeyCode.O))
-		{
-			PlayerPrefs.DeleteAll();
-			Debug.Log("Player Prefs Reset");
 			SetDefaultPrefs();
+			Debug.Log("Reset to default weapons");
+		}
+		else if (Input.GetKeyDown(KeyCode.U))
+		{
+			float currentRP = PlayerPrefs.GetFloat("Reward Points", 0);
+			PlayerPrefs.SetFloat("Reward Points", currentRP + 1000f);
+			rewardPointsLabel.text = PlayerPrefs.GetFloat("Reward Points", 0).ToString() + " RP";
+			PlayerPrefs.Save();
+			Debug.Log("Added 1000 RP");
+		}
+		else if (Input.GetKeyDown(KeyCode.I))
+		{
+			PlayerPrefs.SetFloat("Reward Points", 0);
+			Debug.Log("RP set to 0");
 		}
 	}
 
 	void SetDefaultPrefs()
 	{
+		PlayerPrefs.SetInt("Player Weapon Level", 0);
 		PlayerPrefs.SetInt("Weapon Slots", 2);
 		PlayerPrefs.SetInt("Weapon Equip 1", 1);
 		PlayerPrefs.SetInt("Weapon Equip 2", 1);
-		PlayerPrefs.SetInt("Weapon Equip 3", 1);
-		PlayerPrefs.SetInt("Weapon Equip 4", 1);
-		PlayerPrefs.SetInt("Weapon Equip 5", 1);
 		PlayerPrefs.SetInt("First Load", 0);
+		PlayerPrefs.Save();
 	}
 }
