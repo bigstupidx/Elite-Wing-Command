@@ -7,7 +7,7 @@ public class UpgradesContainer : MonoBehaviour
 	int playerWeaponLevel;
 	public int PlayerWeaponLevel { get { return playerWeaponLevel; }}
 	public float PlayerWeaponUpgradeCost { get { if (PlayerWeaponLevel > 0) return playerWeaponUpgradeCost * (1.5f * PlayerWeaponLevel); 
-			else return playerWeaponUpgradeCost; }}
+			else return playerWeaponUpgradeCost; } set { playerWeaponUpgradeCost = value; }}
 
 	void Start()
 	{

@@ -7,6 +7,7 @@ public class UpgradePlayerWeapons : MonoBehaviour
 	[SerializeField] UILabel upgradeNameLabel;
 	[SerializeField] UILabel upgradeCostLabel;
 	[SerializeField] UISlider upgradeSlider;
+	[SerializeField] Collider buttonCollider;
 	[SerializeField] UILabel rewardPointsLabel;
 
 	void OnEnable()
@@ -24,9 +25,17 @@ public class UpgradePlayerWeapons : MonoBehaviour
 
 	void UpdateLabels()
 	{
-		upgradeCostLabel.text = upgradesContainer.PlayerWeaponUpgradeCost.ToString() + " RP";
+		if (upgradesContainer.PlayerWeaponLevel < 8)
+			upgradeCostLabel.text = upgradesContainer.PlayerWeaponUpgradeCost.ToString("N0") + " RP";
+		else
+		{
+			upgradeCostLabel.text = "Upgrade Full";
+			upgradesContainer.PlayerWeaponUpgradeCost = 0;
+			buttonCollider.enabled = false;
+		}
+
 		upgradeSlider.value = ((PlayerPrefs.GetInt("Player Weapon Level", 0) * 1.0f) + 1) / 9f;
-		rewardPointsLabel.text = PlayerPrefs.GetFloat("Reward Points", 0).ToString() + " RP";
+		rewardPointsLabel.text = PlayerPrefs.GetFloat("Reward Points", 0).ToString("N0") + " RP";
 		
 		if (PlayerPrefs.GetFloat("Reward Points", 0) >= upgradesContainer.PlayerWeaponUpgradeCost)
 		{

@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
 		{
 			float currentRP = PlayerPrefs.GetFloat("Reward Points", 0);
 			PlayerPrefs.SetFloat("Reward Points", currentRP + 1000f);
-			rewardPointsLabel.text = PlayerPrefs.GetFloat("Reward Points", 0).ToString() + " RP";
+			rewardPointsLabel.text = PlayerPrefs.GetFloat("Reward Points", 0).ToString("N0") + " RP";
 			PlayerPrefs.Save();
 			Debug.Log("Added 1000 RP");
 		}
