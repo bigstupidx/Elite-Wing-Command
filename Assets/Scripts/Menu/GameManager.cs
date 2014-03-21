@@ -28,21 +28,17 @@ public class GameManager : MonoBehaviour
 	{
 		if (Input.GetKeyDown(KeyCode.O))
 		{
+			PlayerPrefs.DeleteAll();
 			SetDefaultPrefs();
-			Debug.Log("Reset to default weapons");
+			Debug.Log("Reset Player Prefs");
 		}
-		else if (Input.GetKeyDown(KeyCode.U))
+		else if (Input.GetKeyDown(KeyCode.I))
 		{
 			float currentRP = PlayerPrefs.GetFloat("Reward Points", 0);
 			PlayerPrefs.SetFloat("Reward Points", currentRP + 1000f);
 			rewardPointsLabel.text = PlayerPrefs.GetFloat("Reward Points", 0).ToString("N0") + " RP";
 			PlayerPrefs.Save();
 			Debug.Log("Added 1000 RP");
-		}
-		else if (Input.GetKeyDown(KeyCode.I))
-		{
-			PlayerPrefs.SetFloat("Reward Points", 0);
-			Debug.Log("RP set to 0");
 		}
 	}
 

@@ -13,6 +13,7 @@ public class ShipMovement : MonoBehaviour
 	float boosterCooldown = 10f;
 	float currentForce = 0f;
 	float forceMultiplier = 1f;
+	float speedMultiplier = 1f;
 	bool canBoost = true;
 
 #if UNITY_IOS && !UNITY_EDITOR
@@ -61,7 +62,7 @@ public class ShipMovement : MonoBehaviour
 
 	void Start()
 	{
-		forceMultiplier = PlayerPrefs.GetFloat("Player Speed Multiplier", 1f);
+		speedMultiplier = PlayerPrefs.GetFloat("Player Speed Multiplier", 1f);
 	}
 
 	void Update()
@@ -84,7 +85,7 @@ public class ShipMovement : MonoBehaviour
 
 	void FixedUpdate()
 	{
-		currentForce = Mathf.MoveTowards(currentForce, engineForce * forceMultiplier, 120f * Time.fixedDeltaTime);
+		currentForce = Mathf.MoveTowards(currentForce, engineForce * speedMultiplier * forceMultiplier, 120f * Time.fixedDeltaTime);
 		rigidbody.AddForce (transform.forward * currentForce, ForceMode.Acceleration);
 
 		turn = Mathf.Lerp(turn, turnTarget, Time.fixedTime);
