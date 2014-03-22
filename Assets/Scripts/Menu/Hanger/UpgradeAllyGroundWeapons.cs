@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class UpgradePlayerRecovery : MonoBehaviour
+public class UpgradeAllyGroundWeapons : MonoBehaviour
 {
 	[SerializeField] UpgradesContainer upgradesContainer;
 	[SerializeField] UILabel upgradeNameLabel;
@@ -17,27 +17,27 @@ public class UpgradePlayerRecovery : MonoBehaviour
 
 	void OnClick()
 	{
-		if (PlayerPrefs.GetFloat("Reward Points", 0) >= upgradesContainer.PlayerRecoveryUpgradeCost)
-			UpgradeRecovery();
+		if (PlayerPrefs.GetFloat("Reward Points", 0) >= upgradesContainer.AllyGroundWeaponUpgradeCost)
+			UpgradeWeapons();
 		else
 			Debug.Log("Not enough RP for upgrade purchase....");
 	}
 
 	void UpdateLabels()
 	{
-		if (upgradesContainer.PlayerRecoveryLevel < 5)
-			upgradeCostLabel.text = upgradesContainer.PlayerRecoveryUpgradeCost.ToString("N0") + " RP";
+		if (upgradesContainer.AllyGroundWeaponLevel < 6)
+			upgradeCostLabel.text = upgradesContainer.AllyGroundWeaponUpgradeCost.ToString("N0") + " RP";
 		else
 		{
 			upgradeCostLabel.text = "Upgrade Full";
-			upgradesContainer.PlayerRecoveryUpgradeCost = 0;
+			upgradesContainer.AllyGroundWeaponUpgradeCost = 0;
 			buttonCollider.enabled = false;
 		}
 
-		upgradeSlider.value = ((PlayerPrefs.GetInt("Player Recovery Level", 0) * 1.0f) + 1) / 6f;
+		upgradeSlider.value = ((PlayerPrefs.GetInt("Ally Ground Weapon Level", 0) * 1.0f) + 1) / 7f;
 		rewardPointsLabel.text = PlayerPrefs.GetFloat("Reward Points", 0).ToString("N0") + " RP";
 		
-		if (PlayerPrefs.GetFloat("Reward Points", 0) >= upgradesContainer.PlayerRecoveryUpgradeCost)
+		if (PlayerPrefs.GetFloat("Reward Points", 0) >= upgradesContainer.AllyGroundWeaponUpgradeCost)
 		{
 			upgradeNameLabel.color = Color.white;
 			upgradeCostLabel.color = Color.white;
@@ -49,32 +49,35 @@ public class UpgradePlayerRecovery : MonoBehaviour
 		}
 	}
 
-	void UpgradeRecovery()
+	void UpgradeWeapons()
 	{
 		float currentRP = PlayerPrefs.GetFloat("Reward Points", 0);
-		float newRP = currentRP - upgradesContainer.PlayerRecoveryUpgradeCost;
+		float newRP = currentRP - upgradesContainer.AllyGroundWeaponUpgradeCost;
 		PlayerPrefs.SetFloat("Reward Points", newRP);
 
-		int currentLevel = PlayerPrefs.GetInt("Player Recovery Level", 0);
+		int currentLevel = PlayerPrefs.GetInt("Ally Ground Weapon Level", 0);
 		int newLevel = currentLevel + 1;
-		PlayerPrefs.SetInt("Player Recovery Level", newLevel);
+		PlayerPrefs.SetInt("Ally Ground Weapon Level", newLevel);
 
 		switch(newLevel)
 		{
 		case 1:
-			PlayerPrefs.SetFloat("Player Recovery Multiplier", 1.1f);
+			PlayerPrefs.SetFloat("Ally Ground Weapon Level", 1.4f);
 			break;
 		case 2:
-			PlayerPrefs.SetFloat("Player Recovery Multiplier", 1.2f);
+			PlayerPrefs.SetFloat("Ally Ground Weapon Level", 1.7f);
 			break;
 		case 3:
-			PlayerPrefs.SetFloat("Player Recovery Multiplier", 1.3f);
+			PlayerPrefs.SetFloat("Ally Ground Weapon Level", 2f);
 			break;
 		case 4:
-			PlayerPrefs.SetFloat("Player Recovery Multiplier", 1.4f);
+			PlayerPrefs.SetFloat("Ally Ground Weapon Level", 2.4f);
 			break;
 		case 5:
-			PlayerPrefs.SetFloat("Player Recovery Multiplier", 1.5f);
+			PlayerPrefs.SetFloat("Ally Ground Weapon Level", 2.7f);
+			break;
+		case 6:
+			PlayerPrefs.SetFloat("Ally Ground Weapon Level", 3.0f);
 			break;
 		default:
 			Debug.LogError("Selection Not Valid: " + transform.name);
@@ -82,7 +85,7 @@ public class UpgradePlayerRecovery : MonoBehaviour
 		}
 
 		PlayerPrefs.Save();
-		upgradesContainer.UpgradePlayerRecoveryLevel();
+		upgradesContainer.UpgradeAllyGroundWeaponLevel();
 		transform.parent.gameObject.BroadcastMessage("UpdateLabels");
 	}
 }

@@ -9,7 +9,6 @@ public class UpgradePlayerSpeed : MonoBehaviour
 	[SerializeField] UISlider upgradeSlider;
 	[SerializeField] Collider buttonCollider;
 	[SerializeField] UILabel rewardPointsLabel;
-	[SerializeField] GameObject[] updateLabels;
 
 	void OnEnable()
 	{
@@ -64,23 +63,18 @@ public class UpgradePlayerSpeed : MonoBehaviour
 		{
 		case 1:
 			PlayerPrefs.SetFloat("Player Speed Multiplier", 1.2f);
-			PlayerPrefs.Save();
 			break;
 		case 2:
 			PlayerPrefs.SetFloat("Player Speed Multiplier", 1.4f);
-			PlayerPrefs.Save();
 			break;
 		case 3:
 			PlayerPrefs.SetFloat("Player Speed Multiplier", 1.6f);
-			PlayerPrefs.Save();
 			break;
 		case 4:
 			PlayerPrefs.SetFloat("Player Speed Multiplier", 1.8f);
-			PlayerPrefs.Save();
 			break;
 		case 5:
 			PlayerPrefs.SetFloat("Player Speed Multiplier", 2.0f);
-			PlayerPrefs.Save();
 			break;
 		default:
 			Debug.LogError("Selection Not Valid: " + transform.name);

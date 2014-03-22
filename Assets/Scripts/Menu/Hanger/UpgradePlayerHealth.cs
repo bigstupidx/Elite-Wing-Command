@@ -63,23 +63,18 @@ public class UpgradePlayerHealth : MonoBehaviour
 		{
 		case 1:
 			PlayerPrefs.SetFloat("Player Health Multiplier", 1.05f);
-			PlayerPrefs.Save();
 			break;
 		case 2:
 			PlayerPrefs.SetFloat("Player Health Multiplier", 1.1f);
-			PlayerPrefs.Save();
 			break;
 		case 3:
 			PlayerPrefs.SetFloat("Player Health Multiplier", 1.15f);
-			PlayerPrefs.Save();
 			break;
 		case 4:
 			PlayerPrefs.SetFloat("Player Health Multiplier", 1.2f);
-			PlayerPrefs.Save();
 			break;
 		case 5:
 			PlayerPrefs.SetFloat("Player Health Multiplier", 1.25f);
-			PlayerPrefs.Save();
 			break;
 		default:
 			Debug.LogError("Selection Not Valid: " + transform.name);

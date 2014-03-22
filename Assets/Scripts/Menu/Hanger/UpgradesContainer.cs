@@ -27,12 +27,40 @@ public class UpgradesContainer : MonoBehaviour
 	public float PlayerRecoveryUpgradeCost { get { if (PlayerRecoveryLevel > 0) return playerRecoveryUpgradeCost * (1.5f * PlayerRecoveryLevel); 
 			else return playerRecoveryUpgradeCost; } set { playerRecoveryUpgradeCost = value; }}
 
+	[SerializeField] float allyAirWeaponUpgradeCost;
+	int allyAirWeaponLevel;
+	public int AllyAirWeaponLevel { get { return allyAirWeaponLevel; }}
+	public float AllyAirWeaponUpgradeCost { get { if (AllyAirWeaponLevel > 0) return allyAirWeaponUpgradeCost * (1.5f * AllyAirWeaponLevel); 
+			else return allyAirWeaponUpgradeCost; } set { allyAirWeaponUpgradeCost = value; }}
+
+	[SerializeField] float allyAirSpeedUpgradeCost;
+	int allyAirSpeedLevel;
+	public int AllyAirSpeedLevel { get { return allyAirSpeedLevel; }}
+	public float AllyAirSpeedUpgradeCost { get { if (AllyAirSpeedLevel > 0) return allyAirSpeedUpgradeCost * (1.5f * AllyAirSpeedLevel); 
+			else return allyAirSpeedUpgradeCost; } set { allyAirSpeedUpgradeCost = value; }}
+
+	[SerializeField] float allyGroundWeaponUpgradeCost;
+	int allyGroundWeaponLevel;
+	public int AllyGroundWeaponLevel { get { return allyGroundWeaponLevel; }}
+	public float AllyGroundWeaponUpgradeCost { get { if (AllyGroundWeaponLevel > 0) return allyGroundWeaponUpgradeCost * (1.5f * AllyGroundWeaponLevel); 
+			else return allyGroundWeaponUpgradeCost; } set { allyGroundWeaponUpgradeCost = value; }}
+	
+	[SerializeField] float allyGroundSpeedUpgradeCost;
+	int allyGroundSpeedLevel;
+	public int AllyGroundSpeedLevel { get { return allyGroundSpeedLevel; }}
+	public float AllyGroundSpeedUpgradeCost { get { if (AllyGroundSpeedLevel > 0) return allyGroundSpeedUpgradeCost * (1.5f * AllyGroundSpeedLevel); 
+			else return allyGroundSpeedUpgradeCost; } set { allyGroundSpeedUpgradeCost = value; }}
+
 	void Start()
 	{
 		playerWeaponLevel = PlayerPrefs.GetInt("Player Weapon Level", 0);
 		playerSpeedLevel = PlayerPrefs.GetInt("Player Speed Level", 0);
 		playerHealthLevel = PlayerPrefs.GetInt("Player Health Level", 0);
 		playerRecoveryLevel = PlayerPrefs.GetInt("Player Recovery Level", 0);
+		allyAirWeaponLevel = PlayerPrefs.GetInt("Ally Air Weapon Level", 0);
+		allyAirSpeedLevel = PlayerPrefs.GetInt("Ally Air Speed Level", 0);
+		allyGroundWeaponLevel = PlayerPrefs.GetInt("Ally Ground Weapon Level", 0);
+		allyGroundSpeedLevel = PlayerPrefs.GetInt("Ally Ground Speed Level", 0);
 	}
 
 	public void UpgradePlayerWeaponLevel()
@@ -53,5 +81,25 @@ public class UpgradesContainer : MonoBehaviour
 	public void UpgradePlayerRecoveryLevel()
 	{
 		playerHealthLevel += 1;
+	}
+
+	public void UpgradeAllyAirWeaponLevel()
+	{
+		allyAirWeaponLevel += 1;
+	}
+	
+	public void UpgradeAllyAirSpeedLevel()
+	{
+		allyAirSpeedLevel += 1;
+	}
+
+	public void UpgradeAllyGroundWeaponLevel()
+	{
+		allyGroundWeaponLevel += 1;
+	}
+	
+	public void UpgradeAllyGroundSpeedLevel()
+	{
+		allyGroundSpeedLevel += 1;
 	}
 }

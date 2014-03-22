@@ -66,21 +66,18 @@ public class UpgradePlayerWeapons : MonoBehaviour
 			PlayerPrefs.SetInt("Weapon Equip 1", 1);
 			PlayerPrefs.SetInt("Weapon Equip 2", 1);
 			PlayerPrefs.SetInt("Weapon Equip 3", 1);
-			PlayerPrefs.Save();
 			break;
 		case 2:
 			PlayerPrefs.SetInt("Weapon Slots", 3);
 			PlayerPrefs.SetInt("Weapon Equip 1", 2);
 			PlayerPrefs.SetInt("Weapon Equip 2", 1);
 			PlayerPrefs.SetInt("Weapon Equip 3", 1);
-			PlayerPrefs.Save();
 			break;
 		case 3:
 			PlayerPrefs.SetInt("Weapon Slots", 3);
 			PlayerPrefs.SetInt("Weapon Equip 1", 1);
 			PlayerPrefs.SetInt("Weapon Equip 2", 2);
 			PlayerPrefs.SetInt("Weapon Equip 3", 2);
-			PlayerPrefs.Save();
 			break;
 		case 4:
 			PlayerPrefs.SetInt("Weapon Slots", 4);
@@ -88,7 +85,6 @@ public class UpgradePlayerWeapons : MonoBehaviour
 			PlayerPrefs.SetInt("Weapon Equip 2", 1);
 			PlayerPrefs.SetInt("Weapon Equip 3", 1);
 			PlayerPrefs.SetInt("Weapon Equip 4", 1);
-			PlayerPrefs.Save();
 			break;
 		case 5:
 			PlayerPrefs.SetInt("Weapon Slots", 4);
@@ -96,7 +92,6 @@ public class UpgradePlayerWeapons : MonoBehaviour
 			PlayerPrefs.SetInt("Weapon Equip 2", 2);
 			PlayerPrefs.SetInt("Weapon Equip 3", 1);
 			PlayerPrefs.SetInt("Weapon Equip 4", 1);
-			PlayerPrefs.Save();
 			break;
 		case 6:
 			PlayerPrefs.SetInt("Weapon Slots", 5);
@@ -105,7 +100,6 @@ public class UpgradePlayerWeapons : MonoBehaviour
 			PlayerPrefs.SetInt("Weapon Equip 3", 1);
 			PlayerPrefs.SetInt("Weapon Equip 4", 1);
 			PlayerPrefs.SetInt("Weapon Equip 5", 1);
-			PlayerPrefs.Save();
 			break;
 		case 7:
 			PlayerPrefs.SetInt("Weapon Slots", 5);
@@ -114,7 +108,6 @@ public class UpgradePlayerWeapons : MonoBehaviour
 			PlayerPrefs.SetInt("Weapon Equip 3", 1);
 			PlayerPrefs.SetInt("Weapon Equip 4", 1);
 			PlayerPrefs.SetInt("Weapon Equip 5", 1);
-			PlayerPrefs.Save();
 			break;
 		case 8:
 			PlayerPrefs.SetInt("Weapon Slots", 5);
@@ -123,7 +116,6 @@ public class UpgradePlayerWeapons : MonoBehaviour
 			PlayerPrefs.SetInt("Weapon Equip 3", 2);
 			PlayerPrefs.SetInt("Weapon Equip 4", 1);
 			PlayerPrefs.SetInt("Weapon Equip 5", 1);
-			PlayerPrefs.Save();
 			break;
 		default:
 			Debug.LogError("Selection Not Valid: " + transform.name);
