@@ -3140,7 +3140,6 @@ function generate_output(prelayer3: prelayer_class): int
 			}
 			if (auto_speed)
 			{
-				//Debug.Log("fgg");
 				
 				if (Time.realtimeSinceStartup-auto_speed_time > (1.0/target_frame))
 				{
@@ -4330,7 +4329,7 @@ function get_image_pixel(preimage: image_class,local_x: float,local_y: float): C
 		imagePosition.x = Mathf.Round((((local_x/preimage.conversion_step.x)*flip_x)-preimage.tile_offset_x+width)/preimage.tile_x);
 		imagePosition.y = Mathf.Round((((local_y/preimage.conversion_step.y)*flip_y)-preimage.tile_offset_y+height)/preimage.tile_y);
 		
-		if (Mathf.Round(local_y) == 2) {Debug.Log("x: "+local_x);}
+		// if (Mathf.Round(local_y) == 2) {Debug.Log("x: "+local_x);}
 	}
 	else 
 	{
@@ -9948,7 +9947,6 @@ function generate_object(prelayer3: prelayer_class): int
  		
  		if (generate_world_mode || prelayer3.index > 0)
  		{
-	 		Debug.Log("fgfgfdg");
 	 		for (count_terrain = 0;count_terrain < terrains.Count;++count_terrain)
 	 		{
 	 			if (terrains[count_terrain].rect.Contains(Vector2(terrains[count_terrain].prearea.area.x,y))){terrains[count_terrain].on_row = true;} else {terrains[count_terrain].on_row = false;}

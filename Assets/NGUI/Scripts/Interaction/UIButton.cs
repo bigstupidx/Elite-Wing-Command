@@ -47,7 +47,7 @@ public class UIButton : UIButtonColor
 	/// Whether the sprite changes will elicit a call to MakePixelPerfect() or not.
 	/// </summary>
 
-	public bool pixelSnap = true;
+	public bool pixelSnap = false;
 
 	/// <summary>
 	/// Click event listener.
@@ -194,7 +194,7 @@ public class UIButton : UIButtonColor
 
 	protected void SetSprite (string sp)
 	{
-		if (mSprite != null && !string.IsNullOrEmpty(sp))
+		if (mSprite != null && !string.IsNullOrEmpty(sp) && mSprite.spriteName != sp)
 		{
 			mSprite.spriteName = sp;
 			if (pixelSnap) mSprite.MakePixelPerfect();

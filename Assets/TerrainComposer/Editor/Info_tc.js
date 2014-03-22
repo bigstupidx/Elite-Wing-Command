@@ -8,6 +8,7 @@ class Info_tc extends EditorWindow
 	var backgroundColor: Color;
 	var backgroundActive: boolean = true;
 	var global_script: global_settings_tc;
+	var script: terraincomposer_save;
 	var scrollPos: Vector2;
 	var update_height: int;
 	var parent: EditorWindow;	
@@ -28,15 +29,17 @@ class Info_tc extends EditorWindow
     
  	function OnGUI()
 	{
-		if (global_script.tex1 && backgroundActive)
+		if (script.tex1)
         {
-	       	GUI.color = backgroundColor;
-	       	EditorGUI.DrawPreviewTexture(Rect(0,0,position.width,position.height),global_script.tex1);
-	       	GUI.color = UnityEngine.Color.white;
+        	if (backgroundActive) {
+		       	GUI.color = backgroundColor;
+		       	EditorGUI.DrawPreviewTexture(Rect(0,0,position.width,position.height),script.tex1);
+		       	GUI.color = UnityEngine.Color.white;
+		    }
 	    }
 	    else
 	    {
-	    	global_script.tex1 = new Texture2D(1,1);
+	    	script.tex1 = new Texture2D(1,1);
 	    }
 		
 		GUI.color = Color.white;

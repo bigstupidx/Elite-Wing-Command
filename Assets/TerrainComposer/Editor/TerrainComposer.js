@@ -17008,6 +17008,7 @@ class TerrainComposer extends EditorWindow
 		if (info_window){info_window.Close();return;}
 		info_window = EditorWindow.GetWindow(Info_tc);
 		info_window.global_script = global_script;
+		info_window.script = script;
 		info_window.backgroundColor = global_script.settings.color.backgroundColor;
 		info_window.backgroundActive = global_script.settings.color.backgroundActive;
 		

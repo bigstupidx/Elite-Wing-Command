@@ -800,6 +800,8 @@ function calc_latlong_area_size(latlong1: latlong_class,latlong2: latlong_class,
 	var map_p2: map_pixel_class = latlong_to_pixel2(latlong2,19);
 	
 	var map_resolution: double = 156543.04*Mathf.Cos(latlong_center.latitude*(pi/180))/(Mathf.Pow(2,19));
+	// var map_resolution: double = (Mathf.Cos(latlong_center.latitude * pi/180) * 2 * pi * 6378137) / Mathf.Pow(2,17);
+	// var map_resolution: double = 1.1943;
 	
 	var size: map_pixel_class = new map_pixel_class();
 	size.x = (map_p2.x-map_p1.x)*map_resolution;
