@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class UpgradePlayerSpeed : MonoBehaviour
+public class UpgradePlayerRecovery : MonoBehaviour
 {
 	[SerializeField] UpgradesContainer upgradesContainer;
 	[SerializeField] UILabel upgradeNameLabel;
@@ -9,7 +9,6 @@ public class UpgradePlayerSpeed : MonoBehaviour
 	[SerializeField] UISlider upgradeSlider;
 	[SerializeField] Collider buttonCollider;
 	[SerializeField] UILabel rewardPointsLabel;
-	[SerializeField] GameObject[] updateLabels;
 
 	void OnEnable()
 	{
@@ -18,27 +17,27 @@ public class UpgradePlayerSpeed : MonoBehaviour
 
 	void OnClick()
 	{
-		if (PlayerPrefs.GetFloat("Reward Points", 0) >= upgradesContainer.PlayerSpeedUpgradeCost)
-			UpgradeSpeed();
+		if (PlayerPrefs.GetFloat("Reward Points", 0) >= upgradesContainer.PlayerRecoveryUpgradeCost)
+			UpgradeRecovery();
 		else
 			Debug.Log("Not enough RP for upgrade purchase....");
 	}
 
 	void UpdateLabels()
 	{
-		if (upgradesContainer.PlayerSpeedLevel < 5)
-			upgradeCostLabel.text = upgradesContainer.PlayerSpeedUpgradeCost.ToString("N0") + " RP";
+		if (upgradesContainer.PlayerRecoveryLevel < 5)
+			upgradeCostLabel.text = upgradesContainer.PlayerRecoveryUpgradeCost.ToString("N0") + " RP";
 		else
 		{
 			upgradeCostLabel.text = "Upgrade Full";
-			upgradesContainer.PlayerSpeedUpgradeCost = 0;
+			upgradesContainer.PlayerRecoveryUpgradeCost = 0;
 			buttonCollider.enabled = false;
 		}
 
-		upgradeSlider.value = ((PlayerPrefs.GetInt("Player Speed Level", 0) * 1.0f) + 1) / 6f;
+		upgradeSlider.value = ((PlayerPrefs.GetInt("Player Recovery Level", 0) * 1.0f) + 1) / 6f;
 		rewardPointsLabel.text = PlayerPrefs.GetFloat("Reward Points", 0).ToString("N0") + " RP";
 		
-		if (PlayerPrefs.GetFloat("Reward Points", 0) >= upgradesContainer.PlayerSpeedUpgradeCost)
+		if (PlayerPrefs.GetFloat("Reward Points", 0) >= upgradesContainer.PlayerRecoveryUpgradeCost)
 		{
 			upgradeNameLabel.color = Color.white;
 			upgradeCostLabel.color = Color.white;
@@ -50,36 +49,36 @@ public class UpgradePlayerSpeed : MonoBehaviour
 		}
 	}
 
-	void UpgradeSpeed()
+	void UpgradeRecovery()
 	{
 		float currentRP = PlayerPrefs.GetFloat("Reward Points", 0);
-		float newRP = currentRP - upgradesContainer.PlayerSpeedUpgradeCost;
+		float newRP = currentRP - upgradesContainer.PlayerRecoveryUpgradeCost;
 		PlayerPrefs.SetFloat("Reward Points", newRP);
 
-		int currentLevel = PlayerPrefs.GetInt("Player Speed Level", 0);
+		int currentLevel = PlayerPrefs.GetInt("Player Recovery Level", 0);
 		int newLevel = currentLevel + 1;
-		PlayerPrefs.SetInt("Player Speed Level", newLevel);
+		PlayerPrefs.SetInt("Player Recovery Level", newLevel);
 
 		switch(newLevel)
 		{
 		case 1:
-			PlayerPrefs.SetFloat("Player Speed Multiplier", 1.2f);
+			PlayerPrefs.SetFloat("Player Recovery Multiplier", 1.1f);
 			PlayerPrefs.Save();
 			break;
 		case 2:
-			PlayerPrefs.SetFloat("Player Speed Multiplier", 1.4f);
+			PlayerPrefs.SetFloat("Player Recovery Multiplier", 1.2f);
 			PlayerPrefs.Save();
 			break;
 		case 3:
-			PlayerPrefs.SetFloat("Player Speed Multiplier", 1.6f);
+			PlayerPrefs.SetFloat("Player Recovery Multiplier", 1.3f);
 			PlayerPrefs.Save();
 			break;
 		case 4:
-			PlayerPrefs.SetFloat("Player Speed Multiplier", 1.8f);
+			PlayerPrefs.SetFloat("Player Recovery Multiplier", 1.4f);
 			PlayerPrefs.Save();
 			break;
 		case 5:
-			PlayerPrefs.SetFloat("Player Speed Multiplier", 2.0f);
+			PlayerPrefs.SetFloat("Player Recovery Multiplier", 1.5f);
 			PlayerPrefs.Save();
 			break;
 		default:
@@ -88,7 +87,7 @@ public class UpgradePlayerSpeed : MonoBehaviour
 		}
 
 		PlayerPrefs.Save();
-		upgradesContainer.UpgradePlayerSpeedLevel();
+		upgradesContainer.UpgradePlayerRecoveryLevel();
 		transform.parent.gameObject.BroadcastMessage("UpdateLabels");
 	}
 }

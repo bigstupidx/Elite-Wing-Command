@@ -12,7 +12,7 @@ public class UpgradePlayerWeapons : MonoBehaviour
 
 	void OnEnable()
 	{
-		UpdateLabels();
+		transform.parent.gameObject.BroadcastMessage("UpdateLabels");
 	}
 
 	void OnClick()
@@ -132,6 +132,6 @@ public class UpgradePlayerWeapons : MonoBehaviour
 
 		PlayerPrefs.Save();
 		upgradesContainer.UpgradePlayerWeaponLevel();
-		UpdateLabels();
+		transform.parent.gameObject.BroadcastMessage("UpdateLabels");
 	}
 }
