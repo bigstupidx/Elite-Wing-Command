@@ -62,22 +62,22 @@ public class UpgradeAllyAirWeapons : MonoBehaviour
 		switch(newLevel)
 		{
 		case 1:
-			PlayerPrefs.SetFloat("Ally Air Weapon Level", 1.4f);
+			PlayerPrefs.SetFloat("Ally Air Weapon Multiplier", 1.4f);
 			break;
 		case 2:
-			PlayerPrefs.SetFloat("Ally Air Weapon Level", 1.7f);
+			PlayerPrefs.SetFloat("Ally Air Weapon Multiplier", 1.7f);
 			break;
 		case 3:
-			PlayerPrefs.SetFloat("Ally Air Weapon Level", 2f);
+			PlayerPrefs.SetFloat("Ally Air Weapon Multiplier", 2f);
 			break;
 		case 4:
-			PlayerPrefs.SetFloat("Ally Air Weapon Level", 2.4f);
+			PlayerPrefs.SetFloat("Ally Air Weapon Multiplier", 2.4f);
 			break;
 		case 5:
-			PlayerPrefs.SetFloat("Ally Air Weapon Level", 2.7f);
+			PlayerPrefs.SetFloat("Ally Air Weapon Multiplier", 2.7f);
 			break;
 		case 6:
-			PlayerPrefs.SetFloat("Ally Air Weapon Level", 3.0f);
+			PlayerPrefs.SetFloat("Ally Air Weapon Multiplier", 3.0f);
 			break;
 		default:
 			Debug.LogError("Selection Not Valid: " + transform.name);

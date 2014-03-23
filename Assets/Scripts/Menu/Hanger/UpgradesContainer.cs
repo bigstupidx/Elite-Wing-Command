@@ -80,7 +80,7 @@ public class UpgradesContainer : MonoBehaviour
 
 	public void UpgradePlayerRecoveryLevel()
 	{
-		playerHealthLevel += 1;
+		playerRecoveryLevel += 1;
 	}
 
 	public void UpgradeAllyAirWeaponLevel()
