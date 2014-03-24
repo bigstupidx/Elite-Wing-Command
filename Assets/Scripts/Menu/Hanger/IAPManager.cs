@@ -28,9 +28,12 @@ public class IAPManager : MonoBehaviour
 		switch(iapState)
 		{
 		case IAPState.Normal:
-			normalScreen.SetActive(true);
-			loadingScreen.SetActive(false);
-			errorScreen.SetActive(false);
+			if (normalScreen != null)
+			{
+				normalScreen.SetActive(true);
+				loadingScreen.SetActive(false);
+				errorScreen.SetActive(false);
+			}
 			break;
 		case IAPState.Loading:
 			normalScreen.SetActive(false);
@@ -51,9 +54,6 @@ public class IAPManager : MonoBehaviour
 		{
 			if(EasyStoreKit.CanMakePayments())
 			{
-				iapState = IAPState.Loading;
-				SetIAPLayout();
-
 				if(EasyStoreKit.BuyProductWithIdentifier(productIdentifier, 1))
 				{
 					//Valid product identifier. Do nothing, the event will be called once processing is complete.
