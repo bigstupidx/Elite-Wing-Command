@@ -1,17 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class LoadLevelFromMenu : MonoBehaviour
+public class LoadMissionFromMenu : MonoBehaviour
 {
-	[SerializeField] int loadLevel;
 	[SerializeField] GameObject levelLoadSplash;
-	[SerializeField] GameObject altCamera;
 	
 	void OnClick()
 	{
-		if (altCamera != null)
-			altCamera.SetActive(false);
-
 		levelLoadSplash.SetActive(true);
 		StartCoroutine(WaitAndLoad());
 	}
@@ -19,6 +14,6 @@ public class LoadLevelFromMenu : MonoBehaviour
 	IEnumerator WaitAndLoad()
 	{
 		yield return new WaitForSeconds(2.0f);
-		Application.LoadLevel(loadLevel);
+		Application.LoadLevel(PlayerPrefs.GetInt("Mission Scene Number", 0));
 	}
 }
