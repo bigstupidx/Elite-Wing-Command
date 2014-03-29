@@ -4,10 +4,17 @@ using System.Collections;
 public class LoadMissionFromMenu : MonoBehaviour
 {
 	[SerializeField] GameObject levelLoadSplash;
+	[SerializeField] GameObject tutorialLoadSplash;
 	
 	void OnClick()
 	{
-		levelLoadSplash.SetActive(true);
+		int missionToLoad = PlayerPrefs.GetInt("Mission Scene Number", 0);
+
+		if (missionToLoad != 3)
+			levelLoadSplash.SetActive(true);
+		else
+			tutorialLoadSplash.SetActive(true);
+
 		StartCoroutine(WaitAndLoad());
 	}
 	
