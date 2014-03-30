@@ -42,6 +42,9 @@ public class PlayerDamageable : Damageable
 				break;
 			}
 		}
+
+		if (Application.loadedLevel == 3)
+			healthMultiplierModifier = 1000f;
 	}
 
 	void FixedUpdate()

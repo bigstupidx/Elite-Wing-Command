@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 17c073eb9b0810e44acb0ca1feaf3615
+guid: 8ba5086447de041378e78c511f60b378
 labels:
 - kgf
 - KGFMapSystem
@@ -24,7 +24,7 @@ TextureImporter:
   grayScaleToAlpha: 0
   generateCubemap: 0
   seamlessCubemap: 0
-  textureFormat: -1
+  textureFormat: -3
   maxTextureSize: 1024
   textureSettings:
     filterMode: 1

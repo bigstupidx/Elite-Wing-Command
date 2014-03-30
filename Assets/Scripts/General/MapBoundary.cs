@@ -50,7 +50,12 @@ public class MapBoundary : MonoBehaviour
 			{
 				PlayerDamageable playerDamageable = ally.GetComponentInChildren<PlayerDamageable>();
 
-				if (playerDamageable != null)
+				if (playerDamageable != null && Application.loadedLevel == 3)
+				{
+					Vector3 tempPosition = new Vector3(0, 0, 0);
+					playerDamageable.transform.parent.position = tempPosition;
+				}
+				else if (playerDamageable != null)
 					playerDamageable.ApplyDamage(100f);
 
 				runTimer = false;
