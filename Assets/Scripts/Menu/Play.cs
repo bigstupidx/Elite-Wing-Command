@@ -35,15 +35,21 @@ public class Play : MonoBehaviour
 
 		if (Application.loadedLevel == 3)
 		{
+			gui.SetActive(false);
 			radarCamera.enabled = false;
+			minimapScript.SetGlobalHideGui(true);
 			tutorialMenu.SetActive(true);
-			CustomTimeManager.FadeTo(0f, 1f);
+			joystick.enabled = false;
+			fireWeapon.enabled = false;
+			dropBomb.enabled = false;
+			CustomTimeManager.FadeTo(0f, 1.5f);
 		}
 		else
 		{
 			Screen.showCursor = false;
-			minimapScript.SetGlobalHideGui(false);
 			gui.SetActive(true);
+			radarCamera.enabled = true;
+			minimapScript.SetGlobalHideGui(false);
 			joystick.enabled = true;
 			fireWeapon.enabled = true;
 			dropBomb.enabled = true;
