@@ -10,6 +10,8 @@ public class Play : MonoBehaviour
 	[SerializeField] EasyButton fireWeapon;
 	[SerializeField] EasyButton dropBomb;
 	[SerializeField] TweenAlpha backgroundFadeOut;
+	[SerializeField] GameObject tutorialMenu;
+	[SerializeField] Camera radarCamera;
 
 	void Awake()
 	{
@@ -28,14 +30,25 @@ public class Play : MonoBehaviour
 
 	void OnClick()
 	{
-		Screen.showCursor = false;
 		CustomTimeManager.FadeTo(1.1f, 0.01f);
 		backgroundFadeOut.enabled = true;
-		minimapScript.SetGlobalHideGui(false);
-		gui.SetActive(true);
-		joystick.enabled = true;
-		fireWeapon.enabled = true;
-		dropBomb.enabled = true;
+
+		if (Application.loadedLevel == 3)
+		{
+			radarCamera.enabled = false;
+			tutorialMenu.SetActive(true);
+			CustomTimeManager.FadeTo(0f, 1f);
+		}
+		else
+		{
+			Screen.showCursor = false;
+			minimapScript.SetGlobalHideGui(false);
+			gui.SetActive(true);
+			joystick.enabled = true;
+			fireWeapon.enabled = true;
+			dropBomb.enabled = true;
+		}
+
 		PlayMenu.SetActive(false);
 	}
 }
