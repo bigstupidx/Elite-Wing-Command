@@ -18,6 +18,14 @@ public class LoadMissionFromMenu : MonoBehaviour
 			tutorialLoadSplash.SetActive(true);
 		else if (PlayerPrefs.GetInt("Mission Type", 0) == 1)
 			levelLoadSplashBaseAttack.SetActive(true);
+		else if (PlayerPrefs.GetInt("Mission Type", 0) == 2)
+			levelLoadSplashBaseDefense.SetActive(true);
+		else if (PlayerPrefs.GetInt("Mission Type", 0) == 3)
+			levelLoadSplashBaseVsBase.SetActive(true);
+		else if (PlayerPrefs.GetInt("Mission Type", 0) == 4)
+			levelLoadSplashVIPAttack.SetActive(true);
+		else if (PlayerPrefs.GetInt("Mission Type", 0) == 5)
+			levelLoadSplashVIPDefense.SetActive(true);
 
 		StartCoroutine(WaitAndLoad());
 	}
