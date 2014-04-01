@@ -10,8 +10,8 @@ public class Play : MonoBehaviour
 	[SerializeField] EasyButton fireWeapon;
 	[SerializeField] EasyButton dropBomb;
 	[SerializeField] TweenAlpha backgroundFadeOut;
-	[SerializeField] GameObject tutorialMenu;
 	[SerializeField] Camera radarCamera;
+	[SerializeField] GameObject tutorialMenu;
 
 	void Awake()
 	{
