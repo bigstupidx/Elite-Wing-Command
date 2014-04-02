@@ -82,21 +82,29 @@ public class GenericWeaponManager : MonoBehaviour
 	{
 		float shootTime = Random.Range(minShootTime, maxShootTime);
 		float shootCooldown = Random.Range(minShootCooldown, maxShootCooldown);
-		airWeapon.Fire();
-		yield return new WaitForSeconds(shootTime);
-		airWeapon.Stop();
-		yield return new WaitForSeconds(shootCooldown);
-		canShoot = true;
+
+		if (airWeapon != null)
+		{
+			airWeapon.Fire();
+			yield return new WaitForSeconds(shootTime);
+			airWeapon.Stop();
+			yield return new WaitForSeconds(shootCooldown);
+			canShoot = true;
+		}
 	}
 
 	IEnumerator GroundFireControl()
 	{
 		float shootTime = Random.Range(minShootTime, maxShootTime);
 		float shootCooldown = Random.Range(minShootCooldown, maxShootCooldown);
-		groundWeapon.Fire();
-		yield return new WaitForSeconds(shootTime);
-		groundWeapon.Stop();
-		yield return new WaitForSeconds(shootCooldown);
-		canShoot = true;
+
+		if (groundWeapon != null)
+		{
+			groundWeapon.Fire();
+			yield return new WaitForSeconds(shootTime);
+			groundWeapon.Stop();
+			yield return new WaitForSeconds(shootCooldown);
+			canShoot = true;
+		}
 	}
 }
