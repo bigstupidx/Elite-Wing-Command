@@ -91,15 +91,12 @@ public class MissionManager : MonoBehaviour
 		switch(missionDifficulty.ToString())
 		{
 		case "Easy":
-			Debug.Log("Mission Difficulty: Easy");
 			missionDifficultyLevel = 1;
 			break;
 		case "Medium":
-			Debug.Log("Mission Difficulty: Medium");
 			missionDifficultyLevel = 2;
 			break;
 		case "Hard":
-			Debug.Log("Mission Difficulty: Hard");
 			missionDifficultyLevel = 3;
 			break;
 		}
@@ -129,14 +126,12 @@ public class MissionManager : MonoBehaviour
 				{
 					if (playerSpawner.GameOver)
 					{
-						Debug.Log("GAME OVER");
 						missionFailedScreen.SetActive(true);
 						StartCoroutine(WaitAndPause());
 						gameOver = true;
 					}
 					else if (AllyObjectivesList.Count == 0)
 					{
-						Debug.Log("MISSION COMPLETE");
 						missionCompleteScreen.SetActive(true);
 						StartCoroutine(WaitAndPause());
 						gameOver = true;
@@ -148,14 +143,12 @@ public class MissionManager : MonoBehaviour
 				{
 					if (EnemyObjectivesList.Count == 0 || playerSpawner.GameOver)
 					{
-						Debug.Log("GAME OVER");
 						missionFailedScreen.SetActive(true);
 						StartCoroutine(WaitAndPause());
 						gameOver = true;
 					}
 					else if (timerComplete)
 					{
-						Debug.Log("MISSION COMPLETE");
 						missionCompleteScreen.SetActive(true);
 						StartCoroutine(WaitAndPause());
 						gameOver = true;
@@ -167,14 +160,12 @@ public class MissionManager : MonoBehaviour
 				{
 					if (EnemyObjectivesList.Count == 0 || playerSpawner.GameOver)
 					{
-						Debug.Log("GAME OVER");
 						missionFailedScreen.SetActive(true);
 						StartCoroutine(WaitAndPause());
 						gameOver = true;
 					}
 					else if (AllyObjectivesList.Count == 0)
 					{
-						Debug.Log("MISSION COMPLETE");
 						missionCompleteScreen.SetActive(true);
 						StartCoroutine(WaitAndPause());
 						gameOver = true;
@@ -187,14 +178,12 @@ public class MissionManager : MonoBehaviour
 
 				if (VIPDestinationReached || playerSpawner.GameOver)
 				{
-					Debug.Log("GAME OVER");
 					missionFailedScreen.SetActive(true);
 					StartCoroutine(WaitAndPause());
 					gameOver = true;
 				}
 				else if (AllyObjectivesList.Count == 0)
 				{
-					Debug.Log("MISSION COMPLETE");
 					missionCompleteScreen.SetActive(true);
 					StartCoroutine(WaitAndPause());
 					gameOver = true;
@@ -206,13 +195,11 @@ public class MissionManager : MonoBehaviour
 
 				if (EnemyObjectivesList.Count == 0 || playerSpawner.GameOver)
 				{
-					Debug.Log("GAME OVER");
 					StartCoroutine(WaitAndPause());
 					gameOver = true;
 				}
 				else if (VIPDestinationReached)
 				{
-					Debug.Log("MISSION COMPLETE");
 					StartCoroutine(WaitAndPause());
 					gameOver = true;
 				}
@@ -265,7 +252,6 @@ public class MissionManager : MonoBehaviour
 			Debug.LogError("No Enemy Objectives!");
 
 		MissionObjectivesRemaining = EnemyObjectivesList.Count;
-		Debug.Log("Remaining Enemy Objectives: " + EnemyObjectivesList.Count);
 	}
 
 	IEnumerator BaseVsBase()
@@ -299,9 +285,6 @@ public class MissionManager : MonoBehaviour
 		}
 		else
 			Debug.LogError("No Enemy Objectives!");
-
-		Debug.Log("Remaining Ally Objectives: " + AllyObjectivesList.Count);
-		Debug.Log("Remaining Enemy Objectives: " + EnemyObjectivesList.Count);
 	}
 
 	IEnumerator VIPAttack()
@@ -321,8 +304,7 @@ public class MissionManager : MonoBehaviour
 		}
 		else
 			Debug.LogError("No Ally Objectives!");
-		
-		Debug.Log("Remaining Enemy Objectives: " + AllyObjectivesList.Count);
+
 		firstVIPSpawned = true;
 	}
 
@@ -343,8 +325,7 @@ public class MissionManager : MonoBehaviour
 		}
 		else
 			Debug.LogError("No Enemy Objectives!");
-		
-		Debug.Log("Remaining Enemy Objectives: " + EnemyObjectivesList.Count);
+
 		firstVIPSpawned = true;
 	}
 
@@ -363,7 +344,6 @@ public class MissionManager : MonoBehaviour
 	public void EnemyObjectiveDestroyed(GameObject objectiveName)
 	{
 		enemyObjectivesInScene.Remove(objectiveName);
-		Debug.Log("Remaining Enemy Objectives: " + EnemyObjectivesList.Count);
 	}
 
 	IEnumerator WaitAndPause()

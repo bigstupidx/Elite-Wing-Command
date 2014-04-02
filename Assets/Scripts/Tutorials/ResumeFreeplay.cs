@@ -9,6 +9,9 @@ public class ResumeFreeplay : MonoBehaviour
 	[SerializeField] GameObject guiObject;
 	[SerializeField] Camera radarCamera;
 	[SerializeField] KGFMapSystem mapScript;
+	[SerializeField] EasyJoystick joystick;
+	[SerializeField] EasyButton fireWeapon;
+	[SerializeField] EasyButton dropBomb;
 	
 	void OnClick()
 	{
@@ -19,6 +22,9 @@ public class ResumeFreeplay : MonoBehaviour
 		guiObject.SetActive(true);
 		radarCamera.enabled = true;
 		mapScript.SetGlobalHideGui(false);
+		joystick.enabled = true;
+		fireWeapon.enabled = true;
+		dropBomb.enabled = true;
 		CustomTimeManager.FadeTo(1.1f, 1.0f);
 	}
 }

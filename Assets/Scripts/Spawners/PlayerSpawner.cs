@@ -82,7 +82,6 @@ public class PlayerSpawner : MonoBehaviour
 		var playerClone = (GameObject)Instantiate(playerPrefab, spawnPosition, spawnRotation);
 		playerClone.name = "Player Aircraft";
 		playerInScene.Add(playerClone.name);
-		Debug.Log("Lives Remaining: " + ((totalRespawns + 1) - respawnNumber));
 	}
 
 	public void PlayerDeath()
@@ -100,7 +99,6 @@ public class PlayerSpawner : MonoBehaviour
 		if (respawnNumber > totalRespawns)
 		{
 			canSpawn = false;
-			Debug.Log("No more lives....");
 			gameOver = true;
 
 			if (missionManager == null)

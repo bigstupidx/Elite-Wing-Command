@@ -3,7 +3,9 @@ using System.Collections;
 
 public class MapBoundary : MonoBehaviour
 {
-	[SerializeField] float countdownTimerValue = 3.0f;
+	[SerializeField] float countdownTimerValue = 4.0f;
+	[SerializeField] GameObject countdownPanel;
+	[SerializeField] UILabel timerLabel;
 	PlayerDamageable playerDamageable;
 	float countdownTimer;
 	bool runTimer = false;
@@ -20,6 +22,7 @@ public class MapBoundary : MonoBehaviour
 		if (playerDamageable != null)
 		{
 			runTimer = false;
+			countdownPanel.SetActive(false);
 			countdownTimer = countdownTimerValue;
 		}
 
@@ -31,7 +34,10 @@ public class MapBoundary : MonoBehaviour
 		playerDamageable = other.GetComponentInChildren<PlayerDamageable>();
 
 		if (playerDamageable != null)
+		{
 			runTimer = true;
+			countdownPanel.SetActive(true);
+		}
 	}
 
 	void Update()
@@ -39,11 +45,12 @@ public class MapBoundary : MonoBehaviour
 		if (runTimer)
 		{
 			countdownTimer -= Time.deltaTime;
-			Debug.Log("Map Boundary Timer: " + countdownTimer);
+			timerLabel.text = countdownTimer.ToString("N2");
 		}
 
 		if (countdownTimer <= 0f)
 		{
+			timerLabel.text = "0.00";
 			GameObject[] allyUnits = GameObject.FindGameObjectsWithTag("Ally");
 
 			foreach (GameObject ally in allyUnits)
