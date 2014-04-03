@@ -13,6 +13,8 @@ public class Ammo : MonoBehaviour
 	[SerializeField] bool missile = false;
 	[SerializeField] GameObject bombExplosion;
 	[SerializeField] GameObject bombExplosionImpact;
+	[SerializeField] string damageObjectiveAirTag;
+	[SerializeField] string damageObjectiveGroundTag;
 	const float bulletHeightModifier = 70f;
 	float bulletMultiplier = 1f;
 	
@@ -45,7 +47,7 @@ public class Ammo : MonoBehaviour
 	
 	void OnTriggerEnter(Collider other)
 	{
-		if (other.tag != "CollectionArea" && other.tag != "MapBoundary" && other.tag != "Weapon" && other.tag != ammoSource)
+		if (other.tag != "MapBoundary" && other.tag != "Weapon" && other.tag != ammoSource)
 		{
 			if (bombExplosion != null)
 			{
@@ -63,7 +65,7 @@ public class Ammo : MonoBehaviour
 
 		var hit = other.transform.GetComponentInChildren<Damageable>();
 		
-		if (hit != null && other.transform.root.tag != ammoSource)
+		if (hit != null && other.transform.root.tag != ammoSource && other.transform.root.tag != damageObjectiveAirTag && other.transform.root.tag != damageObjectiveGroundTag)
 			hit.ApplyDamage(damageAmount);
 	}
 

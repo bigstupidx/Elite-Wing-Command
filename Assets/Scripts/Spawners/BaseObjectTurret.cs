@@ -6,6 +6,7 @@ public class BaseObjectTurret : MonoBehaviour
 	[SerializeField] GameObject unitPrefab;
 	[SerializeField] int difficultyLevel = 1;
 	[SerializeField] bool inverseDifficulty;
+	[SerializeField] bool randomRotation = false;
 	MissionManager missionManager;
 	int missionDifficultyValue;
 	Vector3 spawnLocation;
@@ -33,26 +34,31 @@ public class BaseObjectTurret : MonoBehaviour
 			yield return null;
 		}
 
-		int randomInt = Random.Range(0, 4);
-		
-		switch (randomInt)
+		if (!randomRotation)
 		{
-		case 0:
-			rotationAngle = 0f;
-			break;
-		case 1:
-			rotationAngle = 90f;
-			break;
-		case 2:
-			rotationAngle = 180f;
-			break;
-		case 3:
-			rotationAngle = 270f;
-			break;
-		default:
-			Debug.LogError("No proper rotation angle set");
-			break;
+			int randomInt = Random.Range(0, 4);
+			
+			switch (randomInt)
+			{
+			case 0:
+				rotationAngle = 0f;
+				break;
+			case 1:
+				rotationAngle = 90f;
+				break;
+			case 2:
+				rotationAngle = 180f;
+				break;
+			case 3:
+				rotationAngle = 270f;
+				break;
+			default:
+				Debug.LogError("No proper rotation angle set");
+				break;
+			}
 		}
+		else
+			rotationAngle = Random.Range(0f, 360f);
 
 		Vector3 modifyRotation = transform.eulerAngles;
 		modifyRotation.y = rotationAngle;

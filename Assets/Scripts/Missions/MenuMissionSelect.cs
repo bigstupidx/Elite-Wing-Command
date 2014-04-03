@@ -62,6 +62,7 @@ public class MenuMissionSelect : MonoBehaviour
 			}
 
 			PlayerPrefs.SetString("Mission Title", loadingMissionTitle);
+			PlayerPrefs.SetInt("Mission Number", missionNumber);
 			PlayerPrefs.SetInt("Mission Scene Number", missionSceneNumber);
 			PlayerPrefs.Save();
 			launchButton.SetActive(true);

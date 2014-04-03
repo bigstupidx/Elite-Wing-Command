@@ -64,6 +64,12 @@ public class MissionManager : MonoBehaviour
 	[SerializeField] GameObject missionFailedScreen;
 	[SerializeField] GameObject minimapObject;
 	[SerializeField] GameObject guiObject;
+	[SerializeField] UILabel missionTimer;
+	int totalTime;
+	int timeRemaining;
+	int timePassed;
+	int minutes;
+	int seconds;
 
 	void Awake()
 	{
@@ -105,12 +111,20 @@ public class MissionManager : MonoBehaviour
 		objectivesRemainingLabel = ObjectivesRemainingLabelObject.GetComponent<UILabel>();
 	}
 
+	void Start()
+	{
+		if (missionTimer != null)
+		{
+			totalTime = (int)timerTime;
+			timeRemaining = totalTime;
+			timePassed = 0;
+			InvokeRepeating("UpdateTimer", 1.0f, 1.0f);
+		}
+	}
+
 	void Update()
 	{
 		timerTime -= Time.deltaTime;
-
-//		if (missionType.ToString() == "Base_Defense" && timerTime > 0)
-//			Debug.Log(timerTime);
 
 		if (timerTime <= 0)
 			timerComplete = true;
@@ -227,7 +241,7 @@ public class MissionManager : MonoBehaviour
 		totalAllyObjectives = AllyObjectivesList.Count;
 		objectivesRemainingSlider.numberOfSteps = AllyObjectivesList.Count;
 		missionObjectivesDestroyed = 0;
-		objectivesRemainingSlider.value = missionObjectivesDestroyed/totalAllyObjectives;
+		objectivesRemainingSlider.value = (float)missionObjectivesDestroyed / (float)totalAllyObjectives;
 		objectivesRemainingLabel.text = "Objectives Destroyed: " + missionObjectivesDestroyed + "/" + totalAllyObjectives;
 	}
 
@@ -252,7 +266,7 @@ public class MissionManager : MonoBehaviour
 		totalEnemyObjectives = EnemyObjectivesList.Count;
 		objectivesRemainingSlider.numberOfSteps = EnemyObjectivesList.Count;
 		missionObjectivesRemaining = EnemyObjectivesList.Count;
-		objectivesRemainingSlider.value = missionObjectivesRemaining/totalEnemyObjectives;
+		objectivesRemainingSlider.value = (float)missionObjectivesRemaining / (float)totalEnemyObjectives;
 		objectivesRemainingLabel.text = "Objectives Remaining: " + missionObjectivesRemaining + "/" + totalEnemyObjectives;
 	}
 
@@ -336,7 +350,7 @@ public class MissionManager : MonoBehaviour
 	{
 		allyObjectivesInScene.Remove(objectiveName);
 		missionObjectivesDestroyed += 1;
-		objectivesRemainingSlider.value = (missionObjectivesDestroyed * 1.0f) / (totalAllyObjectives * 1.0f);
+		objectivesRemainingSlider.value = (float)missionObjectivesDestroyed / (float)totalAllyObjectives;
 
 		if (missionObjectivesDestroyed == totalAllyObjectives)
 			objectivesRemainingLabel.text = " ";
@@ -347,8 +361,8 @@ public class MissionManager : MonoBehaviour
 	public void EnemyObjectiveDestroyed(GameObject objectiveName)
 	{
 		enemyObjectivesInScene.Remove(objectiveName);
-		missionObjectivesDestroyed -= 1;
-		objectivesRemainingSlider.value = (missionObjectivesRemaining * 1.0f) / (totalEnemyObjectives * 1.0f);
+		missionObjectivesRemaining = EnemyObjectivesList.Count;
+		objectivesRemainingSlider.value = (float)missionObjectivesRemaining / (float)totalEnemyObjectives;
 		
 		if (missionObjectivesRemaining == 0)
 			objectivesRemainingLabel.text = " ";
@@ -362,5 +376,20 @@ public class MissionManager : MonoBehaviour
 		guiObject.SetActive(false);
 		yield return new WaitForSeconds(2.0f);
 		CustomTimeManager.FadeTo(0f, 0.25f);
+	}
+
+	void UpdateTimer()
+	{
+		++timePassed;
+		timeRemaining = totalTime - timePassed;
+		
+		minutes = Mathf.FloorToInt(timeRemaining / 60F);
+		seconds = Mathf.FloorToInt(timeRemaining - minutes * 60);
+		
+		string formattedTime = string.Format("{0:0}:{1:00}", minutes, seconds);
+		missionTimer.text = formattedTime;
+		
+		if (timeRemaining <= 0)
+			CancelInvoke("UpdateTimer");
 	}
 }
