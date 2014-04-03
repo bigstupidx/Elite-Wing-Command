@@ -88,10 +88,11 @@ public class Damageable : MonoBehaviour
 
 			return;
 		case "Enemy Objective":
-			missionManager.EnemyObjectiveDestroyed(objectIdentifier.gameObject);
-
-			if (missionManager != null)
+			if (missionManager != null && missionManager.missionType.ToString() != "Base_vs_Base")
+			{
+				missionManager.EnemyObjectiveDestroyed(objectIdentifier.gameObject);
 				missionManager.MissionObjectivesRemaining -= 1;
+			}
 
 			Destroy(objectIdentifier.transform.gameObject);
 

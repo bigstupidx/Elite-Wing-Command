@@ -278,8 +278,8 @@ public class MissionManager : MonoBehaviour
 		GameObject[] allyAirObjectives = GameObject.FindGameObjectsWithTag("AllyAirObjective");
 		GameObject[] allyGroundObjectives = GameObject.FindGameObjectsWithTag("AllyGroundObjective");
 		GameObject[] allyObjectives = allyAirObjectives.Concat(allyGroundObjectives).ToArray();
-		GameObject[] enemyAirObjectives = GameObject.FindGameObjectsWithTag("AllyAirObjective");
-		GameObject[] enemyGroundObjectives = GameObject.FindGameObjectsWithTag("AllyGroundObjective");
+		GameObject[] enemyAirObjectives = GameObject.FindGameObjectsWithTag("EnemyAirObjective");
+		GameObject[] enemyGroundObjectives = GameObject.FindGameObjectsWithTag("EnemyGroundObjective");
 		GameObject[] enemyObjectives = enemyAirObjectives.Concat(enemyGroundObjectives).ToArray();
 
 		if (allyObjectives.Length > 0)
@@ -301,6 +301,12 @@ public class MissionManager : MonoBehaviour
 		}
 		else
 			Debug.LogError("No Enemy Objectives!");
+
+		totalAllyObjectives = AllyObjectivesList.Count;
+		objectivesRemainingSlider.numberOfSteps = AllyObjectivesList.Count;
+		missionObjectivesDestroyed = 0;
+		objectivesRemainingSlider.value = (float)missionObjectivesDestroyed / (float)totalAllyObjectives;
+		objectivesRemainingLabel.text = "Objectives Destroyed: " + missionObjectivesDestroyed + "/" + totalAllyObjectives;
 	}
 
 	IEnumerator VIPAttack()
@@ -349,7 +355,7 @@ public class MissionManager : MonoBehaviour
 	public void AllyObjectiveDestroyed(GameObject objectiveName)
 	{
 		allyObjectivesInScene.Remove(objectiveName);
-		missionObjectivesDestroyed += 1;
+		missionObjectivesDestroyed = totalAllyObjectives - AllyObjectivesList.Count;
 		objectivesRemainingSlider.value = (float)missionObjectivesDestroyed / (float)totalAllyObjectives;
 
 		if (missionObjectivesDestroyed == totalAllyObjectives)

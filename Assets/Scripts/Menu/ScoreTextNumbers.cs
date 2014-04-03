@@ -10,6 +10,7 @@ public class ScoreTextNumbers : MonoBehaviour
 	int enemyGroundDestroyed;
 	int missionObjectivesBonus;
 	int playerLivesBonus;
+	int missionDifficultyBonus;
 	int totalScore = 0;
 	public int TotalScore { get { return totalScore; }}
 	
@@ -33,9 +34,11 @@ public class ScoreTextNumbers : MonoBehaviour
 		if (playerLivesBonus < 1)
 			playerLivesBonus = 1;
 
-		totalScore = ((enemyAirDestroyed + enemyGroundDestroyed) * missionObjectivesBonus) * playerLivesBonus;
+		missionDifficultyBonus = missionManager.MissionDifficultyLevel;
 
-		string missionScores = "____________________________\n\n" + enemyAirDestroyed + "\n\n" + enemyGroundDestroyed + "\n\nx" + missionObjectivesBonus + "\n\nx" + playerLivesBonus;
+		totalScore = ((enemyAirDestroyed + enemyGroundDestroyed) * missionObjectivesBonus) * playerLivesBonus * missionDifficultyBonus;
+
+		string missionScores = "\n" + enemyAirDestroyed + "\n\n" + enemyGroundDestroyed + "\n\nx" + missionObjectivesBonus + "\n\nx" + playerLivesBonus + "\n\nx" + missionDifficultyBonus;
 		missionScoreObject.text = missionScores;
 	}
 }
