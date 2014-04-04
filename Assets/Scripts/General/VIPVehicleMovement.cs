@@ -3,9 +3,10 @@ using System.Collections;
 
 public class VIPVehicleMovement : MonoBehaviour
 {
-	[SerializeField] NavMeshAgent navMeshAgent;
 	[SerializeField] float targetReachedDistance = 10f;
+	NavMeshAgent navMeshAgent;
 	MissionManager missionManager;
+	GameObject travelEndObject;
 	Transform travelEndPoint;
 	float targetDistance;
 	Vector3 targetPosition;
@@ -14,21 +15,40 @@ public class VIPVehicleMovement : MonoBehaviour
 
 	void Start()
 	{
-		var travelEndObject = GameObject.FindGameObjectWithTag("TravelEndPoint");
+		navMeshAgent = GetComponent<NavMeshAgent>();
+
+		StartCoroutine(WaitAndSetNav());
+		StartCoroutine(SetNavMeshTarget());
+	}
+
+	IEnumerator WaitAndSetNav()
+	{
+		yield return new WaitForSeconds(1.0f);
+		travelEndObject = GameObject.FindGameObjectWithTag("TravelEndPoint");
 		travelEndPoint = travelEndObject.transform;
 		var missionManagerObject = GameObject.FindGameObjectWithTag("MissionManager");
 		
 		if (missionManagerObject != null)
 			missionManager = missionManagerObject.GetComponent<MissionManager>();
 
-		navMeshAgent.SetDestination(travelEndPoint.position);
-		StartCoroutine(SetNavMeshTarget());
+		if (travelEndObject != null)
+			navMeshAgent.SetDestination(travelEndPoint.position);
+		else
+			Debug.Log("No Travel End Point");
 	}
 
 	IEnumerator SetNavMeshTarget()
 	{
+		yield return new WaitForSeconds(2.0f);
 		while (true)
 		{
+			if (travelEndObject != null)
+			{
+				navMeshAgent.SetDestination(travelEndPoint.position);
+			}
+			else
+				Debug.Log("No Travel End Point");
+
 			targetXZPosition = new Vector2(travelEndPoint.position.x, travelEndPoint.position.z);
 			unitXZPosition = new Vector2(transform.position.x, transform.position.z);
 			targetDistance = Vector2.Distance(targetXZPosition, unitXZPosition);

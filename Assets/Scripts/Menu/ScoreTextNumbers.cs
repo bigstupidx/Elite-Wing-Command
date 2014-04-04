@@ -24,7 +24,7 @@ public class ScoreTextNumbers : MonoBehaviour
 		if (missionManager.playerObjectivesType.ToString() == "Prevent_Enemy_Objectives" || missionManager.playerObjectivesType.ToString() == "Protect_VIP")
 			missionObjectivesBonus = missionManager.MissionObjectivesRemaining;
 		else
-			missionObjectivesBonus = missionManager.MissionObjectivesDestroyed;
+			missionObjectivesBonus = missionManager.MissionObjectivesDestroyed - 1;
 
 		if (missionObjectivesBonus < 1)
 			missionObjectivesBonus = 1;

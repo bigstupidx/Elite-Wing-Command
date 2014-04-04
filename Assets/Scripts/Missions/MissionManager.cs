@@ -240,9 +240,9 @@ public class MissionManager : MonoBehaviour
 
 		totalAllyObjectives = AllyObjectivesList.Count;
 		objectivesRemainingSlider.numberOfSteps = AllyObjectivesList.Count;
-		missionObjectivesDestroyed = 0;
-		objectivesRemainingSlider.value = (float)missionObjectivesDestroyed / (float)totalAllyObjectives;
-		objectivesRemainingLabel.text = "Objectives Destroyed: " + missionObjectivesDestroyed + "/" + totalAllyObjectives;
+		MissionObjectivesDestroyed = 0;
+		objectivesRemainingSlider.value = (float)MissionObjectivesDestroyed / (float)totalAllyObjectives;
+		objectivesRemainingLabel.text = "Objectives Destroyed: " + MissionObjectivesDestroyed + "/" + totalAllyObjectives;
 	}
 
 	IEnumerator BaseDefense()
@@ -265,9 +265,9 @@ public class MissionManager : MonoBehaviour
 
 		totalEnemyObjectives = EnemyObjectivesList.Count;
 		objectivesRemainingSlider.numberOfSteps = EnemyObjectivesList.Count;
-		missionObjectivesRemaining = EnemyObjectivesList.Count;
-		objectivesRemainingSlider.value = (float)missionObjectivesRemaining / (float)totalEnemyObjectives;
-		objectivesRemainingLabel.text = "Objectives Remaining: " + missionObjectivesRemaining + "/" + totalEnemyObjectives;
+		MissionObjectivesRemaining = EnemyObjectivesList.Count;
+		objectivesRemainingSlider.value = (float)MissionObjectivesRemaining / (float)totalEnemyObjectives;
+		objectivesRemainingLabel.text = "Objectives Remaining: " + MissionObjectivesRemaining + "/" + totalEnemyObjectives;
 	}
 
 	IEnumerator BaseVsBase()
@@ -304,9 +304,9 @@ public class MissionManager : MonoBehaviour
 
 		totalAllyObjectives = AllyObjectivesList.Count;
 		objectivesRemainingSlider.numberOfSteps = AllyObjectivesList.Count;
-		missionObjectivesDestroyed = 0;
-		objectivesRemainingSlider.value = (float)missionObjectivesDestroyed / (float)totalAllyObjectives;
-		objectivesRemainingLabel.text = "Objectives Destroyed: " + missionObjectivesDestroyed + "/" + totalAllyObjectives;
+		MissionObjectivesDestroyed = 0;
+		objectivesRemainingSlider.value = (float)MissionObjectivesDestroyed / (float)totalAllyObjectives;
+		objectivesRemainingLabel.text = "Objectives Destroyed: " + MissionObjectivesDestroyed + "/" + totalAllyObjectives;
 	}
 
 	IEnumerator VIPAttack()
@@ -327,6 +327,11 @@ public class MissionManager : MonoBehaviour
 		else
 			Debug.LogError("No Ally Objectives!");
 
+		totalAllyObjectives = AllyObjectivesList.Count;
+		objectivesRemainingSlider.numberOfSteps = AllyObjectivesList.Count;
+		MissionObjectivesDestroyed = 0;
+		objectivesRemainingSlider.value = (float)MissionObjectivesDestroyed / (float)totalAllyObjectives;
+		objectivesRemainingLabel.text = "Objectives Destroyed: " + MissionObjectivesDestroyed + "/" + totalAllyObjectives;
 		firstVIPSpawned = true;
 	}
 
@@ -348,32 +353,32 @@ public class MissionManager : MonoBehaviour
 		else
 			Debug.LogError("No Enemy Objectives!");
 
-		missionObjectivesRemaining = EnemyObjectivesList.Count;
+		MissionObjectivesRemaining = EnemyObjectivesList.Count;
 		firstVIPSpawned = true;
 	}
 
 	public void AllyObjectiveDestroyed(GameObject objectiveName)
 	{
 		allyObjectivesInScene.Remove(objectiveName);
-		missionObjectivesDestroyed = totalAllyObjectives - AllyObjectivesList.Count;
-		objectivesRemainingSlider.value = (float)missionObjectivesDestroyed / (float)totalAllyObjectives;
+		MissionObjectivesDestroyed = totalAllyObjectives - AllyObjectivesList.Count;
+		objectivesRemainingSlider.value = (float)MissionObjectivesDestroyed / (float)totalAllyObjectives;
 
-		if (missionObjectivesDestroyed == totalAllyObjectives)
+		if (MissionObjectivesDestroyed == totalAllyObjectives)
 			objectivesRemainingLabel.text = " ";
 		else
-			objectivesRemainingLabel.text = "Objectives Destroyed: " + missionObjectivesDestroyed + "/" + totalAllyObjectives;
+			objectivesRemainingLabel.text = "Objectives Destroyed: " + MissionObjectivesDestroyed + "/" + totalAllyObjectives;
 	}
 
 	public void EnemyObjectiveDestroyed(GameObject objectiveName)
 	{
 		enemyObjectivesInScene.Remove(objectiveName);
-		missionObjectivesRemaining = EnemyObjectivesList.Count;
-		objectivesRemainingSlider.value = (float)missionObjectivesRemaining / (float)totalEnemyObjectives;
+		MissionObjectivesRemaining = EnemyObjectivesList.Count;
+		objectivesRemainingSlider.value = (float)MissionObjectivesRemaining / (float)totalEnemyObjectives;
 		
-		if (missionObjectivesRemaining == 0)
+		if (MissionObjectivesRemaining == 0)
 			objectivesRemainingLabel.text = " ";
 		else
-			objectivesRemainingLabel.text = "Objectives Remaining: " + missionObjectivesRemaining + "/" + totalEnemyObjectives;
+			objectivesRemainingLabel.text = "Objectives Remaining: " + MissionObjectivesRemaining + "/" + totalEnemyObjectives;
 	}
 
 	IEnumerator WaitAndPause()
