@@ -20,7 +20,7 @@ public class ScoreTextNumbersArcade : MonoBehaviour
 		timeElapsed = arcadeStatHolder.TimeElapsed;
 		totalScore = (enemyAirDestroyed + enemyGroundDestroyed) * timeElapsed;
 
-		string arcadeScores = "____________________________\n\n" + enemyAirDestroyed + "\n\n" + enemyGroundDestroyed + "\n\nx" + timeElapsed;
+		string arcadeScores = "\n\n" + enemyAirDestroyed + "\n\n" + enemyGroundDestroyed + "\n\nx" + timeElapsed;
 		arcadeScoreObject.text = arcadeScores;
 	}
 }
