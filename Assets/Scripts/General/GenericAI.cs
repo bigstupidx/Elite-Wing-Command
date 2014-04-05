@@ -122,7 +122,7 @@ public class GenericAI : MonoBehaviour
 					objectID = ClosestTarget.GetComponent<ObjectIdentifier>();
 					ClosestTargetID = objectID.ObjectType;
 				}
-				else if (objectiveTargets > 0 && airTargets <= 1)
+				else if (objectiveTargets > 0 && airTargets <= 4)
 				{
 					ClosestTarget = closestObjectiveTarget;
 					ClosestTargetDistance = closestObjectiveTargetDistance;

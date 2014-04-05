@@ -53,7 +53,7 @@ public class VIPVehicleMovement : MonoBehaviour
 			unitXZPosition = new Vector2(transform.position.x, transform.position.z);
 			targetDistance = Vector2.Distance(targetXZPosition, unitXZPosition);
 
-			if (targetDistance < targetReachedDistance)
+			if (targetDistance <= targetReachedDistance)
 				missionManager.VIPDestinationReached = true;
 
 			yield return new WaitForSeconds(Random.Range(0.75f, 1f));

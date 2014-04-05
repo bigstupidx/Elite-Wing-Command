@@ -207,11 +207,13 @@ public class MissionManager : MonoBehaviour
 
 				if (EnemyObjectivesList.Count == 0 || playerSpawner.GameOver)
 				{
+					missionFailedScreen.SetActive(true);
 					StartCoroutine(WaitAndPause());
 					gameOver = true;
 				}
 				else if (VIPDestinationReached)
 				{
+					missionCompleteScreen.SetActive(true);
 					StartCoroutine(WaitAndPause());
 					gameOver = true;
 				}
@@ -353,7 +355,11 @@ public class MissionManager : MonoBehaviour
 		else
 			Debug.LogError("No Enemy Objectives!");
 
+		totalEnemyObjectives = EnemyObjectivesList.Count;
+		objectivesRemainingSlider.numberOfSteps = EnemyObjectivesList.Count;
 		MissionObjectivesRemaining = EnemyObjectivesList.Count;
+		objectivesRemainingSlider.value = (float)MissionObjectivesRemaining / (float)totalEnemyObjectives;
+		objectivesRemainingLabel.text = "Objectives Remaining: " + MissionObjectivesRemaining + "/" + totalEnemyObjectives;
 		firstVIPSpawned = true;
 	}
 
