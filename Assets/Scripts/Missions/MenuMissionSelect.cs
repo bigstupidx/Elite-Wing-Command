@@ -8,8 +8,6 @@ public class MenuMissionSelect : MonoBehaviour
 	[SerializeField] GameObject launchButton;
 	[SerializeField] UILabel missionTitleLabel;
 	[SerializeField] UILabel missionDescriptionLabel;
-	[SerializeField] string missionTitle = "MISSION 101";
-	[SerializeField] string loadingMissionTitle = "Mission 101";
 	[SerializeField] string missionDescription = "Mission Type:\n- Base vs. Base\n\nDifficulty:\n- Easy\n\n" +
 		"Air Units:\n- Yes\n\nGround Units:\n- Yes\n\nStatus:\n- ";
 
@@ -34,9 +32,9 @@ public class MenuMissionSelect : MonoBehaviour
 
 	void OnClick()
 	{
-		if (missionTitleLabel.text != missionTitle)
+		if (missionTitleLabel.text != "MISSION " + missionNumber.ToString())
 		{
-			missionTitleLabel.text = missionTitle;
+			missionTitleLabel.text = "MISSION " + missionNumber.ToString();
 			missionTitleLabel.enabled = true;
 
 			missionDescriptionLabel.text = missionDescription;
@@ -61,7 +59,7 @@ public class MenuMissionSelect : MonoBehaviour
 				break;
 			}
 
-			PlayerPrefs.SetString("Mission Title", loadingMissionTitle);
+			PlayerPrefs.SetString("Mission Title", "Mission " + missionNumber.ToString());
 			PlayerPrefs.SetInt("Mission Number", missionNumber);
 			PlayerPrefs.SetInt("Mission Scene Number", missionSceneNumber);
 			PlayerPrefs.Save();
