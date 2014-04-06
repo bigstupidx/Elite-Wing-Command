@@ -10,6 +10,7 @@ public class MenuMissionSelect : MonoBehaviour
 	[SerializeField] UILabel missionDescriptionLabel;
 	[SerializeField] string missionDescription = "Mission Type:\n- Base vs. Base\n\nDifficulty:\n- Easy\n\n" +
 		"Air Units:\n- Yes\n\nGround Units:\n- Yes\n\nStatus:\n- ";
+	[SerializeField] bool isTutorial = false;
 
 	public enum MissionType
 	{
@@ -32,38 +33,55 @@ public class MenuMissionSelect : MonoBehaviour
 
 	void OnClick()
 	{
-		if (missionTitleLabel.text != "MISSION " + missionNumber.ToString())
+		if (!isTutorial)
 		{
-			missionTitleLabel.text = "MISSION " + missionNumber.ToString();
-			missionTitleLabel.enabled = true;
-
-			missionDescriptionLabel.text = missionDescription;
-			missionDescriptionLabel.enabled = true;
-
-			switch(missionType)
+			if (missionTitleLabel.text != "MISSION " + missionNumber.ToString())
 			{
-			case MissionType.Base_Attack:
-				PlayerPrefs.SetInt("Mission Type", 1);
-				break;
-			case MissionType.Base_Defense:
-				PlayerPrefs.SetInt("Mission Type", 2);
-				break;
-			case MissionType.Base_vs_Base:
-				PlayerPrefs.SetInt("Mission Type", 3);
-				break;
-			case MissionType.VIP_Attack:
-				PlayerPrefs.SetInt("Mission Type", 4);
-				break;
-			case MissionType.VIP_Defense:
-				PlayerPrefs.SetInt("Mission Type", 5);
-				break;
-			}
+				missionTitleLabel.text = "MISSION " + missionNumber.ToString();
+				missionTitleLabel.enabled = true;
 
-			PlayerPrefs.SetString("Mission Title", "Mission " + missionNumber.ToString());
-			PlayerPrefs.SetInt("Mission Number", missionNumber);
-			PlayerPrefs.SetInt("Mission Scene Number", missionSceneNumber);
-			PlayerPrefs.Save();
-			launchButton.SetActive(true);
+				missionDescriptionLabel.text = missionDescription;
+				missionDescriptionLabel.enabled = true;
+
+				switch(missionType)
+				{
+				case MissionType.Base_Attack:
+					PlayerPrefs.SetInt("Mission Type", 1);
+					break;
+				case MissionType.Base_Defense:
+					PlayerPrefs.SetInt("Mission Type", 2);
+					break;
+				case MissionType.Base_vs_Base:
+					PlayerPrefs.SetInt("Mission Type", 3);
+					break;
+				case MissionType.VIP_Attack:
+					PlayerPrefs.SetInt("Mission Type", 4);
+					break;
+				case MissionType.VIP_Defense:
+					PlayerPrefs.SetInt("Mission Type", 5);
+					break;
+				}
+
+				PlayerPrefs.SetString("Mission Title", "Mission " + missionNumber.ToString());
+			}
 		}
+		else
+		{
+			if (missionTitleLabel.text != "TUTORIAL")
+			{
+				missionTitleLabel.text = "TUTORIAL";
+				missionTitleLabel.enabled = true;
+
+				missionDescriptionLabel.text = missionDescription;
+				missionDescriptionLabel.enabled = true;
+
+				PlayerPrefs.SetString("Mission Title", "Tutorial");
+			}
+		}
+
+		PlayerPrefs.SetInt("Mission Number", missionNumber);
+		PlayerPrefs.SetInt("Mission Scene Number", missionSceneNumber);
+		PlayerPrefs.Save();
+		launchButton.SetActive(true);
 	}
 }
