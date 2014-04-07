@@ -13,16 +13,16 @@ public class SetWeaponSlots : MonoBehaviour
 		switch(UIPopupList.current.value)
 		{
 		case "[99FF66]2 Weapons":
-			PlayerPrefs.SetInt("Weapon Slots", 2);
+			EncryptedPlayerPrefs.SetInt("Weapon Slots", 2);
 			break;
 		case "3 Weapons":
-			PlayerPrefs.SetInt("Weapon Slots", 3);
+			EncryptedPlayerPrefs.SetInt("Weapon Slots", 3);
 			break;
 		case "[FF6633]4 Weapons":
-			PlayerPrefs.SetInt("Weapon Slots", 4);
+			EncryptedPlayerPrefs.SetInt("Weapon Slots", 4);
 			break;
 		case "[FF0066]5 Weapons":
-			PlayerPrefs.SetInt("Weapon Slots", 5);
+			EncryptedPlayerPrefs.SetInt("Weapon Slots", 5);
 			break;
 		default:
 			Debug.LogError("Selection Not Valid: " + transform.name);

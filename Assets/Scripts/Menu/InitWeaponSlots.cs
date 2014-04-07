@@ -8,7 +8,7 @@ public class InitWeaponSlots : MonoBehaviour
 
 	void OnEnable()
 	{
-		switch(PlayerPrefs.GetInt("Weapon Slots"))
+		switch(EncryptedPlayerPrefs.GetInt("Weapon Slots"))
 		{
 		case 2:
 			popupListText = "[99FF66]2 Weapons";

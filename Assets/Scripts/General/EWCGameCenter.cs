@@ -31,15 +31,15 @@ public class EWCGameCenter : MonoBehaviour {
 		if (Input.GetKeyDown(KeyCode.T))
 		{
 			Debug.Log("Arcade High Score Reset");
-			PlayerPrefs.SetInt("Arcade High Score", 0);
-			Debug.Log(PlayerPrefs.GetInt("Arcade High Score"));
+			EncryptedPlayerPrefs.SetInt("Arcade High Score", 0);
+			Debug.Log(EncryptedPlayerPrefs.GetInt("Arcade High Score"));
 			PlayerPrefs.Save();
 		}
 	}
 	
 	public void StoreAndSubmitScore(int sessionScore)
 	{
-		int arcadeHighScore = PlayerPrefs.GetInt("Arcade High Score", 0);
+		int arcadeHighScore = EncryptedPlayerPrefs.GetInt("Arcade High Score", 0);
 		var newRecordObject = GameObject.FindGameObjectWithTag("NewRecord");
 
 		if (sessionScore > arcadeHighScore)
@@ -53,11 +53,11 @@ public class EWCGameCenter : MonoBehaviour {
 				newRecordTween.enabled = true;
 			}
 
-			PlayerPrefs.SetInt("Arcade High Score", sessionScore);
+			EncryptedPlayerPrefs.SetInt("Arcade High Score", sessionScore);
 			PlayerPrefs.Save();
 		}
 
-		ReportScore(PlayerPrefs.GetInt("Arcade High Score"), leaderboardID);
+		ReportScore(EncryptedPlayerPrefs.GetInt("Arcade High Score"), leaderboardID);
     }
 	
 	///////////////////////////////////////////////////

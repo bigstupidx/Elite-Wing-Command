@@ -6,6 +6,6 @@ public class ReplayMission : MonoBehaviour
 
 	void OnClick()
 	{
-		Application.LoadLevel(PlayerPrefs.GetInt("Mission Scene Number", 0));
+		Application.LoadLevel(EncryptedPlayerPrefs.GetInt("Mission Scene Number", 0));
 	}
 }

@@ -17,7 +17,7 @@ public class UpgradePlayerHealth : MonoBehaviour
 
 	void OnClick()
 	{
-		if (PlayerPrefs.GetFloat("Reward Points", 0) >= upgradesContainer.PlayerHealthUpgradeCost)
+		if (EncryptedPlayerPrefs.GetFloat("Reward Points", 0) >= upgradesContainer.PlayerHealthUpgradeCost)
 			UpgradeHealth();
 		else
 			Debug.Log("Not enough RP for upgrade purchase....");
@@ -34,10 +34,10 @@ public class UpgradePlayerHealth : MonoBehaviour
 			buttonCollider.enabled = false;
 		}
 
-		upgradeSlider.value = ((PlayerPrefs.GetInt("Player Health Level", 0) * 1.0f) + 1) / 6f;
-		rewardPointsLabel.text = PlayerPrefs.GetFloat("Reward Points", 0).ToString("N0") + " RP";
+		upgradeSlider.value = ((EncryptedPlayerPrefs.GetInt("Player Health Level", 0) * 1.0f) + 1) / 6f;
+		rewardPointsLabel.text = EncryptedPlayerPrefs.GetFloat("Reward Points", 0).ToString("N0") + " RP";
 		
-		if (PlayerPrefs.GetFloat("Reward Points", 0) >= upgradesContainer.PlayerHealthUpgradeCost)
+		if (EncryptedPlayerPrefs.GetFloat("Reward Points", 0) >= upgradesContainer.PlayerHealthUpgradeCost)
 		{
 			upgradeNameLabel.color = Color.white;
 			upgradeCostLabel.color = Color.white;
@@ -51,30 +51,30 @@ public class UpgradePlayerHealth : MonoBehaviour
 
 	void UpgradeHealth()
 	{
-		float currentRP = PlayerPrefs.GetFloat("Reward Points", 0);
+		float currentRP = EncryptedPlayerPrefs.GetFloat("Reward Points", 0);
 		float newRP = currentRP - upgradesContainer.PlayerHealthUpgradeCost;
-		PlayerPrefs.SetFloat("Reward Points", newRP);
+		EncryptedPlayerPrefs.SetFloat("Reward Points", newRP);
 
-		int currentLevel = PlayerPrefs.GetInt("Player Health Level", 0);
+		int currentLevel = EncryptedPlayerPrefs.GetInt("Player Health Level", 0);
 		int newLevel = currentLevel + 1;
-		PlayerPrefs.SetInt("Player Health Level", newLevel);
+		EncryptedPlayerPrefs.SetInt("Player Health Level", newLevel);
 
 		switch(newLevel)
 		{
 		case 1:
-			PlayerPrefs.SetFloat("Player Health Multiplier", 1.05f);
+			EncryptedPlayerPrefs.SetFloat("Player Health Multiplier", 1.05f);
 			break;
 		case 2:
-			PlayerPrefs.SetFloat("Player Health Multiplier", 1.1f);
+			EncryptedPlayerPrefs.SetFloat("Player Health Multiplier", 1.1f);
 			break;
 		case 3:
-			PlayerPrefs.SetFloat("Player Health Multiplier", 1.15f);
+			EncryptedPlayerPrefs.SetFloat("Player Health Multiplier", 1.15f);
 			break;
 		case 4:
-			PlayerPrefs.SetFloat("Player Health Multiplier", 1.2f);
+			EncryptedPlayerPrefs.SetFloat("Player Health Multiplier", 1.2f);
 			break;
 		case 5:
-			PlayerPrefs.SetFloat("Player Health Multiplier", 1.25f);
+			EncryptedPlayerPrefs.SetFloat("Player Health Multiplier", 1.25f);
 			break;
 		default:
 			Debug.LogError("Selection Not Valid: " + transform.name);

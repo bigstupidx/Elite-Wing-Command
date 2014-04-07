@@ -6,6 +6,6 @@ public class CompleteTutorial : MonoBehaviour
 	
 	void Start ()
 	{
-		PlayerPrefs.SetInt("Mission 999 Status", 1);
+		EncryptedPlayerPrefs.SetInt("Mission 999 Status", 1);
 	}
 }

@@ -10,9 +10,7 @@ public class PlayerAmmoSpawner : AmmoSpawner
 
 	void Awake()
 	{
-		//weaponCaseSwitch = PlayerPrefs.GetInt("Weapon Equip " + weaponSlotNumber);
-
-		switch(PlayerPrefs.GetInt("Weapon Equip " + weaponSlotNumber.ToString()))
+		switch(EncryptedPlayerPrefs.GetInt("Weapon Equip " + weaponSlotNumber.ToString()))
 		{
 		case 1:
 			Weapon = allyBullet1;

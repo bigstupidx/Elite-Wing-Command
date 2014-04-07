@@ -17,7 +17,7 @@ public class UpgradeAllyGroundSpeed : MonoBehaviour
 
 	void OnClick()
 	{
-		if (PlayerPrefs.GetFloat("Reward Points", 0) >= upgradesContainer.AllyGroundSpeedUpgradeCost)
+		if (EncryptedPlayerPrefs.GetFloat("Reward Points", 0) >= upgradesContainer.AllyGroundSpeedUpgradeCost)
 			UpgradeSpeed();
 		else
 			Debug.Log("Not enough RP for upgrade purchase....");
@@ -34,10 +34,10 @@ public class UpgradeAllyGroundSpeed : MonoBehaviour
 			buttonCollider.enabled = false;
 		}
 
-		upgradeSlider.value = ((PlayerPrefs.GetInt("Ally Ground Speed Level", 0) * 1.0f) + 1) / 6f;
-		rewardPointsLabel.text = PlayerPrefs.GetFloat("Reward Points", 0).ToString("N0") + " RP";
+		upgradeSlider.value = ((EncryptedPlayerPrefs.GetInt("Ally Ground Speed Level", 0) * 1.0f) + 1) / 6f;
+		rewardPointsLabel.text = EncryptedPlayerPrefs.GetFloat("Reward Points", 0).ToString("N0") + " RP";
 		
-		if (PlayerPrefs.GetFloat("Reward Points", 0) >= upgradesContainer.AllyGroundSpeedUpgradeCost)
+		if (EncryptedPlayerPrefs.GetFloat("Reward Points", 0) >= upgradesContainer.AllyGroundSpeedUpgradeCost)
 		{
 			upgradeNameLabel.color = Color.white;
 			upgradeCostLabel.color = Color.white;
@@ -51,30 +51,30 @@ public class UpgradeAllyGroundSpeed : MonoBehaviour
 
 	void UpgradeSpeed()
 	{
-		float currentRP = PlayerPrefs.GetFloat("Reward Points", 0);
+		float currentRP = EncryptedPlayerPrefs.GetFloat("Reward Points", 0);
 		float newRP = currentRP - upgradesContainer.AllyGroundSpeedUpgradeCost;
-		PlayerPrefs.SetFloat("Reward Points", newRP);
+		EncryptedPlayerPrefs.SetFloat("Reward Points", newRP);
 
-		int currentLevel = PlayerPrefs.GetInt("Ally Ground Speed Level", 0);
+		int currentLevel = EncryptedPlayerPrefs.GetInt("Ally Ground Speed Level", 0);
 		int newLevel = currentLevel + 1;
-		PlayerPrefs.SetInt("Ally Ground Speed Level", newLevel);
+		EncryptedPlayerPrefs.SetInt("Ally Ground Speed Level", newLevel);
 
 		switch(newLevel)
 		{
 		case 1:
-			PlayerPrefs.SetFloat("Ally Ground Speed Multiplier", 1.2f);
+			EncryptedPlayerPrefs.SetFloat("Ally Ground Speed Multiplier", 1.2f);
 			break;
 		case 2:
-			PlayerPrefs.SetFloat("Ally Ground Speed Multiplier", 1.4f);
+			EncryptedPlayerPrefs.SetFloat("Ally Ground Speed Multiplier", 1.4f);
 			break;
 		case 3:
-			PlayerPrefs.SetFloat("Ally Ground Speed Multiplier", 1.6f);
+			EncryptedPlayerPrefs.SetFloat("Ally Ground Speed Multiplier", 1.6f);
 			break;
 		case 4:
-			PlayerPrefs.SetFloat("Ally Ground Speed Multiplier", 1.8f);
+			EncryptedPlayerPrefs.SetFloat("Ally Ground Speed Multiplier", 1.8f);
 			break;
 		case 5:
-			PlayerPrefs.SetFloat("Ally Ground Speed Multiplier", 2.0f);
+			EncryptedPlayerPrefs.SetFloat("Ally Ground Speed Multiplier", 2.0f);
 			break;
 		default:
 			Debug.LogError("Selection Not Valid: " + transform.name);

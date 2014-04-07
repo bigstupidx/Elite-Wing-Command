@@ -17,7 +17,7 @@ public class UpgradePlayerRecovery : MonoBehaviour
 
 	void OnClick()
 	{
-		if (PlayerPrefs.GetFloat("Reward Points", 0) >= upgradesContainer.PlayerRecoveryUpgradeCost)
+		if (EncryptedPlayerPrefs.GetFloat("Reward Points", 0) >= upgradesContainer.PlayerRecoveryUpgradeCost)
 			UpgradeRecovery();
 		else
 			Debug.Log("Not enough RP for upgrade purchase....");
@@ -34,10 +34,10 @@ public class UpgradePlayerRecovery : MonoBehaviour
 			buttonCollider.enabled = false;
 		}
 
-		upgradeSlider.value = ((PlayerPrefs.GetInt("Player Recovery Level", 0) * 1.0f) + 1) / 6f;
-		rewardPointsLabel.text = PlayerPrefs.GetFloat("Reward Points", 0).ToString("N0") + " RP";
+		upgradeSlider.value = ((EncryptedPlayerPrefs.GetInt("Player Recovery Level", 0) * 1.0f) + 1) / 6f;
+		rewardPointsLabel.text = EncryptedPlayerPrefs.GetFloat("Reward Points", 0).ToString("N0") + " RP";
 		
-		if (PlayerPrefs.GetFloat("Reward Points", 0) >= upgradesContainer.PlayerRecoveryUpgradeCost)
+		if (EncryptedPlayerPrefs.GetFloat("Reward Points", 0) >= upgradesContainer.PlayerRecoveryUpgradeCost)
 		{
 			upgradeNameLabel.color = Color.white;
 			upgradeCostLabel.color = Color.white;
@@ -51,30 +51,30 @@ public class UpgradePlayerRecovery : MonoBehaviour
 
 	void UpgradeRecovery()
 	{
-		float currentRP = PlayerPrefs.GetFloat("Reward Points", 0);
+		float currentRP = EncryptedPlayerPrefs.GetFloat("Reward Points", 0);
 		float newRP = currentRP - upgradesContainer.PlayerRecoveryUpgradeCost;
-		PlayerPrefs.SetFloat("Reward Points", newRP);
+		EncryptedPlayerPrefs.SetFloat("Reward Points", newRP);
 
-		int currentLevel = PlayerPrefs.GetInt("Player Recovery Level", 0);
+		int currentLevel = EncryptedPlayerPrefs.GetInt("Player Recovery Level", 0);
 		int newLevel = currentLevel + 1;
-		PlayerPrefs.SetInt("Player Recovery Level", newLevel);
+		EncryptedPlayerPrefs.SetInt("Player Recovery Level", newLevel);
 
 		switch(newLevel)
 		{
 		case 1:
-			PlayerPrefs.SetFloat("Player Recovery Multiplier", 1.1f);
+			EncryptedPlayerPrefs.SetFloat("Player Recovery Multiplier", 1.1f);
 			break;
 		case 2:
-			PlayerPrefs.SetFloat("Player Recovery Multiplier", 1.2f);
+			EncryptedPlayerPrefs.SetFloat("Player Recovery Multiplier", 1.2f);
 			break;
 		case 3:
-			PlayerPrefs.SetFloat("Player Recovery Multiplier", 1.3f);
+			EncryptedPlayerPrefs.SetFloat("Player Recovery Multiplier", 1.3f);
 			break;
 		case 4:
-			PlayerPrefs.SetFloat("Player Recovery Multiplier", 1.4f);
+			EncryptedPlayerPrefs.SetFloat("Player Recovery Multiplier", 1.4f);
 			break;
 		case 5:
-			PlayerPrefs.SetFloat("Player Recovery Multiplier", 1.5f);
+			EncryptedPlayerPrefs.SetFloat("Player Recovery Multiplier", 1.5f);
 			break;
 		default:
 			Debug.LogError("Selection Not Valid: " + transform.name);

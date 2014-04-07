@@ -106,22 +106,22 @@ public class IAPManager : MonoBehaviour
 		switch(productIdentifier)
 		{
 		case "5000_reward_points":
-			PlayerPrefs.SetFloat("Reward Points", PlayerPrefs.GetFloat("Reward Points", 0) + 12000f);
+			EncryptedPlayerPrefs.SetFloat("Reward Points", EncryptedPlayerPrefs.GetFloat("Reward Points", 0) + 12000f);
 			break;
 		case "12000_reward_points":
-			PlayerPrefs.SetFloat("Reward Points", PlayerPrefs.GetFloat("Reward Points", 0) + 20000f);
+			EncryptedPlayerPrefs.SetFloat("Reward Points", EncryptedPlayerPrefs.GetFloat("Reward Points", 0) + 20000f);
 			break;
 		case "20000_reward_points":
-			PlayerPrefs.SetFloat("Reward Points", PlayerPrefs.GetFloat("Reward Points", 0) + 35000f);
+			EncryptedPlayerPrefs.SetFloat("Reward Points", EncryptedPlayerPrefs.GetFloat("Reward Points", 0) + 35000f);
 			break;
 		case "35000_reward_points":
-			PlayerPrefs.SetFloat("Reward Points", PlayerPrefs.GetFloat("Reward Points", 0) + 60000f);
+			EncryptedPlayerPrefs.SetFloat("Reward Points", EncryptedPlayerPrefs.GetFloat("Reward Points", 0) + 60000f);
 			break;
 		case "50000_reward_points":
-			PlayerPrefs.SetFloat("Reward Points", PlayerPrefs.GetFloat("Reward Points", 0) + 100000f);
+			EncryptedPlayerPrefs.SetFloat("Reward Points", EncryptedPlayerPrefs.GetFloat("Reward Points", 0) + 100000f);
 			break;
 		case "120000_reward_points":
-			PlayerPrefs.SetFloat("Reward Points", PlayerPrefs.GetFloat("Reward Points", 0) + 250000f);
+			EncryptedPlayerPrefs.SetFloat("Reward Points", EncryptedPlayerPrefs.GetFloat("Reward Points", 0) + 250000f);
 			break;
 		default:
 			Debug.LogError("Not valid product identifier....");
@@ -129,7 +129,7 @@ public class IAPManager : MonoBehaviour
 		}
 
 		PlayerPrefs.Save();
-		rewardPointsLabel.text = PlayerPrefs.GetFloat("Reward Points", 0).ToString("N0") + " RP";
+		rewardPointsLabel.text = EncryptedPlayerPrefs.GetFloat("Reward Points", 0).ToString("N0") + " RP";
 		iapState = IAPState.Normal;
 		SetIAPLayout();
 	}

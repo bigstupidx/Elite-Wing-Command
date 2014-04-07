@@ -11,7 +11,7 @@ public class InitEquipWeapon : MonoBehaviour
 	
 	void OnEnable()
 	{
-		weaponSlots = PlayerPrefs.GetInt("Weapon Slots");
+		weaponSlots = EncryptedPlayerPrefs.GetInt("Weapon Slots");
 
 		if (weaponEquipSlot > weaponSlots)
 		{
@@ -24,7 +24,7 @@ public class InitEquipWeapon : MonoBehaviour
 			listTitle.gameObject.SetActive(true);
 		}
 
-		switch(PlayerPrefs.GetInt("Weapon Equip " + weaponEquipSlot.ToString()))
+		switch(EncryptedPlayerPrefs.GetInt("Weapon Equip " + weaponEquipSlot.ToString()))
 		{
 		case 1:
 			popupListText = "[FF0066]Red";

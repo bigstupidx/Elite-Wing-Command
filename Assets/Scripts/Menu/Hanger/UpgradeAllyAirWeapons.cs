@@ -17,7 +17,7 @@ public class UpgradeAllyAirWeapons : MonoBehaviour
 
 	void OnClick()
 	{
-		if (PlayerPrefs.GetFloat("Reward Points", 0) >= upgradesContainer.AllyAirWeaponUpgradeCost)
+		if (EncryptedPlayerPrefs.GetFloat("Reward Points", 0) >= upgradesContainer.AllyAirWeaponUpgradeCost)
 			UpgradeWeapons();
 		else
 			Debug.Log("Not enough RP for upgrade purchase....");
@@ -34,10 +34,10 @@ public class UpgradeAllyAirWeapons : MonoBehaviour
 			buttonCollider.enabled = false;
 		}
 
-		upgradeSlider.value = ((PlayerPrefs.GetInt("Ally Air Weapon Level", 0) * 1.0f) + 1) / 7f;
-		rewardPointsLabel.text = PlayerPrefs.GetFloat("Reward Points", 0).ToString("N0") + " RP";
+		upgradeSlider.value = ((EncryptedPlayerPrefs.GetInt("Ally Air Weapon Level", 0) * 1.0f) + 1) / 7f;
+		rewardPointsLabel.text = EncryptedPlayerPrefs.GetFloat("Reward Points", 0).ToString("N0") + " RP";
 		
-		if (PlayerPrefs.GetFloat("Reward Points", 0) >= upgradesContainer.AllyAirWeaponUpgradeCost)
+		if (EncryptedPlayerPrefs.GetFloat("Reward Points", 0) >= upgradesContainer.AllyAirWeaponUpgradeCost)
 		{
 			upgradeNameLabel.color = Color.white;
 			upgradeCostLabel.color = Color.white;
@@ -51,33 +51,33 @@ public class UpgradeAllyAirWeapons : MonoBehaviour
 
 	void UpgradeWeapons()
 	{
-		float currentRP = PlayerPrefs.GetFloat("Reward Points", 0);
+		float currentRP = EncryptedPlayerPrefs.GetFloat("Reward Points", 0);
 		float newRP = currentRP - upgradesContainer.AllyAirWeaponUpgradeCost;
-		PlayerPrefs.SetFloat("Reward Points", newRP);
+		EncryptedPlayerPrefs.SetFloat("Reward Points", newRP);
 
-		int currentLevel = PlayerPrefs.GetInt("Ally Air Weapon Level", 0);
+		int currentLevel = EncryptedPlayerPrefs.GetInt("Ally Air Weapon Level", 0);
 		int newLevel = currentLevel + 1;
-		PlayerPrefs.SetInt("Ally Air Weapon Level", newLevel);
+		EncryptedPlayerPrefs.SetInt("Ally Air Weapon Level", newLevel);
 
 		switch(newLevel)
 		{
 		case 1:
-			PlayerPrefs.SetFloat("Ally Air Weapon Multiplier", 1.4f);
+			EncryptedPlayerPrefs.SetFloat("Ally Air Weapon Multiplier", 1.4f);
 			break;
 		case 2:
-			PlayerPrefs.SetFloat("Ally Air Weapon Multiplier", 1.7f);
+			EncryptedPlayerPrefs.SetFloat("Ally Air Weapon Multiplier", 1.7f);
 			break;
 		case 3:
-			PlayerPrefs.SetFloat("Ally Air Weapon Multiplier", 2f);
+			EncryptedPlayerPrefs.SetFloat("Ally Air Weapon Multiplier", 2f);
 			break;
 		case 4:
-			PlayerPrefs.SetFloat("Ally Air Weapon Multiplier", 2.4f);
+			EncryptedPlayerPrefs.SetFloat("Ally Air Weapon Multiplier", 2.4f);
 			break;
 		case 5:
-			PlayerPrefs.SetFloat("Ally Air Weapon Multiplier", 2.7f);
+			EncryptedPlayerPrefs.SetFloat("Ally Air Weapon Multiplier", 2.7f);
 			break;
 		case 6:
-			PlayerPrefs.SetFloat("Ally Air Weapon Multiplier", 3.0f);
+			EncryptedPlayerPrefs.SetFloat("Ally Air Weapon Multiplier", 3.0f);
 			break;
 		default:
 			Debug.LogError("Selection Not Valid: " + transform.name);

@@ -6,7 +6,7 @@ public class MissionSetComplete : MonoBehaviour
 
 	void Start()
 	{
-		int missionNumber = PlayerPrefs.GetInt("Mission Number", 0);
-		PlayerPrefs.SetInt("Mission " + missionNumber.ToString() + " Status", 1);
+		int missionNumber = EncryptedPlayerPrefs.GetInt("Mission Number", 0);
+		EncryptedPlayerPrefs.SetInt("Mission " + missionNumber.ToString() + " Status", 1);
 	}
 }

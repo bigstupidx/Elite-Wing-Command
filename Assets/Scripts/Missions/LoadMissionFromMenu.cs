@@ -12,19 +12,19 @@ public class LoadMissionFromMenu : MonoBehaviour
 	
 	void OnClick()
 	{
-		int missionToLoad = PlayerPrefs.GetInt("Mission Scene Number", 0);
+		int missionToLoad = EncryptedPlayerPrefs.GetInt("Mission Scene Number", 0);
 
 		if (missionToLoad == 3)
 			tutorialLoadSplash.SetActive(true);
-		else if (PlayerPrefs.GetInt("Mission Type", 0) == 1)
+		else if (EncryptedPlayerPrefs.GetInt("Mission Type", 0) == 1)
 			levelLoadSplashBaseAttack.SetActive(true);
-		else if (PlayerPrefs.GetInt("Mission Type", 0) == 2)
+		else if (EncryptedPlayerPrefs.GetInt("Mission Type", 0) == 2)
 			levelLoadSplashBaseDefense.SetActive(true);
-		else if (PlayerPrefs.GetInt("Mission Type", 0) == 3)
+		else if (EncryptedPlayerPrefs.GetInt("Mission Type", 0) == 3)
 			levelLoadSplashBaseVsBase.SetActive(true);
-		else if (PlayerPrefs.GetInt("Mission Type", 0) == 4)
+		else if (EncryptedPlayerPrefs.GetInt("Mission Type", 0) == 4)
 			levelLoadSplashVIPAttack.SetActive(true);
-		else if (PlayerPrefs.GetInt("Mission Type", 0) == 5)
+		else if (EncryptedPlayerPrefs.GetInt("Mission Type", 0) == 5)
 			levelLoadSplashVIPDefense.SetActive(true);
 
 		StartCoroutine(WaitAndLoad());
@@ -33,6 +33,6 @@ public class LoadMissionFromMenu : MonoBehaviour
 	IEnumerator WaitAndLoad()
 	{
 		yield return new WaitForSeconds(2.0f);
-		Application.LoadLevel(PlayerPrefs.GetInt("Mission Scene Number", 0));
+		Application.LoadLevel(EncryptedPlayerPrefs.GetInt("Mission Scene Number", 0));
 	}
 }

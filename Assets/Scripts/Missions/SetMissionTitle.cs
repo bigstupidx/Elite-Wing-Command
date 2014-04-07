@@ -7,6 +7,6 @@ public class SetMissionTitle : MonoBehaviour
 
 	void Awake()
 	{
-		missionTitleLabel.text = PlayerPrefs.GetString("Mission Title", " ");
+		missionTitleLabel.text = EncryptedPlayerPrefs.GetString("Mission Title", " ");
 	}
 }

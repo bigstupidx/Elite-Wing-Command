@@ -26,7 +26,7 @@ public class PlayerSpawner : MonoBehaviour
 
 	void Awake()
 	{
-		switch(PlayerPrefs.GetInt("Weapon Slots"))
+		switch(EncryptedPlayerPrefs.GetInt("Weapon Slots"))
 		{
 		case 2:
 			playerPrefab = playerPrefab2Slots;

@@ -62,7 +62,7 @@ public class ShipMovement : MonoBehaviour
 
 	void Awake()
 	{
-		speedMultiplier = PlayerPrefs.GetFloat("Player Speed Multiplier", 1f);
+		speedMultiplier = EncryptedPlayerPrefs.GetFloat("Player Speed Multiplier", 1f);
 	}
 
 	void Update()

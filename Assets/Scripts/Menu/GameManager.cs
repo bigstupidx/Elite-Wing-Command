@@ -16,10 +16,10 @@ public class GameManager : MonoBehaviour
 		Screen.showCursor = true;
 		CustomTimeManager.FadeTo(1.1f, 0.01f);
 
-		if (PlayerPrefs.GetInt("First Load", 1) == 1)
+		if (EncryptedPlayerPrefs.GetInt("First Load", 1) == 1)
 	    {
 			SetDefaultPrefs();
-			PlayerPrefs.SetInt("First Load", 0);
+			EncryptedPlayerPrefs.SetInt("First Load", 0);
 			PlayerPrefs.Save();
 		}
 	}
@@ -30,13 +30,13 @@ public class GameManager : MonoBehaviour
 		{
 			PlayerPrefs.DeleteAll();
 			SetDefaultPrefs();
-			Debug.Log("Reset Player Prefs");
+			Debug.Log("Player Prefs Reset");
 		}
 		else if (Input.GetKeyDown(KeyCode.I))
 		{
-			float currentRP = PlayerPrefs.GetFloat("Reward Points", 0);
-			PlayerPrefs.SetFloat("Reward Points", currentRP + 1000f);
-			rewardPointsLabel.text = PlayerPrefs.GetFloat("Reward Points", 0).ToString("N0") + " RP";
+			float currentRP = EncryptedPlayerPrefs.GetFloat("Reward Points", 0);
+			EncryptedPlayerPrefs.SetFloat("Reward Points", currentRP + 1000f);
+			rewardPointsLabel.text = EncryptedPlayerPrefs.GetFloat("Reward Points", 0).ToString("N0") + " RP";
 			PlayerPrefs.Save();
 			Debug.Log("Added 1000 RP");
 		}
@@ -44,11 +44,11 @@ public class GameManager : MonoBehaviour
 
 	void SetDefaultPrefs()
 	{
-		PlayerPrefs.SetInt("Player Weapon Level", 0);
-		PlayerPrefs.SetInt("Weapon Slots", 2);
-		PlayerPrefs.SetInt("Weapon Equip 1", 1);
-		PlayerPrefs.SetInt("Weapon Equip 2", 1);
-		PlayerPrefs.SetInt("First Load", 0);
+		EncryptedPlayerPrefs.SetInt("Player Weapon Level", 0);
+		EncryptedPlayerPrefs.SetInt("Weapon Slots", 2);
+		EncryptedPlayerPrefs.SetInt("Weapon Equip 1", 1);
+		EncryptedPlayerPrefs.SetInt("Weapon Equip 2", 1);
+		EncryptedPlayerPrefs.SetInt("First Load", 0);
 		PlayerPrefs.Save();
 	}
 }

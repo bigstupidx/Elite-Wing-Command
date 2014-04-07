@@ -10,7 +10,7 @@ public class MenuScreenLoad : MonoBehaviour
 
 	void Awake()
 	{
-		string menuScreenToLoad = PlayerPrefs.GetString("Menu Screen", "Main");
+		string menuScreenToLoad = EncryptedPlayerPrefs.GetString("Menu Screen", "Main");
 
 		switch(menuScreenToLoad)
 		{

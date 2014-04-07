@@ -9,7 +9,7 @@ public class MissionUnlockRequirement : MonoBehaviour
 
 	void Start()
 	{
-		if (PlayerPrefs.GetInt("Mission " + missionCompleteRequired.ToString() + " Status", 0) == 0)
+		if (EncryptedPlayerPrefs.GetInt("Mission " + missionCompleteRequired.ToString() + " Status", 0) == 0)
 		{
 			missionSprite.alpha = 0.15f;
 			missionCollider.enabled = false;

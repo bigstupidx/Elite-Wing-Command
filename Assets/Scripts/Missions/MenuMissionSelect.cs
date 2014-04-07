@@ -25,7 +25,7 @@ public class MenuMissionSelect : MonoBehaviour
 
 	void Start()
 	{
-		if (PlayerPrefs.GetInt("Mission " + missionNumber.ToString() + " Status", 0) == 0)
+		if (EncryptedPlayerPrefs.GetInt("Mission " + missionNumber.ToString() + " Status", 0) == 0)
 			missionDescription += "[ff0000]Active";
 		else
 			missionDescription += "[008000]Complete";
@@ -46,23 +46,23 @@ public class MenuMissionSelect : MonoBehaviour
 				switch(missionType)
 				{
 				case MissionType.Base_Attack:
-					PlayerPrefs.SetInt("Mission Type", 1);
+					EncryptedPlayerPrefs.SetInt("Mission Type", 1);
 					break;
 				case MissionType.Base_Defense:
-					PlayerPrefs.SetInt("Mission Type", 2);
+					EncryptedPlayerPrefs.SetInt("Mission Type", 2);
 					break;
 				case MissionType.Base_vs_Base:
-					PlayerPrefs.SetInt("Mission Type", 3);
+					EncryptedPlayerPrefs.SetInt("Mission Type", 3);
 					break;
 				case MissionType.VIP_Attack:
-					PlayerPrefs.SetInt("Mission Type", 4);
+					EncryptedPlayerPrefs.SetInt("Mission Type", 4);
 					break;
 				case MissionType.VIP_Defense:
-					PlayerPrefs.SetInt("Mission Type", 5);
+					EncryptedPlayerPrefs.SetInt("Mission Type", 5);
 					break;
 				}
 
-				PlayerPrefs.SetString("Mission Title", "Mission " + missionNumber.ToString());
+				EncryptedPlayerPrefs.SetString("Mission Title", "Mission " + missionNumber.ToString());
 			}
 		}
 		else
@@ -75,12 +75,12 @@ public class MenuMissionSelect : MonoBehaviour
 				missionDescriptionLabel.text = missionDescription;
 				missionDescriptionLabel.enabled = true;
 
-				PlayerPrefs.SetString("Mission Title", "Tutorial");
+				EncryptedPlayerPrefs.SetString("Mission Title", "Tutorial");
 			}
 		}
 
-		PlayerPrefs.SetInt("Mission Number", missionNumber);
-		PlayerPrefs.SetInt("Mission Scene Number", missionSceneNumber);
+		EncryptedPlayerPrefs.SetInt("Mission Number", missionNumber);
+		EncryptedPlayerPrefs.SetInt("Mission Scene Number", missionSceneNumber);
 		PlayerPrefs.Save();
 		launchButton.SetActive(true);
 	}

@@ -7,6 +7,6 @@ public class AllyVehicleMovementMultiplier : MonoBehaviour
 
 	void Start()
 	{
-		allyVehicle.speed *= PlayerPrefs.GetFloat("Ally Ground Speed Multiplier", 1f);
+		allyVehicle.speed *= EncryptedPlayerPrefs.GetFloat("Ally Ground Speed Multiplier", 1f);
 	}
 }

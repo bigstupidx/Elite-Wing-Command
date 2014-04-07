@@ -6,7 +6,7 @@ public class SplashScreen : MonoBehaviour
 
 	void Start()
 	{
-		PlayerPrefs.SetString("Menu Screen", "Main");
+		EncryptedPlayerPrefs.SetString("Menu Screen", "Main");
 		StartCoroutine(WaitAndLoad());
 	}
 

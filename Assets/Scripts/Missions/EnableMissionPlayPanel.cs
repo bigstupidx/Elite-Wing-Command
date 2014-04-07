@@ -11,7 +11,7 @@ public class EnableMissionPlayPanel : MonoBehaviour
 
 	void Awake()
 	{
-		switch(PlayerPrefs.GetInt("Mission Type", 0))
+		switch(EncryptedPlayerPrefs.GetInt("Mission Type", 0))
 		{
 		case 1:
 			levelLoadSplashBaseAttack.SetActive(true);

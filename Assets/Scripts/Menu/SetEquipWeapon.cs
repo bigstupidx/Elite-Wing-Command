@@ -14,10 +14,10 @@ public class SetEquipWeapon : MonoBehaviour
 		switch(UIPopupList.current.value)
 		{
 		case "[FF0066]Red":
-			PlayerPrefs.SetInt("Weapon Equip " + weaponEquipSlot.ToString(), 1);
+			EncryptedPlayerPrefs.SetInt("Weapon Equip " + weaponEquipSlot.ToString(), 1);
 			break;
 		case "[0000FF]Blue":
-			PlayerPrefs.SetInt("Weapon Equip " + weaponEquipSlot.ToString(), 2);
+			EncryptedPlayerPrefs.SetInt("Weapon Equip " + weaponEquipSlot.ToString(), 2);
 			break;
 		default:
 			Debug.LogError("Selection Not Valid: " + transform.name);

@@ -53,14 +53,14 @@ public class UpgradesContainer : MonoBehaviour
 
 	void Start()
 	{
-		playerWeaponLevel = PlayerPrefs.GetInt("Player Weapon Level", 0);
-		playerSpeedLevel = PlayerPrefs.GetInt("Player Speed Level", 0);
-		playerHealthLevel = PlayerPrefs.GetInt("Player Health Level", 0);
-		playerRecoveryLevel = PlayerPrefs.GetInt("Player Recovery Level", 0);
-		allyAirWeaponLevel = PlayerPrefs.GetInt("Ally Air Weapon Level", 0);
-		allyAirSpeedLevel = PlayerPrefs.GetInt("Ally Air Speed Level", 0);
-		allyGroundWeaponLevel = PlayerPrefs.GetInt("Ally Ground Weapon Level", 0);
-		allyGroundSpeedLevel = PlayerPrefs.GetInt("Ally Ground Speed Level", 0);
+		playerWeaponLevel = EncryptedPlayerPrefs.GetInt("Player Weapon Level", 0);
+		playerSpeedLevel = EncryptedPlayerPrefs.GetInt("Player Speed Level", 0);
+		playerHealthLevel = EncryptedPlayerPrefs.GetInt("Player Health Level", 0);
+		playerRecoveryLevel = EncryptedPlayerPrefs.GetInt("Player Recovery Level", 0);
+		allyAirWeaponLevel = EncryptedPlayerPrefs.GetInt("Ally Air Weapon Level", 0);
+		allyAirSpeedLevel = EncryptedPlayerPrefs.GetInt("Ally Air Speed Level", 0);
+		allyGroundWeaponLevel = EncryptedPlayerPrefs.GetInt("Ally Ground Weapon Level", 0);
+		allyGroundSpeedLevel = EncryptedPlayerPrefs.GetInt("Ally Ground Speed Level", 0);
 	}
 
 	public void UpgradePlayerWeaponLevel()

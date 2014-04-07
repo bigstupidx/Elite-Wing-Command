@@ -15,6 +15,6 @@ public class MenuScreenSet : MonoBehaviour
 
 	void OnClick()
 	{
-		PlayerPrefs.SetString("Menu Screen", menuScreen.ToString());
+		EncryptedPlayerPrefs.SetString("Menu Screen", menuScreen.ToString());
 	}
 }

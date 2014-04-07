@@ -17,7 +17,7 @@ public class UpgradePlayerSpeed : MonoBehaviour
 
 	void OnClick()
 	{
-		if (PlayerPrefs.GetFloat("Reward Points", 0) >= upgradesContainer.PlayerSpeedUpgradeCost)
+		if (EncryptedPlayerPrefs.GetFloat("Reward Points", 0) >= upgradesContainer.PlayerSpeedUpgradeCost)
 			UpgradeSpeed();
 		else
 			Debug.Log("Not enough RP for upgrade purchase....");
@@ -34,10 +34,10 @@ public class UpgradePlayerSpeed : MonoBehaviour
 			buttonCollider.enabled = false;
 		}
 
-		upgradeSlider.value = ((PlayerPrefs.GetInt("Player Speed Level", 0) * 1.0f) + 1) / 6f;
-		rewardPointsLabel.text = PlayerPrefs.GetFloat("Reward Points", 0).ToString("N0") + " RP";
+		upgradeSlider.value = ((EncryptedPlayerPrefs.GetInt("Player Speed Level", 0) * 1.0f) + 1) / 6f;
+		rewardPointsLabel.text = EncryptedPlayerPrefs.GetFloat("Reward Points", 0).ToString("N0") + " RP";
 		
-		if (PlayerPrefs.GetFloat("Reward Points", 0) >= upgradesContainer.PlayerSpeedUpgradeCost)
+		if (EncryptedPlayerPrefs.GetFloat("Reward Points", 0) >= upgradesContainer.PlayerSpeedUpgradeCost)
 		{
 			upgradeNameLabel.color = Color.white;
 			upgradeCostLabel.color = Color.white;
@@ -51,30 +51,30 @@ public class UpgradePlayerSpeed : MonoBehaviour
 
 	void UpgradeSpeed()
 	{
-		float currentRP = PlayerPrefs.GetFloat("Reward Points", 0);
+		float currentRP = EncryptedPlayerPrefs.GetFloat("Reward Points", 0);
 		float newRP = currentRP - upgradesContainer.PlayerSpeedUpgradeCost;
-		PlayerPrefs.SetFloat("Reward Points", newRP);
+		EncryptedPlayerPrefs.SetFloat("Reward Points", newRP);
 
-		int currentLevel = PlayerPrefs.GetInt("Player Speed Level", 0);
+		int currentLevel = EncryptedPlayerPrefs.GetInt("Player Speed Level", 0);
 		int newLevel = currentLevel + 1;
-		PlayerPrefs.SetInt("Player Speed Level", newLevel);
+		EncryptedPlayerPrefs.SetInt("Player Speed Level", newLevel);
 
 		switch(newLevel)
 		{
 		case 1:
-			PlayerPrefs.SetFloat("Player Speed Multiplier", 1.2f);
+			EncryptedPlayerPrefs.SetFloat("Player Speed Multiplier", 1.2f);
 			break;
 		case 2:
-			PlayerPrefs.SetFloat("Player Speed Multiplier", 1.4f);
+			EncryptedPlayerPrefs.SetFloat("Player Speed Multiplier", 1.4f);
 			break;
 		case 3:
-			PlayerPrefs.SetFloat("Player Speed Multiplier", 1.6f);
+			EncryptedPlayerPrefs.SetFloat("Player Speed Multiplier", 1.6f);
 			break;
 		case 4:
-			PlayerPrefs.SetFloat("Player Speed Multiplier", 1.8f);
+			EncryptedPlayerPrefs.SetFloat("Player Speed Multiplier", 1.8f);
 			break;
 		case 5:
-			PlayerPrefs.SetFloat("Player Speed Multiplier", 2.0f);
+			EncryptedPlayerPrefs.SetFloat("Player Speed Multiplier", 2.0f);
 			break;
 		default:
 			Debug.LogError("Selection Not Valid: " + transform.name);

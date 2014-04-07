@@ -48,7 +48,7 @@ public class GenericAircraftMovement : MonoBehaviour
 		RandomPosition = new Vector3(0f, 0f, 0f);
 
 		if (allyAircraft)
-			forceMultiplier = PlayerPrefs.GetFloat("Ally Air Speed Multiplier", 1f);
+			forceMultiplier = EncryptedPlayerPrefs.GetFloat("Ally Air Speed Multiplier", 1f);
 
 		var missionManagerObject = GameObject.FindGameObjectWithTag("MissionManager");
 		

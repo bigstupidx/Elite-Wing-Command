@@ -29,13 +29,13 @@ public class Ammo : MonoBehaviour
 
 		if (allyAirBullet)
 		{
-			bulletMultiplier = PlayerPrefs.GetFloat("Ally Air Weapon Multiplier", 1f);
+			bulletMultiplier = EncryptedPlayerPrefs.GetFloat("Ally Air Weapon Multiplier", 1f);
 			damageAmount *= bulletMultiplier;
 		}
 
 		if (allyGroundWeapon)
 		{
-			bulletMultiplier = PlayerPrefs.GetFloat("Ally Ground Weapon Multiplier", 1f);
+			bulletMultiplier = EncryptedPlayerPrefs.GetFloat("Ally Ground Weapon Multiplier", 1f);
 			damageAmount *= bulletMultiplier;
 		}
 
