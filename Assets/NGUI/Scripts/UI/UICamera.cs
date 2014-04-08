@@ -397,6 +397,18 @@ public class UICamera : MonoBehaviour
 	}
 
 	/// <summary>
+	/// Returns 'true' if any of the active touch, mouse or controller is currently holding the specified object.
+	/// </summary>
+
+	static public bool IsPressed (GameObject go)
+	{
+		for (int i = 0; i < 3; ++i) if (mMouse[i].pressed == go) return true;
+		foreach (KeyValuePair<int, MouseOrTouch> touch in mTouches) if (touch.Value.pressed == go) return true;
+		if (controller.pressed == go) return true;
+		return false;
+	}
+
+	/// <summary>
 	/// Change the selection.
 	/// </summary>
 
@@ -437,9 +449,11 @@ public class UICamera : MonoBehaviour
 			current = this;
 			currentCamera = mCam;
 			UICamera.currentScheme = mNextScheme;
+			inputHasFocus = (mCurrentSelection.GetComponent<UIInput>() != null);
 			Notify(mCurrentSelection, "OnSelect", true);
 			current = null;
 		}
+		else inputHasFocus = false;
 	}
 
 	/// <summary>
@@ -1221,9 +1235,6 @@ public class UICamera : MonoBehaviour
 	{
 		currentTouchID = -100;
 		currentTouch = controller;
-
-		// If this is an input field, ignore WASD and Space key presses
-		inputHasFocus = (mCurrentSelection != null && mCurrentSelection.GetComponent<UIInput>() != null);
 
 		bool submitKeyDown = false;
 		bool submitKeyUp = false;
