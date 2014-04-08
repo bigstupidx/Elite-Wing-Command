@@ -4,6 +4,8 @@ using System.Collections;
 public class MenuScreenLoad : MonoBehaviour
 {
 	[SerializeField] GameObject mainScreen;
+	[SerializeField] TweenAlpha mainScreenAlphaTween;
+	[SerializeField] Camera aircraftCamera;
 	[SerializeField] GameObject campaignScreen;
 	[SerializeField] GameObject hangerScreen;
 	[SerializeField] GameObject optionsScreen;
@@ -15,7 +17,13 @@ public class MenuScreenLoad : MonoBehaviour
 		switch(menuScreenToLoad)
 		{
 		case "Main":
-			mainScreen.SetActive(true);
+			aircraftCamera.enabled = false;
+			mainScreenAlphaTween.from = 0f;
+			mainScreenAlphaTween.to = 1.0f;
+			mainScreenAlphaTween.duration = 1.0f;
+			mainScreenAlphaTween.ResetToBeginning();
+			mainScreenAlphaTween.enabled = true;
+			StartCoroutine(WaitAndSet());
 			break;
 		case "Campaign":
 			campaignScreen.SetActive(true);
@@ -27,5 +35,14 @@ public class MenuScreenLoad : MonoBehaviour
 			optionsScreen.SetActive(true);
 			break;
 		}
+	}
+
+	IEnumerator WaitAndSet()
+	{
+		yield return new WaitForSeconds(0.1f);
+		mainScreen.SetActive(true);
+		aircraftCamera.enabled = true;
+		yield return new WaitForSeconds(1.1f);
+		mainScreenAlphaTween.duration = 0.25f;
 	}
 }
