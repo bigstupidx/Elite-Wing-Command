@@ -32,7 +32,7 @@ public class LoadMissionFromMenu : MonoBehaviour
 	
 	IEnumerator WaitAndLoad()
 	{
-		yield return new WaitForSeconds(2.0f);
+		yield return new WaitForSeconds(4.0f);
 		Application.LoadLevel(EncryptedPlayerPrefs.GetInt("Mission Scene Number", 0));
 	}
 }
