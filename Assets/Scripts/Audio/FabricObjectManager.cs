@@ -4,7 +4,6 @@ using System.Collections;
 public class FabricObjectManager : MonoBehaviour
 {
 	[SerializeField] GameObject fabricPrefab;
-	public GameObject FabricPrefab { get { return fabricPrefab; }}
 
 	void Awake()
 	{
