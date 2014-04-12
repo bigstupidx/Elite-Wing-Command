@@ -26,7 +26,14 @@ public class UpgradePlayerRecovery : MonoBehaviour
 	void UpdateLabels()
 	{
 		if (upgradesContainer.PlayerRecoveryLevel < 5)
+		{
 			upgradeCostLabel.text = upgradesContainer.PlayerRecoveryUpgradeCost.ToString("N0") + " RP";
+
+			if (EncryptedPlayerPrefs.GetFloat("Reward Points", 0) < upgradesContainer.PlayerRecoveryUpgradeCost)
+				buttonCollider.enabled = false;
+			else
+				buttonCollider.enabled = true;
+		}
 		else
 		{
 			upgradeCostLabel.text = "Upgrade Full";

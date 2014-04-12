@@ -26,7 +26,14 @@ public class UpgradeAllyGroundWeapons : MonoBehaviour
 	void UpdateLabels()
 	{
 		if (upgradesContainer.AllyGroundWeaponLevel < 6)
+		{
 			upgradeCostLabel.text = upgradesContainer.AllyGroundWeaponUpgradeCost.ToString("N0") + " RP";
+
+			if (EncryptedPlayerPrefs.GetFloat("Reward Points", 0) < upgradesContainer.AllyGroundWeaponUpgradeCost)
+				buttonCollider.enabled = false;
+			else
+				buttonCollider.enabled = true;
+		}
 		else
 		{
 			upgradeCostLabel.text = "Upgrade Full";

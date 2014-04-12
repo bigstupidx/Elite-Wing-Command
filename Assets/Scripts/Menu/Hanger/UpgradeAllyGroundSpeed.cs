@@ -26,7 +26,14 @@ public class UpgradeAllyGroundSpeed : MonoBehaviour
 	void UpdateLabels()
 	{
 		if (upgradesContainer.AllyGroundSpeedLevel < 5)
+		{
 			upgradeCostLabel.text = upgradesContainer.AllyGroundSpeedUpgradeCost.ToString("N0") + " RP";
+
+			if (EncryptedPlayerPrefs.GetFloat("Reward Points", 0) < upgradesContainer.AllyGroundSpeedUpgradeCost)
+				buttonCollider.enabled = false;
+			else
+				buttonCollider.enabled = true;
+		}
 		else
 		{
 			upgradeCostLabel.text = "Upgrade Full";

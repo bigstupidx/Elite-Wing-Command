@@ -26,7 +26,14 @@ public class UpgradeAllyAirWeapons : MonoBehaviour
 	void UpdateLabels()
 	{
 		if (upgradesContainer.AllyAirWeaponLevel < 6)
+		{
 			upgradeCostLabel.text = upgradesContainer.AllyAirWeaponUpgradeCost.ToString("N0") + " RP";
+
+			if (EncryptedPlayerPrefs.GetFloat("Reward Points", 0) < upgradesContainer.AllyAirWeaponUpgradeCost)
+				buttonCollider.enabled = false;
+			else
+				buttonCollider.enabled = true;
+		}
 		else
 		{
 			upgradeCostLabel.text = "Upgrade Full";

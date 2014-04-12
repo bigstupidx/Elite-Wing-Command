@@ -26,7 +26,14 @@ public class UpgradePlayerHealth : MonoBehaviour
 	void UpdateLabels()
 	{
 		if (upgradesContainer.PlayerHealthLevel < 5)
+		{
 			upgradeCostLabel.text = upgradesContainer.PlayerHealthUpgradeCost.ToString("N0") + " RP";
+
+			if (EncryptedPlayerPrefs.GetFloat("Reward Points", 0) < upgradesContainer.PlayerHealthUpgradeCost)
+				buttonCollider.enabled = false;
+			else
+				buttonCollider.enabled = true;
+		}
 		else
 		{
 			upgradeCostLabel.text = "Upgrade Full";

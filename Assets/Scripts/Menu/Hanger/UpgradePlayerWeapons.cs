@@ -26,7 +26,14 @@ public class UpgradePlayerWeapons : MonoBehaviour
 	void UpdateLabels()
 	{
 		if (upgradesContainer.PlayerWeaponLevel < 8)
+		{
 			upgradeCostLabel.text = upgradesContainer.PlayerWeaponUpgradeCost.ToString("N0") + " RP";
+
+			if (EncryptedPlayerPrefs.GetFloat("Reward Points", 0) < upgradesContainer.PlayerWeaponUpgradeCost)
+				buttonCollider.enabled = false;
+			else
+				buttonCollider.enabled = true;
+		}
 		else
 		{
 			upgradeCostLabel.text = "Upgrade Full";

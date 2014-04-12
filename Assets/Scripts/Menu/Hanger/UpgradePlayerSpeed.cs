@@ -26,7 +26,14 @@ public class UpgradePlayerSpeed : MonoBehaviour
 	void UpdateLabels()
 	{
 		if (upgradesContainer.PlayerSpeedLevel < 5)
+		{
 			upgradeCostLabel.text = upgradesContainer.PlayerSpeedUpgradeCost.ToString("N0") + " RP";
+
+			if (EncryptedPlayerPrefs.GetFloat("Reward Points", 0) < upgradesContainer.PlayerSpeedUpgradeCost)
+				buttonCollider.enabled = false;
+			else
+				buttonCollider.enabled = true;
+		}
 		else
 		{
 			upgradeCostLabel.text = "Upgrade Full";
