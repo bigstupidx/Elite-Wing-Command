@@ -101,8 +101,6 @@ public class IAPManager : MonoBehaviour
 
 	public void TransactionPurchased(string productIdentifier)
 	{
-		Debug.Log("Successfully purchased: " + productIdentifier);
-
 		switch(productIdentifier)
 		{
 		case "5000_reward_points":

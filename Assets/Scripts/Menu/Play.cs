@@ -32,6 +32,7 @@ public class Play : MonoBehaviour
 	{
 		CustomTimeManager.FadeTo(1.1f, 0.01f);
 		backgroundFadeOut.enabled = true;
+		Fabric.EventManager.Instance.PostEvent("SFX_Button_General", Fabric.EventAction.PlaySound);
 
 		if (Application.loadedLevel == 3)
 		{
