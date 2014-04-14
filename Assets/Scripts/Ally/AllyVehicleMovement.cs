@@ -4,7 +4,7 @@ using System.Collections;
 public class AllyVehicleMovement : GenericVehicleMovement
 {
 	[SerializeField] AllyAI allyAI;
-	
+
 	void Update()
 	{
 		ClosestTarget = allyAI.ClosestTarget;

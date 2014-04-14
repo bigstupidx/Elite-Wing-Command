@@ -26,6 +26,8 @@ public class GenericVehicleMovement : MonoBehaviour
 
 	void Start()
 	{
+		Fabric.EventManager.Instance.PostEvent("SFX_Vehicle_Movement", Fabric.EventAction.PlaySound, gameObject);
+
 		previousClosestTargetName = "_";
 		var missionManagerObject = GameObject.FindGameObjectWithTag("MissionManager");
 		
