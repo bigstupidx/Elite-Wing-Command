@@ -86,7 +86,7 @@ public class Ammo : MonoBehaviour
 
 	IEnumerator MissileSelfDestruct()
 	{
-		yield return new WaitForSeconds(bulletLife -  0.05f);
+		yield return new WaitForSeconds(bulletLife - 0.05f);
 		Instantiate(bombExplosion, transform.position, transform.rotation);
 	}
 }

@@ -13,6 +13,7 @@ public class GenericWeaponManager : MonoBehaviour
 	[SerializeField] float maxShootCooldown = 2.0f;
 	[SerializeField] Weapon airWeapon;
 	[SerializeField] Weapon groundWeapon;
+	[SerializeField] bool missileBattery = false;
 	[SerializeField] bool needsClearShot = false;
 	[SerializeField] float airRetriggerRate = 0.12f;
 	[SerializeField] float groundRetriggerRate = 0.2f;
@@ -88,10 +89,16 @@ public class GenericWeaponManager : MonoBehaviour
 		if (airWeapon != null)
 		{
 			airWeapon.Fire();
-			InvokeRepeating("AirWeaponSFX", 0f, airRetriggerRate);
+
+			if (!missileBattery)
+				InvokeRepeating("AirWeaponSFX", 0f, airRetriggerRate);
+
 			yield return new WaitForSeconds(shootTime);
 			airWeapon.Stop();
-			CancelInvoke("AirWeaponSFX");
+
+			if (!missileBattery)
+				CancelInvoke("AirWeaponSFX");
+
 			yield return new WaitForSeconds(shootCooldown);
 			canShoot = true;
 		}
