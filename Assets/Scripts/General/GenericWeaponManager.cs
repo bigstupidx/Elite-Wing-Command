@@ -14,6 +14,8 @@ public class GenericWeaponManager : MonoBehaviour
 	[SerializeField] Weapon airWeapon;
 	[SerializeField] Weapon groundWeapon;
 	[SerializeField] bool needsClearShot = false;
+	[SerializeField] float airRetriggerRate = 0.12f;
+	[SerializeField] float groundRetriggerRate = 0.2f;
 	string objectiveAirTag;
 	string objectiveGroundTag;
 	GameObject closestTarget;
@@ -86,8 +88,10 @@ public class GenericWeaponManager : MonoBehaviour
 		if (airWeapon != null)
 		{
 			airWeapon.Fire();
+			InvokeRepeating("AirWeaponSFX", 0f, airRetriggerRate);
 			yield return new WaitForSeconds(shootTime);
 			airWeapon.Stop();
+			CancelInvoke("AirWeaponSFX");
 			yield return new WaitForSeconds(shootCooldown);
 			canShoot = true;
 		}
@@ -101,10 +105,22 @@ public class GenericWeaponManager : MonoBehaviour
 		if (groundWeapon != null)
 		{
 			groundWeapon.Fire();
+			InvokeRepeating("GroundWeaponSFX", 0f, groundRetriggerRate);
 			yield return new WaitForSeconds(shootTime);
 			groundWeapon.Stop();
+			CancelInvoke("GroundWeaponSFX");
 			yield return new WaitForSeconds(shootCooldown);
 			canShoot = true;
 		}
+	}
+
+	void AirWeaponSFX()
+	{
+		Fabric.EventManager.Instance.PostEvent("SFX_Aircraft_Fire", Fabric.EventAction.PlaySound, gameObject.transform.root.gameObject);
+	}
+
+	void GroundWeaponSFX()
+	{
+		Fabric.EventManager.Instance.PostEvent("SFX_Vehicle_Fire", Fabric.EventAction.PlaySound, gameObject);
 	}
 }

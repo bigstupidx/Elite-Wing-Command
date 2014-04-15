@@ -75,6 +75,10 @@ public class PlayerDamageable : Damageable
 		if (healthSlider != null)
 			healthSlider.value = 0f;
 
+		GameObject tempObject = new GameObject("tempAudioObject_" + Time.time);
+		tempObject.transform.position = transform.position;
+		tempObject.transform.rotation = transform.rotation;
+		Fabric.EventManager.Instance.PostEvent("SFX_Explosion_Objective", Fabric.EventAction.PlaySound, tempObject);
 		Destroy(transform.root.gameObject);
 	}
 }

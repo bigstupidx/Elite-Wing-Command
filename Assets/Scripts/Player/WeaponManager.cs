@@ -4,6 +4,7 @@ using System.Collections;
 public class WeaponManager : MonoBehaviour
 {
 	[SerializeField] Weapon[] weapons;
+	[SerializeField] float airRetriggerRate = 0.12f;
 	Weapon equipped;
 	bool firing = false;
 	int fingersInArea;
@@ -87,27 +88,28 @@ public class WeaponManager : MonoBehaviour
 	public void FireControl()
 	{
 		if (Input.GetKeyDown(KeyCode.Space))
-		{
 			FireWeapon();
-		}
 		else if (Input.GetKeyUp(KeyCode.Space))
-		{
 			StopWeapon();
-		}
 		else if (Input.GetKeyDown(KeyCode.X))
-		{
 			StartCoroutine(DropBomb());
-		}
 	}
 
 	void FireWeapon()
 	{
 		equipped.Fire();
+		InvokeRepeating("AirWeaponSFX", 0f, airRetriggerRate);
 	}
 
 	void StopWeapon()
 	{
 		equipped.Stop();
+		CancelInvoke("AirWeaponSFX");
+	}
+
+	void AirWeaponSFX()
+	{
+		Fabric.EventManager.Instance.PostEvent("SFX_Player_Fire", Fabric.EventAction.PlaySound, gameObject.transform.root.gameObject);
 	}
 
 	IEnumerator DropBomb()

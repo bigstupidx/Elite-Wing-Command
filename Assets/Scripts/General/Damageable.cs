@@ -6,6 +6,7 @@ public class Damageable : MonoBehaviour
 	[SerializeField] float initialHealth;
 	[SerializeField] ObjectIdentifier objectIdentifier;
 	[SerializeField] GameObject explosionParticleEffect;
+	[SerializeField] bool missileBattery = false;
 	MissionManager missionManager;
 	ArcadeStatHolder arcadeStatHolder;
 	GameObject spawner;
@@ -164,6 +165,17 @@ public class Damageable : MonoBehaviour
 
 			break;
 		case "Enemy Turret":
+			if (missionManager == null)
+			{
+				if (missileBattery)
+					Spawner = GameObject.Find("Enemy Missile Battery Spawner");
+				else
+					Spawner = GameObject.Find("Enemy Turret Spawner");
+
+				ObjectSpawner spawnerUnitID = (ObjectSpawner)Spawner.GetComponent(typeof(ObjectSpawner));
+				spawnerUnitID.RemoveFromList(transform.parent.name);
+			}
+
 			Destroy(objectIdentifier.transform.gameObject);
 
 			if (missionManager != null)
