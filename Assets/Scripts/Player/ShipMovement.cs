@@ -15,6 +15,11 @@ public class ShipMovement : MonoBehaviour
 	float forceMultiplier = 1f;
 	float speedMultiplier = 1f;
 	bool canBoost = true;
+	bool increaseVolume = false;
+	bool decreaseVolume = false;
+	float currentVolume = 0.05f;
+	float minVolume = 0.15f;
+	float maxVolume = 0.5f;
 
 #if UNITY_IOS && !UNITY_EDITOR
 	void Start()
@@ -63,6 +68,8 @@ public class ShipMovement : MonoBehaviour
 	void Awake()
 	{
 		speedMultiplier = EncryptedPlayerPrefs.GetFloat("Player Speed Multiplier", 1f);
+		Fabric.EventManager.Instance.PostEvent("SFX_Player_Booster", Fabric.EventAction.SetVolume, currentVolume, gameObject);
+		Fabric.EventManager.Instance.PostEvent("SFX_Player_Booster", Fabric.EventAction.PlaySound, gameObject);
 	}
 
 	void Update()
@@ -75,6 +82,31 @@ public class ShipMovement : MonoBehaviour
 				turnTarget = turnSensitivity;
 			else
 				turnTarget = 0;
+		}
+
+		if (increaseVolume)
+		{
+			currentVolume += Time.deltaTime/5f;
+
+			if (currentVolume >= maxVolume)
+			{
+				currentVolume = maxVolume;
+				increaseVolume = false;
+			}
+
+			Fabric.EventManager.Instance.PostEvent("SFX_Player_Booster", Fabric.EventAction.SetVolume, currentVolume, gameObject);
+		}
+		else if (decreaseVolume)
+		{
+			currentVolume -= Time.deltaTime/5f;
+			
+			if (currentVolume <= minVolume)
+			{
+				currentVolume = minVolume;
+				decreaseVolume = false;
+			}
+			
+			Fabric.EventManager.Instance.PostEvent("SFX_Player_Booster", Fabric.EventAction.SetVolume, currentVolume, gameObject);
 		}
 
 		if (Input.GetKeyDown(KeyCode.Z) && canBoost)
@@ -98,8 +130,12 @@ public class ShipMovement : MonoBehaviour
 	{
 		canBoost = false;
 		SetBoosting(true);
+		decreaseVolume = false;
+		increaseVolume = true;
 		yield return new WaitForSeconds(boosterTimeout);
 		SetBoosting(false);
+		increaseVolume = false;
+		decreaseVolume = true;
 		yield return new WaitForSeconds(boosterCooldown);
 		canBoost = true;
 	}

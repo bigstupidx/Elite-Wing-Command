@@ -13,12 +13,14 @@ public class SFXSliderFeedbackManager : MonoBehaviour
 	{
 		if ((SliderActive || ButtonActive) && !sfxPlaying)
 		{
-			Fabric.EventManager.Instance.PostEvent("SFX_Slider_Feedback", Fabric.EventAction.PlaySound);
+			Fabric.EventManager.Instance.PostEvent("SFX_Slider_Feedback_1", Fabric.EventAction.PlaySound);
+			Fabric.EventManager.Instance.PostEvent("SFX_Slider_Feedback_2", Fabric.EventAction.PlaySound);
 			sfxPlaying = true;
 		}
 		else if ((!SliderActive && !ButtonActive) && sfxPlaying)
 		{
-			Fabric.EventManager.Instance.PostEvent("SFX_Slider_Feedback", Fabric.EventAction.StopSound);
+			Fabric.EventManager.Instance.PostEvent("SFX_Slider_Feedback_1", Fabric.EventAction.StopSound);
+			Fabric.EventManager.Instance.PostEvent("SFX_Slider_Feedback_2", Fabric.EventAction.StopSound);
 			sfxPlaying = false;
 		}
 	}
