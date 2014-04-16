@@ -47,9 +47,12 @@ public class Ammo : MonoBehaviour
 	
 	void OnTriggerEnter(Collider other)
 	{
+		var hit = other.transform.GetComponentInChildren<Damageable>();
+		ObjectType objectType = other.transform.GetComponent<ObjectType>();
+
 		if (other.tag != "MapBoundary" && other.tag != "Weapon" && other.tag != ammoSource)
 		{
-			if (bombExplosion != null)
+			if (other.name != "Damageable" && bombExplosion != null && (missile || objectType == null || objectType.IsGroundUnit == true))
 			{
 				Vector3 bombPosition = transform.position;
 				bombPosition.y = transform.position.y + 1.08f;
@@ -60,13 +63,18 @@ public class Ammo : MonoBehaviour
 					Instantiate(bombExplosionImpact, bombPosition, transform.rotation);
 			}
 
-			Destroy(gameObject);
+			if (!Bomb || (objectType == null || objectType.IsAirUnit == false))
+				Destroy(gameObject);
 		}
 
-		var hit = other.transform.GetComponentInChildren<Damageable>();
-		
-		if (hit != null && other.transform.root.tag != ammoSource && other.transform.root.tag != damageObjectiveAirTag && other.transform.root.tag != damageObjectiveGroundTag)
+		if (hit != null && !Bomb && other.transform.root.tag != ammoSource && other.transform.root.tag != damageObjectiveAirTag && other.transform.root.tag != damageObjectiveGroundTag)
+		{
 			hit.ApplyDamage(damageAmount);
+		}
+		else if (hit != null && Bomb && objectType != null && objectType.IsAirUnit == false && other.transform.root.tag != ammoSource && other.transform.root.tag != damageObjectiveAirTag && other.transform.root.tag != damageObjectiveGroundTag)
+		{
+			hit.ApplyDamage(damageAmount);
+		}
 	}
 
 	void FixedUpdate()
