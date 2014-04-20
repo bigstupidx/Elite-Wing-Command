@@ -17,8 +17,8 @@ public class ShipMovement : MonoBehaviour
 	bool canBoost = true;
 	bool increaseVolume = false;
 	bool decreaseVolume = false;
-	float currentVolume = 0.05f;
-	float minVolume = 0.15f;
+	float currentVolume;
+	float minVolume = 0.08f;
 	float maxVolume = 0.5f;
 
 #if UNITY_IOS && !UNITY_EDITOR
@@ -68,6 +68,8 @@ public class ShipMovement : MonoBehaviour
 	void Awake()
 	{
 		speedMultiplier = EncryptedPlayerPrefs.GetFloat("Player Speed Multiplier", 1f);
+
+		currentVolume = minVolume;
 		Fabric.EventManager.Instance.PostEvent("SFX_Player_Booster", Fabric.EventAction.SetVolume, currentVolume, gameObject);
 		Fabric.EventManager.Instance.PostEvent("SFX_Player_Booster", Fabric.EventAction.PlaySound, gameObject);
 	}
@@ -98,6 +100,7 @@ public class ShipMovement : MonoBehaviour
 		}
 		else if (decreaseVolume)
 		{
+			Debug.Log("HERE");
 			currentVolume -= Time.deltaTime/5f;
 			
 			if (currentVolume <= minVolume)
