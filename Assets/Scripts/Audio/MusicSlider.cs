@@ -5,8 +5,9 @@ public class MusicSlider : MonoBehaviour
 {
 	Fabric.GroupComponent musicChannel;
 
-	void Start()
+	void Awake()
 	{
+		Debug.Log("Music Slider HERE");
 		UISlider musicSlider = GetComponent<UISlider>();
 		musicSlider.value = EncryptedPlayerPrefs.GetFloat("Music Volume", 1f);
 

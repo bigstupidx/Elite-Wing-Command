@@ -100,7 +100,6 @@ public class ShipMovement : MonoBehaviour
 		}
 		else if (decreaseVolume)
 		{
-			Debug.Log("HERE");
 			currentVolume -= Time.deltaTime/5f;
 			
 			if (currentVolume <= minVolume)

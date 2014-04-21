@@ -23,6 +23,7 @@ public class Play : MonoBehaviour
 
 	void Start()
 	{
+		Fabric.EventManager.Instance.PostEvent("SFX", Fabric.EventAction.StopAll);
 		minimapScript.SetGlobalHideGui(true);
 		Screen.showCursor = true;
 		CustomTimeManager.FadeTo(0f, 0.01f);

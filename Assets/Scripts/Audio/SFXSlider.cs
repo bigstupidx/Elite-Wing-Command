@@ -5,8 +5,9 @@ public class SFXSlider : MonoBehaviour
 {
 	Fabric.GroupComponent sfxChannel;
 	
-	void Start()
+	void Awake()
 	{
+		Debug.Log("SFX Slider HERE");
 		UISlider sfxSlider = GetComponent<UISlider>();
 		sfxSlider.value = EncryptedPlayerPrefs.GetFloat("SFX Volume", 1f);
 		

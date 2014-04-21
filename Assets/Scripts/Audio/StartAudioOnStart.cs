@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class DelayStartAudioAtStart : MonoBehaviour
+public class StartAudioOnStart : MonoBehaviour
 {
 	[SerializeField] string eventName;
-	[SerializeField] float waitTime = 0.3f;
+	[SerializeField] float waitTime;
 
 	void Start()
 	{
