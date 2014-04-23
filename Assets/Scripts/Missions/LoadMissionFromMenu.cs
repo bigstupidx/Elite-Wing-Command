@@ -12,6 +12,9 @@ public class LoadMissionFromMenu : MonoBehaviour
 	
 	void OnClick()
 	{
+		Fabric.EventManager.Instance.PostEvent("Music_Menu", Fabric.EventAction.StopSound);
+		Fabric.EventManager.Instance.PostEvent("Music_Menu_Transition", Fabric.EventAction.PlaySound);
+
 		int missionToLoad = EncryptedPlayerPrefs.GetInt("Mission Scene Number", 0);
 
 		if (missionToLoad == 3)

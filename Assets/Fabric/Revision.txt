@@ -5,6 +5,103 @@ Copyright (c) Tazman-Audio 2013
 http://www.Tazman-Audio.co.uk
 -------------------------------
 
+Version 2.1.8n (20-04-2014)
+---------------------------
+
+- Added component virtualization support
+- Added support to automatically create event listeners and Random components when doing drag and drop of audio clips
+- Added the event list component in the component menu option
+- Added X, Y sliders in RTP parameters
+- Added copy/paste support in RTP and timeline parameters
+- Added AudioReport window
+- Fixed issues when dragging points in RTP and timeline graphs
+- Fixed issue in multi edit audio clip window for Unit 5.0
+- Updated documentation
+
+Version 2.1.8m (07-04-2014)
+---------------------------
+
+- Added option in Music Component to ignore the transition segment
+- Disable Random Component looped mode in Random mode
+- Fix for null reference error in Random Component when used in looped mode
+- Reset audio component sync with music option if in a music hierarchy
+- Improved/tidy when the which music override and time settings are shown in the inspector
+- Improved the MutliEditAudioClip window layout
+
+
+Version 2.1.8l (31-03-2014)
+---------------------------
+
+- Added new Loop support to random component
+- Reset audio component music settings if not under a component hiearchy with music support
+- Fix for small gap introduced when transitioning to component with music sync enabled
+- Fixed SwitchPreset method to use the target preset if source preset is not found
+- Changed the order of Switch component switch type enum
+- Fix error when adding a new music setting
+
+
+Version 2.1.8k (10-03-2014)
+---------------------------
+
+- Added editor persistent data support
+- Added component Guid and Fabric Editor path selection (if not available)
+- Fixed issues with component previewer persistence
+
+
+Version 2.1.8i (07-03-2014)
+---------------------------
+
+- Added Async support to Dynamic AudioClip Loading
+- Added LoadAudio/UnloadAudio event actions (preload dynamic AudioClips)
+- Added new EventListComponent
+- Added support to EventManager to load events from text files
+- Added EventAction filters to event log view
+- Added "Force Axis" vector (can set all audio component axis to a set value)
+- Added default language option
+- Added support for Unity's Undo methods (need to be hooked in code)
+- Added transition offset support to IntroLoopOutro component
+- Added reset to default value option to timeline and RTP parameters
+- Fixed music component transition labels
+
+Version 2.1.8e (29-01-2014)
+---------------------------
+
+- Added transition offset to IntroLoopOutro component
+- Fixed issue with sequence not transitioning correctly
+- Fixed errors when doing a drag and drop of audio clips in certain components
+
+
+Version 2.1.8d (19-01-2014)
+---------------------------
+
+- Added BypassEffects properties
+- Added "Reset On Play" option to RTP and Timeline parameters.
+- Added file location options to WwwAudioComponent (DataPath, PersistentPath, StreamingAssetsPath)
+- Added scheduleEnd parameter to StopInternal
+- Added new ScheduledToStop state and support to audio component
+- Fixed RegisteredGameObject event action
+
+
+Version 2.1.8c (05-01-2014)
+---------------------------
+
+- Added new Music Manager
+- Added new Music Component
+- Added music support to audio, sequence and switch components
+- Added post exit cue support to audio component
+
+Version 2.1.8b (16-12-2013)
+---------------------------
+
+- Added new Dynamic Audio Clip Loading support
+- Fixed volume glitch when using Audio Source Pool
+
+Version 2.1.8 (06-12-2013)
+---------------------------
+
+- Replace Slerp with Lerp in audio spline
+- Moved audio spline tool box inside a GUI Window (looks much better)
+
 
 Version 2.1.7m (03-11-2013)
 ---------------------------

@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class ExamplesAPI : MonoBehaviour 
 {
+    public int eventID;
+
 	// Use this for initialization
 	void Start () {}
 	
@@ -16,9 +18,8 @@ public class ExamplesAPI : MonoBehaviour
 			/////////////////////////////////////////////////////////////
 			// This event by default will send the PlaySound EventAction.
 			// The gameObject used is the one that has the FabricManager
-			
-			Fabric.EventManager.Instance.PostEvent("Simple", gameObject);
-			
+
+            Fabric.EventManager.Instance.PostEvent("Simple");
 		}
 		// Example 2: Posting an event with a gameObject
 		else if(Input.GetKeyDown(KeyCode.Alpha2)) 
@@ -121,5 +122,10 @@ public class ExamplesAPI : MonoBehaviour
 				}
 			}
 		}
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            eventID = Fabric.EventManager.GetIDFromEventName("Simple");
+            Fabric.EventManager.Instance.PostEvent(eventID, gameObject);
+        }
     }
 }

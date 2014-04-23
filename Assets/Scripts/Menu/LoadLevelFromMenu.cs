@@ -9,6 +9,9 @@ public class LoadLevelFromMenu : MonoBehaviour
 	
 	void OnClick()
 	{
+		Fabric.EventManager.Instance.PostEvent("Music_Menu", Fabric.EventAction.StopSound);
+		Fabric.EventManager.Instance.PostEvent("Music_Menu_Transition", Fabric.EventAction.PlaySound);
+
 		if (altCamera != null)
 			altCamera.SetActive(false);
 
