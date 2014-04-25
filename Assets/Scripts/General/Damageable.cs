@@ -61,10 +61,11 @@ public class Damageable : MonoBehaviour
 		switch(ObjectIdentifierScript.ObjectType)
 		{
 		case "Ally Objective":
-			missionManager.AllyObjectiveDestroyed(objectIdentifier.gameObject);
-
 			if (missionManager != null)
+			{
+				missionManager.AllyObjectiveDestroyed(objectIdentifier.gameObject);
 				missionManager.MissionObjectivesDestroyed += 1;
+			}
 
 			Destroy(objectIdentifier.transform.gameObject);
 
@@ -89,7 +90,7 @@ public class Damageable : MonoBehaviour
 
 			return;
 		case "Enemy Objective":
-			if (missionManager != null && missionManager.missionType.ToString() != "Base_vs_Base")
+			if (missionManager != null)
 			{
 				missionManager.EnemyObjectiveDestroyed(objectIdentifier.gameObject);
 				missionManager.MissionObjectivesRemaining -= 1;

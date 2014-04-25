@@ -3,11 +3,11 @@ using System.Collections;
 
 public class ShipMovement : MonoBehaviour
 {
-	[SerializeField] float turnSensitivity = 1.2f;
 	[SerializeField] float engineForce = 35f;
 	[SerializeField] float boostEngineForce = 2.5f;
 	[SerializeField] float boosterTimeout = 3.5f;
 	bool useArrows = true;
+	float turnSensitivity = 1.2f;
 	float turn = 0f;
 	float turnTarget = 0f;
 	float boosterCooldown = 10f;
@@ -18,7 +18,7 @@ public class ShipMovement : MonoBehaviour
 	bool increaseVolume = false;
 	bool decreaseVolume = false;
 	float currentVolume;
-	float minVolume = 0.08f;
+	float minVolume = 0.05f;
 	float maxVolume = 0.5f;
 
 #if UNITY_IOS && !UNITY_EDITOR
@@ -121,7 +121,6 @@ public class ShipMovement : MonoBehaviour
 	{
 		currentForce = Mathf.MoveTowards(currentForce, engineForce * speedMultiplier * forceMultiplier, 120f * Time.fixedDeltaTime);
 		rigidbody.AddForce (transform.forward * currentForce, ForceMode.Acceleration);
-
 		turn = Mathf.Lerp(turn, turnTarget, Time.fixedTime);
 
 		if (Mathf.Abs(turn) > 0.005f)

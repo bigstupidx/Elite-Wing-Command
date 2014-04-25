@@ -22,6 +22,10 @@ public class BaseObjectTurret : MonoBehaviour
 		{
 			missionManager = missionManagerObject.GetComponent<MissionManager>();
 			missionDifficultyValue = missionManager.MissionDifficultyLevel;
+
+			if (missionManager.missionType.ToString() == "Base_vs_Base" && difficultyLevel == 2)
+				return;
+
 			StartCoroutine(SpawnBaseUnit());
 		}
 	}

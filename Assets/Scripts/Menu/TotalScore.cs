@@ -18,6 +18,6 @@ public class TotalScore : MonoBehaviour
 		totalScore = scoreNumbers.TotalScore;
 		EncryptedPlayerPrefs.SetFloat("Reward Points", EncryptedPlayerPrefs.GetFloat("Reward Points", 0) + totalScore);
 		PlayerPrefs.Save();
-		totalScoreObject.text = totalScore.ToString();
+		totalScoreObject.text = totalScore.ToString("N0");
 	}
 }

@@ -69,19 +69,19 @@ public class UpgradeAllyGroundSpeed : MonoBehaviour
 		switch(newLevel)
 		{
 		case 1:
-			EncryptedPlayerPrefs.SetFloat("Ally Ground Speed Multiplier", 1.2f);
+			EncryptedPlayerPrefs.SetFloat("Ally Ground Speed Multiplier", 1.1f);
 			break;
 		case 2:
-			EncryptedPlayerPrefs.SetFloat("Ally Ground Speed Multiplier", 1.4f);
+			EncryptedPlayerPrefs.SetFloat("Ally Ground Speed Multiplier", 1.2f);
 			break;
 		case 3:
-			EncryptedPlayerPrefs.SetFloat("Ally Ground Speed Multiplier", 1.6f);
+			EncryptedPlayerPrefs.SetFloat("Ally Ground Speed Multiplier", 1.3f);
 			break;
 		case 4:
-			EncryptedPlayerPrefs.SetFloat("Ally Ground Speed Multiplier", 1.8f);
+			EncryptedPlayerPrefs.SetFloat("Ally Ground Speed Multiplier", 1.4f);
 			break;
 		case 5:
-			EncryptedPlayerPrefs.SetFloat("Ally Ground Speed Multiplier", 2.0f);
+			EncryptedPlayerPrefs.SetFloat("Ally Ground Speed Multiplier", 1.5f);
 			break;
 		default:
 			Debug.LogError("Selection Not Valid: " + transform.name);

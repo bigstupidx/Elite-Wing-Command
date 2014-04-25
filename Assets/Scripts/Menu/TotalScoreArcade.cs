@@ -16,7 +16,10 @@ public class TotalScoreArcade : MonoBehaviour
 	{
 		yield return new WaitForSeconds(0.1f);
 		totalScore = scoreNumbersArcade.TotalScore;
-		totalScoreObject.text = totalScore.ToString();
+		totalScoreObject.text = totalScore.ToString("N0");
+
+		if (Everyplay.SharedInstance.IsRecording())
+			Everyplay.SharedInstance.SetMetadata("score", totalScore.ToString("N0"));
 
 		var gameCenterObject = GameObject.FindGameObjectWithTag("GameCenter");
 

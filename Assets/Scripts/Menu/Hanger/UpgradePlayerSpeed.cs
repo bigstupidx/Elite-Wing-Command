@@ -69,19 +69,19 @@ public class UpgradePlayerSpeed : MonoBehaviour
 		switch(newLevel)
 		{
 		case 1:
-			EncryptedPlayerPrefs.SetFloat("Player Speed Multiplier", 1.2f);
+			EncryptedPlayerPrefs.SetFloat("Player Speed Multiplier", 1.05f);
 			break;
 		case 2:
-			EncryptedPlayerPrefs.SetFloat("Player Speed Multiplier", 1.4f);
+			EncryptedPlayerPrefs.SetFloat("Player Speed Multiplier", 1.1f);
 			break;
 		case 3:
-			EncryptedPlayerPrefs.SetFloat("Player Speed Multiplier", 1.6f);
+			EncryptedPlayerPrefs.SetFloat("Player Speed Multiplier", 1.15f);
 			break;
 		case 4:
-			EncryptedPlayerPrefs.SetFloat("Player Speed Multiplier", 1.8f);
+			EncryptedPlayerPrefs.SetFloat("Player Speed Multiplier", 1.2f);
 			break;
 		case 5:
-			EncryptedPlayerPrefs.SetFloat("Player Speed Multiplier", 2.0f);
+			EncryptedPlayerPrefs.SetFloat("Player Speed Multiplier", 1.25f);
 			break;
 		default:
 			Debug.LogError("Selection Not Valid: " + transform.name);
