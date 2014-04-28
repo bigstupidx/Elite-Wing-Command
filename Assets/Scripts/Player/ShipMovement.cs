@@ -18,8 +18,8 @@ public class ShipMovement : MonoBehaviour
 	bool increaseVolume = false;
 	bool decreaseVolume = false;
 	float currentVolume;
-	float minVolume = 0.05f;
-	float maxVolume = 0.5f;
+	float minVolume = 0.02f;
+	float maxVolume = 0.3f;
 
 #if UNITY_IOS && !UNITY_EDITOR
 	void Start()

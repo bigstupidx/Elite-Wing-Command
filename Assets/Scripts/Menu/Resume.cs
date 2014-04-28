@@ -14,6 +14,7 @@ public class Resume : MonoBehaviour
 	void OnClick()
 	{
 		Fabric.EventManager.Instance.PostEvent("SFX_Button_General", Fabric.EventAction.PlaySound);
+		Fabric.EventManager.Instance.PostEvent("SFX", Fabric.EventAction.UnpauseSound);
 		pauseMenu.SetActive(false);
 		Screen.showCursor = false;
 		minimap.SetActive(true);

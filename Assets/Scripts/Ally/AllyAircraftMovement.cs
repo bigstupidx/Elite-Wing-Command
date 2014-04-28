@@ -5,6 +5,7 @@ using System.Linq;
 public class AllyAircraftMovement : GenericAircraftMovement
 {
 	[SerializeField] AllyAI allyAI;
+	[SerializeField] bool defensiveAircraft;
 	GameObject closestAllyVehicle;
 	float closestAllyDistance;
 
@@ -26,7 +27,7 @@ public class AllyAircraftMovement : GenericAircraftMovement
 		{
 			GameObject[] allyUnits = GameObject.FindGameObjectsWithTag("Ally");
 
-			if (MissionManagerScript.EnemyObjectivesList != null && MissionManagerScript.EnemyObjectivesList.Count != 0)
+			if (defensiveAircraft && MissionManagerScript.EnemyObjectivesList != null && MissionManagerScript.EnemyObjectivesList.Count != 0)
 			{
 				GameObject[] enemyAirObjectives = GameObject.FindGameObjectsWithTag("EnemyAirObjective");
 				GameObject[] enemyGroundObjectives = GameObject.FindGameObjectsWithTag("EnemyGroundObjective");
@@ -37,6 +38,19 @@ public class AllyAircraftMovement : GenericAircraftMovement
 					GameObject targetObject = enemyObjectives[Random.Range(0, enemyObjectives.Length)];
 					TargetPosition = new Vector3(Random.Range(targetObject.transform.position.x - DefensiveAirPerimeter, targetObject.transform.position.x + DefensiveAirPerimeter), 0, 
 					                                     Random.Range(targetObject.transform.position.z - DefensiveAirPerimeter, targetObject.transform.position.z + DefensiveAirPerimeter));
+					return;
+				}
+			}
+			else if (MissionManagerScript.AllyObjectivesList != null && MissionManagerScript.AllyObjectivesList.Count != 0)
+			{
+				GameObject[] allyAirObjectives = GameObject.FindGameObjectsWithTag("AllyAirObjective");
+				GameObject[] allyGroundObjectives = GameObject.FindGameObjectsWithTag("AllyGroundObjective");
+				GameObject[] allyObjectives = allyAirObjectives.Concat(allyGroundObjectives).ToArray();
+				
+				if (allyObjectives.Length > 0)
+				{
+					GameObject targetObject = allyObjectives[Random.Range(0, allyObjectives.Length)];
+					TargetPosition = new Vector3(targetObject.transform.position.x, 0, targetObject.transform.position.z);
 					return;
 				}
 			}

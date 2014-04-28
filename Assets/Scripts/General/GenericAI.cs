@@ -113,9 +113,7 @@ public class GenericAI : MonoBehaviour
 					}
 				}
 
-
-
-				if (groundTargets > 0 && airTargets <= 4)
+				if (groundTargets > 0 && airTargets <= 5)
 				{
 					ClosestTarget = closestGroundTarget;
 					ClosestTargetDistance = closestGroundTargetDistance;
