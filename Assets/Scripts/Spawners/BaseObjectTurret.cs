@@ -25,7 +25,7 @@ public class BaseObjectTurret : MonoBehaviour
 
 			if (difficultyLevel == 2 && missionDifficultyValue == 2)
 			{
-				int randomVal = Random.Range(0, 1);
+				int randomVal = Random.Range(0, 2);
 
 				if (randomVal > 0)
 					return;

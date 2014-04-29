@@ -15,6 +15,12 @@ public class UpgradePlayerHealth : MonoBehaviour
 		transform.parent.gameObject.BroadcastMessage("UpdateLabels");
 	}
 
+	void Update()
+	{
+		if (Input.GetKeyDown(KeyCode.T))
+			transform.root.gameObject.BroadcastMessage("UpdateLabels");
+	}
+
 	void OnClick()
 	{
 		if (EncryptedPlayerPrefs.GetFloat("Reward Points", 0) >= upgradesContainer.PlayerHealthUpgradeCost)
