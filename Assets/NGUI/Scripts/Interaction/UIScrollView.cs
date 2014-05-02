@@ -401,6 +401,12 @@ public class UIScrollView : MonoBehaviour
 	/// Update the values of the associated scroll bars.
 	/// </summary>
 
+	public void UpdateScrollbars () { UpdateScrollbars(true); }
+
+	/// <summary>
+	/// Update the values of the associated scroll bars.
+	/// </summary>
+
 	public virtual void UpdateScrollbars (bool recalculateBounds)
 	{
 		if (mPanel == null) return;
@@ -743,7 +749,7 @@ public class UIScrollView : MonoBehaviour
 				Vector3 offset = currentPos - mLastPos;
 				mLastPos = currentPos;
 
-				if (offset.x != 0f || offset.y != 0f)
+				if (offset.x != 0f || offset.y != 0f || offset.z != 0f)
 				{
 					offset = mTrans.InverseTransformDirection(offset);
 

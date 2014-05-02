@@ -3,7 +3,7 @@
 // Copyright © 2011-2014 Tasharen Entertainment
 //----------------------------------------------
 
-#if UNITY_EDITOR || !UNITY_FLASH
+#if UNITY_EDITOR || (!UNITY_FLASH && !NETFX_CORE && !UNITY_WP8)
 #define REFLECTION_SUPPORT
 #endif
 
@@ -192,33 +192,7 @@ public class PropertyReference
 		return null;
 	}
 
-	/// <summary>
-	/// Helper function that returns the value of the specified property.
-	/// </summary>
-
-//    static public object GetValue (object obj, string property)
-//    {
-//#if REFLECTION_SUPPORT
-//        if (obj == null) return null;
-
-//        // No property specified? Return the object itself.
-//        if (string.IsNullOrEmpty(property)) return obj;
-
-//        // If it's a game object, always return it as-is
-//        System.Type type = obj.GetType();
-//        if (type == typeof(GameObject)) return obj;
-
-//        // Try to get the property with that name, and if found -- execute it
-//        PropertyInfo pi = type.GetProperty(property);
-//        if (pi != null) return pi.GetValue(obj, null);
-
-//        // Try to get a field with that name, and if found -- execute it
-//        FieldInfo field = type.GetField(property);
-//        if (field != null) return field.GetValue(obj);
-//#endif
-//        return null;
-//    }
-
+#if REFLECTION_SUPPORT
 	/// <summary>
 	/// Retrieve the property's value.
 	/// </summary>
@@ -227,7 +201,6 @@ public class PropertyReference
 	[DebuggerStepThrough]
 	public object Get ()
 	{
-#if REFLECTION_SUPPORT
 		if (mProperty == null && mField == null && isValid) Cache();
 
 		if (mProperty != null)
@@ -239,7 +212,6 @@ public class PropertyReference
 		{
 			return mField.GetValue(mTarget);
 		}
-#endif
 		return null;
 	}
 
@@ -251,7 +223,6 @@ public class PropertyReference
 	[DebuggerStepThrough]
 	public bool Set (object value)
 	{
-#if REFLECTION_SUPPORT
 		if (mProperty == null && mField == null && isValid) Cache();
 		if (mProperty == null && mField == null) return false;
 
@@ -281,8 +252,29 @@ public class PropertyReference
 			mProperty.SetValue(mTarget, value, null);
 			return true;
 		}
-#endif
 		return false;
+	}
+
+	/// <summary>
+	/// Cache the field or property.
+	/// </summary>
+
+	[DebuggerHidden]
+	[DebuggerStepThrough]
+	bool Cache ()
+	{
+		if (mTarget != null && !string.IsNullOrEmpty(mName))
+		{
+			Type type = mTarget.GetType();
+			mField = type.GetField(mName);
+			mProperty = type.GetProperty(mName);
+		}
+		else
+		{
+			mField = null;
+			mProperty = null;
+		}
+		return (mField != null || mProperty != null);
 	}
 
 	/// <summary>
@@ -291,7 +283,6 @@ public class PropertyReference
 
 	bool Convert (ref object value)
 	{
-#if REFLECTION_SUPPORT
 		if (mTarget == null) return false;
 
 		Type to = GetPropertyType();
@@ -304,10 +295,23 @@ public class PropertyReference
 		}
 		else from = value.GetType();
 		return Convert(ref value, from, to);
-#else
-		return false;
-#endif
 	}
+#else // Everything below = no reflection support
+	public object Get ()
+	{
+		Debug.LogError("Reflection is not supported on this platform");
+		return null;
+	}
+
+	public bool Set (object value)
+	{
+		Debug.LogError("Reflection is not supported on this platform");
+		return false;
+	}
+
+	bool Cache () { return false; }
+	bool Convert (ref object value) { return false; }
+#endif
 
 	/// <summary>
 	/// Whether we can convert one type to another for assignment purposes.
@@ -342,7 +346,9 @@ public class PropertyReference
 #if REFLECTION_SUPPORT
 		// If the value can be assigned as-is, we're done
 		if (to.IsAssignableFrom(from)) return true;
-
+#else
+		if (from == to) return true;
+#endif
 		// If the target type is a string, just convert the value
 		if (to == typeof(string))
 		{
@@ -384,33 +390,6 @@ public class PropertyReference
 				}
 			}
 		}
-#endif
 		return false;
-	}
-
-	/// <summary>
-	/// Cache the field or property.
-	/// </summary>
-
-	[DebuggerHidden]
-	[DebuggerStepThrough]
-	bool Cache ()
-	{
-#if REFLECTION_SUPPORT
-		if (mTarget != null && !string.IsNullOrEmpty(mName))
-		{
-			Type type = mTarget.GetType();
-			mField = type.GetField(mName);
-			mProperty = type.GetProperty(mName);
-		}
-		else
-		{
-			mField = null;
-			mProperty = null;
-		}
-		return (mField != null || mProperty != null);
-#else
-		return false;
-#endif
 	}
 }
