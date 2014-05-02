@@ -7,7 +7,7 @@ public class MenuScreenSet : MonoBehaviour
 	{
 		Main,
 		Campaign,
-		Hanger,
+		Hangar,
 		Options
 	}
 

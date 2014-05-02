@@ -7,7 +7,7 @@ public class MenuScreenLoad : MonoBehaviour
 	[SerializeField] TweenAlpha mainScreenAlphaTween;
 	[SerializeField] Camera aircraftCamera;
 	[SerializeField] GameObject campaignScreen;
-	[SerializeField] GameObject hangerScreen;
+	[SerializeField] GameObject hangarScreen;
 	[SerializeField] GameObject optionsScreen;
 
 	void Awake()
@@ -28,8 +28,8 @@ public class MenuScreenLoad : MonoBehaviour
 		case "Campaign":
 			campaignScreen.SetActive(true);
 			break;
-		case "Hanger":
-			hangerScreen.SetActive(true);
+		case "Hangar":
+			hangarScreen.SetActive(true);
 			break;
 		case "Options":
 			optionsScreen.SetActive(true);
