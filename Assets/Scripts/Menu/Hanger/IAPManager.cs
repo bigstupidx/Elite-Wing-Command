@@ -50,6 +50,8 @@ public class IAPManager : MonoBehaviour
 
 	public void InitiatePurchase(string productIdentifier)
 	{
+		iapState = IAPState.Loading;
+
 		if (Application.internetReachability != NetworkReachability.NotReachable)
 		{
 			if(EasyStoreKit.CanMakePayments())
