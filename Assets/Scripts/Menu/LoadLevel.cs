@@ -34,7 +34,7 @@ public class LoadLevel : MonoBehaviour
 		foreach (GameObject enemyUnit in enemyUnits)
 			Destroy(enemyUnit);
 
-		yield return new WaitForSeconds(2.5f);
+		yield return new WaitForSeconds(3.0f);
 		Application.LoadLevel(levelNumber);
 	}
 }

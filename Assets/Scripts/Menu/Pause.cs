@@ -19,6 +19,7 @@ public class Pause : MonoBehaviour
 	
 	void OnClick()
 	{
+		Fabric.EventManager.Instance.PostEvent("SFX_Button_General", Fabric.EventAction.PlaySound);
 		Fabric.EventManager.Instance.PostEvent("SFX", Fabric.EventAction.PauseSound);
 		pauseMenu.SetActive(true);
 		Screen.showCursor = true;
