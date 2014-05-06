@@ -37,6 +37,9 @@ public class Play : MonoBehaviour
 		Fabric.EventManager.Instance.PostEvent("SFX_Button_General", Fabric.EventAction.PlaySound);
 		Fabric.EventManager.Instance.PostEvent("Music_Menu_Transition", Fabric.EventAction.StopSound);
 
+		if (tutorialMenu == null)
+			Fabric.EventManager.Instance.PostEvent("Music_Mission", Fabric.EventAction.PlaySound);
+
 		if (Application.loadedLevel == 3)
 		{
 			gui.SetActive(false);
