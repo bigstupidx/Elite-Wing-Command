@@ -8,16 +8,17 @@ public class IAPManager : MonoBehaviour
 	[SerializeField] GameObject normalScreen;
 	[SerializeField] GameObject loadingScreen;
 	[SerializeField] GameObject errorScreen;
+	[SerializeField] GameObject successScreen;
 	[SerializeField] UILabel errorLabel;
 	[SerializeField] UILabel rewardPointsLabel;
 	
-	enum IAPState {Loading, Normal, Error};
+	enum IAPState {Loading, Normal, Error, Success};
 	IAPState iapState = IAPState.Normal;
 	StoreKitProduct[] products;
 
 	void Start()
 	{
-		errorLabel.text = "Error: Application not\nallowed to make payments";
+		errorLabel.text = "An error occured\nduring the transaction.\nPlease try again.";
 		ConfigureStoreKitEvents();
 		EasyStoreKit.AssignIdentifiers(productIdentifiers);
 		EasyStoreKit.LoadProducts();
@@ -33,17 +34,26 @@ public class IAPManager : MonoBehaviour
 				normalScreen.SetActive(true);
 				loadingScreen.SetActive(false);
 				errorScreen.SetActive(false);
+				successScreen.SetActive(false);
 			}
 			break;
 		case IAPState.Loading:
 			normalScreen.SetActive(false);
 			loadingScreen.SetActive(true);
 			errorScreen.SetActive(false);
+			successScreen.SetActive(false);
 			break;
 		case IAPState.Error:
 			normalScreen.SetActive(false);
 			loadingScreen.SetActive(false);
 			errorScreen.SetActive(true);
+			successScreen.SetActive(false);
+			break;
+		case IAPState.Success:
+			normalScreen.SetActive(false);
+			loadingScreen.SetActive(false);
+			errorScreen.SetActive(false);
+			successScreen.SetActive(true);
 			break;
 		}
 	}
@@ -51,6 +61,7 @@ public class IAPManager : MonoBehaviour
 	public void InitiatePurchase(string productIdentifier)
 	{
 		iapState = IAPState.Loading;
+		SetIAPLayout();
 
 		if (Application.internetReachability != NetworkReachability.NotReachable)
 		{
@@ -63,14 +74,14 @@ public class IAPManager : MonoBehaviour
 				else
 				{
 					Debug.Log("Invalid product identifier: " + productIdentifier);
-					iapState = IAPState.Normal;
+					errorLabel.text = "An error occured\nduring the transaction.\nPlease try again.";
+					iapState = IAPState.Error;
 					SetIAPLayout();
 				}
-				
-			} 
+			}
 			else 
 			{
-				Debug.Log("Application is not allowed to make payments!");
+				Debug.Log("Application is not allowed to make payments");
 				errorLabel.text = "Error: Application not\nallowed to make payments";
 				iapState = IAPState.Error;
 				SetIAPLayout();
@@ -78,7 +89,7 @@ public class IAPManager : MonoBehaviour
 		} 
 		else 
 		{
-			Debug.Log("No internet connection available!");
+			Debug.Log("No internet connection available");
 			errorLabel.text = "Error: No internet connection";
 			iapState = IAPState.Error;
 			SetIAPLayout();
@@ -125,16 +136,19 @@ public class IAPManager : MonoBehaviour
 			break;
 		default:
 			Debug.LogError("Not valid product identifier....");
+			errorLabel.text = "An error occured\nduring the transaction.\nPlease try again.";
+			iapState = IAPState.Error;
+			SetIAPLayout();
 			break;
 		}
 
 		PlayerPrefs.Save();
 		rewardPointsLabel.text = EncryptedPlayerPrefs.GetFloat("Reward Points", 0).ToString("N0") + " RP";
-		iapState = IAPState.Normal;
+		iapState = IAPState.Success;
 		SetIAPLayout();
 	}
 	
-	public void TransactionFailed(string productIdentifier,string errorMessage)
+	public void TransactionFailed(string productIdentifier, string errorMessage)
 	{
 		Debug.Log("Transaction failed for: " + productIdentifier + " :" + errorMessage);
 		errorLabel.text = "An error occured\nduring the transaction.\nPlease try again.";

@@ -4,11 +4,11 @@ using System.Collections;
 public class IAPOKButton : MonoBehaviour
 {
 	[SerializeField] GameObject normalScreen;
-	[SerializeField] GameObject errorScreen;
+	[SerializeField] GameObject screenToDisable;
 
 	void OnClick()
 	{
 		normalScreen.SetActive(true);
-		errorScreen.SetActive(false);
+		screenToDisable.SetActive(false);
 	}
 }

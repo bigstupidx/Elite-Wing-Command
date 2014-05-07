@@ -8,7 +8,6 @@ public class EWCGameCenter : MonoBehaviour {
 	
 	// THE LEADERBOARD INSTANCE
 	static ILeaderboard m_Leaderboard;
-	public int highScoreInt = 123;
 	public string leaderboardName = "Arcade Mode High Score";
 	public string leaderboardID = "arcade_high_score";
 	
@@ -71,6 +70,7 @@ public class EWCGameCenter : MonoBehaviour {
         if(success)
 		{
             Debug.Log ("Authenticated");
+			Application.LoadLevel(1);
 			
 			Social.LoadScores(leaderboardName, scores => {
     			if (scores.Length > 0) {
@@ -86,7 +86,10 @@ public class EWCGameCenter : MonoBehaviour {
 				});
         }
         else
+		{
             Debug.Log ("Failed to authenticate with Game Center.");
+			Application.LoadLevel(1);
+		}
     }
 
 	#region Game Center Integration
