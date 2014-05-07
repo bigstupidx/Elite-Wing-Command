@@ -4,8 +4,8 @@ using System.Collections.Generic;
 
 public class ObjectSpawner : MonoBehaviour
 {
-	[SerializeField] MissionManager missionManager;
 	[SerializeField] SpawnDetails[] spawnDetails;
+	MissionManager missionManager;
 	GameObject unitPrefab;
 	int maxInGame;
 	int totalRespawns;
@@ -34,6 +34,10 @@ public class ObjectSpawner : MonoBehaviour
 	void Awake()
 	{
 		UnitsInScene = new List<string>();
+		GameObject missionManagerObject = GameObject.FindWithTag("MissionManager");
+
+		if (missionManagerObject != null)
+			missionManager = missionManagerObject.GetComponent<MissionManager>();
 
 		if (missionManager != null)
 		{
