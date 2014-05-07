@@ -9,6 +9,7 @@ public class UpgradeAllyAirSpeed : MonoBehaviour
 	[SerializeField] UISlider upgradeSlider;
 	[SerializeField] Collider buttonCollider;
 	[SerializeField] UILabel rewardPointsLabel;
+	[SerializeField] GameObject purchasePrompt;
 
 	void OnEnable()
 	{
@@ -18,9 +19,15 @@ public class UpgradeAllyAirSpeed : MonoBehaviour
 	void OnClick()
 	{
 		if (EncryptedPlayerPrefs.GetFloat("Reward Points", 0) >= upgradesContainer.AllyAirSpeedUpgradeCost)
+		{
+			Fabric.EventManager.Instance.PostEvent("SFX_Purchase", Fabric.EventAction.PlaySound);
 			UpgradeSpeed();
+		}
 		else
-			Debug.Log("Not enough RP for upgrade purchase....");
+		{
+			Fabric.EventManager.Instance.PostEvent("SFX_Error", Fabric.EventAction.PlaySound);
+			purchasePrompt.SetActive(true);
+		}
 	}
 
 	void UpdateLabels()
@@ -28,11 +35,6 @@ public class UpgradeAllyAirSpeed : MonoBehaviour
 		if (upgradesContainer.AllyAirSpeedLevel < 5)
 		{
 			upgradeCostLabel.text = upgradesContainer.AllyAirSpeedUpgradeCost.ToString("N0") + " RP";
-
-			if (EncryptedPlayerPrefs.GetFloat("Reward Points", 0) < upgradesContainer.AllyAirSpeedUpgradeCost)
-				buttonCollider.enabled = false;
-			else
-				buttonCollider.enabled = true;
 		}
 		else
 		{

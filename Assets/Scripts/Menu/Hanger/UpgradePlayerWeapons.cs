@@ -9,6 +9,7 @@ public class UpgradePlayerWeapons : MonoBehaviour
 	[SerializeField] UISlider upgradeSlider;
 	[SerializeField] Collider buttonCollider;
 	[SerializeField] UILabel rewardPointsLabel;
+	[SerializeField] GameObject purchasePrompt;
 
 	void OnEnable()
 	{
@@ -18,9 +19,15 @@ public class UpgradePlayerWeapons : MonoBehaviour
 	void OnClick()
 	{
 		if (EncryptedPlayerPrefs.GetFloat("Reward Points", 0) >= upgradesContainer.PlayerWeaponUpgradeCost)
+		{
+			Fabric.EventManager.Instance.PostEvent("SFX_Purchase", Fabric.EventAction.PlaySound);
 			UpgradeWeapons();
+		}
 		else
-			Debug.Log("Not enough RP for upgrade purchase....");
+		{
+			Fabric.EventManager.Instance.PostEvent("SFX_Error", Fabric.EventAction.PlaySound);
+			purchasePrompt.SetActive(true);
+		}
 	}
 
 	void UpdateLabels()
@@ -28,11 +35,6 @@ public class UpgradePlayerWeapons : MonoBehaviour
 		if (upgradesContainer.PlayerWeaponLevel < 8)
 		{
 			upgradeCostLabel.text = upgradesContainer.PlayerWeaponUpgradeCost.ToString("N0") + " RP";
-
-			if (EncryptedPlayerPrefs.GetFloat("Reward Points", 0) < upgradesContainer.PlayerWeaponUpgradeCost)
-				buttonCollider.enabled = false;
-			else
-				buttonCollider.enabled = true;
 		}
 		else
 		{

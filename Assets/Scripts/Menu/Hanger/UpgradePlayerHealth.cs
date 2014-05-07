@@ -9,6 +9,7 @@ public class UpgradePlayerHealth : MonoBehaviour
 	[SerializeField] UISlider upgradeSlider;
 	[SerializeField] Collider buttonCollider;
 	[SerializeField] UILabel rewardPointsLabel;
+	[SerializeField] GameObject purchasePrompt;
 
 	void OnEnable()
 	{
@@ -24,9 +25,15 @@ public class UpgradePlayerHealth : MonoBehaviour
 	void OnClick()
 	{
 		if (EncryptedPlayerPrefs.GetFloat("Reward Points", 0) >= upgradesContainer.PlayerHealthUpgradeCost)
+		{
+			Fabric.EventManager.Instance.PostEvent("SFX_Purchase", Fabric.EventAction.PlaySound);
 			UpgradeHealth();
+		}
 		else
-			Debug.Log("Not enough RP for upgrade purchase....");
+		{
+			Fabric.EventManager.Instance.PostEvent("SFX_Error", Fabric.EventAction.PlaySound);
+			purchasePrompt.SetActive(true);
+		}
 	}
 
 	void UpdateLabels()
@@ -34,11 +41,6 @@ public class UpgradePlayerHealth : MonoBehaviour
 		if (upgradesContainer.PlayerHealthLevel < 5)
 		{
 			upgradeCostLabel.text = upgradesContainer.PlayerHealthUpgradeCost.ToString("N0") + " RP";
-
-			if (EncryptedPlayerPrefs.GetFloat("Reward Points", 0) < upgradesContainer.PlayerHealthUpgradeCost)
-				buttonCollider.enabled = false;
-			else
-				buttonCollider.enabled = true;
 		}
 		else
 		{
