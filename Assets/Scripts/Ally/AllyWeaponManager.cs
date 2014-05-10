@@ -12,15 +12,17 @@ public class AllyWeaponManager : GenericWeaponManager
 
 	IEnumerator AllyTargeting()
 	{
+		yield return new WaitForSeconds(0.1f);
+		ObjectiveAirTag = allyAI.ObjectiveAirTag;
+		ObjectiveGroundTag = allyAI.ObjectiveGroundTag;
+		EnemyTurretID = allyAI.TargetTurretID;
+		EnemyVehicleID = allyAI.TargetVehicleID;
+
 		while (true)
 		{
-			ObjectiveAirTag = allyAI.ObjectiveAirTag;
-			ObjectiveGroundTag = allyAI.ObjectiveGroundTag;
 			ClosestTarget = allyAI.ClosestTarget;
 			ClosestTargetID = allyAI.ClosestTargetID;
-			EnemyTurretID = allyAI.TargetTurretID;
-			EnemyVehicleID = allyAI.TargetVehicleID;
-			yield return new WaitForSeconds(Random.Range(0.75f, 1f));
+			yield return new WaitForSeconds(Random.Range(1f, 3f));
 		}
 	}
 }

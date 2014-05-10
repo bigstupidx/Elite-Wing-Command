@@ -14,7 +14,6 @@ public class GameManager : MonoBehaviour
 	void Start()
 	{
 		CustomTimeManager.FadeTo(1.1f, 0.01f);
-		UpdateShadowSettings();
 		Screen.showCursor = true;
 
 		if (EncryptedPlayerPrefs.GetInt("First Load", 1) == 1)
@@ -51,10 +50,5 @@ public class GameManager : MonoBehaviour
 		EncryptedPlayerPrefs.SetInt("Weapon Equip 2", 1);
 		EncryptedPlayerPrefs.SetInt("First Load", 0);
 		PlayerPrefs.Save();
-	}
-
-	public void UpdateShadowSettings()
-	{
-		QualitySettings.SetQualityLevel(EncryptedPlayerPrefs.GetInt("Shadows", 1));
 	}
 }

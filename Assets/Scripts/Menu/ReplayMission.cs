@@ -7,6 +7,8 @@ public class ReplayMission : MonoBehaviour
 	
 	void OnClick()
 	{
+		Fabric.EventManager.Instance.PostEvent("SFX", Fabric.EventAction.StopAll);
+		Fabric.EventManager.Instance.PostEvent("SFX_Button_General", Fabric.EventAction.PlaySound);
 		StartCoroutine(WaitAndLoad());
 	}
 	

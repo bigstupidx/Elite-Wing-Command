@@ -53,29 +53,29 @@ public class AllyAircraftMovement : GenericAircraftMovement
 					TargetPosition = new Vector3(targetObject.transform.position.x, 0, targetObject.transform.position.z);
 					return;
 				}
-			}
-			else if (allyUnits.Length != 0)
-			{
-				closestAllyDistance = 100f;
-				
-				foreach (GameObject ally in allyUnits)
+				else if (allyUnits.Length != 0)
 				{
-					ObjectIdentifier objectID = ally.transform.GetComponent<ObjectIdentifier>();
-					Vector2 allyXZPosition = new Vector2(ally.transform.position.x, ally.transform.position.z);
-					Vector2 unitXZPosition = new Vector2(transform.position.x, transform.position.z);
-					float distance = Vector2.Distance(allyXZPosition, unitXZPosition);
+					closestAllyDistance = 100f;
 					
-					if (objectID != null && objectID.ObjectType == "Ally Vehicle" && distance < closestAllyDistance)
+					foreach (GameObject ally in allyUnits)
 					{
-						closestAllyDistance = distance;
-						closestAllyVehicle = ally;
+						ObjectIdentifier objectID = ally.transform.GetComponent<ObjectIdentifier>();
+						Vector2 allyXZPosition = new Vector2(ally.transform.position.x, ally.transform.position.z);
+						Vector2 unitXZPosition = new Vector2(transform.position.x, transform.position.z);
+						float distance = Vector2.Distance(allyXZPosition, unitXZPosition);
+						
+						if (objectID != null && objectID.ObjectType == "Ally Vehicle" && distance < closestAllyDistance)
+						{
+							closestAllyDistance = distance;
+							closestAllyVehicle = ally;
+						}
 					}
-				}
-
-				if (closestAllyVehicle != null)
-				{
-					TargetPosition = new Vector2(Random.Range(closestAllyVehicle.transform.position.x - EscortPerimeter, closestAllyVehicle.transform.position.x + EscortPerimeter), 
-					                                     Random.Range(closestAllyVehicle.transform.position.z - EscortPerimeter, closestAllyVehicle.transform.position.z + EscortPerimeter));
+					
+					if (closestAllyVehicle != null)
+					{
+						TargetPosition = new Vector2(Random.Range(closestAllyVehicle.transform.position.x - EscortPerimeter, closestAllyVehicle.transform.position.x + EscortPerimeter), 
+						                             Random.Range(closestAllyVehicle.transform.position.z - EscortPerimeter, closestAllyVehicle.transform.position.z + EscortPerimeter));
+					}
 				}
 			}
 		}

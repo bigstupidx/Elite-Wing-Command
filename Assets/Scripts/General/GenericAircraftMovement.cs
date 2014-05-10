@@ -60,22 +60,27 @@ public class GenericAircraftMovement : MonoBehaviour
 	{
 		currentForce = Mathf.MoveTowards(currentForce, randomEngineForce * forceMultiplier, timeModifier * Time.fixedDeltaTime);
 		rigidbody.AddForce(transform.forward * currentForce, ForceMode.Acceleration);
-		offset = transform.InverseTransformPoint(TargetPosition);
-		angle = Mathf.Rad2Deg * Mathf.Atan2(offset.x, offset.z);
 
-		if (ClosestTargetID == EnemyTurretID || ClosestTargetID == enemyVehicleID || ClosestTargetID == ObjectiveGroundTag)
-			evasionDistance = groundTargetEvasionDistance;
-		else
-			evasionDistance = aircraftEvasionDistance;
+		if (TargetPosition != new Vector3(0f, 0f, 0f))
+		{
+			offset = transform.InverseTransformPoint(TargetPosition);
+			angle = Mathf.Rad2Deg * Mathf.Atan2(offset.x, offset.z);
 
-		if (Mathf.Abs(angle) > 3f && ClosestTargetDistance > evasionDistance)
-		{
-			rigidbody.AddTorque(Vector3.up * torqueModifier * Mathf.Sign(angle), ForceMode.VelocityChange);
+			if (ClosestTargetID == EnemyTurretID || ClosestTargetID == enemyVehicleID || ClosestTargetID == ObjectiveGroundTag)
+				evasionDistance = groundTargetEvasionDistance;
+			else
+				evasionDistance = aircraftEvasionDistance;
+			
+			if (Mathf.Abs(angle) > 3f && ClosestTargetDistance > evasionDistance)
+			{
+				rigidbody.AddTorque(Vector3.up * torqueModifier * Mathf.Sign(angle), ForceMode.VelocityChange);
+			}
+			else if (ClosestTargetDistance <= evasionDistance)
+			{
+				rigidbody.AddTorque(Vector3.up * torqueModifier * Mathf.Sign(-angle * evasionAngleModifier), ForceMode.VelocityChange);
+			}
 		}
-		else if (ClosestTargetDistance <= evasionDistance)
-		{
-			rigidbody.AddTorque(Vector3.up * torqueModifier * Mathf.Sign(-angle * evasionAngleModifier), ForceMode.VelocityChange);
-		}
+
 	}
 
 	public void Engage()

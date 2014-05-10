@@ -64,7 +64,7 @@ public class GenericVehicleMovement : MonoBehaviour
 				}
 			}
 
-			yield return new WaitForSeconds(Random.Range(0.75f, 1f));
+			yield return new WaitForSeconds(Random.Range(1f, 3f));
 		}
 	}
 

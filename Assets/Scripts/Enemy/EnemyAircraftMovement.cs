@@ -53,29 +53,29 @@ public class EnemyAircraftMovement : GenericAircraftMovement
 					TargetPosition = new Vector3(targetObject.transform.position.x, 0, targetObject.transform.position.z);
 					return;
 				}
-			}
-			else if (enemyUnits.Length != 0)
-			{
-				closestEnemyDistance = 100f;
-				
-				foreach (GameObject enemy in enemyUnits)
+				else if (enemyUnits.Length != 0)
 				{
-					ObjectIdentifier objectID = enemy.transform.GetComponent<ObjectIdentifier>();
-					Vector2 enemyXZPosition = new Vector2(enemy.transform.position.x, enemy.transform.position.z);
-					Vector2 unitXZPosition = new Vector2(transform.position.x, transform.position.z);
-					float distance = Vector2.Distance(enemyXZPosition, unitXZPosition);
+					closestEnemyDistance = 100f;
 					
-					if (objectID != null && objectID.ObjectType == "Enemy Vehicle" && distance < closestEnemyDistance)
+					foreach (GameObject enemy in enemyUnits)
 					{
-						closestEnemyDistance = distance;
-						closestEnemyVehicle = enemy;
+						ObjectIdentifier objectID = enemy.transform.GetComponent<ObjectIdentifier>();
+						Vector2 enemyXZPosition = new Vector2(enemy.transform.position.x, enemy.transform.position.z);
+						Vector2 unitXZPosition = new Vector2(transform.position.x, transform.position.z);
+						float distance = Vector2.Distance(enemyXZPosition, unitXZPosition);
+						
+						if (objectID != null && objectID.ObjectType == "Enemy Vehicle" && distance < closestEnemyDistance)
+						{
+							closestEnemyDistance = distance;
+							closestEnemyVehicle = enemy;
+						}
 					}
-				}
-
-				if (closestEnemyVehicle != null)
-				{
-					TargetPosition = new Vector2(Random.Range(closestEnemyVehicle.transform.position.x - EscortPerimeter, closestEnemyVehicle.transform.position.x + EscortPerimeter), 
-					                                     Random.Range(closestEnemyVehicle.transform.position.z - EscortPerimeter, closestEnemyVehicle.transform.position.z + EscortPerimeter));
+					
+					if (closestEnemyVehicle != null)
+					{
+						TargetPosition = new Vector2(Random.Range(closestEnemyVehicle.transform.position.x - EscortPerimeter, closestEnemyVehicle.transform.position.x + EscortPerimeter), 
+						                             Random.Range(closestEnemyVehicle.transform.position.z - EscortPerimeter, closestEnemyVehicle.transform.position.z + EscortPerimeter));
+					}
 				}
 			}
 		}

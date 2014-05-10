@@ -12,15 +12,17 @@ public class EnemyWeaponManager : GenericWeaponManager
 	
 	IEnumerator EnemyTargeting()
 	{
+		yield return new WaitForSeconds(0.1f);
+		ObjectiveAirTag = enemyAI.ObjectiveAirTag;
+		ObjectiveGroundTag = enemyAI.ObjectiveGroundTag;
+		EnemyTurretID = enemyAI.TargetTurretID;
+		EnemyVehicleID = enemyAI.TargetVehicleID;
+
 		while (true)
 		{
-			ObjectiveAirTag = enemyAI.ObjectiveAirTag;
-			ObjectiveGroundTag = enemyAI.ObjectiveGroundTag;
 			ClosestTarget = enemyAI.ClosestTarget;
 			ClosestTargetID = enemyAI.ClosestTargetID;
-			EnemyTurretID = enemyAI.TargetTurretID;
-			EnemyVehicleID = enemyAI.TargetVehicleID;
-			yield return new WaitForSeconds(Random.Range(0.75f, 1f));
+			yield return new WaitForSeconds(Random.Range(1f, 3f));
 		}
 	}
 }
