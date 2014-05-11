@@ -11,6 +11,8 @@ public class Damageable : MonoBehaviour
 	ArcadeStatHolder arcadeStatHolder;
 	GameObject spawner;
 	Vector3 correctedPos;
+	FastSpawnObject thisSpawnObject;
+	KGFMapIcon mapIcon;
 	public MissionManager MissionManagerScript { get { return missionManager; } set { missionManager = value; }}
 	public float InitialHealth { get { return initialHealth; } set { initialHealth = value; }}
 	public ObjectIdentifier ObjectIdentifierScript { get { return objectIdentifier; }}
@@ -18,8 +20,20 @@ public class Damageable : MonoBehaviour
 	public float Health { get; set; }
 	public bool Dead { get { return Health <= 0; }}
 	public GameObject ExplosionParticleEffect { get { return explosionParticleEffect; }}
-	
-	public virtual void Start()
+	public FastSpawnObject ThisSpawnObject { get { return thisSpawnObject; } set { thisSpawnObject = value; }}
+
+//	void OnEnable()
+//	{
+//		mapIcon = transform.parent.GetComponentInChildren<KGFMapIcon>();
+//		mapIcon.itsDataMapIcon.itsIsVisible = true;
+//	}
+//
+//	void OnDisable()
+//	{
+//		mapIcon.itsDataMapIcon.itsIsVisible = false;
+//	}
+
+	public virtual void OnEnable()
 	{
 		Health = InitialHealth;
 		var MissionManagerObject = GameObject.FindGameObjectWithTag("MissionManager");
@@ -83,10 +97,16 @@ public class Damageable : MonoBehaviour
 			Spawner = GameObject.Find("Ally Tank Spawner");
 			break;
 		case "Ally Turret":
-			Destroy(objectIdentifier.transform.gameObject);
-
 			if (ExplosionParticleEffect != null)
 				Instantiate(ExplosionParticleEffect, transform.position, transform.rotation);
+
+			if (missionManager == null)
+			{
+				ThisSpawnObject = transform.parent.GetComponentInChildren<FastSpawnObject>();
+				SpawnManager.SharedInstance.UnspawnObject(ThisSpawnObject);
+			}
+			else
+				Destroy(objectIdentifier.transform.gameObject);
 
 			return;
 		case "Enemy Objective":
@@ -177,8 +197,6 @@ public class Damageable : MonoBehaviour
 				spawnerUnitID.RemoveFromList(transform.parent.name);
 			}
 
-			Destroy(objectIdentifier.transform.gameObject);
-
 			if (missionManager != null)
 				missionManager.EnemyGroundDestroyed += 1;
 			else
@@ -186,6 +204,14 @@ public class Damageable : MonoBehaviour
 
 			if (ExplosionParticleEffect != null)
 				Instantiate(ExplosionParticleEffect, transform.position, transform.rotation);
+
+			if (missionManager == null)
+			{
+				ThisSpawnObject = transform.parent.GetComponentInChildren<FastSpawnObject>();
+				SpawnManager.SharedInstance.UnspawnObject(ThisSpawnObject);
+			}
+			else
+				Destroy(objectIdentifier.transform.gameObject);
 
 			return;
 		default:
@@ -207,6 +233,19 @@ public class Damageable : MonoBehaviour
 		if (ExplosionParticleEffect != null)
 			Instantiate(ExplosionParticleEffect, transform.position, transform.rotation);
 
-		Destroy(objectIdentifier.transform.gameObject);
+		//Destroy(objectIdentifier.transform.gameObject);
+		Fabric.EventManager.Instance.PostEvent("SFX_Aircraft_Fire", Fabric.EventAction.StopSound, transform.parent.gameObject);
+		Fabric.EventManager.Instance.PostEvent("SFX_Vehicle_Fire", Fabric.EventAction.StopSound, transform.parent.gameObject);
+		Fabric.EventManager.Instance.PostEvent("SFX_Vehicle_Movement", Fabric.EventAction.StopSound, transform.parent.gameObject);
+		AllyWeaponManager allyWeaponManager = transform.parent.GetComponentInChildren<AllyWeaponManager>();
+		EnemyWeaponManager enemyWeaponManager = transform.parent.GetComponentInChildren<EnemyWeaponManager>();
+
+		if (allyWeaponManager != null)
+			allyWeaponManager.StopWeapon();
+		else if (enemyWeaponManager != null)
+			enemyWeaponManager.StopWeapon();
+
+		ThisSpawnObject = transform.parent.GetComponentInChildren<FastSpawnObject>();
+		SpawnManager.SharedInstance.UnspawnObject(ThisSpawnObject);
 	}
 }

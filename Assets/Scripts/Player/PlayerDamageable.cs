@@ -8,7 +8,7 @@ public class PlayerDamageable : Damageable
 	UISlider healthSlider;
 	float previousHealth;
 
-	public override void Start()
+	public override void OnEnable()
 	{
 		InitialHealth *= EncryptedPlayerPrefs.GetFloat("Player Health Multiplier", 1f);
 		Health = InitialHealth;
@@ -79,6 +79,12 @@ public class PlayerDamageable : Damageable
 		tempObject.transform.position = transform.position;
 		tempObject.transform.rotation = transform.rotation;
 		Fabric.EventManager.Instance.PostEvent("SFX_Explosion_Objective", Fabric.EventAction.PlaySound, tempObject);
-		Destroy(transform.root.gameObject);
+
+		//Destroy(transform.root.gameObject);
+		Fabric.EventManager.Instance.PostEvent("SFX_Player_Booster", Fabric.EventAction.StopSound, transform.parent.gameObject);
+		WeaponManager weaponManager = transform.parent.GetComponentInChildren<WeaponManager>();
+		weaponManager.StopWeapon();
+		ThisSpawnObject = transform.parent.GetComponentInChildren<FastSpawnObject>();
+		SpawnManager.SharedInstance.UnspawnObject(ThisSpawnObject);
 	}
 }

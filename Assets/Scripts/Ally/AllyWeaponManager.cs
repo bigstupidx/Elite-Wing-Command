@@ -7,6 +7,7 @@ public class AllyWeaponManager : GenericWeaponManager
 
 	void Start()
 	{
+		IsAirUnit = allyAI.IsAirUnit;
 		StartCoroutine(AllyTargeting());
 	}
 

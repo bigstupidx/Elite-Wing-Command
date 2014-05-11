@@ -18,6 +18,7 @@ public class LoadLevel : MonoBehaviour
 	{
 		Fabric.EventManager.Instance.PostEvent("SFX", Fabric.EventAction.StopAll);
 		Fabric.EventManager.Instance.PostEvent("SFX_Button_General", Fabric.EventAction.PlaySound);
+		SpawnManager.SharedInstance.UnloadAllObjects();
 		StartCoroutine(WaitAndLoad());
 	}
 
@@ -35,6 +36,7 @@ public class LoadLevel : MonoBehaviour
 			Destroy(enemyUnit);
 
 		yield return new WaitForSeconds(3.0f);
+		Fabric.EventManager.Instance.PostEvent("SFX", Fabric.EventAction.StopAll);
 		Application.LoadLevel(levelNumber);
 	}
 }

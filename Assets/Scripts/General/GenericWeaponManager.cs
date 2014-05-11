@@ -24,6 +24,8 @@ public class GenericWeaponManager : MonoBehaviour
 	string enemyTurretID;
 	string enemyVehicleID;
 	bool canShoot = true;
+	bool isAirUnit = false;
+	ObjectType unitType;
 	public string ObjectiveAirTag { get { return objectiveAirTag; } set { objectiveAirTag = value; }}
 	public string ObjectiveGroundTag { get { return objectiveGroundTag; } set { objectiveGroundTag = value; }}
 	public GameObject ClosestTarget { get { if (closestTarget != null) return closestTarget; else return null; } set { closestTarget = value; }}
@@ -31,6 +33,7 @@ public class GenericWeaponManager : MonoBehaviour
 	public string EnemyTurretID { get { return enemyTurretID; } set { enemyTurretID = value; }}
 	public string EnemyVehicleID { get { return enemyVehicleID; } set { enemyVehicleID = value; }}
 	public bool NeedsClearShot { get { return needsClearShot; } set { needsClearShot = value; }}
+	public bool IsAirUnit { get { return isAirUnit; } set { isAirUnit = value; }}
 
 	void Update()
 	{
@@ -121,6 +124,12 @@ public class GenericWeaponManager : MonoBehaviour
 		}
 	}
 
+	public void StopWeapon()
+	{
+		CancelInvoke("AirWeaponSFX");
+		CancelInvoke("GroundWeaponSFX");
+	}
+
 	void AirWeaponSFX()
 	{
 		Fabric.EventManager.Instance.PostEvent("SFX_Aircraft_Fire", Fabric.EventAction.PlaySound, gameObject.transform.root.gameObject);
@@ -128,6 +137,7 @@ public class GenericWeaponManager : MonoBehaviour
 
 	void GroundWeaponSFX()
 	{
-		Fabric.EventManager.Instance.PostEvent("SFX_Vehicle_Fire", Fabric.EventAction.PlaySound, gameObject);
+		if (!isAirUnit)
+			Fabric.EventManager.Instance.PostEvent("SFX_Vehicle_Fire", Fabric.EventAction.PlaySound, gameObject);
 	}
 }

@@ -101,7 +101,7 @@ public class WeaponManager : MonoBehaviour
 		InvokeRepeating("AirWeaponSFX", 0f, airRetriggerRate);
 	}
 
-	void StopWeapon()
+	public void StopWeapon()
 	{
 		equipped.Stop();
 		CancelInvoke("AirWeaponSFX");

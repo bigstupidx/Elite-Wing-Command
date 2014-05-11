@@ -32,17 +32,7 @@ public class CameraFollow : MonoBehaviour
 		if (initialized)
 		{
 			if (playerAircraft == null)
-			{
-				GameObject[] allyAircraft = GameObject.FindGameObjectsWithTag("Ally");
-
-				foreach (GameObject aircraft in allyAircraft)
-				{
-					ObjectIdentifier objectID = aircraft.GetComponent<ObjectIdentifier>();
-
-					if (objectID != null && objectID.ObjectType == cameraFollowObjectName)
-						playerAircraft = aircraft;
-				}
-			}
+				playerAircraft = GameObject.Find(cameraFollowObjectName);
 
 			if (playerAircraft != null)
 			{

@@ -16,6 +16,7 @@ public class ObjectSpawner : MonoBehaviour
 	int respawnSquadCount = 1;
 	bool canSpawn = true;
 	int nextNameNumber = 1;
+	FastSpawnObject unitClone;
 	List<string> unitsInScene;
 	public MissionManager MissionManagerScript { get { return missionManager; }}
 	public GameObject UnitPrefab { get { return unitPrefab; } set { unitPrefab = value; }}
@@ -29,6 +30,7 @@ public class ObjectSpawner : MonoBehaviour
 	public bool CanSpawn { get { return canSpawn; } set { canSpawn = value; }}
 	public int NextNameNumber { get { return nextNameNumber; } set { nextNameNumber = value; }}
 	public float yPos { get; set; }
+	public FastSpawnObject UnitClone { get { return unitClone; } set { unitClone = value; }}
 	public List<string> UnitsInScene { get { return unitsInScene; } set { unitsInScene = value; }}
 	
 	void Awake()
@@ -90,9 +92,77 @@ public class ObjectSpawner : MonoBehaviour
 
 		Vector3 spawnPosition = new Vector3(Random.Range(-90f, 90f), yPos, Random.Range(-90f, 90f));
 		Quaternion spawnRotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
-		var unitClone = Instantiate(UnitPrefab, spawnPosition, spawnRotation);
-		unitClone.name = UnitPrefab.name + " " + nextNameNumber;
-		UnitsInScene.Add(unitClone.name);
+		//var UnitClone = Instantiate(UnitPrefab, spawnPosition, spawnRotation);
+
+		switch(UnitPrefab.name)
+		{
+		case "Ally Aircraft":
+			UnitClone = SpawnManager.SharedInstance.SpawnObject(SpawnManager.SharedInstance.allyUnits.allyAircraft, spawnPosition, spawnRotation);
+			break;
+		case "Ally Defensive Aircraft":
+			UnitClone = SpawnManager.SharedInstance.SpawnObject(SpawnManager.SharedInstance.allyUnits.allyDefensiveAircraft, spawnPosition, spawnRotation);
+			break;
+		case "Ally Tank":
+			UnitClone = SpawnManager.SharedInstance.SpawnObject(SpawnManager.SharedInstance.allyUnits.allyTank, spawnPosition, spawnRotation);
+			break;
+		case "Ally Multipurpose":
+			UnitClone = SpawnManager.SharedInstance.SpawnObject(SpawnManager.SharedInstance.allyUnits.allyMultipurpose, spawnPosition, spawnRotation);
+			break;
+		case "Ally VIP Vehicle":
+			UnitClone = SpawnManager.SharedInstance.SpawnObject(SpawnManager.SharedInstance.allyUnits.allyVIPVehicle, spawnPosition, spawnRotation);
+			break;
+		case "Ally VIP Vehicle Turret":
+			UnitClone = SpawnManager.SharedInstance.SpawnObject(SpawnManager.SharedInstance.allyUnits.allyVIPVehicleTurret, spawnPosition, spawnRotation);
+			break;
+		case "Ally VIP Vehicle Missile":
+			UnitClone = SpawnManager.SharedInstance.SpawnObject(SpawnManager.SharedInstance.allyUnits.allyVIPVehicleMissile, spawnPosition, spawnRotation);
+			break;
+		case "Enemy Aircraft Easy":
+			UnitClone = SpawnManager.SharedInstance.SpawnObject(SpawnManager.SharedInstance.enemyUnits.enemyAircraftEasy, spawnPosition, spawnRotation);
+			break;
+		case "Enemy Aircraft Medium":
+			UnitClone = SpawnManager.SharedInstance.SpawnObject(SpawnManager.SharedInstance.enemyUnits.enemyAircraftMedium, spawnPosition, spawnRotation);
+			break;
+		case "Enemy Aircraft Hard":
+			UnitClone = SpawnManager.SharedInstance.SpawnObject(SpawnManager.SharedInstance.enemyUnits.enemyAircraftHard, spawnPosition, spawnRotation);
+			break;
+		case "Enemy Defensive Aircraft Easy":
+			UnitClone = SpawnManager.SharedInstance.SpawnObject(SpawnManager.SharedInstance.enemyUnits.enemyDefensiveAircraftEasy, spawnPosition, spawnRotation);
+			break;
+		case "Enemy Defensive Aircraft Medium":
+			UnitClone = SpawnManager.SharedInstance.SpawnObject(SpawnManager.SharedInstance.enemyUnits.enemyDefensiveAircraftMedium, spawnPosition, spawnRotation);
+			break;
+		case "Enemy Defensive Aircraft Hard":
+			UnitClone = SpawnManager.SharedInstance.SpawnObject(SpawnManager.SharedInstance.enemyUnits.enemyDefensiveAircraftHard, spawnPosition, spawnRotation);
+			break;
+		case "Enemy Tank":
+			UnitClone = SpawnManager.SharedInstance.SpawnObject(SpawnManager.SharedInstance.enemyUnits.enemyTank, spawnPosition, spawnRotation);
+			break;
+		case "Enemy Multipurpose":
+			UnitClone = SpawnManager.SharedInstance.SpawnObject(SpawnManager.SharedInstance.enemyUnits.enemyMultipurpose, spawnPosition, spawnRotation);
+			break;
+		case "Enemy VIP Vehicle":
+			UnitClone = SpawnManager.SharedInstance.SpawnObject(SpawnManager.SharedInstance.enemyUnits.enemyVIPVehicle, spawnPosition, spawnRotation);
+			break;
+		case "Enemy VIP Vehicle Turret":
+			UnitClone = SpawnManager.SharedInstance.SpawnObject(SpawnManager.SharedInstance.enemyUnits.enemyVIPVehicleTurret, spawnPosition, spawnRotation);
+			break;
+		case "Enemy VIP Vehicle Missile":
+			UnitClone = SpawnManager.SharedInstance.SpawnObject(SpawnManager.SharedInstance.enemyUnits.enemyVIPVehicleMissile, spawnPosition, spawnRotation);
+			break;
+		case "Enemy Turret":
+			UnitClone = SpawnManager.SharedInstance.SpawnObject(SpawnManager.SharedInstance.enemyUnits.enemyTurret, spawnPosition, spawnRotation);
+			break;
+		case "Enemy Missile Battery":
+			UnitClone = SpawnManager.SharedInstance.SpawnObject(SpawnManager.SharedInstance.enemyUnits.enemyMissileBattery, spawnPosition, spawnRotation);
+			break;
+		default:
+			Debug.LogError("No Correct Unit To Spawn!");
+			return;
+		}
+
+		UnitClone.transform.name = UnitPrefab.name + " " + nextNameNumber;
+		UnitsInScene.Add(UnitClone.transform.name);
 		nextNameNumber++;
 	}
 

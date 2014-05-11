@@ -7,6 +7,7 @@ public class EnemyWeaponManager : GenericWeaponManager
 	
 	void Start()
 	{
+		IsAirUnit = enemyAI.IsAirUnit;
 		StartCoroutine(EnemyTargeting());
 	}
 	

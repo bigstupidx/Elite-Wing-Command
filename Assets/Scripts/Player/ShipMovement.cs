@@ -32,6 +32,10 @@ public class ShipMovement : MonoBehaviour
 	{
 		EasyJoystick.On_JoystickMove += On_JoystickMove;
 		EasyJoystick.On_JoystickDoubleTap += On_JoystickDoubleTap;
+
+		currentVolume = minVolume;
+		Fabric.EventManager.Instance.PostEvent("SFX_Player_Booster", Fabric.EventAction.SetVolume, currentVolume, gameObject);
+		Fabric.EventManager.Instance.PostEvent("SFX_Player_Booster", Fabric.EventAction.PlaySound, gameObject);
 	}
 	
 	void OnDisable()
@@ -68,10 +72,6 @@ public class ShipMovement : MonoBehaviour
 	void Awake()
 	{
 		speedMultiplier = EncryptedPlayerPrefs.GetFloat("Player Speed Multiplier", 1f);
-
-		currentVolume = minVolume;
-		Fabric.EventManager.Instance.PostEvent("SFX_Player_Booster", Fabric.EventAction.SetVolume, currentVolume, gameObject);
-		Fabric.EventManager.Instance.PostEvent("SFX_Player_Booster", Fabric.EventAction.PlaySound, gameObject);
 	}
 
 	void Update()
