@@ -77,7 +77,9 @@ public class PlayerSpawner : MonoBehaviour
 			return;
 		}
 
-		playerClone.transform.name = "Player Aircraft";
+		if (playerClone != null)
+			playerClone.transform.name = "Player Aircraft";
+
 		playerInScene.Add(playerClone.transform.name);
 	}
 

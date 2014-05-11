@@ -1,0 +1,52 @@
+{"frames": {
+
+"SciFi_Fighter_A1-Diffuse Blue.png":
+{
+	"frame": {"x":1030,"y":2,"w":512,"h":512},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":512,"h":512},
+	"sourceSize": {"w":512,"h":512}
+},
+"SciFi_Fighter_A2-Diffuse Blue.png":
+{
+	"frame": {"x":516,"y":516,"w":512,"h":512},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":512,"h":512},
+	"sourceSize": {"w":512,"h":512}
+},
+"SciFi_Fighter_A3-Diffuse Red.png":
+{
+	"frame": {"x":516,"y":2,"w":512,"h":512},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":512,"h":512},
+	"sourceSize": {"w":512,"h":512}
+},
+"SciFi_Fighter_A4-Diffuse Red.png":
+{
+	"frame": {"x":2,"y":516,"w":512,"h":512},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":512,"h":512},
+	"sourceSize": {"w":512,"h":512}
+},
+"SciFi_Fighter_A5-Diffuse Red.png":
+{
+	"frame": {"x":2,"y":2,"w":512,"h":512},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":512,"h":512},
+	"sourceSize": {"w":512,"h":512}
+}},
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker ",
+	"version": "1.0",
+	"image": "AircraftAtlas.png",
+	"format": "RGBA8888",
+	"size": {"w":1544,"h":1030},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:e650ef8f43484c4cf2f9cf930a880580:088db37b604f5ab65f628b74eac86aa3:3699f168fdb79e1d27da92f7e34fe7ee$"
+}
+}

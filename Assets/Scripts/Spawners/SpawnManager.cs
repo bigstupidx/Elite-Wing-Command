@@ -37,11 +37,6 @@ public class SpawnManager : FastSpawnManager
 	{
 		public FastSpawnObject allyAircraft;
 		public FastSpawnObject allyDefensiveAircraft;
-		public FastSpawnObject allyTank;
-		public FastSpawnObject allyMultipurpose;
-		public FastSpawnObject allyVIPVehicle;
-		public FastSpawnObject allyVIPVehicleTurret;
-		public FastSpawnObject allyVIPVehicleMissile;
 	}
 
 	[System.Serializable]
@@ -53,13 +48,6 @@ public class SpawnManager : FastSpawnManager
 		public FastSpawnObject enemyDefensiveAircraftEasy;
 		public FastSpawnObject enemyDefensiveAircraftMedium;
 		public FastSpawnObject enemyDefensiveAircraftHard;
-		public FastSpawnObject enemyTank;
-		public FastSpawnObject enemyMultipurpose;
-		public FastSpawnObject enemyVIPVehicle;
-		public FastSpawnObject enemyVIPVehicleTurret;
-		public FastSpawnObject enemyVIPVehicleMissile;
-		public FastSpawnObject enemyTurret;
-		public FastSpawnObject enemyMissileBattery;
 	}
 
 	public PlayerUnits playerUnits;

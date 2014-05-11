@@ -45,20 +45,35 @@ public class MissionObjectSpawner : ObjectSpawner
 			UnitClone = SpawnManager.SharedInstance.SpawnObject(SpawnManager.SharedInstance.allyUnits.allyDefensiveAircraft, spawnPosition, spawnRotation);
 			break;
 		case "Ally Tank":
-			UnitClone = SpawnManager.SharedInstance.SpawnObject(SpawnManager.SharedInstance.allyUnits.allyTank, spawnPosition, spawnRotation);
-			break;
+			UnitObject = (GameObject)Instantiate(UnitPrefab, spawnPosition, spawnRotation);
+			UnitObject.name = UnitPrefab.name + " " + NextNameNumber;
+			UnitsInScene.Add(UnitObject.name);
+			NextNameNumber++;
+			return;
 		case "Ally Multipurpose":
-			UnitClone = SpawnManager.SharedInstance.SpawnObject(SpawnManager.SharedInstance.allyUnits.allyMultipurpose, spawnPosition, spawnRotation);
-			break;
+			UnitObject = (GameObject)Instantiate(UnitPrefab, spawnPosition, spawnRotation);
+			UnitObject.name = UnitPrefab.name + " " + NextNameNumber;
+			UnitsInScene.Add(UnitObject.name);
+			NextNameNumber++;
+			return;
 		case "Ally VIP Vehicle":
-			UnitClone = SpawnManager.SharedInstance.SpawnObject(SpawnManager.SharedInstance.allyUnits.allyVIPVehicle, spawnPosition, spawnRotation);
-			break;
+			UnitObject = (GameObject)Instantiate(UnitPrefab, spawnPosition, spawnRotation);
+			UnitObject.name = UnitPrefab.name + " " + NextNameNumber;
+			UnitsInScene.Add(UnitObject.name);
+			NextNameNumber++;
+			return;
 		case "Ally VIP Vehicle Turret":
-			UnitClone = SpawnManager.SharedInstance.SpawnObject(SpawnManager.SharedInstance.allyUnits.allyVIPVehicleTurret, spawnPosition, spawnRotation);
-			break;
+			UnitObject = (GameObject)Instantiate(UnitPrefab, spawnPosition, spawnRotation);
+			UnitObject.name = UnitPrefab.name + " " + NextNameNumber;
+			UnitsInScene.Add(UnitObject.name);
+			NextNameNumber++;
+			return;
 		case "Ally VIP Vehicle Missile":
-			UnitClone = SpawnManager.SharedInstance.SpawnObject(SpawnManager.SharedInstance.allyUnits.allyVIPVehicleMissile, spawnPosition, spawnRotation);
-			break;
+			UnitObject = (GameObject)Instantiate(UnitPrefab, spawnPosition, spawnRotation);
+			UnitObject.name = UnitPrefab.name + " " + NextNameNumber;
+			UnitsInScene.Add(UnitObject.name);
+			NextNameNumber++;
+			return;
 		case "Enemy Aircraft Easy":
 			UnitClone = SpawnManager.SharedInstance.SpawnObject(SpawnManager.SharedInstance.enemyUnits.enemyAircraftEasy, spawnPosition, spawnRotation);
 			break;
@@ -78,26 +93,47 @@ public class MissionObjectSpawner : ObjectSpawner
 			UnitClone = SpawnManager.SharedInstance.SpawnObject(SpawnManager.SharedInstance.enemyUnits.enemyDefensiveAircraftHard, spawnPosition, spawnRotation);
 			break;
 		case "Enemy Tank":
-			UnitClone = SpawnManager.SharedInstance.SpawnObject(SpawnManager.SharedInstance.enemyUnits.enemyTank, spawnPosition, spawnRotation);
-			break;
+			UnitObject = (GameObject)Instantiate(UnitPrefab, spawnPosition, spawnRotation);
+			UnitObject.name = UnitPrefab.name + " " + NextNameNumber;
+			UnitsInScene.Add(UnitObject.name);
+			NextNameNumber++;
+			return;
 		case "Enemy Multipurpose":
-			UnitClone = SpawnManager.SharedInstance.SpawnObject(SpawnManager.SharedInstance.enemyUnits.enemyMultipurpose, spawnPosition, spawnRotation);
-			break;
+			UnitObject = (GameObject)Instantiate(UnitPrefab, spawnPosition, spawnRotation);
+			UnitObject.name = UnitPrefab.name + " " + NextNameNumber;
+			UnitsInScene.Add(UnitObject.name);
+			NextNameNumber++;
+			return;
 		case "Enemy VIP Vehicle":
-			UnitClone = SpawnManager.SharedInstance.SpawnObject(SpawnManager.SharedInstance.enemyUnits.enemyVIPVehicle, spawnPosition, spawnRotation);
-			break;
+			UnitObject = (GameObject)Instantiate(UnitPrefab, spawnPosition, spawnRotation);
+			UnitObject.name = UnitPrefab.name + " " + NextNameNumber;
+			UnitsInScene.Add(UnitObject.name);
+			NextNameNumber++;
+			return;
 		case "Enemy VIP Vehicle Turret":
-			UnitClone = SpawnManager.SharedInstance.SpawnObject(SpawnManager.SharedInstance.enemyUnits.enemyVIPVehicleTurret, spawnPosition, spawnRotation);
-			break;
+			UnitObject = (GameObject)Instantiate(UnitPrefab, spawnPosition, spawnRotation);
+			UnitObject.name = UnitPrefab.name + " " + NextNameNumber;
+			UnitsInScene.Add(UnitObject.name);
+			NextNameNumber++;
+			return;
 		case "Enemy VIP Vehicle Missile":
-			UnitClone = SpawnManager.SharedInstance.SpawnObject(SpawnManager.SharedInstance.enemyUnits.enemyVIPVehicleMissile, spawnPosition, spawnRotation);
-			break;
+			UnitObject = (GameObject)Instantiate(UnitPrefab, spawnPosition, spawnRotation);
+			UnitObject.name = UnitPrefab.name + " " + NextNameNumber;
+			UnitsInScene.Add(UnitObject.name);
+			NextNameNumber++;
+			return;
 		case "Enemy Turret":
-			UnitClone = SpawnManager.SharedInstance.SpawnObject(SpawnManager.SharedInstance.enemyUnits.enemyTurret, spawnPosition, spawnRotation);
-			break;
+			UnitObject = (GameObject)Instantiate(UnitPrefab, spawnPosition, spawnRotation);
+			UnitObject.name = UnitPrefab.name + " " + NextNameNumber;
+			UnitsInScene.Add(UnitObject.name);
+			NextNameNumber++;
+			return;
 		case "Enemy Missile Battery":
-			UnitClone = SpawnManager.SharedInstance.SpawnObject(SpawnManager.SharedInstance.enemyUnits.enemyMissileBattery, spawnPosition, spawnRotation);
-			break;
+			UnitObject = (GameObject)Instantiate(UnitPrefab, spawnPosition, spawnRotation);
+			UnitObject.name = UnitPrefab.name + " " + NextNameNumber;
+			UnitsInScene.Add(UnitObject.name);
+			NextNameNumber++;
+			return;
 		default:
 			Debug.LogError("No Correct Unit To Spawn!");
 			return;

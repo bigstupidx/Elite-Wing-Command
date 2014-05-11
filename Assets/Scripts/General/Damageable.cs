@@ -81,11 +81,10 @@ public class Damageable : MonoBehaviour
 				missionManager.MissionObjectivesDestroyed += 1;
 			}
 
-			Destroy(objectIdentifier.transform.gameObject);
-
 			if (ExplosionParticleEffect != null)
 				Instantiate(ExplosionParticleEffect, transform.position, transform.rotation);
 
+			Destroy(objectIdentifier.transform.gameObject);
 			return;
 		case "Ally Aircraft":
 			Spawner = GameObject.Find("Ally Aircraft Spawner");
@@ -95,19 +94,28 @@ public class Damageable : MonoBehaviour
 			break;
 		case "Ally Vehicle":
 			Spawner = GameObject.Find("Ally Tank Spawner");
-			break;
+
+			if (missionManager != null)
+			{
+				MissionObjectSpawner spawnerUnitID = (MissionObjectSpawner)Spawner.GetComponent(typeof(MissionObjectSpawner));
+				spawnerUnitID.RemoveFromList(transform.parent.name);
+			}
+			else
+			{
+				ObjectSpawner spawnerUnitID = (ObjectSpawner)Spawner.GetComponent(typeof(ObjectSpawner));
+				spawnerUnitID.RemoveFromList(transform.parent.name);
+			}
+
+			if (ExplosionParticleEffect != null)
+				Instantiate(ExplosionParticleEffect, transform.position, transform.rotation);
+			
+			Destroy(objectIdentifier.transform.gameObject);
+			return;
 		case "Ally Turret":
 			if (ExplosionParticleEffect != null)
 				Instantiate(ExplosionParticleEffect, transform.position, transform.rotation);
 
-			if (missionManager == null)
-			{
-				ThisSpawnObject = transform.parent.GetComponentInChildren<FastSpawnObject>();
-				SpawnManager.SharedInstance.UnspawnObject(ThisSpawnObject);
-			}
-			else
-				Destroy(objectIdentifier.transform.gameObject);
-
+			Destroy(objectIdentifier.transform.gameObject);
 			return;
 		case "Enemy Objective":
 			if (missionManager != null)
@@ -116,11 +124,10 @@ public class Damageable : MonoBehaviour
 				missionManager.MissionObjectivesRemaining -= 1;
 			}
 
-			Destroy(objectIdentifier.transform.gameObject);
-
 			if (ExplosionParticleEffect != null)
 				Instantiate(ExplosionParticleEffect, transform.position, transform.rotation);
 
+			Destroy(objectIdentifier.transform.gameObject);
 			return;
 		case "Enemy Aircraft Easy":
 			Spawner = GameObject.Find("Enemy Aircraft Easy Spawner");
@@ -184,7 +191,22 @@ public class Damageable : MonoBehaviour
 			else
 				arcadeStatHolder.EnemyGroundDestroyed += 5;
 
-			break;
+			if (missionManager != null)
+			{
+				MissionObjectSpawner spawnerUnitID = (MissionObjectSpawner)Spawner.GetComponent(typeof(MissionObjectSpawner));
+				spawnerUnitID.RemoveFromList(transform.parent.name);
+			}
+			else
+			{
+				ObjectSpawner spawnerUnitID = (ObjectSpawner)Spawner.GetComponent(typeof(ObjectSpawner));
+				spawnerUnitID.RemoveFromList(transform.parent.name);
+			}
+
+			if (ExplosionParticleEffect != null)
+				Instantiate(ExplosionParticleEffect, transform.position, transform.rotation);
+
+			Destroy(objectIdentifier.transform.gameObject);
+			return;
 		case "Enemy Turret":
 			if (missionManager == null)
 			{
@@ -205,14 +227,7 @@ public class Damageable : MonoBehaviour
 			if (ExplosionParticleEffect != null)
 				Instantiate(ExplosionParticleEffect, transform.position, transform.rotation);
 
-			if (missionManager == null)
-			{
-				ThisSpawnObject = transform.parent.GetComponentInChildren<FastSpawnObject>();
-				SpawnManager.SharedInstance.UnspawnObject(ThisSpawnObject);
-			}
-			else
-				Destroy(objectIdentifier.transform.gameObject);
-
+			Destroy(objectIdentifier.transform.gameObject);
 			return;
 		default:
 			Debug.LogError("No Case Switch Defined: " + transform.parent.name);
