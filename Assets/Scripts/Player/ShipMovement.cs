@@ -30,6 +30,9 @@ public class ShipMovement : MonoBehaviour
 
 	void OnEnable()
 	{
+		rigidbody.velocity = Vector3.zero;
+		rigidbody.angularVelocity = Vector3.zero;
+
 		EasyJoystick.On_JoystickMove += On_JoystickMove;
 		EasyJoystick.On_JoystickDoubleTap += On_JoystickDoubleTap;
 

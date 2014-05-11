@@ -84,6 +84,8 @@ public class PlayerDamageable : Damageable
 		Fabric.EventManager.Instance.PostEvent("SFX_Player_Booster", Fabric.EventAction.StopSound, transform.parent.gameObject);
 		WeaponManager weaponManager = transform.parent.GetComponentInChildren<WeaponManager>();
 		weaponManager.StopWeapon();
+
+		mapIcon.SetVisibility(false);
 		ThisSpawnObject = transform.parent.GetComponentInChildren<FastSpawnObject>();
 		SpawnManager.SharedInstance.UnspawnObject(ThisSpawnObject);
 	}

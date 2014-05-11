@@ -3,16 +3,10 @@ using System.Collections;
 
 public class MinimapIconEnabler : MonoBehaviour
 {
-	[SerializeField] GameObject mapIcon;
+	[SerializeField] KGFMapIcon mapIcon;
 
-	void Start()
+	void OnEnable()
 	{
-		StartCoroutine(WaitAndEnable());
-	}
-
-	IEnumerator WaitAndEnable()
-	{
-		yield return new WaitForSeconds(0.2f);
-		mapIcon.SetActive(true);
+		mapIcon.SetVisibility(true);
 	}
 }

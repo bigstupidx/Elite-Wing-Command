@@ -3,6 +3,7 @@ using System.Collections;
 
 public class Damageable : MonoBehaviour
 {
+	public KGFMapIcon mapIcon;
 	[SerializeField] float initialHealth;
 	[SerializeField] ObjectIdentifier objectIdentifier;
 	[SerializeField] GameObject explosionParticleEffect;
@@ -12,7 +13,6 @@ public class Damageable : MonoBehaviour
 	GameObject spawner;
 	Vector3 correctedPos;
 	FastSpawnObject thisSpawnObject;
-	KGFMapIcon mapIcon;
 	public MissionManager MissionManagerScript { get { return missionManager; } set { missionManager = value; }}
 	public float InitialHealth { get { return initialHealth; } set { initialHealth = value; }}
 	public ObjectIdentifier ObjectIdentifierScript { get { return objectIdentifier; }}
@@ -234,9 +234,9 @@ public class Damageable : MonoBehaviour
 			Instantiate(ExplosionParticleEffect, transform.position, transform.rotation);
 
 		//Destroy(objectIdentifier.transform.gameObject);
-		Fabric.EventManager.Instance.PostEvent("SFX_Aircraft_Fire", Fabric.EventAction.StopSound, transform.parent.gameObject);
-		Fabric.EventManager.Instance.PostEvent("SFX_Vehicle_Fire", Fabric.EventAction.StopSound, transform.parent.gameObject);
-		Fabric.EventManager.Instance.PostEvent("SFX_Vehicle_Movement", Fabric.EventAction.StopSound, transform.parent.gameObject);
+		Fabric.EventManager.Instance.PostEvent("SFX_Aircraft_Fire", Fabric.EventAction.StopSound, transform.root.gameObject);
+		Fabric.EventManager.Instance.PostEvent("SFX_Vehicle_Fire", Fabric.EventAction.StopSound, transform.root.gameObject);
+		Fabric.EventManager.Instance.PostEvent("SFX_Vehicle_Movement", Fabric.EventAction.StopSound, transform.root.gameObject);
 		AllyWeaponManager allyWeaponManager = transform.parent.GetComponentInChildren<AllyWeaponManager>();
 		EnemyWeaponManager enemyWeaponManager = transform.parent.GetComponentInChildren<EnemyWeaponManager>();
 
@@ -245,6 +245,7 @@ public class Damageable : MonoBehaviour
 		else if (enemyWeaponManager != null)
 			enemyWeaponManager.StopWeapon();
 
+		mapIcon.SetVisibility(false);
 		ThisSpawnObject = transform.parent.GetComponentInChildren<FastSpawnObject>();
 		SpawnManager.SharedInstance.UnspawnObject(ThisSpawnObject);
 	}

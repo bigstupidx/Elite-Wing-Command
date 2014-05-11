@@ -43,6 +43,9 @@ public class GenericAircraftMovement : MonoBehaviour
 
 	void Start()
 	{
+		rigidbody.velocity = Vector3.zero;
+		rigidbody.angularVelocity = Vector3.zero;
+
 		float forceRandomizer = Random.Range(0.9f, 1.1f);
 		randomEngineForce = engineForce * forceRandomizer;
 		RandomPosition = new Vector3(0f, 0f, 0f);
