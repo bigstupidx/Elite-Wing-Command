@@ -11,6 +11,18 @@ public class Damageable : MonoBehaviour
 	MissionManager missionManager;
 	ArcadeStatHolder arcadeStatHolder;
 	GameObject spawner;
+	GameObject allyAircraftSpawner;
+	GameObject allyDefensiveAircraftSpawner;
+	GameObject allyTankSpawner;
+	GameObject enemyAircraftEasySpawner;
+	GameObject enemyDefensiveAircraftEasySpawner;
+	GameObject enemyAircraftMediumSpawner;
+	GameObject enemyDefensiveAircraftMediumSpawner;
+	GameObject enemyAircraftHardSpawner;
+	GameObject enemyDefensiveAircraftHardSpawner;
+	GameObject enemyTankSpawner;
+	GameObject enemyTurretSpawner;
+	GameObject enemyMissileBatterySpawner;
 	Vector3 correctedPos;
 	FastSpawnObject thisSpawnObject;
 	public MissionManager MissionManagerScript { get { return missionManager; } set { missionManager = value; }}
@@ -33,9 +45,8 @@ public class Damageable : MonoBehaviour
 //		mapIcon.itsDataMapIcon.itsIsVisible = false;
 //	}
 
-	public virtual void OnEnable()
+	public virtual void Start()
 	{
-		Health = InitialHealth;
 		var MissionManagerObject = GameObject.FindGameObjectWithTag("MissionManager");
 		
 		if (MissionManagerObject != null)
@@ -45,6 +56,28 @@ public class Damageable : MonoBehaviour
 		
 		if (ArcadeStatHolderObject != null)
 			arcadeStatHolder = ArcadeStatHolderObject.GetComponent<ArcadeStatHolder>();
+
+		allyAircraftSpawner = GameObject.Find("Ally Aircraft Spawner");
+		allyDefensiveAircraftSpawner = GameObject.Find("Ally Defensive Aircraft Spawner");
+		allyTankSpawner = GameObject.Find("Ally Tank Spawner");
+
+		enemyAircraftEasySpawner = GameObject.Find("Enemy Aircraft Easy Spawner");
+		enemyDefensiveAircraftEasySpawner = GameObject.Find("Enemy Defensive Aircraft Easy Spawner");
+		enemyAircraftMediumSpawner = GameObject.Find("Enemy Aircraft Medium Spawner");
+		enemyDefensiveAircraftMediumSpawner = GameObject.Find("Enemy Defensive Aircraft Medium Spawner");
+		enemyAircraftHardSpawner = GameObject.Find("Enemy Aircraft Hard Spawner");
+		enemyDefensiveAircraftHardSpawner = GameObject.Find("Enemy Defensive Aircraft Hard Spawner");
+		enemyTankSpawner = GameObject.Find("Enemy Tank Spawner");
+
+		if (missileBattery)
+			enemyMissileBatterySpawner = GameObject.Find("Enemy Missile Battery Spawner");
+		else
+			enemyTurretSpawner = GameObject.Find("Enemy Turret Spawner");
+	}
+
+	public virtual void OnEnable()
+	{
+		Health = InitialHealth;
 	}
 
 	public void AddHealth(float amount)
@@ -87,13 +120,13 @@ public class Damageable : MonoBehaviour
 			Destroy(objectIdentifier.transform.gameObject);
 			return;
 		case "Ally Aircraft":
-			Spawner = GameObject.Find("Ally Aircraft Spawner");
+			Spawner = allyAircraftSpawner;
 			break;
 		case "Ally Defensive Aircraft":
-			Spawner = GameObject.Find("Ally Defensive Aircraft Spawner");
+			Spawner = allyDefensiveAircraftSpawner;
 			break;
 		case "Ally Vehicle":
-			Spawner = GameObject.Find("Ally Tank Spawner");
+			Spawner = allyTankSpawner;
 
 			if (missionManager != null)
 			{
@@ -130,7 +163,7 @@ public class Damageable : MonoBehaviour
 			Destroy(objectIdentifier.transform.gameObject);
 			return;
 		case "Enemy Aircraft Easy":
-			Spawner = GameObject.Find("Enemy Aircraft Easy Spawner");
+			Spawner = enemyAircraftEasySpawner;
 
 			if (missionManager != null)
 				missionManager.EnemyAirDestroyed += 1;
@@ -139,7 +172,7 @@ public class Damageable : MonoBehaviour
 
 			break;
 		case "Enemy Defensive Aircraft Easy":
-			Spawner = GameObject.Find("Enemy Defensive Aircraft Easy Spawner");
+			Spawner = enemyDefensiveAircraftEasySpawner;
 
 			if (missionManager != null)
 				missionManager.EnemyAirDestroyed += 1;
@@ -148,7 +181,7 @@ public class Damageable : MonoBehaviour
 
 			break;
 		case "Enemy Aircraft Medium":
-			Spawner = GameObject.Find("Enemy Aircraft Medium Spawner");
+			Spawner = enemyAircraftMediumSpawner;
 
 			if (missionManager != null)
 				missionManager.EnemyAirDestroyed += 1;
@@ -157,7 +190,7 @@ public class Damageable : MonoBehaviour
 
 			break;
 		case "Enemy Defensive Aircraft Medium":
-			Spawner = GameObject.Find("Enemy Defensive Aircraft Medium Spawner");
+			Spawner = enemyDefensiveAircraftMediumSpawner;
 
 			if (missionManager != null)
 				missionManager.EnemyAirDestroyed += 1;
@@ -166,7 +199,7 @@ public class Damageable : MonoBehaviour
 
 			break;
 		case "Enemy Aircraft Hard":
-			Spawner = GameObject.Find("Enemy Aircraft Hard Spawner");
+			Spawner = enemyAircraftHardSpawner;
 
 			if (missionManager != null)
 				missionManager.EnemyAirDestroyed += 1;
@@ -175,7 +208,7 @@ public class Damageable : MonoBehaviour
 
 			break;
 		case "Enemy Defensive Aircraft Hard":
-			Spawner = GameObject.Find("Enemy Defensive Aircraft Hard Spawner");
+			Spawner = enemyDefensiveAircraftHardSpawner;
 
 			if (missionManager != null)
 				missionManager.EnemyAirDestroyed += 1;
@@ -184,7 +217,7 @@ public class Damageable : MonoBehaviour
 
 			break;
 		case "Enemy Vehicle":
-			Spawner = GameObject.Find("Enemy Tank Spawner");
+			Spawner = enemyTankSpawner;
 
 			if (missionManager != null)
 				missionManager.EnemyGroundDestroyed += 1;
@@ -211,9 +244,9 @@ public class Damageable : MonoBehaviour
 			if (missionManager == null)
 			{
 				if (missileBattery)
-					Spawner = GameObject.Find("Enemy Missile Battery Spawner");
+					Spawner = enemyMissileBatterySpawner;
 				else
-					Spawner = GameObject.Find("Enemy Turret Spawner");
+					Spawner = enemyTurretSpawner;
 
 				ObjectSpawner spawnerUnitID = (ObjectSpawner)Spawner.GetComponent(typeof(ObjectSpawner));
 				spawnerUnitID.RemoveFromList(transform.parent.name);

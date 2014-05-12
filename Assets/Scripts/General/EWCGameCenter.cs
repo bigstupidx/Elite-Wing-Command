@@ -10,12 +10,13 @@ public class EWCGameCenter : MonoBehaviour {
 	static ILeaderboard m_Leaderboard;
 	public string leaderboardName = "Arcade Mode High Score";
 	public string leaderboardID = "arcade_high_score";
+	GameObject newRecordObject;
 	
 // THIS MAKES SURE THE GAME CENTER INTEGRATION WILL ONLY WORK WHEN OPERATING ON AN APPLE IOS DEVICE (iPHONE, iPOD TOUCH, iPAD)
 //#if UNITY_IPHONE
 	
 	// Use this for initialization
-	void Start ()
+	void Start()
 	{
 		// AUTHENTICATE AND REGISTER A ProcessAuthentication CALLBACK
 		// THIS CALL NEEDS OT BE MADE BEFORE WE CAN PROCEED TO OTHER CALLS IN THE Social API
@@ -23,6 +24,8 @@ public class EWCGameCenter : MonoBehaviour {
 		
 		// GET INSTANCE OF LEADERBOARD
 		DoLeaderboard();
+
+		newRecordObject = GameObject.FindGameObjectWithTag("NewRecord");
 	}
 
 	void Update()
@@ -39,7 +42,6 @@ public class EWCGameCenter : MonoBehaviour {
 	public void StoreAndSubmitScore(int sessionScore)
 	{
 		int arcadeHighScore = EncryptedPlayerPrefs.GetInt("Arcade High Score", 0);
-		var newRecordObject = GameObject.FindGameObjectWithTag("NewRecord");
 
 		if (sessionScore > arcadeHighScore)
 		{

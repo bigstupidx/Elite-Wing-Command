@@ -8,10 +8,8 @@ public class PlayerDamageable : Damageable
 	UISlider healthSlider;
 	float previousHealth;
 
-	public override void OnEnable()
+	public override void Start()
 	{
-		InitialHealth *= EncryptedPlayerPrefs.GetFloat("Player Health Multiplier", 1f);
-		Health = InitialHealth;
 		var missionManagerObject = GameObject.FindGameObjectWithTag("MissionManager");
 		healthSliderObject = GameObject.FindGameObjectWithTag("HealthSlider");
 
@@ -45,6 +43,12 @@ public class PlayerDamageable : Damageable
 
 		if (Application.loadedLevel == 3)
 			healthMultiplierModifier = 1000f;
+	}
+
+	public override void OnEnable()
+	{
+		InitialHealth *= EncryptedPlayerPrefs.GetFloat("Player Health Multiplier", 1f);
+		Health = InitialHealth;
 	}
 
 	void FixedUpdate()

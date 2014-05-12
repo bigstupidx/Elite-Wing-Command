@@ -9,6 +9,7 @@ public class TotalScore : MonoBehaviour
 
 	void Start ()
 	{
+		Screen.showCursor = true;
 		StartCoroutine(SetTotalScore());
 	}
 

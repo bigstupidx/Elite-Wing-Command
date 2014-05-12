@@ -25,13 +25,9 @@ public class EnemyAircraftMovement : GenericAircraftMovement
 	{
 		if (MissionManagerScript != null)
 		{
-			GameObject[] enemyUnits = GameObject.FindGameObjectsWithTag("Enemy");
-
 			if (defensiveAircraft && MissionManagerScript.AllyObjectivesList != null && MissionManagerScript.AllyObjectivesList.Count != 0)
 			{
-				GameObject[] allyAirObjectives = GameObject.FindGameObjectsWithTag("AllyAirObjective");
-				GameObject[] allyGroundObjectives = GameObject.FindGameObjectsWithTag("AllyGroundObjective");
-				GameObject[] allyObjectives = allyAirObjectives.Concat(allyGroundObjectives).ToArray();
+				GameObject[] allyObjectives = MissionManagerScript.AllyObjectivesList.ToArray();
 				
 				if (allyObjectives.Length > 0)
 				{
@@ -43,39 +39,13 @@ public class EnemyAircraftMovement : GenericAircraftMovement
 			}
 			else if (MissionManagerScript.EnemyObjectivesList != null && MissionManagerScript.EnemyObjectivesList.Count != 0)
 			{
-				GameObject[] enemyAirObjectives = GameObject.FindGameObjectsWithTag("EnemyAirObjective");
-				GameObject[] enemyGroundObjectives = GameObject.FindGameObjectsWithTag("EnemyGroundObjective");
-				GameObject[] enemyObjectives = enemyAirObjectives.Concat(enemyGroundObjectives).ToArray();
+				GameObject[] enemyObjectives = MissionManagerScript.EnemyObjectivesList.ToArray();
 				
 				if (enemyObjectives.Length > 0)
 				{
 					GameObject targetObject = enemyObjectives[Random.Range(0, enemyObjectives.Length)];
 					TargetPosition = new Vector3(targetObject.transform.position.x, 0, targetObject.transform.position.z);
 					return;
-				}
-				else if (enemyUnits.Length != 0)
-				{
-					closestEnemyDistance = 100f;
-					
-					foreach (GameObject enemy in enemyUnits)
-					{
-						ObjectIdentifier objectID = enemy.transform.GetComponent<ObjectIdentifier>();
-						Vector2 enemyXZPosition = new Vector2(enemy.transform.position.x, enemy.transform.position.z);
-						Vector2 unitXZPosition = new Vector2(transform.position.x, transform.position.z);
-						float distance = Vector2.Distance(enemyXZPosition, unitXZPosition);
-						
-						if (objectID != null && objectID.ObjectType == "Enemy Vehicle" && distance < closestEnemyDistance)
-						{
-							closestEnemyDistance = distance;
-							closestEnemyVehicle = enemy;
-						}
-					}
-					
-					if (closestEnemyVehicle != null)
-					{
-						TargetPosition = new Vector2(Random.Range(closestEnemyVehicle.transform.position.x - EscortPerimeter, closestEnemyVehicle.transform.position.x + EscortPerimeter), 
-						                             Random.Range(closestEnemyVehicle.transform.position.z - EscortPerimeter, closestEnemyVehicle.transform.position.z + EscortPerimeter));
-					}
 				}
 			}
 		}

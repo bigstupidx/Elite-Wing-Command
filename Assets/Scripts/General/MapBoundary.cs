@@ -6,6 +6,7 @@ public class MapBoundary : MonoBehaviour
 	[SerializeField] float countdownTimerValue = 4.0f;
 	[SerializeField] GameObject countdownPanel;
 	[SerializeField] UILabel timerLabel;
+	GameObject playerAircraft;
 	PlayerDamageable playerDamageable;
 	float countdownTimer;
 	bool runTimer = false;
@@ -51,11 +52,13 @@ public class MapBoundary : MonoBehaviour
 		if (countdownTimer <= 0f)
 		{
 			timerLabel.text = "0.00";
-			GameObject[] allyUnits = GameObject.FindGameObjectsWithTag("Ally");
 
-			foreach (GameObject ally in allyUnits)
+			if (playerAircraft == null)
+				playerAircraft = GameObject.Find("Player Aircraft");
+
+			if (playerAircraft != null)
 			{
-				PlayerDamageable playerDamageable = ally.GetComponentInChildren<PlayerDamageable>();
+				PlayerDamageable playerDamageable = playerAircraft.GetComponentInChildren<PlayerDamageable>();
 
 				if (playerDamageable != null && Application.loadedLevel == 3)
 				{

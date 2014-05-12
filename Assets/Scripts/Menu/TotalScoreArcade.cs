@@ -9,6 +9,7 @@ public class TotalScoreArcade : MonoBehaviour
 
 	void Start ()
 	{
+		Screen.showCursor = true;
 		StartCoroutine(SetTotalScore());
 	}
 

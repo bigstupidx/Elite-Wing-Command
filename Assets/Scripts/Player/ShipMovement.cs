@@ -35,10 +35,12 @@ public class ShipMovement : MonoBehaviour
 
 		EasyJoystick.On_JoystickMove += On_JoystickMove;
 		EasyJoystick.On_JoystickDoubleTap += On_JoystickDoubleTap;
-		StartCoroutine(BoosterStart());
+
+		canBoost = true;
+		StartCoroutine(BoosterAudioStart());
 	}
 
-	IEnumerator BoosterStart()
+	IEnumerator BoosterAudioStart()
 	{
 		yield return new WaitForSeconds(0.1f);
 		currentVolume = minVolume;

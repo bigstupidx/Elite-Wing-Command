@@ -18,7 +18,7 @@ public class VIPVehicleMovement : MonoBehaviour
 		navMeshAgent = GetComponent<NavMeshAgent>();
 
 		StartCoroutine(WaitAndSetNav());
-		StartCoroutine(SetNavMeshTarget());
+		StartCoroutine(CheckNavMeshDistance());
 	}
 
 	IEnumerator WaitAndSetNav()
@@ -37,18 +37,11 @@ public class VIPVehicleMovement : MonoBehaviour
 			Debug.Log("No Travel End Point");
 	}
 
-	IEnumerator SetNavMeshTarget()
+	IEnumerator CheckNavMeshDistance()
 	{
 		yield return new WaitForSeconds(2.0f);
 		while (true)
 		{
-			if (travelEndObject != null)
-			{
-				navMeshAgent.SetDestination(travelEndPoint.position);
-			}
-			else
-				Debug.Log("No Travel End Point");
-
 			targetXZPosition = new Vector2(travelEndPoint.position.x, travelEndPoint.position.z);
 			unitXZPosition = new Vector2(transform.position.x, transform.position.z);
 			targetDistance = Vector2.Distance(targetXZPosition, unitXZPosition);
@@ -56,7 +49,7 @@ public class VIPVehicleMovement : MonoBehaviour
 			if (targetDistance <= targetReachedDistance)
 				missionManager.VIPDestinationReached = true;
 
-			yield return new WaitForSeconds(Random.Range(0.75f, 1f));
+			yield return new WaitForSeconds(1f);
 		}
 	}
 }

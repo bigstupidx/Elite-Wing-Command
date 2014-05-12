@@ -164,6 +164,12 @@ public class ObjectSpawner : MonoBehaviour
 			UnitsInScene.Add(UnitObject.name);
 			NextNameNumber++;
 			return;
+		case "Enemy Defensive Multipurpose":
+			UnitObject = (GameObject)Instantiate(UnitPrefab, spawnPosition, spawnRotation);
+			UnitObject.name = UnitPrefab.name + " " + NextNameNumber;
+			UnitsInScene.Add(UnitObject.name);
+			NextNameNumber++;
+			return;
 		case "Enemy VIP Vehicle":
 			UnitObject = (GameObject)Instantiate(UnitPrefab, spawnPosition, spawnRotation);
 			UnitObject.name = UnitPrefab.name + " " + NextNameNumber;
