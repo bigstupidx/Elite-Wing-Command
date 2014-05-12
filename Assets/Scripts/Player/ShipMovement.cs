@@ -35,7 +35,12 @@ public class ShipMovement : MonoBehaviour
 
 		EasyJoystick.On_JoystickMove += On_JoystickMove;
 		EasyJoystick.On_JoystickDoubleTap += On_JoystickDoubleTap;
+		StartCoroutine(BoosterStart());
+	}
 
+	IEnumerator BoosterStart()
+	{
+		yield return new WaitForSeconds(0.1f);
 		currentVolume = minVolume;
 		Fabric.EventManager.Instance.PostEvent("SFX_Player_Booster", Fabric.EventAction.SetVolume, currentVolume, gameObject);
 		Fabric.EventManager.Instance.PostEvent("SFX_Player_Booster", Fabric.EventAction.PlaySound, gameObject);
