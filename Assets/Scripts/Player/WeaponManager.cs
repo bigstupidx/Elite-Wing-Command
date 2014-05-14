@@ -11,6 +11,7 @@ public class WeaponManager : MonoBehaviour
 
 	void OnEnable()
 	{
+		StopWeapon();
 		EasyButton.On_ButtonDown += On_ButtonDown;
 		EasyButton.On_ButtonUp += On_ButtonUp;
 	}

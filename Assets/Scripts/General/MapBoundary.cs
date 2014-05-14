@@ -66,7 +66,7 @@ public class MapBoundary : MonoBehaviour
 					playerDamageable.transform.parent.position = tempPosition;
 				}
 				else if (playerDamageable != null)
-					playerDamageable.ApplyDamage(100f);
+					playerDamageable.ApplyDamage(1000000f);
 
 				runTimer = false;
 				countdownTimer = countdownTimerValue;
