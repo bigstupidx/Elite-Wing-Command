@@ -137,89 +137,72 @@ public class MissionManager : MonoBehaviour
 				if (AllyObjectivesList != null)
 				{
 					if (playerSpawner.GameOver)
-					{
-						missionFailedScreen.SetActive(true);
-						StartCoroutine(WaitAndPause());
-						gameOver = true;
-					}
+						MissionComplete(false);
 					else if (AllyObjectivesList.Count == 0)
-					{
-						missionCompleteScreen.SetActive(true);
-						StartCoroutine(WaitAndPause());
-						gameOver = true;
-					}
+						MissionComplete(true);
 				}
 				break;
 			case "Prevent_Enemy_Objectives":
 				if (EnemyObjectivesList != null)
 				{
 					if (EnemyObjectivesList.Count == 0 || playerSpawner.GameOver)
-					{
-						missionFailedScreen.SetActive(true);
-						StartCoroutine(WaitAndPause());
-						gameOver = true;
-					}
+						MissionComplete(false);
 					else if (timerComplete)
-					{
-						missionCompleteScreen.SetActive(true);
-						StartCoroutine(WaitAndPause());
-						gameOver = true;
-					}
+						MissionComplete(true);
 				}
+
 				break;
 			case "Complete_and_Prevent":
 				if (AllyObjectivesList != null && EnemyObjectivesList != null)
 				{
 					if (EnemyObjectivesList.Count == 0 || playerSpawner.GameOver)
-					{
-						missionFailedScreen.SetActive(true);
-						StartCoroutine(WaitAndPause());
-						gameOver = true;
-					}
+						MissionComplete(false);
 					else if (AllyObjectivesList.Count == 0)
-					{
-						missionCompleteScreen.SetActive(true);
-						StartCoroutine(WaitAndPause());
-						gameOver = true;
-					}
+						MissionComplete(true);
 				}
+
 				break;
 			case "Destroy_VIP":
 				if (!firstVIPSpawned)
 					return;
 
 				if (VIPDestinationReached || playerSpawner.GameOver)
-				{
-					missionFailedScreen.SetActive(true);
-					StartCoroutine(WaitAndPause());
-					gameOver = true;
-				}
+					MissionComplete(false);
 				else if (AllyObjectivesList.Count == 0)
-				{
-					missionCompleteScreen.SetActive(true);
-					StartCoroutine(WaitAndPause());
-					gameOver = true;
-				}
+					MissionComplete(true);
+
 				break;
 			case "Protect_VIP":
 				if (!firstVIPSpawned)
 					return;
 
 				if (EnemyObjectivesList.Count == 0 || playerSpawner.GameOver)
-				{
-					missionFailedScreen.SetActive(true);
-					StartCoroutine(WaitAndPause());
-					gameOver = true;
-				}
+					MissionComplete(false);
 				else if (VIPDestinationReached)
-				{
-					missionCompleteScreen.SetActive(true);
-					StartCoroutine(WaitAndPause());
-					gameOver = true;
-				}
+					MissionComplete(true);
+
 				break;
 			}
 		}
+	}
+
+	void MissionComplete(bool missionSuccessful)
+	{
+		if (missionSuccessful)
+			missionCompleteScreen.SetActive(true);
+		else
+			missionFailedScreen.SetActive(true);
+
+		GameObject playerAircraft = GameObject.Find("Player Aircraft");
+
+		if (playerAircraft != null)
+		{
+			WeaponManager weaponManager = playerAircraft.GetComponentInChildren<WeaponManager>();
+			weaponManager.StopWeapon();
+		}
+
+		StartCoroutine(WaitAndPause());
+		gameOver = true;
 	}
 
 	IEnumerator BaseAttack()

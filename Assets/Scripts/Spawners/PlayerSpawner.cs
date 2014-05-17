@@ -103,6 +103,14 @@ public class PlayerSpawner : MonoBehaviour
 			if (missionManager == null)
 			{
 				arcadeSessionCompleteScreen.SetActive(true);
+				GameObject playerAircraft = GameObject.Find("Player Aircraft");
+				
+				if (playerAircraft != null)
+				{
+					WeaponManager weaponManager = playerAircraft.GetComponentInChildren<WeaponManager>();
+					weaponManager.StopWeapon();
+				}
+
 				StartCoroutine(WaitAndPause());
 			}
 		}
@@ -118,6 +126,14 @@ public class PlayerSpawner : MonoBehaviour
 		if (missionManager == null)
 		{
 			arcadeSessionCompleteScreen.SetActive(true);
+			GameObject playerAircraft = GameObject.Find("Player Aircraft");
+			
+			if (playerAircraft != null)
+			{
+				WeaponManager weaponManager = playerAircraft.GetComponentInChildren<WeaponManager>();
+				weaponManager.StopWeapon();
+			}
+
 			StartCoroutine(WaitAndPause());
 		}
 	}
