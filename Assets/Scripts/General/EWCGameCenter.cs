@@ -8,8 +8,17 @@ public class EWCGameCenter : MonoBehaviour {
 	
 	// THE LEADERBOARD INSTANCE
 	static ILeaderboard m_Leaderboard;
+
 	public string leaderboardName = "Arcade Mode High Score";
 	public string leaderboardID = "arcade_high_score";
+
+	public string achievement1Name = "complete_arcade_mode_round";
+	public string achievement2Name = "complete_first_mission";
+	public string achievement3Name = "purchase_an_upgrade";
+	public string achievement4Name = "destroy_5000_air_units";
+	public string achievement5Name = "destroy_1000_ground_units";
+	public string achievement6Name = "complete_all_campaign_missions";
+
 	GameObject newRecordObject;
 	
 // THIS MAKES SURE THE GAME CENTER INTEGRATION WILL ONLY WORK WHEN OPERATING ON AN APPLE IOS DEVICE (iPHONE, iPOD TOUCH, iPAD)
@@ -37,6 +46,11 @@ public class EWCGameCenter : MonoBehaviour {
 			Debug.Log(EncryptedPlayerPrefs.GetInt("Arcade High Score"));
 			PlayerPrefs.Save();
 		}
+	}
+
+	public void SubmitAchievement(string achievementID, double progress)
+	{
+		ReportAchievement(achievementID, progress);
 	}
 	
 	public void StoreAndSubmitScore(int sessionScore)
@@ -93,6 +107,18 @@ public class EWCGameCenter : MonoBehaviour {
 			Application.LoadLevel(1);
 		}
     }
+	
+	///////////////////////////////////////////////////
+	// GAME CENTER ACHIEVEMENT INTEGRATION
+	///////////////////////////////////////////////////
+	
+	void ReportAchievement(string achievementId, double progress)
+	{
+		Social.ReportProgress(achievementId, progress, (result) => {
+			Debug.Log(result ? string.Format("Successfully reported achievement {0}", achievementId) 
+			          : string.Format("Failed to report achievement {0}", achievementId));
+		});
+	}
 
 	#region Game Center Integration
 	///////////////////////////////////////////////////

@@ -14,7 +14,6 @@ public class GameCenter : MonoBehaviour {
 	public string leaderboardID = "com.companyname.gamename.leaderboardname";
 	
 	public string achievement1Name = "com.companyname.gamename.achievementname1";
-	
 	public string achievement2Name = "com.companyname.gamename.achievementname2";
 	public string achievement3Name = "com.companyname.gamename.achievementname3";
 	public string achievement4Name = "com.companyname.gamename.achievementname4";

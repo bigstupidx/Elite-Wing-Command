@@ -26,8 +26,17 @@ public class TotalScoreArcade : MonoBehaviour
 
 		if (gameCenterObject != null)
 		{
+			PlayerPrefs.Save();
 			EWCGameCenter gameCenterScript = gameCenterObject.GetComponent<EWCGameCenter>();
+
 			gameCenterScript.StoreAndSubmitScore(totalScore);
+			gameCenterScript.SubmitAchievement("complete_arcade_mode_round", 100f);
+
+			float totalAirUnitsDestroyed = EncryptedPlayerPrefs.GetFloat("Total Air Units Destroyed", 0f);
+			gameCenterScript.SubmitAchievement("destroy_5000_air_units", totalAirUnitsDestroyed/5000f);
+
+			float totalGroundUnitsDestroyed = EncryptedPlayerPrefs.GetFloat("Total Ground Units Destroyed", 0f);
+			gameCenterScript.SubmitAchievement("destroy_1000_ground_units", totalGroundUnitsDestroyed/1000f);
 		}
 	}
 }

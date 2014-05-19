@@ -60,6 +60,15 @@ public class UpgradeAllyAirSpeed : MonoBehaviour
 
 	void UpgradeSpeed()
 	{
+		var gameCenterObject = GameObject.FindGameObjectWithTag("GameCenter");
+		
+		if (gameCenterObject != null)
+		{
+			PlayerPrefs.Save();
+			EWCGameCenter gameCenterScript = gameCenterObject.GetComponent<EWCGameCenter>();
+			gameCenterScript.SubmitAchievement("purchase_an_upgrade", 100f);
+		}
+
 		float currentRP = EncryptedPlayerPrefs.GetFloat("Reward Points", 0);
 		float newRP = currentRP - upgradesContainer.AllyAirSpeedUpgradeCost;
 		EncryptedPlayerPrefs.SetFloat("Reward Points", newRP);

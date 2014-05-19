@@ -20,5 +20,19 @@ public class TotalScore : MonoBehaviour
 		EncryptedPlayerPrefs.SetFloat("Reward Points", EncryptedPlayerPrefs.GetFloat("Reward Points", 0) + totalScore);
 		PlayerPrefs.Save();
 		totalScoreObject.text = totalScore.ToString("N0");
+
+		var gameCenterObject = GameObject.FindGameObjectWithTag("GameCenter");
+		
+		if (gameCenterObject != null)
+		{
+			PlayerPrefs.Save();
+			EWCGameCenter gameCenterScript = gameCenterObject.GetComponent<EWCGameCenter>();
+
+			float totalAirUnitsDestroyed = EncryptedPlayerPrefs.GetFloat("Total Air Units Destroyed", 0f);
+			gameCenterScript.SubmitAchievement("destroy_5000_air_units", totalAirUnitsDestroyed/5000f);
+			
+			float totalGroundUnitsDestroyed = EncryptedPlayerPrefs.GetFloat("Total Ground Units Destroyed", 0f);
+			gameCenterScript.SubmitAchievement("destroy_1000_ground_units", totalGroundUnitsDestroyed/5000f);
+		}
 	}
 }

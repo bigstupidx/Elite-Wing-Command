@@ -33,6 +33,8 @@ public class Damageable : MonoBehaviour
 	public bool Dead { get { return Health <= 0; }}
 	public GameObject ExplosionParticleEffect { get { return explosionParticleEffect; }}
 	public FastSpawnObject ThisSpawnObject { get { return thisSpawnObject; } set { thisSpawnObject = value; }}
+	float totalAirUnitsDestroyed;
+	float totalGroundUnitsDestroyed;
 
 //	void OnEnable()
 //	{
@@ -47,6 +49,9 @@ public class Damageable : MonoBehaviour
 
 	public virtual void Start()
 	{
+		totalAirUnitsDestroyed = EncryptedPlayerPrefs.GetFloat("Total Air Units Destroyed", 0f);
+		totalGroundUnitsDestroyed = EncryptedPlayerPrefs.GetFloat("Total Ground Units Destroyed", 0f);
+
 		var MissionManagerObject = GameObject.FindGameObjectWithTag("MissionManager");
 		
 		if (MissionManagerObject != null)
@@ -170,6 +175,8 @@ public class Damageable : MonoBehaviour
 			else
 				arcadeStatHolder.EnemyAirDestroyed += 1;
 
+			totalAirUnitsDestroyed += 1;
+			EncryptedPlayerPrefs.SetFloat("Total Air Units Destroyed", totalAirUnitsDestroyed);
 			break;
 		case "Enemy Defensive Aircraft Easy":
 			Spawner = enemyDefensiveAircraftEasySpawner;
@@ -179,6 +186,8 @@ public class Damageable : MonoBehaviour
 			else
 				arcadeStatHolder.EnemyAirDestroyed += 1;
 
+			totalAirUnitsDestroyed += 1;
+			EncryptedPlayerPrefs.SetFloat("Total Air Units Destroyed", totalAirUnitsDestroyed);
 			break;
 		case "Enemy Aircraft Medium":
 			Spawner = enemyAircraftMediumSpawner;
@@ -188,6 +197,8 @@ public class Damageable : MonoBehaviour
 			else
 				arcadeStatHolder.EnemyAirDestroyed += 1;
 
+			totalAirUnitsDestroyed += 1;
+			EncryptedPlayerPrefs.SetFloat("Total Air Units Destroyed", totalAirUnitsDestroyed);
 			break;
 		case "Enemy Defensive Aircraft Medium":
 			Spawner = enemyDefensiveAircraftMediumSpawner;
@@ -197,6 +208,8 @@ public class Damageable : MonoBehaviour
 			else
 				arcadeStatHolder.EnemyAirDestroyed += 1;
 
+			totalAirUnitsDestroyed += 1;
+			EncryptedPlayerPrefs.SetFloat("Total Air Units Destroyed", totalAirUnitsDestroyed);
 			break;
 		case "Enemy Aircraft Hard":
 			Spawner = enemyAircraftHardSpawner;
@@ -206,6 +219,8 @@ public class Damageable : MonoBehaviour
 			else
 				arcadeStatHolder.EnemyAirDestroyed += 1;
 
+			totalAirUnitsDestroyed += 1;
+			EncryptedPlayerPrefs.SetFloat("Total Air Units Destroyed", totalAirUnitsDestroyed);
 			break;
 		case "Enemy Defensive Aircraft Hard":
 			Spawner = enemyDefensiveAircraftHardSpawner;
@@ -215,6 +230,8 @@ public class Damageable : MonoBehaviour
 			else
 				arcadeStatHolder.EnemyAirDestroyed += 1;
 
+			totalAirUnitsDestroyed += 1;
+			EncryptedPlayerPrefs.SetFloat("Total Air Units Destroyed", totalAirUnitsDestroyed);
 			break;
 		case "Enemy Vehicle":
 			Spawner = enemyTankSpawner;
@@ -238,6 +255,8 @@ public class Damageable : MonoBehaviour
 			if (ExplosionParticleEffect != null)
 				Instantiate(ExplosionParticleEffect, transform.position, transform.rotation);
 
+			totalGroundUnitsDestroyed += 1;
+			EncryptedPlayerPrefs.SetFloat("Total Ground Units Destroyed", totalGroundUnitsDestroyed);
 			Destroy(objectIdentifier.transform.gameObject);
 			return;
 		case "Enemy Turret":
@@ -260,6 +279,8 @@ public class Damageable : MonoBehaviour
 			if (ExplosionParticleEffect != null)
 				Instantiate(ExplosionParticleEffect, transform.position, transform.rotation);
 
+			totalGroundUnitsDestroyed += 1;
+			EncryptedPlayerPrefs.SetFloat("Total Ground Units Destroyed", totalGroundUnitsDestroyed);
 			Destroy(objectIdentifier.transform.gameObject);
 			return;
 		default:
