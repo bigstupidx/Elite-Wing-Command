@@ -50,7 +50,12 @@ public class EWCGameCenter : MonoBehaviour {
 
 	public void SubmitAchievement(string achievementID, double progress)
 	{
-		ReportAchievement(achievementID, progress);
+		Social.ReportProgress(achievementID, progress, result => {
+			if (result)
+				Debug.Log ("Successfully reported achievement progress");
+			else
+				Debug.Log ("Failed to report achievement");
+		});
 	}
 	
 	public void StoreAndSubmitScore(int sessionScore)
@@ -86,8 +91,11 @@ public class EWCGameCenter : MonoBehaviour {
         if(success)
 		{
             Debug.Log ("Authenticated");
-			Application.LoadLevel(1);
-			
+			StartCoroutine(WaitAndLoadLevel());
+
+			// MAKE REQUEST TO GET LOADED ACHIEVEMENTS AND REGISTER A CALLBACK FOR PROCESSING THEM
+			Social.LoadAchievements(ProcessLoadedAchievements); // ProcessLoadedAchievements FUNCTION CAN BE FOUND BELOW
+
 			Social.LoadScores(leaderboardName, scores => {
     			if (scores.Length > 0) {
 					// SHOW THE SCORES RECEIVED
@@ -104,9 +112,18 @@ public class EWCGameCenter : MonoBehaviour {
         else
 		{
             Debug.Log ("Failed to authenticate with Game Center.");
-			Application.LoadLevel(1);
+			StartCoroutine(WaitAndLoadLevel());
 		}
     }
+
+	// THIS FUNCTION GETS CALLED WHEN THE LoadAchievements CALL COMPLETES
+	void ProcessLoadedAchievements (IAchievement[] achievements)
+	{
+		if (achievements.Length == 0)
+			Debug.Log ("Error: no achievements found");
+		else
+			Debug.Log ("Got " + achievements.Length + " achievements");
+	}
 	
 	///////////////////////////////////////////////////
 	// GAME CENTER ACHIEVEMENT INTEGRATION
@@ -160,6 +177,12 @@ public class EWCGameCenter : MonoBehaviour {
 		}
 	}
 	#endregion
+
+	IEnumerator WaitAndLoadLevel()
+	{
+		yield return new WaitForSeconds(1.0f); 
+		Application.LoadLevel(1);
+	}
 }
 
 //#endif
