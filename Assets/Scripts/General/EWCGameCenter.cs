@@ -88,10 +88,9 @@ public class EWCGameCenter : MonoBehaviour {
 	// NOTE THAT IF THE OPERATION IS SUCCESSFUL Social.localUser WILL CONTAIN DATA FROM THE GAME CENTER SERVER
     void ProcessAuthentication(bool success)
 	{
-        if(success)
+        if (success)
 		{
             Debug.Log ("Authenticated");
-			StartCoroutine(WaitAndLoadLevel());
 
 			// MAKE REQUEST TO GET LOADED ACHIEVEMENTS AND REGISTER A CALLBACK FOR PROCESSING THEM
 			Social.LoadAchievements(ProcessLoadedAchievements); // ProcessLoadedAchievements FUNCTION CAN BE FOUND BELOW
@@ -112,8 +111,10 @@ public class EWCGameCenter : MonoBehaviour {
         else
 		{
             Debug.Log ("Failed to authenticate with Game Center.");
-			StartCoroutine(WaitAndLoadLevel());
 		}
+
+		if (Application.loadedLevel == 0)
+			StartCoroutine(WaitAndLoadMainMenu());
     }
 
 	// THIS FUNCTION GETS CALLED WHEN THE LoadAchievements CALL COMPLETES
@@ -178,7 +179,7 @@ public class EWCGameCenter : MonoBehaviour {
 	}
 	#endregion
 
-	IEnumerator WaitAndLoadLevel()
+	IEnumerator WaitAndLoadMainMenu()
 	{
 		yield return new WaitForSeconds(1.0f); 
 		Application.LoadLevel(1);
