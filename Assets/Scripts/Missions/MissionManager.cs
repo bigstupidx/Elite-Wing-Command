@@ -118,7 +118,7 @@ public class MissionManager : MonoBehaviour
 			totalTime = (int)timerTime;
 			timeRemaining = totalTime;
 			timePassed = 0;
-			InvokeRepeating("UpdateTimer", 1.0f, 1.0f);
+			InvokeRepeating("UpdateTimer", 1.1f, 1.1f);
 		}
 	}
 
@@ -348,26 +348,32 @@ public class MissionManager : MonoBehaviour
 
 	public void AllyObjectiveDestroyed(GameObject objectiveName)
 	{
-		allyObjectivesInScene.Remove(objectiveName);
-		MissionObjectivesDestroyed = totalAllyObjectives - AllyObjectivesList.Count;
-		objectivesRemainingSlider.value = (float)MissionObjectivesDestroyed / (float)totalAllyObjectives;
+		if (playerObjectivesType.ToString() != "Prevent_Enemy_Objectives" && playerObjectivesType.ToString() != "Protect_VIP")
+		{
+			allyObjectivesInScene.Remove(objectiveName);
+			MissionObjectivesDestroyed = totalAllyObjectives - AllyObjectivesList.Count;
+			objectivesRemainingSlider.value = (float)MissionObjectivesDestroyed / (float)totalAllyObjectives;
 
-		if (MissionObjectivesDestroyed == totalAllyObjectives)
-			objectivesRemainingLabel.text = " ";
-		else
-			objectivesRemainingLabel.text = "Objectives Destroyed: " + MissionObjectivesDestroyed + "/" + totalAllyObjectives;
+			if (MissionObjectivesDestroyed == totalAllyObjectives)
+				objectivesRemainingLabel.text = " ";
+			else
+				objectivesRemainingLabel.text = "Objectives Destroyed: " + MissionObjectivesDestroyed + "/" + totalAllyObjectives;
+		}
 	}
 
 	public void EnemyObjectiveDestroyed(GameObject objectiveName)
 	{
-		enemyObjectivesInScene.Remove(objectiveName);
-		MissionObjectivesRemaining = EnemyObjectivesList.Count;
-		objectivesRemainingSlider.value = (float)MissionObjectivesRemaining / (float)totalEnemyObjectives;
-		
-		if (MissionObjectivesRemaining == 0)
-			objectivesRemainingLabel.text = " ";
-		else
-			objectivesRemainingLabel.text = "Objectives Remaining: " + MissionObjectivesRemaining + "/" + totalEnemyObjectives;
+		if (playerObjectivesType.ToString() == "Prevent_Enemy_Objectives" || playerObjectivesType.ToString() == "Protect_VIP")
+		{
+			enemyObjectivesInScene.Remove(objectiveName);
+			MissionObjectivesRemaining = EnemyObjectivesList.Count;
+			objectivesRemainingSlider.value = (float)MissionObjectivesRemaining / (float)totalEnemyObjectives;
+			
+			if (MissionObjectivesRemaining == 0)
+				objectivesRemainingLabel.text = " ";
+			else
+				objectivesRemainingLabel.text = "Objectives Remaining: " + MissionObjectivesRemaining + "/" + totalEnemyObjectives;
+		}
 	}
 
 	IEnumerator WaitAndPause()

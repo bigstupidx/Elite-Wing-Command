@@ -35,6 +35,8 @@ public class Damageable : MonoBehaviour
 	public FastSpawnObject ThisSpawnObject { get { return thisSpawnObject; } set { thisSpawnObject = value; }}
 	float totalAirUnitsDestroyed;
 	float totalGroundUnitsDestroyed;
+	bool isBlinking = false;
+	float blinkingTime;
 
 //	void OnEnable()
 //	{
@@ -99,7 +101,12 @@ public class Damageable : MonoBehaviour
 	{
 		if (Dead)
 			return;
-		
+
+		if (objectIdentifier.ObjectType == "Enemy Objective")
+		{
+			blinkingTime = 3.3f;
+		}
+
 		Health -= damage;
 		if (Health <= 0f)
 		{
@@ -107,7 +114,27 @@ public class Damageable : MonoBehaviour
 			Die();
 		}
 	}
-	
+
+	void Update()
+	{
+		if (blinkingTime > 0f)
+		{
+			if (!isBlinking)
+			{
+				mapIcon.SetIsBlinking(true);
+				isBlinking = true;
+			}
+
+			blinkingTime -= Time.deltaTime;
+		}
+		else if (isBlinking && blinkingTime <= 0f)
+		{
+			mapIcon.SetIsBlinking(false);
+			isBlinking = false;
+			blinkingTime = 0f;
+		}
+	}
+
 	public virtual void Die()
 	{
 		switch(ObjectIdentifierScript.ObjectType)

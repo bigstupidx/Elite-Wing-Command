@@ -29,11 +29,14 @@ public class AllyAircraftMovement : GenericAircraftMovement
 			{
 				GameObject[] enemyObjectives = MissionManagerScript.EnemyObjectivesList.ToArray();
 
-				if (enemyObjectives.Length > 0)
+				if (enemyObjectives != null && enemyObjectives.Length > 0)
 				{
 					GameObject targetObject = enemyObjectives[Random.Range(0, enemyObjectives.Length)];
-					TargetPosition = new Vector3(Random.Range(targetObject.transform.position.x - DefensiveAirPerimeter, targetObject.transform.position.x + DefensiveAirPerimeter), 0, 
+
+					if (targetObject != null)
+						TargetPosition = new Vector3(Random.Range(targetObject.transform.position.x - DefensiveAirPerimeter, targetObject.transform.position.x + DefensiveAirPerimeter), 0, 
 					                                     Random.Range(targetObject.transform.position.z - DefensiveAirPerimeter, targetObject.transform.position.z + DefensiveAirPerimeter));
+
 					return;
 				}
 			}
@@ -41,10 +44,13 @@ public class AllyAircraftMovement : GenericAircraftMovement
 			{
 				GameObject[] allyObjectives = MissionManagerScript.AllyObjectivesList.ToArray();
 				
-				if (allyObjectives.Length > 0)
+				if (allyObjectives != null && allyObjectives.Length > 0)
 				{
 					GameObject targetObject = allyObjectives[Random.Range(0, allyObjectives.Length)];
-					TargetPosition = new Vector3(targetObject.transform.position.x, 0, targetObject.transform.position.z);
+
+					if (targetObject != null)
+						TargetPosition = new Vector3(targetObject.transform.position.x, 0, targetObject.transform.position.z);
+
 					return;
 				}
 			}
