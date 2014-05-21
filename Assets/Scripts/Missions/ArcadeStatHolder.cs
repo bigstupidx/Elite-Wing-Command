@@ -12,7 +12,7 @@ public class ArcadeStatHolder : MonoBehaviour
 
 	void Start()
 	{
-		InvokeRepeating("TimerIncrease", 10.0f, 10.0f);
+		InvokeRepeating("TimerIncrease", 11.0f, 11.0f);
 	}
 
 	void TimerIncrease()

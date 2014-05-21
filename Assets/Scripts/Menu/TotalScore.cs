@@ -21,11 +21,11 @@ public class TotalScore : MonoBehaviour
 		PlayerPrefs.Save();
 		totalScoreObject.text = totalScore.ToString("N0");
 
+		PlayerPrefs.Save();
 		var gameCenterObject = GameObject.FindGameObjectWithTag("GameCenter");
 		
 		if (gameCenterObject != null)
 		{
-			PlayerPrefs.Save();
 			EWCGameCenter gameCenterScript = gameCenterObject.GetComponent<EWCGameCenter>();
 
 			float totalAirUnitsDestroyed = EncryptedPlayerPrefs.GetFloat("Total Air Units Destroyed", 0f);

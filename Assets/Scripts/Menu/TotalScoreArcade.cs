@@ -22,11 +22,11 @@ public class TotalScoreArcade : MonoBehaviour
 		if (Everyplay.SharedInstance.IsRecording())
 			Everyplay.SharedInstance.SetMetadata("score", totalScore.ToString("N0"));
 
+		PlayerPrefs.Save();
 		var gameCenterObject = GameObject.FindGameObjectWithTag("GameCenter");
 
 		if (gameCenterObject != null)
 		{
-			PlayerPrefs.Save();
 			EWCGameCenter gameCenterScript = gameCenterObject.GetComponent<EWCGameCenter>();
 
 			gameCenterScript.StoreAndSubmitScore(totalScore);

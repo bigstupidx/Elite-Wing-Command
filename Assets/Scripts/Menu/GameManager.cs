@@ -32,14 +32,6 @@ public class GameManager : MonoBehaviour
 			SetDefaultPrefs();
 			Debug.Log("Player Prefs Reset");
 		}
-		else if (Input.GetKeyDown(KeyCode.I))
-		{
-			float currentRP = EncryptedPlayerPrefs.GetFloat("Reward Points", 0);
-			EncryptedPlayerPrefs.SetFloat("Reward Points", currentRP + 1000f);
-			rewardPointsLabel.text = EncryptedPlayerPrefs.GetFloat("Reward Points", 0).ToString("N0") + " RP";
-			PlayerPrefs.Save();
-			Debug.Log("Added 1000 RP");
-		}
 	}
 
 	void SetDefaultPrefs()

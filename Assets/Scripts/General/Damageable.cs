@@ -51,9 +51,6 @@ public class Damageable : MonoBehaviour
 
 	public virtual void Start()
 	{
-		totalAirUnitsDestroyed = EncryptedPlayerPrefs.GetFloat("Total Air Units Destroyed", 0f);
-		totalGroundUnitsDestroyed = EncryptedPlayerPrefs.GetFloat("Total Ground Units Destroyed", 0f);
-
 		var MissionManagerObject = GameObject.FindGameObjectWithTag("MissionManager");
 		
 		if (MissionManagerObject != null)
@@ -202,7 +199,8 @@ public class Damageable : MonoBehaviour
 			else
 				arcadeStatHolder.EnemyAirDestroyed += 1;
 
-			totalAirUnitsDestroyed += 1;
+			totalAirUnitsDestroyed = EncryptedPlayerPrefs.GetFloat("Total Air Units Destroyed", 0f);
+			totalAirUnitsDestroyed += 1f;
 			EncryptedPlayerPrefs.SetFloat("Total Air Units Destroyed", totalAirUnitsDestroyed);
 			break;
 		case "Enemy Defensive Aircraft Easy":
@@ -213,7 +211,8 @@ public class Damageable : MonoBehaviour
 			else
 				arcadeStatHolder.EnemyAirDestroyed += 1;
 
-			totalAirUnitsDestroyed += 1;
+			totalAirUnitsDestroyed = EncryptedPlayerPrefs.GetFloat("Total Air Units Destroyed", 0f);
+			totalAirUnitsDestroyed += 1f;
 			EncryptedPlayerPrefs.SetFloat("Total Air Units Destroyed", totalAirUnitsDestroyed);
 			break;
 		case "Enemy Aircraft Medium":
@@ -224,7 +223,8 @@ public class Damageable : MonoBehaviour
 			else
 				arcadeStatHolder.EnemyAirDestroyed += 1;
 
-			totalAirUnitsDestroyed += 1;
+			totalAirUnitsDestroyed = EncryptedPlayerPrefs.GetFloat("Total Air Units Destroyed", 0f);
+			totalAirUnitsDestroyed += 1f;
 			EncryptedPlayerPrefs.SetFloat("Total Air Units Destroyed", totalAirUnitsDestroyed);
 			break;
 		case "Enemy Defensive Aircraft Medium":
@@ -235,7 +235,8 @@ public class Damageable : MonoBehaviour
 			else
 				arcadeStatHolder.EnemyAirDestroyed += 1;
 
-			totalAirUnitsDestroyed += 1;
+			totalAirUnitsDestroyed = EncryptedPlayerPrefs.GetFloat("Total Air Units Destroyed", 0f);
+			totalAirUnitsDestroyed += 1f;
 			EncryptedPlayerPrefs.SetFloat("Total Air Units Destroyed", totalAirUnitsDestroyed);
 			break;
 		case "Enemy Aircraft Hard":
@@ -246,7 +247,8 @@ public class Damageable : MonoBehaviour
 			else
 				arcadeStatHolder.EnemyAirDestroyed += 1;
 
-			totalAirUnitsDestroyed += 1;
+			totalAirUnitsDestroyed = EncryptedPlayerPrefs.GetFloat("Total Air Units Destroyed", 0f);
+			totalAirUnitsDestroyed += 1f;
 			EncryptedPlayerPrefs.SetFloat("Total Air Units Destroyed", totalAirUnitsDestroyed);
 			break;
 		case "Enemy Defensive Aircraft Hard":
@@ -257,7 +259,8 @@ public class Damageable : MonoBehaviour
 			else
 				arcadeStatHolder.EnemyAirDestroyed += 1;
 
-			totalAirUnitsDestroyed += 1;
+			totalAirUnitsDestroyed = EncryptedPlayerPrefs.GetFloat("Total Air Units Destroyed", 0f);
+			totalAirUnitsDestroyed += 1f;
 			EncryptedPlayerPrefs.SetFloat("Total Air Units Destroyed", totalAirUnitsDestroyed);
 			break;
 		case "Enemy Vehicle":
@@ -282,7 +285,8 @@ public class Damageable : MonoBehaviour
 			if (ExplosionParticleEffect != null)
 				Instantiate(ExplosionParticleEffect, transform.position, transform.rotation);
 
-			totalGroundUnitsDestroyed += 1;
+			totalGroundUnitsDestroyed = EncryptedPlayerPrefs.GetFloat("Total Ground Units Destroyed", 0f);
+			totalGroundUnitsDestroyed += 1f;
 			EncryptedPlayerPrefs.SetFloat("Total Ground Units Destroyed", totalGroundUnitsDestroyed);
 			Destroy(objectIdentifier.transform.gameObject);
 			return;
@@ -306,7 +310,8 @@ public class Damageable : MonoBehaviour
 			if (ExplosionParticleEffect != null)
 				Instantiate(ExplosionParticleEffect, transform.position, transform.rotation);
 
-			totalGroundUnitsDestroyed += 1;
+			totalGroundUnitsDestroyed = EncryptedPlayerPrefs.GetFloat("Total Ground Units Destroyed", 0f);
+			totalGroundUnitsDestroyed += 1f;
 			EncryptedPlayerPrefs.SetFloat("Total Ground Units Destroyed", totalGroundUnitsDestroyed);
 			Destroy(objectIdentifier.transform.gameObject);
 			return;
