@@ -6,6 +6,6 @@ public class EveryplayPauseRecording : MonoBehaviour
 
 	void OnClick()
 	{
-		Everyplay.SharedInstance.PauseRecording();
+		Everyplay.PauseRecording();
 	}
 }

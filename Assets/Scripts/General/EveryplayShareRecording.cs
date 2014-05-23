@@ -6,6 +6,6 @@ public class EveryplayShareRecording : MonoBehaviour
 
 	void OnClick()
 	{
-		Everyplay.SharedInstance.ShowSharingModal();
+		Everyplay.ShowSharingModal();
 	}
 }

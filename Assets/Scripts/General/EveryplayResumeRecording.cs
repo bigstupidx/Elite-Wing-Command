@@ -6,6 +6,6 @@ public class EveryplayResumeRecording : MonoBehaviour
 
 	void OnClick()
 	{
-		Everyplay.SharedInstance.ResumeRecording();
+		Everyplay.ResumeRecording();
 	}
 }

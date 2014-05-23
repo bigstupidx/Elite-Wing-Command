@@ -11,20 +11,20 @@ public class EveryplayStopRecording : MonoBehaviour
 	{
 		if (stopOnClick)
 			return;
-		else if (Everyplay.SharedInstance.IsRecording())
+		else if (Everyplay.IsRecording())
 			StartCoroutine(WaitAndStopRecording());
 	}
 
 	void OnClick()
 	{
-		if (Everyplay.SharedInstance.IsRecording())
-			Everyplay.SharedInstance.StopRecording();
+		if (Everyplay.IsRecording())
+			Everyplay.StopRecording();
 	}
 
 	IEnumerator WaitAndStopRecording()
 	{
 		yield return new WaitForSeconds(waitTime);
-		Everyplay.SharedInstance.StopRecording();
+		Everyplay.StopRecording();
 		shareRecordingButton.SetActive(true);
 	}
 }

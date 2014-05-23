@@ -22,4 +22,5 @@
   <string name="everyplay_unable_to_play_video_text">Unable to play video</string>
   <string name="everyplay_video_description_text">Video description</string>
   <string name="everyplay_by_username_text">By username</string>
+  <string name="everyplay_editor_processing_text">Processing video&#8230;</string>
 </resources>

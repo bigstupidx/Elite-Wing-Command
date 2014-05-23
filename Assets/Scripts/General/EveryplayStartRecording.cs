@@ -6,7 +6,7 @@ public class EveryplayStartRecording : MonoBehaviour
 
 	void OnClick()
 	{
-		if (Everyplay.SharedInstance.IsRecordingSupported())
-			Everyplay.SharedInstance.StartRecording();
+		if (Everyplay.IsRecordingSupported())
+			Everyplay.StartRecording();
 	}
 }
