@@ -16,7 +16,7 @@ public class ArcadeTimer : MonoBehaviour
 	{
 		timeRemaining = totalTimeInSecs;
 		timePassed = 0;
-		InvokeRepeating("UpdateTimer", 1.0f, 1.0f);
+		InvokeRepeating("UpdateTimer", 1.1f, 1.1f);
 	}
 
 	void UpdateTimer()
