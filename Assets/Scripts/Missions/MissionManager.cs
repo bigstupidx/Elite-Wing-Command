@@ -124,11 +124,6 @@ public class MissionManager : MonoBehaviour
 
 	void Update()
 	{
-		timerTime -= Time.deltaTime;
-
-		if (timerTime <= 0)
-			timerComplete = true;
-
 		if (!gameOver)
 		{
 			switch(playerObjectivesType.ToString())
@@ -386,6 +381,11 @@ public class MissionManager : MonoBehaviour
 
 	void UpdateTimer()
 	{
+		timerTime--;
+		
+		if (timerTime <= 0)
+			timerComplete = true;
+
 		++timePassed;
 		timeRemaining = totalTime - timePassed;
 		
