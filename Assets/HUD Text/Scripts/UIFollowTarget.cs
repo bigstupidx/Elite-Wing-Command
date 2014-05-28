@@ -84,25 +84,33 @@ public class UIFollowTarget : MonoBehaviour
 
 	void Update ()
 	{
-		Vector3 pos = gameCamera.WorldToViewportPoint(target.position);
-
-		// Determine the visibility and the target alpha
-		bool isVisible = (gameCamera.isOrthoGraphic || pos.z > 0f) && (!disableIfInvisible || (pos.x > 0f && pos.x < 1f && pos.y > 0f && pos.y < 1f));
-
-		// Update the visibility flag
-		if (mIsVisible != isVisible) SetVisible(isVisible);
-
-		// If visible, update the position
-		if (isVisible)
+		if (target != null)
 		{
-			transform.position = uiCamera.ViewportToWorldPoint(pos);
-			pos = mTrans.localPosition;
-			pos.x = Mathf.FloorToInt(pos.x);
-			pos.y = Mathf.FloorToInt(pos.y);
-			pos.z = 0f;
-			mTrans.localPosition = pos;
+			Vector3 pos = gameCamera.WorldToViewportPoint(target.position);
+
+			// Determine the visibility and the target alpha
+			bool isVisible = (gameCamera.isOrthoGraphic || pos.z > 0f) && (!disableIfInvisible || (pos.x > 0f && pos.x < 1f && pos.y > 0f && pos.y < 1f));
+
+			// Update the visibility flag
+			if (mIsVisible != isVisible) SetVisible(isVisible);
+
+			// If visible, update the position
+			if (isVisible)
+			{
+				transform.position = uiCamera.ViewportToWorldPoint(pos);
+				pos = mTrans.localPosition;
+				pos.x = Mathf.FloorToInt(pos.x);
+				pos.y = Mathf.FloorToInt(pos.y);
+				pos.z = 0f;
+				mTrans.localPosition = pos;
+			}
+
+			OnUpdate(isVisible);
 		}
-		OnUpdate(isVisible);
+		else
+		{
+			Destroy(gameObject);
+		}
 	}
 
 	/// <summary>
