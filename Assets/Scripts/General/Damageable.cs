@@ -24,7 +24,6 @@ public class Damageable : MonoBehaviour
 	GameObject enemyTurretSpawner;
 	GameObject enemyMissileBatterySpawner;
 	Vector3 correctedPos;
-	FastSpawnObject thisSpawnObject;
 	public MissionManager MissionManagerScript { get { return missionManager; } set { missionManager = value; }}
 	public float InitialHealth { get { return initialHealth; } set { initialHealth = value; }}
 	public ObjectIdentifier ObjectIdentifierScript { get { return objectIdentifier; }}
@@ -32,7 +31,6 @@ public class Damageable : MonoBehaviour
 	public float Health { get; set; }
 	public bool Dead { get { return Health <= 0; }}
 	public GameObject ExplosionParticleEffect { get { return explosionParticleEffect; }}
-	public FastSpawnObject ThisSpawnObject { get { return thisSpawnObject; } set { thisSpawnObject = value; }}
 	float totalAirUnitsDestroyed;
 	float totalGroundUnitsDestroyed;
 	bool isBlinking = false;
@@ -334,7 +332,6 @@ public class Damageable : MonoBehaviour
 		if (ExplosionParticleEffect != null)
 			Instantiate(ExplosionParticleEffect, transform.position, transform.rotation);
 
-		//Destroy(objectIdentifier.transform.gameObject);
 		Fabric.EventManager.Instance.PostEvent("SFX_Aircraft_Fire", Fabric.EventAction.StopSound, transform.root.gameObject);
 		Fabric.EventManager.Instance.PostEvent("SFX_Vehicle_Fire", Fabric.EventAction.StopSound, transform.root.gameObject);
 		Fabric.EventManager.Instance.PostEvent("SFX_Vehicle_Movement", Fabric.EventAction.StopSound, transform.root.gameObject);
@@ -346,8 +343,6 @@ public class Damageable : MonoBehaviour
 		else if (enemyWeaponManager != null)
 			enemyWeaponManager.StopWeapon();
 
-		mapIcon.SetVisibility(false);
-		ThisSpawnObject = transform.parent.GetComponentInChildren<FastSpawnObject>();
-		SpawnManager.SharedInstance.UnspawnObject(ThisSpawnObject);
+		Destroy(objectIdentifier.transform.gameObject);
 	}
 }

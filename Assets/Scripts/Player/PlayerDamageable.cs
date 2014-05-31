@@ -84,13 +84,10 @@ public class PlayerDamageable : Damageable
 		tempObject.transform.rotation = transform.rotation;
 		Fabric.EventManager.Instance.PostEvent("SFX_Explosion_Objective", Fabric.EventAction.PlaySound, tempObject);
 
-		//Destroy(transform.root.gameObject);
 		Fabric.EventManager.Instance.PostEvent("SFX_Player_Booster", Fabric.EventAction.StopSound, transform.parent.gameObject);
 		WeaponManager weaponManager = transform.parent.GetComponentInChildren<WeaponManager>();
 		weaponManager.StopWeapon();
 
-		mapIcon.SetVisibility(false);
-		ThisSpawnObject = transform.parent.GetComponentInChildren<FastSpawnObject>();
-		SpawnManager.SharedInstance.UnspawnObject(ThisSpawnObject);
+		Destroy(transform.root.gameObject);
 	}
 }

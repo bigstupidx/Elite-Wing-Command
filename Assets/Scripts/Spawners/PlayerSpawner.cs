@@ -11,6 +11,7 @@ public class PlayerSpawner : MonoBehaviour
 	[SerializeField] GameObject playerPrefab4Slots;
 	[SerializeField] GameObject playerPrefab5Slots;
 	[SerializeField] GameObject[] playerLifeIcon;
+	GameObject playerPrefab;
 	bool gameOver = false;
 	int respawnNumber = 1;
 	int playerIterations = 1;
@@ -22,7 +23,6 @@ public class PlayerSpawner : MonoBehaviour
 	[SerializeField] GameObject arcadeSessionCompleteScreen;
 	[SerializeField] GameObject minimapObject;
 	[SerializeField] GameObject guiObject;
-	FastSpawnObject playerClone;
 
 	void Start()
 	{
@@ -56,26 +56,27 @@ public class PlayerSpawner : MonoBehaviour
 	void SpawnPlayer()
 	{
 		canSpawn = false;
-		//var playerClone = (GameObject)Instantiate(playerPrefab, spawnPosition, spawnRotation);
 
 		switch(EncryptedPlayerPrefs.GetInt("Weapon Slots"))
 		{
 		case 2:
-			playerClone = SpawnManager.SharedInstance.SpawnObject(SpawnManager.SharedInstance.playerUnits.playerAircraft2Slots, spawnPosition, spawnRotation);
+			playerPrefab = playerPrefab2Slots;
 			break;
 		case 3:
-			playerClone = SpawnManager.SharedInstance.SpawnObject(SpawnManager.SharedInstance.playerUnits.playerAircraft3Slots, spawnPosition, spawnRotation);
+			playerPrefab = playerPrefab3Slots;
 			break;
 		case 4:
-			playerClone = SpawnManager.SharedInstance.SpawnObject(SpawnManager.SharedInstance.playerUnits.playerAircraft4Slots, spawnPosition, spawnRotation);
+			playerPrefab = playerPrefab4Slots;
 			break;
 		case 5:
-			playerClone = SpawnManager.SharedInstance.SpawnObject(SpawnManager.SharedInstance.playerUnits.playerAircraft5Slots, spawnPosition, spawnRotation);
+			playerPrefab = playerPrefab5Slots;
 			break;
 		default:
 			Debug.LogError("Invalid Player Spawn Prefab: " + transform.name);
 			return;
 		}
+
+		var playerClone = (GameObject)Instantiate(playerPrefab, spawnPosition, spawnRotation);
 
 		if (playerClone != null)
 			playerClone.transform.name = "Player Aircraft";

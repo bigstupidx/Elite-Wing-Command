@@ -43,13 +43,13 @@ public class GenericAI : MonoBehaviour
 		while (true)
 		{
 			Collider[] objectsInRange = Physics.OverlapSphere(transform.position, SightDistance);
-			float distance = SightDistance * 10f;
 			int groundTargets = 0;
 			int airTargets = 0;
 			int objectiveTargets = 0;
-			float closestAirTargetDistance = SightDistance * 10f;
-			float closestGroundTargetDistance = SightDistance * 10f;
-			float closestObjectiveTargetDistance = SightDistance * 10f;
+			float distance = 1000f;
+			float closestAirTargetDistance = 1000f;
+			float closestGroundTargetDistance = 1000f;
+			float closestObjectiveTargetDistance = 1000f;
 
 			if (objectsInRange != null)
 			{
@@ -137,7 +137,7 @@ public class GenericAI : MonoBehaviour
 				else
 				{
 					ClosestTarget = null;
-					ClosestTargetDistance = 100f;
+					ClosestTargetDistance = 1000f;
 					ClosestTargetID = null;
 				}
 				

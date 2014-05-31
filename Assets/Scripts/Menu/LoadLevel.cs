@@ -18,7 +18,6 @@ public class LoadLevel : MonoBehaviour
 	{
 		Fabric.EventManager.Instance.PostEvent("SFX", Fabric.EventAction.StopAll);
 		Fabric.EventManager.Instance.PostEvent("SFX_Button_General", Fabric.EventAction.PlaySound);
-		SpawnManager.SharedInstance.UnloadAllObjects();
 		StartCoroutine(WaitAndLoad());
 	}
 
