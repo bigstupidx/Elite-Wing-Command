@@ -3,6 +3,14 @@
 
 /// <summary>
 /// Release notes:
+/// EasyTouch V3.1.7 June 2014
+/// =================================
+/// 
+/// 	* Bugs fixed
+/// 	------------
+/// 	- Fix debug resevedarea on EasyButton
+/// 	- Fix error on event On_Cancel2Fingers that only occured on real device without crash 
+/// 
 /// EasyTouch V3.1.5 January 2014
 /// =================================
 /// 	* New
@@ -1563,7 +1571,7 @@ public class EasyTouch : MonoBehaviour {
 		
 		bool returnValue = false;
 		
-		if (enableReservedArea){
+		if (enableReservedArea && fingers[touchIndex]!=null){
 			int i=0;
 			Rect rectTest = new Rect(0,0,0,0);
 			while (!returnValue && i< reservedAreas.Count){	

@@ -5,6 +5,12 @@ using System.Collections;
 
 /// <summary>
 /// Release notes:
+/// EasyJoystick V2.3.4 May 2014
+/// =============================
+/// 	* Bug fixed
+/// 	-----------
+/// 	Fixe Joystick init when dynamic with restricted
+/// 
 /// EasyJoystick V2.3.3 January 2014
 /// =============================
 /// 	* Bug fixed
@@ -848,6 +854,8 @@ public class EasyJoystick : MonoBehaviour {
 
 		startXLocalAngle = GetStartAutoStabAngle( xAxisTransform, xAI);
 		startYLocalAngle = GetStartAutoStabAngle( yAxisTransform, yAI);	
+
+		RestrictArea = restrictArea;
 	}
 	
 	void Update(){
@@ -1085,6 +1093,7 @@ public class EasyJoystick : MonoBehaviour {
 		move.joystickName = gameObject.name;
 		move.joystickAxis = joystickAxis;
 		move.joystickValue = joystickValue;
+		move.fingerIndex= joystickIndex;
 		move.joystick = this;
 		
 		//
@@ -1143,7 +1152,7 @@ public class EasyJoystick : MonoBehaviour {
 					}
 			}
 			else{
-				//Debug.LogError("Joystick : " + gameObject.name + " : you must setup receiver gameobject");	
+				Debug.LogError("Joystick : " + gameObject.name + " : you must setup receiver gameobject");	
 			}
 		}
 		
@@ -1617,7 +1626,7 @@ public class EasyJoystick : MonoBehaviour {
 
 	#endregion
 
-	#region ManualJoystick
+	#region Public Method
 	public void On_Manual(Vector2 movement)
 	{
 		if (isActivated)

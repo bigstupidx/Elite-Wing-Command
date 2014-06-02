@@ -6,6 +6,8 @@ public class MissionUnlockRequirement : MonoBehaviour
 	[SerializeField] int missionCompleteRequired = 101;
 	[SerializeField] UISprite missionSprite;
 	[SerializeField] Collider missionCollider;
+	bool isActive = true;
+	public bool IsActive { get { return isActive; }}
 
 	void Start()
 	{
@@ -13,6 +15,7 @@ public class MissionUnlockRequirement : MonoBehaviour
 		{
 			missionSprite.alpha = 0.15f;
 			missionCollider.enabled = false;
+			isActive = false;
 		}
 	}
 }
