@@ -55,7 +55,7 @@ public class Ammo : MonoBehaviour
 			if (other.name != "Damageable" && bombExplosion != null && (missile || objectType == null || objectType.IsGroundUnit == true))
 			{
 				Vector3 bombPosition = transform.position;
-				bombPosition.y = transform.position.y + 1.08f;
+				bombPosition.y = transform.position.y + 1.2f;
 
 				if (bombPosition.y > -8.5f)
 					Instantiate(bombExplosion, bombPosition, transform.rotation);
