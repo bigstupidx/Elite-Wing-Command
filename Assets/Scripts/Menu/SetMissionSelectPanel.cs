@@ -28,7 +28,7 @@ public class SetMissionSelectPanel : MonoBehaviour
 		if (activeMissionCount > 2 && activeMissionCount < (missionObjects.Count - 1))
 		{
 			modifiedPosition = transform.localPosition;
-			modifiedPosition.y += (activeMissionCount - 2) * 130f;
+			modifiedPosition.y += (activeMissionCount - 2) * 132f;
 			transform.localPosition = modifiedPosition;
 		}
 		else if (activeMissionCount >= (missionObjects.Count - 1))
