@@ -33,8 +33,6 @@ public class EWCGameCenter : MonoBehaviour {
 		
 		// GET INSTANCE OF LEADERBOARD
 		DoLeaderboard();
-
-		newRecordObject = GameObject.FindGameObjectWithTag("NewRecord");
 	}
 
 	void Update()
@@ -60,6 +58,7 @@ public class EWCGameCenter : MonoBehaviour {
 	
 	public void StoreAndSubmitScore(int sessionScore)
 	{
+		newRecordObject = GameObject.FindGameObjectWithTag("NewRecord");
 		int arcadeHighScore = EncryptedPlayerPrefs.GetInt("Arcade High Score", 0);
 
 		if (sessionScore > arcadeHighScore)
