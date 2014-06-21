@@ -16,6 +16,7 @@ public class LoadLevel : MonoBehaviour
 
 	void OnClick()
 	{
+		CustomTimeManager.FadeTo(1.1f, 0.01f);
 		Fabric.EventManager.Instance.PostEvent("SFX", Fabric.EventAction.StopAll);
 		Fabric.EventManager.Instance.PostEvent("SFX_Button_General", Fabric.EventAction.PlaySound);
 		StartCoroutine(WaitAndLoad());
@@ -25,8 +26,6 @@ public class LoadLevel : MonoBehaviour
 	{
 		if (loadingScreen != null)
 			loadingScreen.SetActive(true);
-
-		CustomTimeManager.FadeTo(1.1f, 0.01f);
 
 		foreach (GameObject allyUnit in allyUnits)
 			Destroy(allyUnit);

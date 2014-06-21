@@ -5,6 +5,7 @@ public class Weapon : MonoBehaviour
 {
 	[SerializeField] AmmoSpawner[] ammoSpawners;
 	[SerializeField] bool fireRandomSpawner = false;
+	bool canFire = true;
 	
 	public void Equip()
 	{
@@ -16,16 +17,21 @@ public class Weapon : MonoBehaviour
 	
 	public void Fire()
 	{
-		if (fireRandomSpawner)
+		if (canFire)
 		{
-			int randomSpawner = Random.Range(0, ammoSpawners.Length);
-			ammoSpawners[randomSpawner].Fire();
-		}
-		else
-		{
-			foreach(var ammo in ammoSpawners)
+			canFire = false;
+
+			if (fireRandomSpawner)
 			{
-				ammo.Fire();
+				int randomSpawner = Random.Range(0, ammoSpawners.Length);
+				ammoSpawners[randomSpawner].Fire();
+			}
+			else
+			{
+				foreach(var ammo in ammoSpawners)
+				{
+					ammo.Fire();
+				}
 			}
 		}
 	}
@@ -36,5 +42,7 @@ public class Weapon : MonoBehaviour
 		{
 			ammo.Stop();
 		}
+
+		canFire = true;
 	}
 }
