@@ -3,7 +3,7 @@ using System.Collections;
 
 public class ReplayMission : MonoBehaviour
 {
-	[SerializeField] GameObject loadingScreen;
+	[SerializeField] GameObject loadingPanel;
 	
 	void OnClick()
 	{
@@ -15,8 +15,8 @@ public class ReplayMission : MonoBehaviour
 	
 	IEnumerator WaitAndLoad()
 	{
-		if (loadingScreen != null)
-			loadingScreen.SetActive(true);
+		if (loadingPanel != null)
+			loadingPanel.SetActive(true);
 
 		yield return new WaitForSeconds(2.0f);
 		Fabric.EventManager.Instance.PostEvent("SFX", Fabric.EventAction.StopAll);

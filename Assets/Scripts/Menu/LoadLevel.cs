@@ -4,7 +4,7 @@ using System.Collections;
 public class LoadLevel : MonoBehaviour
 {
 	[SerializeField] int levelNumber;
-	[SerializeField] GameObject loadingScreen;
+	[SerializeField] GameObject loadingPanel;
 	GameObject[] allyUnits;
 	GameObject[] enemyUnits;
 
@@ -24,8 +24,8 @@ public class LoadLevel : MonoBehaviour
 
 	IEnumerator WaitAndLoad()
 	{
-		if (loadingScreen != null)
-			loadingScreen.SetActive(true);
+		if (loadingPanel != null)
+			loadingPanel.SetActive(true);
 
 		foreach (GameObject allyUnit in allyUnits)
 			Destroy(allyUnit);
