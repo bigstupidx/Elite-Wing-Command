@@ -73,7 +73,9 @@ namespace Everyplay.XCodeEditor
 			}
 			
 			projectFileInfo = new FileInfo( Path.Combine( this.filePath, "project.pbxproj" ) );
-			string contents = projectFileInfo.OpenText().ReadToEnd();
+			StreamReader sr = projectFileInfo.OpenText();
+			string contents = sr.ReadToEnd();
+			sr.Close();
 			
 			PBXParser parser = new PBXParser();
 			_datastore = parser.Decode( contents );

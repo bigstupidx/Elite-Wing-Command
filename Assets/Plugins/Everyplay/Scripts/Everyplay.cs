@@ -812,7 +812,11 @@ public class Everyplay : MonoBehaviour
 
         method = method.ToLower();
 
+#if UNITY_3_5 || UNITY_4_0 || UNITY_4_0_1 || UNITY_4_1 || UNITY_4_2 || UNITY_4_3
         Hashtable headers = new Hashtable();
+#else
+        Dictionary<string, string> headers = new Dictionary<string, string>();
+#endif
 
         string accessToken = AccessToken();
         if(accessToken != null) {
@@ -838,7 +842,7 @@ public class Everyplay : MonoBehaviour
         headers["Accept"] = "application/json";
         headers["Content-Type"] = "application/json";
         headers["Data-Type"] = "json";
-        headers["Content-Length"] = dataArray.Length;
+        headers["Content-Length"] = dataArray.Length.ToString();
 
         WWW www = new WWW(url, dataArray, headers);
 

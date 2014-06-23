@@ -116,7 +116,9 @@ static EveryplayUnity * everyplayUnity = [EveryplayUnity sharedInstance];
     UIInterfaceOrientation newOrientation = UnityGetGLViewController().interfaceOrientation;
     if (currentOrientation != newOrientation) {
         ScreenOrientation orientation = ConvertToUnityScreenOrientation(newOrientation, 0);
+#if UNITY_VERSION <= 450
         UnitySetScreenOrientation(orientation);
+#endif
 #if EVERYPLAY_UNITY_VERSION >= 400
         UnityGLInvalidateState();
 #endif
