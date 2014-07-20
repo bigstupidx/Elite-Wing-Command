@@ -9,15 +9,8 @@ public class EWCGameCenter : MonoBehaviour {
 	// THE LEADERBOARD INSTANCE
 	static ILeaderboard m_Leaderboard;
 
-	public string leaderboardName = "Arcade Mode High Score";
-	public string leaderboardID = "arcade_high_score";
-
-	public string achievement1Name = "complete_arcade_mode_round";
-	public string achievement2Name = "complete_first_mission";
-	public string achievement3Name = "purchase_an_upgrade";
-	public string achievement4Name = "destroy_5000_air_units";
-	public string achievement5Name = "destroy_1000_ground_units";
-	public string achievement6Name = "complete_all_campaign_missions";
+	string leaderboardName = "Arcade Mode High Score";
+	string leaderboardID = "arcade_high_score";
 
 	GameObject newRecordObject;
 	
