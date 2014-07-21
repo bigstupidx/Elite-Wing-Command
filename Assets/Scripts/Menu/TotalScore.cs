@@ -29,10 +29,10 @@ public class TotalScore : MonoBehaviour
 			EWCGameCenter gameCenterScript = gameCenterObject.GetComponent<EWCGameCenter>();
 
 			float totalAirUnitsDestroyed = EncryptedPlayerPrefs.GetFloat("Total Air Units Destroyed", 0f);
-			gameCenterScript.SubmitAchievement("destroy_5000_air_units", (totalAirUnitsDestroyed/5000f * 100f));
+			gameCenterScript.SubmitAchievement("destroy_5000_air_units", ((totalAirUnitsDestroyed/5000f) * 100f));
 			
 			float totalGroundUnitsDestroyed = EncryptedPlayerPrefs.GetFloat("Total Ground Units Destroyed", 0f);
-			gameCenterScript.SubmitAchievement("destroy_1000_ground_units", (totalGroundUnitsDestroyed/1000f * 100f));
+			gameCenterScript.SubmitAchievement("destroy_1000_ground_units", ((totalGroundUnitsDestroyed/1000f) * 100f));
 		}
 	}
 }
