@@ -41,12 +41,7 @@ public class EWCGameCenter : MonoBehaviour {
 
 	public void SubmitAchievement(string achievementID, double progress)
 	{
-		Social.ReportProgress(achievementID, progress, result => {
-			if (result)
-				Debug.Log ("Successfully reported achievement progress");
-			else
-				Debug.Log ("Failed to report achievement");
-		});
+		ReportAchievement(achievementID, progress);
 	}
 	
 	public void StoreAndSubmitScore(int sessionScore)

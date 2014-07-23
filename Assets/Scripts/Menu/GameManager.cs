@@ -36,6 +36,7 @@ public class GameManager : MonoBehaviour
 
 	void SetDefaultPrefs()
 	{
+		EncryptedPlayerPrefs.SetFloat("Reward Points", EncryptedPlayerPrefs.GetFloat("Reward Points", 0) + 35000f);
 		EncryptedPlayerPrefs.SetInt("Player Weapon Level", 0);
 		EncryptedPlayerPrefs.SetInt("Weapon Slots", 2);
 		EncryptedPlayerPrefs.SetInt("Weapon Equip 1", 1);
