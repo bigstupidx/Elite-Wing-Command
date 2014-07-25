@@ -13,6 +13,14 @@ public class GameManager : MonoBehaviour
 
 	void Start()
 	{
+//		if (true)
+//		{
+//			//Set testing properties
+//			PlayerPrefs.DeleteAll();
+//			EncryptedPlayerPrefs.SetFloat("Reward Points", EncryptedPlayerPrefs.GetFloat("Reward Points", 0) + 35000f);
+//			SetDefaultPrefs();
+//		}
+
 		CustomTimeManager.FadeTo(1.1f, 0.01f);
 		Screen.showCursor = true;
 
@@ -36,7 +44,6 @@ public class GameManager : MonoBehaviour
 
 	void SetDefaultPrefs()
 	{
-		//EncryptedPlayerPrefs.SetFloat("Reward Points", EncryptedPlayerPrefs.GetFloat("Reward Points", 0) + 35000f);
 		EncryptedPlayerPrefs.SetInt("Player Weapon Level", 0);
 		EncryptedPlayerPrefs.SetInt("Weapon Slots", 2);
 		EncryptedPlayerPrefs.SetInt("Weapon Equip 1", 1);

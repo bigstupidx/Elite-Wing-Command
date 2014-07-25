@@ -20,12 +20,18 @@ public class EWCGameCenter : MonoBehaviour {
 	// Use this for initialization
 	void Start()
 	{
+		GameCenterPlatform.ShowDefaultAchievementCompletionBanner(true);
 		// AUTHENTICATE AND REGISTER A ProcessAuthentication CALLBACK
 		// THIS CALL NEEDS OT BE MADE BEFORE WE CAN PROCEED TO OTHER CALLS IN THE Social API
         Social.localUser.Authenticate(ProcessAuthentication);
 		
 		// GET INSTANCE OF LEADERBOARD
 		DoLeaderboard();
+
+//		//Reset Achievements
+//		GameCenterPlatform.ResetAllAchievements((resetResult) => {
+//			Debug.Log(resetResult ? "Achievements have been Reset" : "Achievement reset failure.");
+//		});
 	}
 
 	void Update()
