@@ -1,7 +1,7 @@
 ----------------------------------------------
             NGUI: Next-Gen UI kit
  Copyright © 2011-2014 Tasharen Entertainment
-            Version 3.6.5
+            Version 3.6.8
     http://www.tasharen.com/?page_id=197
             support@tasharen.com
 ----------------------------------------------
@@ -55,7 +55,40 @@ and it will not be included in the build of your game. It's only used in the edi
  Version History
 -----------------
 
-3.6.5:
+3.6.8
+- NEW: UIWrapContent now has a range limit you can set for indices (such as -10 to 10).
+- NEW: Added Transform.OverlayPosition to make it easy to position widgets using 3D object positions.
+- FIX: Progress bars / sliders will no longer show the foreground if the value is 0.
+- FIX: Changing UI2DSprite.sprite2D will now immediately re-add the widget to the panel.
+- FIX: UIDragDropItem will now delay enabling the drag scroll view script (thanks, slumtrimpet!)
+- FIX: Re-added a hack-around for Adreno GPU crashes. Looks like Unity 4.5 did not fix the problem, despite the patch notes.
+- FIX: Seeing as BetterList is slower at sorting than List, some instances of BetterList were replaced with List.
+- FIX: UIPanel's option to cull widgets while the scroll view is being dragged is now on by default.
+- FIX: UIRoot now considers WP8 and BlackBerry to be mobile devices.
+- FIX: More tweaks for how camera's region gets calculated.
+
+3.6.7
+- NEW: Added a lookup table to the atlas in order to make GetSprite() faster.
+- NEW: Added OnPostFill functionality to widgets, in case you want to further modify the geometry.
+- NEW: Added OnMomentumMove and OnStoppedMoving notifications to UIScrollView in addition to OnDragFinished.
+- NEW: Added NGUI -> Extras -> Align Scene View to UI (thanks NikolayLezhnev)
+- FIX: UIGrid's smooth snapping will now ignore time scale.
+- FIX: Nicki's optimizations (Shader.PropertyToID instead of by name).
+- FIX: Null check for 'mKeyboard' being null in UIInput (rare case).
+
+3.6.6
+- NEW: UIWrapContent now has a settable delegate to initialize items, and will call it on Start().
+- NEW: Added OnDragStarted to the scroll view for those that needed it.
+- NEW: Added the missing OnDragOver/OnDragOut to the UIEventListener.
+- FIX: Hiding game view behind the scene view should now work as expected (thanks NikolayLezhnev).
+- FIX: Localization was not always handling double quotes properly.
+- FIX: Mobile keyboard-related fix (thanks niniane).
+- FIX: 2D raycasts were not working quite right...
+- FIX: Underline and strike-out should now look better and will be affected by the gradient.
+- DEL: Commented out NGUITools.OpenURL since it causes network permissions to be used on mobile. Uncomment them if you need them.
+- DEL: Cleaned up pre-Unity 4.3 code.
+
+3.6.5
 - NEW: Added a way to show the transform gizmo without disabling the drag handles (NGUI->Options).
 - NEW: Added an "onCenter" notification to UICenterOnChild.
 - FIX: Drag & drop example wasn't working properly due to a missed line in UICamera.
@@ -64,7 +97,7 @@ and it will not be included in the build of your game. It's only used in the edi
 - FIX: Flash compilation fixes.
 - FIX: Nicki's optimizations.
 
-3.6.4:
+3.6.4
 - NEW: Added the way to set the label alignment for popup lists.
 - NEW: EventDelegate.Add(list, callback) now returns an EventDelegate to work with.
 - NEW: Added an option to execute the UICenterOnChild in the editor via right-click.

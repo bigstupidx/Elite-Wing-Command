@@ -102,7 +102,6 @@ public class UIDrawCall : MonoBehaviour
 		}
 	}
 
-#if !UNITY_3_5 && !UNITY_4_0 && !UNITY_4_1 && !UNITY_4_2
 	/// <summary>
 	/// Renderer's sorting order, to be used with Unity's 2D system.
 	/// </summary>
@@ -112,7 +111,6 @@ public class UIDrawCall : MonoBehaviour
 		get { return (mRenderer != null) ? mRenderer.sortingOrder : 0; }
 		set { if (mRenderer != null && mRenderer.sortingOrder != value) mRenderer.sortingOrder = value; }
 	}
-#endif
 
 	/// <summary>
 	/// Final render queue used to draw the draw call's geometry.
@@ -393,8 +391,7 @@ public class UIDrawCall : MonoBehaviour
 
 				// NOTE: Apparently there is a bug with Adreno devices:
 				// http://www.tasharen.com/forum/index.php?topic=8415.0
-				// According to version notes it's fixed in 4.5 rc5.
-#if !UNITY_4_3 || !UNITY_ANDROID
+#if !UNITY_ANDROID
 				// If the number of vertices in the buffer is less than half of the full buffer, trim it
 				if (!trim && (verts.size << 1) < verts.buffer.Length) trim = true;
 #endif
@@ -597,22 +594,21 @@ public class UIDrawCall : MonoBehaviour
 		}
 	}
 
-	static string[] ClipRange =
+	static int[] ClipRange =
 	{
-		"_ClipRange0",
-		"_ClipRange1",
-		"_ClipRange2",
-		"_ClipRange4",
+		Shader.PropertyToID("_ClipRange0"),
+		Shader.PropertyToID("_ClipRange1"),
+		Shader.PropertyToID("_ClipRange2"),
+		Shader.PropertyToID("_ClipRange4"),
 	};
 
-	static string[] ClipArgs =
+	static int[] ClipArgs =
 	{
-		"_ClipArgs0",
-		"_ClipArgs1",
-		"_ClipArgs2",
-		"_ClipArgs3",
+		Shader.PropertyToID("_ClipArgs0"),
+		Shader.PropertyToID("_ClipArgs1"),
+		Shader.PropertyToID("_ClipArgs2"),
+		Shader.PropertyToID("_ClipArgs3"),
 	};
-
 	/// <summary>
 	/// Set the shader clipping parameters.
 	/// </summary>
@@ -695,9 +691,7 @@ public class UIDrawCall : MonoBehaviour
 		dc.mainTexture = tex;
 		dc.shader = shader;
 		dc.renderQueue = pan.startingRenderQueue;
-#if !UNITY_3_5 && !UNITY_4_0 && !UNITY_4_1 && !UNITY_4_2
 		dc.sortingOrder = pan.sortingOrder;
-#endif
 		dc.manager = pan;
 		return dc;
 	}
