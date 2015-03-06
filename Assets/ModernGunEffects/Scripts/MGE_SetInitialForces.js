@@ -29,11 +29,11 @@ function Start () {
 
 
 
-if (relativeForce==true) 	rigidbody.AddRelativeForce(Random.Range(x-xDeviation, x+xDeviation), Random.Range(y-yDeviation, y+yDeviation), Random.Range(z-zDeviation, z+zDeviation));
-if (relativeForce==false) 			rigidbody.AddForce(Random.Range(x-xDeviation, x+xDeviation), Random.Range(y-yDeviation, y+yDeviation), Random.Range(z-zDeviation, z+zDeviation));
+if (relativeForce==true) 	GetComponent.<Rigidbody>().AddRelativeForce(Random.Range(x-xDeviation, x+xDeviation), Random.Range(y-yDeviation, y+yDeviation), Random.Range(z-zDeviation, z+zDeviation));
+if (relativeForce==false) 			GetComponent.<Rigidbody>().AddForce(Random.Range(x-xDeviation, x+xDeviation), Random.Range(y-yDeviation, y+yDeviation), Random.Range(z-zDeviation, z+zDeviation));
 
-if (relativeTorque==true) 		rigidbody.AddRelativeTorque(Random.Range(xRot-xRotDeviation, xRot+xRotDeviation)*torqueScale, Random.Range(yRot-yRotDeviation, yRot+yRotDeviation)*torqueScale, Random.Range(zRot-zRotDeviation, zRot+zRotDeviation)*torqueScale);
-if (relativeTorque==false) 				rigidbody.AddTorque(Random.Range(xRot-xRotDeviation, xRot+xRotDeviation)*torqueScale, Random.Range(yRot-yRotDeviation, yRot+yRotDeviation)*torqueScale, Random.Range(zRot-zRotDeviation, zRot+zRotDeviation)*torqueScale);
+if (relativeTorque==true) 		GetComponent.<Rigidbody>().AddRelativeTorque(Random.Range(xRot-xRotDeviation, xRot+xRotDeviation)*torqueScale, Random.Range(yRot-yRotDeviation, yRot+yRotDeviation)*torqueScale, Random.Range(zRot-zRotDeviation, zRot+zRotDeviation)*torqueScale);
+if (relativeTorque==false) 				GetComponent.<Rigidbody>().AddTorque(Random.Range(xRot-xRotDeviation, xRot+xRotDeviation)*torqueScale, Random.Range(yRot-yRotDeviation, yRot+yRotDeviation)*torqueScale, Random.Range(zRot-zRotDeviation, zRot+zRotDeviation)*torqueScale);
 
 }
 

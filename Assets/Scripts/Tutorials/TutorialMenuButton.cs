@@ -15,7 +15,7 @@ public class TutorialMenuButton : MonoBehaviour
 	
 	void OnClick()
 	{
-		Screen.showCursor = true;
+		Cursor.visible = true;
 		panelToOpen.SetActive(true);
 		boarderEffect.SetActive(true);
 		tutorialMenuButton.SetActive(false);

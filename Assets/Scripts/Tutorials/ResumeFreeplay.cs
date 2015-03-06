@@ -15,7 +15,7 @@ public class ResumeFreeplay : MonoBehaviour
 	
 	void OnClick()
 	{
-		Screen.showCursor = false;
+		Cursor.visible = false;
 		panelToClose.SetActive(false);
 		boarderEffect.SetActive(false);
 		tutorialMenuButton.SetActive(true);

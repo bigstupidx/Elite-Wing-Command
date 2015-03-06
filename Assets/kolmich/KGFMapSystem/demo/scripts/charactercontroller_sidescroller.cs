@@ -9,7 +9,7 @@ public class charactercontroller_sidescroller : MonoBehaviour
 	
 	void Awake()
 	{
-		itsRigidBody = rigidbody;
+		itsRigidBody = GetComponent<Rigidbody>();
 	}
 	
 	// Update is called once per frame
@@ -25,7 +25,7 @@ public class charactercontroller_sidescroller : MonoBehaviour
 		}
 		if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKey(KeyCode.Space) && itsGrounded)
 		{
-			rigidbody.AddForce(0.0f,1500.0f,0.0f);
+			GetComponent<Rigidbody>().AddForce(0.0f,1500.0f,0.0f);
 			itsGrounded = false;
 		}
 		if(itsRigidBody.velocity.x > 5.0f)

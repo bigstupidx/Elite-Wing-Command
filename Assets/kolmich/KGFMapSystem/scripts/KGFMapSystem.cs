@@ -2166,7 +2166,7 @@ public class KGFMapSystem : KGFModule, KGFICustomGUI, KGFIValidator
 		
 		aTempCamera.clearFlags = CameraClearFlags.SolidColor;
 		aTempCamera.backgroundColor = Color.red;
-		aTempCamera.isOrthoGraphic = true;
+		aTempCamera.orthographic = true;
 		
 		// position camera over terrain
 		if(GetOrientation() == KGFMapSystemOrientation.XZDefault)

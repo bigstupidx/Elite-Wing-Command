@@ -31,7 +31,7 @@ public class VIPAircraftMovement : MonoBehaviour
 	void FixedUpdate()
 	{
 		currentForce = Mathf.MoveTowards(currentForce, randomEngineForce * forceMultiplier, timeModifier * Time.fixedDeltaTime);
-		rigidbody.AddForce(transform.forward * currentForce, ForceMode.Acceleration);
+		GetComponent<Rigidbody>().AddForce(transform.forward * currentForce, ForceMode.Acceleration);
 		var offset = transform.InverseTransformPoint(travelEndPoint.position);
 		angle = Mathf.Rad2Deg * Mathf.Atan2(offset.x, offset.z);
 
@@ -40,7 +40,7 @@ public class VIPAircraftMovement : MonoBehaviour
 		float distance = Vector2.Distance(targetXZPosition, unitXZPosition);
 
 		if (Mathf.Abs(angle) > 3f && distance > targetReachedDistance)
-			rigidbody.AddTorque(Vector3.up * torqueModifier * Mathf.Sign(angle), ForceMode.VelocityChange);
+			GetComponent<Rigidbody>().AddTorque(Vector3.up * torqueModifier * Mathf.Sign(angle), ForceMode.VelocityChange);
 		else if (distance <= targetReachedDistance)
 			missionManager.VIPDestinationReached = true;
 	}

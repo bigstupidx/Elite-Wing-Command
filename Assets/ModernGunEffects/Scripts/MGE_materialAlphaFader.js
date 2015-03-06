@@ -13,6 +13,6 @@ function Update () {
 
 beginTintAlpha-=Time.deltaTime*fadeSpeed;
 
-renderer.material.SetColor ("_TintColor", Color(myColor.r, myColor.g, myColor.b ,beginTintAlpha));
+GetComponent.<Renderer>().material.SetColor ("_TintColor", Color(myColor.r, myColor.g, myColor.b ,beginTintAlpha));
 
 }

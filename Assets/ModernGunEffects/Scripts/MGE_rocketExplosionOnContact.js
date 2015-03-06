@@ -13,7 +13,7 @@ function Update () {
 function OnCollisionEnter(collision : Collision) {
 var explosion:GameObject=Instantiate(createThis, transform.position, transform.rotation);
 explosion.transform.parent=null;
-Destroy(gameObject.rigidbody);
+Destroy(gameObject.GetComponent.<Rigidbody>());
 Destroy(gameObject, 1);
 
 

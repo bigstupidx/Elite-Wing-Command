@@ -79,7 +79,7 @@ public class EveryplaySettingsEditor : Editor
 
                 if(iosSupportEnabled != currentSettings.iosSupportEnabled) {
                     currentSettings.iosSupportEnabled = iosSupportEnabled;
-                    EveryplayPostprocessor.SetEveryplayEnabledForTarget(BuildTargetGroup.iPhone, currentSettings.iosSupportEnabled);
+                    EveryplayPostprocessor.SetEveryplayEnabledForTarget(BuildTargetGroup.iOS, currentSettings.iosSupportEnabled);
                     EditorUtility.SetDirty(currentSettings);
                 }
 

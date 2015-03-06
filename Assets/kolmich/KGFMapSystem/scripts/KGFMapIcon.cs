@@ -176,7 +176,7 @@ public class KGFMapIcon : KGFObject, KGFIMapIcon, KGFIValidator
 		if(itsShaderMapIcon != null & itsDataMapIcon.itsTextureIcon != null)
 		{
 			GameObject aGO = KGFMapSystem.GenerateTexturePlane(itsDataMapIcon.itsTextureIcon,itsShaderMapIcon);
-			itsMaterial = aGO.renderer.sharedMaterial;
+			itsMaterial = aGO.GetComponent<Renderer>().sharedMaterial;
 			return aGO;
 		}
 		return null;

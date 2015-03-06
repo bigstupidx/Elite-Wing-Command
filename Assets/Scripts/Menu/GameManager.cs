@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
 //		}
 
 		CustomTimeManager.FadeTo(1.1f, 0.01f);
-		Screen.showCursor = true;
+		Cursor.visible = true;
 
 		if (EncryptedPlayerPrefs.GetInt("First Load", 1) == 1)
 	    {

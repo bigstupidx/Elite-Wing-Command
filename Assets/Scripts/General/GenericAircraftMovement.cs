@@ -43,8 +43,8 @@ public class GenericAircraftMovement : MonoBehaviour
 
 	void Start()
 	{
-		rigidbody.velocity = Vector3.zero;
-		rigidbody.angularVelocity = Vector3.zero;
+		GetComponent<Rigidbody>().velocity = Vector3.zero;
+		GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
 
 		float forceRandomizer = Random.Range(0.9f, 1.1f);
 		randomEngineForce = engineForce * forceRandomizer;
@@ -62,7 +62,7 @@ public class GenericAircraftMovement : MonoBehaviour
 	void FixedUpdate()
 	{
 		currentForce = Mathf.MoveTowards(currentForce, randomEngineForce * forceMultiplier, timeModifier * Time.fixedDeltaTime);
-		rigidbody.AddForce(transform.forward * currentForce, ForceMode.Acceleration);
+		GetComponent<Rigidbody>().AddForce(transform.forward * currentForce, ForceMode.Acceleration);
 
 		if (TargetPosition != new Vector3(0f, 0f, 0f))
 		{
@@ -76,11 +76,11 @@ public class GenericAircraftMovement : MonoBehaviour
 			
 			if (Mathf.Abs(angle) > 3f && ClosestTargetDistance > evasionDistance)
 			{
-				rigidbody.AddTorque(Vector3.up * torqueModifier * Mathf.Sign(angle), ForceMode.VelocityChange);
+				GetComponent<Rigidbody>().AddTorque(Vector3.up * torqueModifier * Mathf.Sign(angle), ForceMode.VelocityChange);
 			}
 			else if (ClosestTargetDistance <= evasionDistance)
 			{
-				rigidbody.AddTorque(Vector3.up * torqueModifier * Mathf.Sign(-angle * evasionAngleModifier), ForceMode.VelocityChange);
+				GetComponent<Rigidbody>().AddTorque(Vector3.up * torqueModifier * Mathf.Sign(-angle * evasionAngleModifier), ForceMode.VelocityChange);
 			}
 		}
 

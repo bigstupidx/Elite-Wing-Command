@@ -25,7 +25,7 @@ public class Play : MonoBehaviour
 	{
 		Fabric.EventManager.Instance.PostEvent("SFX", Fabric.EventAction.StopAll);
 		minimapScript.SetGlobalHideGui(true);
-		Screen.showCursor = true;
+		Cursor.visible = true;
 		CustomTimeManager.FadeTo(0f, 0.01f);
 	}
 
@@ -53,7 +53,7 @@ public class Play : MonoBehaviour
 		}
 		else
 		{
-			Screen.showCursor = false;
+			Cursor.visible = false;
 			gui.SetActive(true);
 			radarCamera.enabled = true;
 			minimapScript.SetGlobalHideGui(false);

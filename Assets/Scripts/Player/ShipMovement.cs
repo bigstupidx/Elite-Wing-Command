@@ -31,8 +31,8 @@ public class ShipMovement : MonoBehaviour
 	void OnEnable()
 	{
 		turnTarget = 0;
-		rigidbody.velocity = Vector3.zero;
-		rigidbody.angularVelocity = Vector3.zero;
+		GetComponent<Rigidbody>().velocity = Vector3.zero;
+		GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
 
 		EasyJoystick.On_JoystickMove += On_JoystickMove;
 		EasyJoystick.On_JoystickDoubleTap += On_JoystickDoubleTap;
@@ -131,11 +131,11 @@ public class ShipMovement : MonoBehaviour
 	void FixedUpdate()
 	{
 		currentForce = Mathf.MoveTowards(currentForce, engineForce * speedMultiplier * forceMultiplier, 120f * Time.fixedDeltaTime);
-		rigidbody.AddForce (transform.forward * currentForce, ForceMode.Acceleration);
+		GetComponent<Rigidbody>().AddForce (transform.forward * currentForce, ForceMode.Acceleration);
 		turn = Mathf.Lerp(turn, turnTarget, Time.fixedTime);
 
 		if (Mathf.Abs(turn) > 0.005f)
-			rigidbody.AddTorque (Vector3.up * 0.16f * turn, ForceMode.VelocityChange);
+			GetComponent<Rigidbody>().AddTorque (Vector3.up * 0.16f * turn, ForceMode.VelocityChange);
 	}
 
 	IEnumerator Booster()

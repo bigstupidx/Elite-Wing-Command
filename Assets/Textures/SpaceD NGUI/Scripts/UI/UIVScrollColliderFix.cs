@@ -12,7 +12,7 @@ public class UIVScrollColliderFix : MonoBehaviour {
 	void Start()
 	{
 		this.widget = this.GetComponent<UIWidget>();
-		this.col = collider as BoxCollider;
+		this.col = GetComponent<Collider>() as BoxCollider;
 
 		if (this.scrollBar != null && this.widget != null && this.col != null)
 			this.scrollBar.onChange.Add(new EventDelegate(OnChange));

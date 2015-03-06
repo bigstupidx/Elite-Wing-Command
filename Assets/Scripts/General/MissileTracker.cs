@@ -29,7 +29,7 @@ public class MissileTracker : MonoBehaviour
 	void FixedUpdate()
 	{
 		currentForce = Mathf.MoveTowards(currentForce, engineForce, timeModifier * Time.fixedDeltaTime);
-		rigidbody.AddForce(transform.forward * currentForce, ForceMode.Acceleration);
+		GetComponent<Rigidbody>().AddForce(transform.forward * currentForce, ForceMode.Acceleration);
 
 		if (closestTarget != null)
 		{
@@ -41,7 +41,7 @@ public class MissileTracker : MonoBehaviour
 				angle = 0;
 
 			if (Mathf.Abs(angle) > 3f)
-				rigidbody.AddTorque(Vector3.up * torqueModifier * Mathf.Sign(angle), ForceMode.VelocityChange);
+				GetComponent<Rigidbody>().AddTorque(Vector3.up * torqueModifier * Mathf.Sign(angle), ForceMode.VelocityChange);
 		}
 	}
 	

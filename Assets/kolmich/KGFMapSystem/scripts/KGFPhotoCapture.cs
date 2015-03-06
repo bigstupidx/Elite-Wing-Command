@@ -34,12 +34,12 @@ public class KGFPhotoCapture : MonoBehaviour
 		if(itsMapSystem.GetOrientation() == KGFMapSystem.KGFMapSystemOrientation.XZDefault)
 		{
 			aPlanePosition.z += aHalfPlaneSize; //center camera above plane
-			aPlanePosition.y += camera.farClipPlane;
+			aPlanePosition.y += GetComponent<Camera>().farClipPlane;
 		}
 		else
 		{
 			aPlanePosition.y += aHalfPlaneSize; //center camera above plane
-			aPlanePosition.z -= camera.farClipPlane;
+			aPlanePosition.z -= GetComponent<Camera>().farClipPlane;
 		}
 		return aPlanePosition;
 	}

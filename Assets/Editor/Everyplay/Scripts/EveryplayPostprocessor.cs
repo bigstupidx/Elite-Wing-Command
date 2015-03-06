@@ -20,7 +20,7 @@ public static class EveryplayPostprocessor
         if(settings != null) {
             if(settings.IsEnabled) {
                 if(settings.IsValid) {
-                    if(target == BuildTarget.iPhone) {
+                    if(target == BuildTarget.iOS) {
                         PostProcessBuild_iOS(path, settings.clientId);
                     }
                     else if(target == BuildTarget.Android) {
@@ -29,8 +29,8 @@ public static class EveryplayPostprocessor
                 }
                 else {
                     Debug.LogError("Everyplay will be disabled because client id, client secret or redirect URI was not valid.");
-                    if(target == BuildTarget.iPhone) {
-                        SetEveryplayEnabledForTarget(BuildTargetGroup.iPhone, false);
+                    if(target == BuildTarget.iOS) {
+                        SetEveryplayEnabledForTarget(BuildTargetGroup.iOS, false);
                     }
                     else if(target == BuildTarget.Android) {
                         SetEveryplayEnabledForTarget(BuildTargetGroup.Android, false);
@@ -45,10 +45,10 @@ public static class EveryplayPostprocessor
     {
         EveryplayLegacyCleanup.Clean(false);
 
-        if(target == BuildTarget.iPhone || target == BuildTarget.Android) {
+        if(target == BuildTarget.iOS || target == BuildTarget.Android) {
             ValidateAndUpdateFacebook();
 
-            if(target == BuildTarget.iPhone) {
+            if(target == BuildTarget.iOS) {
                 FixUnityPlistAppendBug(path);
             }
         }
@@ -74,7 +74,7 @@ public static class EveryplayPostprocessor
         ProcessGlesFiles(path);
         ProcessXCodeProject(path);
         ProcessInfoPList(path, clientId);
-        SetEveryplayEnabledForTarget(BuildTargetGroup.iPhone, true);
+        SetEveryplayEnabledForTarget(BuildTargetGroup.iOS, true);
     }
 
     private static void PostProcessBuild_Android(string path, string clientId)
@@ -392,7 +392,7 @@ public static class EveryplayPostprocessor
     {
         string targetDefine = "";
 
-        if(target == BuildTargetGroup.iPhone) {
+        if(target == BuildTargetGroup.iOS) {
             targetDefine = "EVERYPLAY_IPHONE";
         }
         else if(target == BuildTargetGroup.Android) {
